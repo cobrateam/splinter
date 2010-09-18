@@ -15,3 +15,18 @@ def test_visit():
     driver.visit('http://foo.com')
     browser.restore_import()
     mock.validate()
+
+
+def test_title():
+    """
+    WebDriver.title should call browser.get_title
+    """
+    with Mock() as mock:
+        mock.get_title()
+    with Stub() as browser:
+        from selenium.firefox.webdriver import WebDriver as browser
+        browser() >> mock
+    driver = WebDriver()
+    driver.title
+    browser.restore_import()
+    mock.validate()
