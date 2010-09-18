@@ -13,4 +13,5 @@ def test_visit():
         browser() >> mock
     driver = WebDriver()
     driver.visit('http://foo.com')
+    browser.restore_import()
     mock.validate()
