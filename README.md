@@ -1,6 +1,7 @@
 splinter is based in [capybara](http://github.com/jnicklas/capybara)
 
-## dependencies
+
+## dependencies for devs
 
 you will need to install these dependencies
 
@@ -8,6 +9,8 @@ you will need to install these dependencies
 	> [sudo] pip install -U selenium
 * [nose](http://code.google.com/p/python-nose/)
     > [sudo] pip install nose
+* [coverage](http://nedbatchelder.com/code/coverage/beta/)
+    > [sudo] pip install coverage
 
 ## community
 
