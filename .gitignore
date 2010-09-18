@@ -1,2 +1,8 @@
 *.pyc
+*.swp
+coverage-*.egg
+ludibrio-*.egg
+nose-*.egg
+selenium-*.egg
+splinter.egg-info
 .coverage
