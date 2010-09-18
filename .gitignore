@@ -6,3 +6,4 @@ nose-*.egg
 selenium-*.egg
 splinter.egg-info
 .coverage
+distribute-*.egg
