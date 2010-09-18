@@ -6,7 +6,7 @@ class WebDriver(object):
         self.driver = firefox()
     
     def visit(self, url):
-        self.driver.get('http://google.com')
+        self.driver.get(url)
     
     def get_title(self):
         return self.driver.get_title()
