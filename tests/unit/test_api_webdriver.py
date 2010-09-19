@@ -30,3 +30,18 @@ def test_title():
     driver.title
     browser.restore_import()
     mock.validate()
+
+
+def test_quit():
+    """
+    WebDriver.quit should call browser.quit
+    """
+    with Mock() as mock:
+        mock.quit()
+    with Stub() as browser:
+        from selenium.firefox.webdriver import WebDriver as browser
+        browser() >> mock
+    driver = WebDriver()
+    driver.quit()
+    browser.restore_import()
+    mock.validate()
