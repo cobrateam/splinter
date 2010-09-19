@@ -1,10 +1,9 @@
 class Page(object):
     
-    def __init__(self, url, browser):
+    def __init__(self, url, driver):
         self.url = url
-        self.browser = browser
+        self.driver = driver
     
     @property
     def title(self):
-        return self.browser.driver.title
-    
+        return self.driver.title

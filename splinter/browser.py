@@ -1,4 +1,3 @@
-from splinter.page import Page
 from splinter.driver import WebDriver
 
 class Browser(object):
@@ -7,8 +6,7 @@ class Browser(object):
         self.driver = WebDriver()
         
     def visit(self, url):
-        self.driver.visit(url)
-        return Page(url, self)
+        return self.driver.visit(url)
         
     def quit(self):
         self.driver.quit()

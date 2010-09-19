@@ -1,3 +1,4 @@
+from splinter.page import Page
 from selenium.firefox.webdriver import WebDriver as firefox
 
 class WebDriver(object):
@@ -7,6 +8,7 @@ class WebDriver(object):
     
     def visit(self, url):
         self.driver.get(url)
+        return Page(url, self)
     
     @property
     def title(self):
