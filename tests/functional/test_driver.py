@@ -1,10 +1,10 @@
-from splinter.driver import WebDriver
+from splinter.browser import Browser
 
 def test_can_open_page():
-    browser = WebDriver()
-    browser.visit('http://google.com')
+    browser = Browser()
+    page = browser.visit('http://google.com')
     
-    title = browser.get_title()
+    title = page.get_title()
     
     browser.quit()
     
