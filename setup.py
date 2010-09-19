@@ -9,5 +9,5 @@ setup(name='splinter',
       packages=find_packages(),
       test_suite='nose.collector',
       install_requires=['selenium'],
-      tests_require=['nose', 'coverage', 'ludibrio'],
+      tests_require=['nose', 'coverage', 'ludibrio', 'flask'],
       )

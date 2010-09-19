@@ -1,11 +1,9 @@
 from splinter.browser import Browser
+from fake_webapp import EXAMPLE_APP
 
 def test_can_open_page():
     browser = Browser()
-    page = browser.visit('http://google.com')
-    
+    page = browser.visit(EXAMPLE_APP)
     title = page.title
-    
     browser.quit()
-    
-    assert 'Google' == title
+    assert 'Example Title' == title
