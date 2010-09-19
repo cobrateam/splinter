@@ -5,14 +5,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return """\
-<html>
-  <body>
-    <head>
-      <title>Example Title</title>
-    </head>
-  </body
-</html>"""
+    return """
+        <html>
+            <head>
+              <title>Example Title</title>
+            </head>
+        </html>"""
 
 if __name__ == '__main__':
     app.run()
