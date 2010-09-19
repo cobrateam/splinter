@@ -1,7 +1,7 @@
 clean:
 	@find . -name "*.pyc" -delete
 	
-dependencies: specloud coverage selenium ludibrio flask
+dependencies: specloud coverage selenium ludibrio flask shoulddsl
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
@@ -18,6 +18,9 @@ ludibrio:
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask
 
+shoulddsl:
+	@python -c 'import should_dsl' 2>/dev/null || pip install should-dsl
+
 
 unit: dependencies clean
 	@echo "Running unit tests..."
@@ -31,7 +34,7 @@ functional: dependencies clean
 	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
 
-test:
+test: dependencies clean
 	@echo "Running all tests..."
 	python tests/functional/fake_webapp.py &
 	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
