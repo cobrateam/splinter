@@ -12,7 +12,7 @@ class WebDriverTest(unittest.TestCase):
         with Mock() as firefox_mock:
             firefox_mock.get('http://foo.com')
 
-        with replace_browser(firefox_mock):
+        with ReplaceBrowser(firefox_mock):
             driver = WebDriver()
             driver.visit('http://foo.com')
 
@@ -24,7 +24,7 @@ class WebDriverTest(unittest.TestCase):
         with Mock() as firefox_mock:
             firefox_mock.get_title()
 
-        with replace_browser(firefox_mock):
+        with ReplaceBrowser(firefox_mock):
             driver = WebDriver()
             driver.title
 
@@ -36,14 +36,14 @@ class WebDriverTest(unittest.TestCase):
         with Mock() as firefox_mock:
             firefox_mock.quit()
 
-        with replace_browser(firefox_mock):
+        with ReplaceBrowser(firefox_mock):
             driver = WebDriver()
             driver.quit()
 
         firefox_mock.validate()
 
 
-class replace_browser:
+class ReplaceBrowser(object):
 
     def __init__(self, driver_mock):
         with Stub() as browser:
