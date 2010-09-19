@@ -1,10 +1,10 @@
 clean:
 	@find . -name "*.pyc" -delete
 	
-dependencies: nose coverage selenium ludibrio flask
+dependencies: specloud coverage selenium ludibrio flask
 
-nose:
-	@python -c 'import nose' 2>/dev/null || pip install nose
+specloud:
+	@python -c 'import specloud' 2>/dev/null || pip install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
@@ -21,19 +21,19 @@ flask:
 
 unit: dependencies clean
 	@echo "Running unit tests..."
-	nosetests --nocapture --verbosity=2 --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/unit
+	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/unit
 
 
 functional: dependencies clean
 	@echo "Running functional tests..."
 	python tests/functional/fake_webapp.py &
-	nosetests --nocapture --verbosity=2 --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/functional
+	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/functional
 	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
 
 test:
 	@echo "Running all tests..."
 	python tests/functional/fake_webapp.py &
-	nosetests --nocapture --verbosity=2 --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
+	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
 	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
