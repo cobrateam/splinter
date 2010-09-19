@@ -1,6 +1,7 @@
 import unittest
 from splinter.page import Page
 from ludibrio import Stub
+from should_dsl import should
 
 class PageTest(unittest.TestCase):
 
@@ -9,4 +10,4 @@ class PageTest(unittest.TestCase):
         with Stub() as driver:
             driver.title >> 'foo title'
         page = Page('http://example.com', driver)
-        assert page.title == 'foo title'
+        page.title |should| equal_to('foo title')
