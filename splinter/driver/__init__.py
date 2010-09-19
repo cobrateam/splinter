@@ -8,7 +8,8 @@ class WebDriver(object):
     def visit(self, url):
         self.driver.get(url)
     
-    def get_title(self):
+    @property
+    def title(self):
         return self.driver.get_title()
         
     def quit(self):

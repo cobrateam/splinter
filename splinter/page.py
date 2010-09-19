@@ -4,6 +4,7 @@ class Page(object):
         self.url = url
         self.browser = browser
     
-    def get_title(self):
-        return self.browser.driver.get_title()
+    @property
+    def title(self):
+        return self.browser.driver.title
     

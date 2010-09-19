@@ -4,7 +4,7 @@ def test_can_open_page():
     browser = Browser()
     page = browser.visit('http://google.com')
     
-    title = page.get_title()
+    title = page.title
     
     browser.quit()
     

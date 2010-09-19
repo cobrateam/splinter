@@ -1,6 +1,14 @@
 splinter is based in [capybara](http://github.com/jnicklas/capybara)
 
 
+
+## running the tests
+
+if you are using a virtualenv, all you need is:
+
+    make test
+
+
 ## community
 
 channel #cobrateam on irc.freenode.net
