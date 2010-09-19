@@ -31,7 +31,7 @@ functional: dependencies clean
 	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
 
-test: unit functional
+test:
 	@echo "Running all tests..."
 	python tests/functional/fake_webapp.py &
 	nosetests --nocapture --verbosity=2 --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
