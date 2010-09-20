@@ -3,10 +3,7 @@ from splinter.driver import WebDriver
 class Browser(object):
 
     def __init__(self):
-        self.driver = WebDriver()
+        self._driver = WebDriver()
 
-    def visit(self, url):
-        return self.driver.visit(url)
-
-    def quit(self):
-        self.driver.quit()
+    def __getattr__(self, attr):
+        return getattr(self._driver, attr)
