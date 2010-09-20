@@ -20,12 +20,13 @@ class BrowserTest(unittest.TestCase):
         title |should| equal_to('Example Title')
 
     def test_should_have_html(self):
-        "should be able to access the html"
+        "should have access to the html"
         html = self.browser.html
         html |should| include('<title>Example Title</title>')
         html |should| include('<h1 id="firstheader">Example Header</h1>')
 
-    def test_can_find_elements(self):
+    def test_finding_elements(self):
+        "should find elements by css_selector, xpath, tag and id"
         values = [self.browser.find(css_selector='h1').value,
                   self.browser.find(xpath='//h1').value,
                   self.browser.find(tag='h1').value,
@@ -33,11 +34,12 @@ class BrowserTest(unittest.TestCase):
         set(values) |should| equal_to(set([values[0]]))
 
     def test_can_find_by_name(self):
+        "should find elements by name"
         field = self.browser.find(name='query')
         field.value |should| equal_to('default value')
 
     def test_can_change_field_value(self):
-        "should be able to change field value"
+        "should provide a away to change field value"
         self.browser.fill_in('query', 'new query')
         value = self.browser.find(name='query').value
         value |should| equal_to('new query')
