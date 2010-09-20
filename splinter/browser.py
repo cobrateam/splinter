@@ -1,4 +1,4 @@
-from splinter.driver import WebDriver
+from splinter.driver.webdriver import WebDriver
 
 class Browser(object):
 
