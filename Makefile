@@ -24,21 +24,9 @@ lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
 
 
-unit: dependencies clean
-	@echo "Running unit tests..."
-	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/unit
-
-
-functional: dependencies clean
-	@echo "Running functional tests..."
-	python tests/functional/fake_webapp.py &
-	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests/functional
-	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
-
-
 test: dependencies clean
 	@echo "Running all tests..."
-	python tests/functional/fake_webapp.py &
+	python tests/fake_webapp.py &
 	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
 	kill -9 `ps aux | grep 'python tests/functional/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
