@@ -3,7 +3,7 @@ all: test
 clean:
 	@find . -name "*.pyc" -delete
 	
-dependencies: specloud coverage selenium ludibrio flask shoulddsl lxml
+dependencies: specloud coverage selenium flask shoulddsl lxml
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
@@ -13,9 +13,6 @@ coverage:
 
 selenium:
 	@python -c 'import selenium' 2>/dev/null || pip install selenium
-
-ludibrio:
-	@python -c 'import ludibrio' 2>/dev/null || pip install ludibrio
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask
