@@ -16,6 +16,10 @@ class WebDriver(DriverAPI):
     def html(self):
         return self.driver.get_page_source()
 
+    @property
+    def url(self):
+        return self.driver.get_current_url()
+
     def visit(self, url):
         self.driver.get(url)
  
@@ -34,6 +38,12 @@ class WebDriver(DriverAPI):
             return self._find_by_id(id)
         if tag:
             return self._find_by_tag(tag)
+
+    def find_link(self, text=None, href=None):
+        if text:
+            return WebDriverElement(self.driver.find_element_by_link_text(text))
+        if href:
+            return self.find(xpath='//a[@href="%s" and (position() = 1)]' % href)
 
     def _find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
@@ -78,3 +88,6 @@ class WebDriverElement(ElementAPI):
 
     def click(self):
         self._element.click()
+
+    def __getitem__(self, attr):
+        return self._element.get_attribute(attr)

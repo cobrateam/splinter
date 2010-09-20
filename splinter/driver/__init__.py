@@ -7,6 +7,10 @@ class DriverAPI(object):
     def html(self):
         raise NotImplementedError
 
+    @property
+    def url(self):
+        raise NotImplementedError
+
     def visit(self, url):
         raise NotImplementedError
  
@@ -15,6 +19,9 @@ class DriverAPI(object):
                    name=None,
                    id=None,
                    tag=None):
+        raise NotImplementedError
+
+    def find_link(self, text=None, href=None):
         raise NotImplementedError
 
     def fill_in(self, name, value):
@@ -35,4 +42,7 @@ class ElementAPI(object):
     value = property(_get_value, _set_value)
 
     def click(self):
+        raise NotImplementedError
+
+    def __getitem__(self, attribute):
         raise NotImplementedError

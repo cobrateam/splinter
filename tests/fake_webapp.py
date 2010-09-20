@@ -1,6 +1,6 @@
 from flask import Flask
 
-EXAMPLE_APP = 'http://localhost:5000'
+EXAMPLE_APP = 'http://localhost:5000/'
 EXAMPLE_HTML = """\
 <html>
   <head>
@@ -9,9 +9,12 @@ EXAMPLE_HTML = """\
   <body>
     <h1 id="firstheader">Example Header</h1>
     <form action="name" method="GET">
+        <label for="query">Query</label>
         <input type="text" name="query" value="default value" />
+        <label for="send">Send</label>
         <input type="submit" name="send" />
     </form>
+    <a href="http://example.com">Link for Example.com</a>
   </body>
 </html>"""
 

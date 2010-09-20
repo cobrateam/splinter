@@ -25,6 +25,11 @@ class BrowserTest(unittest.TestCase):
         html |should| include('<title>Example Title</title>')
         html |should| include('<h1 id="firstheader">Example Header</h1>')
 
+    def test_should_have_url(self):
+        "should have access to the url"
+        url = self.browser.url
+        url |should| equal_to(EXAMPLE_APP)
+
     def test_finding_elements(self):
         "should find elements by css_selector, xpath, tag and id"
         values = [self.browser.find(css_selector='h1').value,
@@ -37,6 +42,13 @@ class BrowserTest(unittest.TestCase):
         "should find elements by name"
         field = self.browser.find(name='query')
         field.value |should| equal_to('default value')
+
+    def test_finding_links(self):
+        "should find links by text"
+        link1 = self.browser.find_link(text='Link for Example.com')
+        link2 = self.browser.find_link(href='http://example.com')
+        link1['href'] |should| equal_to('http://example.com')
+        link2['href'] |should| equal_to('http://example.com')
 
     def test_can_change_field_value(self):
         "should provide a away to change field value"
