@@ -98,6 +98,10 @@ class WebDriverElement(ElementAPI):
     @property
     def checked(self):
         return self._element.is_selected()
+        
+    @property
+    def visible(self):
+        return self._element.is_displayed()
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)

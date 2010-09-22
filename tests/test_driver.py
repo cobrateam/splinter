@@ -73,3 +73,8 @@ class BrowserTest(unittest.TestCase):
         assert not self.browser.find(name="some-check").checked
         self.browser.check("some-check")
         assert self.browser.find(name="some-check").checked
+
+    def test_can_verify_if_a_element_is_visible(self):
+        "should provide verify if element is visible"
+        assert self.browser.find(id="visible").visible
+        assert not self.browser.find(id="invisible").visible

@@ -18,6 +18,8 @@ EXAMPLE_HTML = """\
         <input type="checkbox" name="some-check" value="choice" />
     </form>
     <a href="http://example.com">Link for Example.com</a>
+    <div id="visible">visible</div>
+    <div id="invisible" style="display:none">invisible</div>
   </body>
 </html>"""
 
