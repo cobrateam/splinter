@@ -68,6 +68,8 @@ class WebDriver(DriverAPI):
     def choose(self, name):
         field = self.find(name=name)
         field.click()
+    
+    check = choose
 
     def quit(self):
         self.driver.quit()

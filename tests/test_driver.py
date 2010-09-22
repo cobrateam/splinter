@@ -67,4 +67,9 @@ class BrowserTest(unittest.TestCase):
         assert not self.browser.find(name="some-radio").checked
         self.browser.choose("some-radio")
         assert self.browser.find(name="some-radio").checked
-
+        
+    def test_can_check_a_checkbox(self):
+        "should provide a way to check a radio checkbox"
+        assert not self.browser.find(name="some-check").checked
+        self.browser.check("some-check")
+        assert self.browser.find(name="some-check").checked
