@@ -64,6 +64,10 @@ class WebDriver(DriverAPI):
     def fill_in(self, name, value):
         field = self.find(name=name)
         field.value = value
+    
+    def choose(self, name):
+        field = self.find(name=name)
+        field.click()
 
     def quit(self):
         self.driver.quit()
@@ -88,6 +92,10 @@ class WebDriverElement(ElementAPI):
 
     def click(self):
         self._element.click()
+        
+    @property
+    def checked(self):
+        return self._element.is_selected()
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)

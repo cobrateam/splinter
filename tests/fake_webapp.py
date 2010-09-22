@@ -13,6 +13,8 @@ EXAMPLE_HTML = """\
         <input type="text" name="query" value="default value" />
         <label for="send">Send</label>
         <input type="submit" name="send" />
+        <input type="radio" name="some-radio" value="choice" />
+        <input type="radio" name="other-radio" value="other-choice" />
     </form>
     <a href="http://example.com">Link for Example.com</a>
   </body>

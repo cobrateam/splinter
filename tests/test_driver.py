@@ -61,4 +61,10 @@ class BrowserTest(unittest.TestCase):
         self.browser.fill_in('query', 'my name')
         self.browser.find(name='send').click()
         self.browser.html |should| include('My name is: Master Splinter')
+        
+    def test_can_choose_a_radio_button(self):
+        "should provide a way to choose a radio button"
+        assert not self.browser.find(name="some-radio").checked
+        self.browser.choose("some-radio")
+        assert self.browser.find(name="some-radio").checked
 
