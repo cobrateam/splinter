@@ -16,6 +16,7 @@ EXAMPLE_HTML = """\
         <input type="radio" name="some-radio" value="choice" />
         <input type="radio" name="other-radio" value="other-choice" />
         <input type="checkbox" name="some-check" value="choice" />
+        <input type="checkbox" name="checked-checkbox" value="choosed" checked="checked" />
     </form>
     <a href="http://example.com">Link for Example.com</a>
     <div id="visible">visible</div>

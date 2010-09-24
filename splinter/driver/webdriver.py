@@ -69,7 +69,15 @@ class WebDriver(DriverAPI):
         field = self.find(name=name)
         field.click()
     
-    check = choose
+    def check(self, name):
+        field = self.find(name=name)
+        if not field.checked:
+            field.toggle()
+
+    def uncheck(self, name):
+        field = self.find(name=name)
+        if field.checked:
+            field.toggle()
 
     def quit(self):
         self.driver.quit()
@@ -94,7 +102,10 @@ class WebDriverElement(ElementAPI):
 
     def click(self):
         self._element.click()
-        
+    
+    def toggle(self):
+        self._element.toggle()
+
     @property
     def checked(self):
         return self._element.is_selected()

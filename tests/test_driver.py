@@ -73,6 +73,26 @@ class BrowserTest(unittest.TestCase):
         assert not self.browser.find(name="some-check").checked
         self.browser.check("some-check")
         assert self.browser.find(name="some-check").checked
+    
+    def test_check_keeps_checked_if_called_multiple_times(self):
+        "should keep a checkbox checked if check() is called multiple times"
+        assert not self.browser.find(name="some-check").checked
+        self.browser.check("some-check")
+        self.browser.check("some-check")
+        assert self.browser.find(name="some-check").checked
+
+    def test_can_uncheck_a_checkbox(self):
+        "should provide a way to uncheck a radio checkbox"
+        assert self.browser.find(name="checked-checkbox").checked
+        self.browser.uncheck("checked-checkbox")
+        assert not self.browser.find(name="checked-checkbox").checked
+ 
+    def test_uncheck_should_keep_unchecked_if_called_multiple_times(self):
+        "should keep a checkbox unchecked if uncheck() is called multiple times"
+        assert self.browser.find(name="checked-checkbox").checked
+        self.browser.uncheck("checked-checkbox")
+        self.browser.uncheck("checked-checkbox")
+        assert not self.browser.find(name="checked-checkbox").checked
 
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
