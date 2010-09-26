@@ -77,3 +77,13 @@ You can find_link by <tt>text</tt> ou <tt>href</tt>:
 
     browser.find_link(text='Link for Example.com')
     browser.find_link(href='http://example.com')
+    
+### Get element value
+
+If you need get value for a element, you can use the <tt>value</tt> attribute:
+
+    browser.find(css_selector='h1').value
+    
+or
+    element = browser.find(css_selector='h1')
+    element.value
