@@ -51,6 +51,19 @@ You can use the <tt>html</tt> attribute to get the html content for the page vis
     
 ### Verifying page url with Browser.url
 
-You can get <tt>url</tt> attribute to get url for the page visited
+You can get <tt>url</tt> attribute to get url for the page visited:
     
     browser.url
+    
+### Finding elements
+
+For finding elements in a page, you can use <tt>find</tt> method:
+
+    browser.find(css_selector='h1')
+    
+You can find by <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt> or <tt>xpath</tt>:
+
+    browser.find(css_selector='h1')
+    browser.find(xpath='//h1')
+    browser.find(tag='h1')
+    browser.find(id='firstheader')
