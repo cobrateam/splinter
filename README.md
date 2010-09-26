@@ -43,8 +43,14 @@ You can get a title of a page visited using <tt>title</tt> attribute:
 
     browser.title
     
-### Browser.html
+### Verifying page content with Browser.html
 
 You can use the <tt>html</tt> attribute to get the html content for the page visited:
 
     browser.html
+    
+### Verifying page url with Browser.url
+
+You can get <tt>url</tt> attribute to get url for the page visited
+    
+    browser.url
