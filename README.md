@@ -94,3 +94,10 @@ or
     browser.choose("some-radio")
     browser.check("some-check")
     browser.uncheck("some-check")
+    
+### Verifying if element is visible or invisible
+
+You can use <tt>visible</tt> attribute for verify if element is visible or invisible. If 
+element is visible the <tt>visible</tt> attribute returns <tt>True</tt>, else returns <tt>False</tt>.
+
+    browser.find(css_selector='h1').visible
