@@ -1,6 +1,6 @@
 import unittest
 import lxml.html
-from should_dsl import should
+from should_dsl import should, should_not
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
 from time import sleep
@@ -64,37 +64,40 @@ class BrowserTest(unittest.TestCase):
         
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
-        assert not self.browser.find(name="some-radio").checked
+        self.browser.find(name="some-radio") |should_not| be_checked
         self.browser.choose("some-radio")
-        assert self.browser.find(name="some-radio").checked
+        self.browser.find(name="some-radio") |should| be_checked
         
     def test_can_check_a_checkbox(self):
         "should provide a way to check a radio checkbox"
-        assert not self.browser.find(name="some-check").checked
+        self.browser.find(name="some-check") |should_not| be_checked
         self.browser.check("some-check")
-        assert self.browser.find(name="some-check").checked
+        self.browser.find(name="some-check") |should| be_checked
     
     def test_check_keeps_checked_if_called_multiple_times(self):
         "should keep a checkbox checked if check() is called multiple times"
-        assert not self.browser.find(name="some-check").checked
+        self.browser.find(name="some-check") |should_not| be_checked
         self.browser.check("some-check")
         self.browser.check("some-check")
-        assert self.browser.find(name="some-check").checked
+        self.browser.find(name="some-check") |should| be_checked
 
     def test_can_uncheck_a_checkbox(self):
         "should provide a way to uncheck a radio checkbox"
-        assert self.browser.find(name="checked-checkbox").checked
+        self.browser.find(name="checked-checkbox") |should| be_checked
         self.browser.uncheck("checked-checkbox")
-        assert not self.browser.find(name="checked-checkbox").checked
+        self.browser.find(name="checked-checkbox") |should_not| be_checked
  
     def test_uncheck_should_keep_unchecked_if_called_multiple_times(self):
         "should keep a checkbox unchecked if uncheck() is called multiple times"
-        assert self.browser.find(name="checked-checkbox").checked
+        self.browser.find(name="checked-checkbox") |should| be_checked
         self.browser.uncheck("checked-checkbox")
         self.browser.uncheck("checked-checkbox")
-        assert not self.browser.find(name="checked-checkbox").checked
+        self.browser.find(name="checked-checkbox") |should_not| be_checked
 
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
-        assert self.browser.find(id="visible").visible
-        assert not self.browser.find(id="invisible").visible
+        self.browser.find(id="visible") |should| be_visible
+    
+    def test_can_verify_if_a_element_is_invisible(self):
+        "should provide verify if element is invisible"
+        self.browser.find(id="invisible") |should_not| be_visible
