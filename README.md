@@ -8,7 +8,6 @@ if you are using a virtualenv, all you need is:
 
     make test
 
-
 ## community
 
 channel #cobrateam on irc.freenode.net
@@ -19,3 +18,15 @@ channel #cobrateam on irc.freenode.net
 2. hack
 3. commit and push
 4. send a pull request
+
+## documentation
+
+### Navigating
+
+You can use the <tt>visit</tt> method to navigate to other pages:
+    
+    from splinter.browser import Browser
+    browser.visit('http://cobrateam.info')
+
+The visit method only takes a single parameter, the request method is *always*
+GET.
