@@ -87,3 +87,10 @@ If you need get value for a element, you can use the <tt>value</tt> attribute:
 or
     element = browser.find(css_selector='h1')
     element.value
+    
+### Interacting with forms
+
+    browser.fill_in('query', 'my name')
+    browser.choose("some-radio")
+    browser.check("some-check")
+    browser.uncheck("some-check")
