@@ -28,5 +28,5 @@ You can use the <tt>visit</tt> method to navigate to other pages:
     from splinter.browser import Browser
     browser.visit('http://cobrateam.info')
 
-The visit method only takes a single parameter, the request method is *always*
+The visit method only takes a single parameter for <tt>url</tt> will be visited, the request method is *always*
 GET.
