@@ -61,9 +61,10 @@ For finding elements in a page, you can use <tt>find</tt> method:
 
     browser.find(css_selector='h1')
     
-You can find by <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt> or <tt>xpath</tt>:
+You can find by <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt>, <tt>name</tt> or <tt>xpath</tt>:
 
     browser.find(css_selector='h1')
     browser.find(xpath='//h1')
     browser.find(tag='h1')
+    browser.find(name='name')
     browser.find(id='firstheader')
