@@ -68,3 +68,12 @@ You can find by <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt>, <tt>name</tt> 
     browser.find(tag='h1')
     browser.find(name='name')
     browser.find(id='firstheader')
+    
+For finding link elements you can use <tt>find_link</tt>:
+
+    browser.find_link(text='Link for Example.com')
+    
+You can find_link by <tt>text</tt> ou <tt>href</tt>:
+
+    browser.find_link(text='Link for Example.com')
+    browser.find_link(href='http://example.com')
