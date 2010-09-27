@@ -2,8 +2,8 @@ splinter - Python acceptance testing for web applications
 
 ## development
 
-* Source hosted at {GitHub}[http://github.com/cobrateam/splinter].
-* Report issues on {GitHub Issues}[http://github.com/cobrateam/splinter/issues]
+* Source hosted at [GitHub](http://github.com/cobrateam/splinter)
+* Report issues on [GitHub Issues](http://github.com/cobrateam/splinter/issues)
 
 Pull requests are very welcome! Make sure your patches are well tested.
 
