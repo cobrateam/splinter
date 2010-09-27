@@ -1,23 +1,21 @@
-splinter is based in [capybara](http://github.com/jnicklas/capybara)
+splinter - Python acceptance testing for web applications 
 
+## development
 
+* Source hosted at {GitHub}[http://github.com/cobrateam/splinter].
+* Report issues on {GitHub Issues}[http://github.com/cobrateam/splinter/issues]
 
-## running the tests
+Pull requests are very welcome! Make sure your patches are well tested.
+
+### running the tests
 
 if you are using a virtualenv, all you need is:
 
     make test
 
-## community
+### community
 
 channel #cobrateam on irc.freenode.net
-
-## contributing to splinter
-
-1. fork and clone the project
-2. hack
-3. commit and push
-4. send a pull request
 
 ## documentation
 
