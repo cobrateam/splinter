@@ -55,35 +55,34 @@ You can get <tt>url</tt> attribute to get url for the page visited:
     
 ### Finding elements
 
-For finding elements in a page, you can use <tt>find</tt> method:
+For finding elements you can use five methods, one for each selector type <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt>, <tt>name</tt> or <tt>xpath</tt>:
 
-    browser.find(css_selector='h1')
+    browser.find_by_css_selector('h1')
+    browser.find_by_xpath('//h1')
+    browser.find_by_tag('h1')
+    browser.find_by_name('name')
+    browser.find_by_id('firstheader')
     
-You can find by <tt>css_selector</tt>, <tt>id</tt>, <tt>tag</tt>, <tt>name</tt> or <tt>xpath</tt>:
+### Finding links
 
-    browser.find(css_selector='h1')
-    browser.find(xpath='//h1')
-    browser.find(tag='h1')
-    browser.find(name='name')
-    browser.find(id='firstheader')
+For finding link elements you can use <tt>find_link_by_text</tt> or <tt>find_link_by_href</tt>:
+
+    browser.find_link_by_text('Link for Example.com')
     
-For finding link elements you can use <tt>find_link</tt>:
+or
 
-    browser.find_link(text='Link for Example.com')
+    browser.find_link_by_href('http://example.com')
     
-You can find_link by <tt>text</tt> ou <tt>href</tt>:
-
-    browser.find_link(text='Link for Example.com')
-    browser.find_link(href='http://example.com')
+For find link by id, tag, name or xpath you can use defaults find methods.
     
 ### Get element value
 
 If you need get value for a element, you can use the <tt>value</tt> attribute:
 
-    browser.find(css_selector='h1').value
+    browser.find_by_css_selector('h1').value
     
 or
-    element = browser.find(css_selector='h1')
+    element = browser.find_by_css_selector('h1')
     element.value
     
 ### Interacting with forms
@@ -98,4 +97,4 @@ or
 You can use <tt>visible</tt> attribute for verify if element is visible or invisible. If 
 element is visible the <tt>visible</tt> attribute returns <tt>True</tt>, else returns <tt>False</tt>.
 
-    browser.find(css_selector='h1').visible
+    browser.find_by_css_selector('h1').visible
