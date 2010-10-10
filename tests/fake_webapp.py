@@ -38,4 +38,7 @@ def get_name():
 
 
 if __name__ == '__main__':
+    import logging
+    logging.disable(logging.CRITICAL)
+
     app.run()
