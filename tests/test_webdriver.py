@@ -11,3 +11,13 @@ class BrowserTest(BaseBrowserTests, unittest.TestCase):
 
     def tearDown(self):
         self.browser.quit()
+        
+    def test_can_execute_javascript(self):
+        "should execute javascript"
+        self.browser.execute_script("$('body').empty()")
+        self.browser.find_by_tag("body") == ""
+        
+    def test_can_evaluate_script(self):
+        "should evaluate script"
+        assert self.browser.evaluate_script("4+4") == 8
+        
