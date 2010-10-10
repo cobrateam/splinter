@@ -1,18 +1,12 @@
-import unittest
 import lxml.html
 from should_dsl import should, should_not
-from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
 from time import sleep
 
-class BrowserTest(unittest.TestCase):
+class BaseBrowserTests(object):
 
     def setUp(self):
-        self.browser = Browser()
-        self.browser.visit(EXAMPLE_APP)
-
-    def tearDown(self):
-        self.browser.quit()
+        self.fail("You should set up your browser in the setUp() method")
 
     def test_can_open_page(self):
         "should be able to visit, get title and quit"
