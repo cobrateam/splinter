@@ -66,7 +66,7 @@ class WebDriver(DriverAPI):
     def uncheck(self, name):
         field = self.find_by_name(name)
         field.uncheck()
-
+            
     def quit(self):
         self.driver.quit()
 

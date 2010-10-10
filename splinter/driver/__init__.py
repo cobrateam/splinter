@@ -1,3 +1,6 @@
+import os
+import webbrowser
+
 class DriverAPI(object):
     @property
     def title(self):
@@ -13,7 +16,23 @@ class DriverAPI(object):
 
     def visit(self, url):
         raise NotImplementedError
- 
+
+    def open_in_browser(self, path):
+        webbrowser.open(path)
+        
+    def save_and_open_page(self):
+                
+        if not os.path.exists('/tmp/splinter'):
+            os.mkdir('/tmp/splinter')
+            
+        tempfile = open('/tmp/splinter/splinter.html', 'w')
+        tempfile.write(self.html)
+        tempfile.close()
+        
+        tempfile_path = os.path.abspath(tempfile.name)
+        
+        self.open_in_browser(tempfile_path)
+         
     def find(self, css_selector=None,
                    xpath=None,
                    name=None,

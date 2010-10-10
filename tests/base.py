@@ -1,7 +1,8 @@
 import lxml.html
 from should_dsl import should, should_not
 from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
-from time import sleep
+
+import shutil
 
 class BaseBrowserTests(object):
 
@@ -116,3 +117,9 @@ class BaseBrowserTests(object):
         "should provide verify if element is invisible"
         self.browser.find_by_id("invisible") |should_not| be_visible
 
+    def test_save_and_open_page(self):
+        self.browser.save_and_open_page()
+        
+    def test_save_and_open_page_when_temp_directory_does_not_exist(self):
+        shutil.rmtree('/tmp/splinter')
+        self.browser.save_and_open_page()
