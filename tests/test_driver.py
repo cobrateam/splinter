@@ -121,3 +121,8 @@ class BrowserTest(unittest.TestCase):
     def test_can_verify_if_a_element_is_invisible(self):
         "should provide verify if element is invisible"
         self.browser.find_by_id("invisible") |should_not| be_visible
+        
+    def test_can_execute_javascript(self):
+        "should execute javascript"
+        self.browser.execute_script("$('body').empty()")
+        self.browser.find_by_tag("body") == ""
