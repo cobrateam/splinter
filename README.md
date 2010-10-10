@@ -100,3 +100,13 @@ To check if an element is visible or invisible, use the <tt>visible</tt> propert
     browser.find_by_css_selector('h1').visible
 
 will be True if the element is visible, or False if it is invisible.
+
+### Executing javascript
+
+You can easily execute JavaScript, in drivers which support it:
+
+    browser.execute_script("$('body').empty()")
+    
+You can return the result of the script:
+
+    browser.evaluate_script("4+4") == 8
