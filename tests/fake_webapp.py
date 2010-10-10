@@ -5,6 +5,7 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
   </head>
   <body>
     <h1 id="firstheader">Example Header</h1>
