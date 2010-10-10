@@ -25,6 +25,9 @@ class WebDriver(DriverAPI):
         
     def execute_script(self, script):
         self.driver.execute_script(script)
+        
+    def evaluate_script(self, script):
+        return self.driver.execute_script("return %s" % script)
  
     def find_link_by_href(self, href):
         return self.find_by_xpath('//a[@href="%s" and (position() = 1)]' % href)

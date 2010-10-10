@@ -126,3 +126,8 @@ class BrowserTest(unittest.TestCase):
         "should execute javascript"
         self.browser.execute_script("$('body').empty()")
         self.browser.find_by_tag("body") == ""
+        
+    def test_can_evaluate_script(self):
+        "should evaluate script"
+        assert self.browser.evaluate_script("4+4") == 8
+        
