@@ -55,6 +55,8 @@ class WebDriver(DriverAPI):
         field = self.find_by_name(name)
         field.value = value
     
+    attach_file = fill_in
+    
     def choose(self, name):
         field = self.find_by_name(name)
         field.click()

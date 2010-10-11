@@ -3,6 +3,7 @@ from should_dsl import should, should_not
 from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
 
 import shutil
+import os
 
 class BaseBrowserTests(object):
 
@@ -123,3 +124,13 @@ class BaseBrowserTests(object):
     def test_save_and_open_page_when_temp_directory_does_not_exist(self):
         shutil.rmtree('/tmp/splinter')
         self.browser.save_and_open_page()
+        
+    def test_attach_file(self):
+        "should provide a way to change file field value"
+        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
+        self.browser.attach_file('file', file_path)
+        self.browser.find_by_name('upload').click()
+
+        html = self.browser.html
+        html |should| include('text/plain')
+        html |should| include(open(file_path).read())
