@@ -16,3 +16,7 @@ class ZopeTestBrowser(DriverAPI):
     @property
     def title(self):
         return self._browser.title
+        
+    @property
+    def html(self):
+        return self._browser.contents
