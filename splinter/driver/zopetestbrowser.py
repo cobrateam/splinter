@@ -20,3 +20,7 @@ class ZopeTestBrowser(DriverAPI):
     @property
     def html(self):
         return self._browser.contents
+
+    @property
+    def url(self):
+        return self._browser.url
