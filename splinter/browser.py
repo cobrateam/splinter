@@ -1,9 +1,10 @@
 from splinter.driver.webdriver import WebDriver
+from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
-class Browser(object):
+_DRIVERS = {'webdriver': WebDriver,
+            'zope.testbrowser': ZopeTestBrowser}
 
-    def __init__(self):
-        self._driver = WebDriver()
 
-    def __getattr__(self, attr):
-        return getattr(self._driver, attr)
+def Browser(driver_name='webdriver'):
+    driver = _DRIVERS[driver_name]
+    return driver()
