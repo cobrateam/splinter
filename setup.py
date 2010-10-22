@@ -8,6 +8,6 @@ setup(name='splinter',
       author_email='andrewsmedina@gmail.com',
       packages=find_packages(),
       test_suite='nose.collector',
-      install_requires=['selenium'],
+      install_requires=['selenium', 'zope.testbrowser'],
       tests_require=['nose', 'coverage', 'ludibrio', 'flask'],
       )
