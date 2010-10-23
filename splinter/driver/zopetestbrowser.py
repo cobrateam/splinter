@@ -1,5 +1,6 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
+import lxml.html
 
 
 class ZopeTestBrowser(DriverAPI):
@@ -24,3 +25,16 @@ class ZopeTestBrowser(DriverAPI):
     @property
     def url(self):
         return self._browser.url
+  
+    def find_by_css_selector(self, selector):
+        html = lxml.html.fromstring(self.html)
+        return ZopeTestBrowserElement(html.cssselect(selector)[0])
+
+class ZopeTestBrowserElement(ElementAPI):
+    
+    def __init__(self, element):
+        self._element = element
+
+    @property
+    def value(self):
+        return self._element.text
