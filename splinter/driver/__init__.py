@@ -63,7 +63,7 @@ class DriverAPI(object):
     def fill_in(self, name, value):
         raise NotImplementedError
         
-    attacth_file = fill_in
+    attach_file = fill_in
 
     def choose(self, name):
         raise NotImplementedError
