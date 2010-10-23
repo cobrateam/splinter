@@ -59,6 +59,9 @@ class ZopeTestBrowser(DriverAPI):
     def choose(self, name):
         control = self._browser.getControl(name=name)
         control.value = control.options
+    
+    check = choose
+
 
 class ZopeTestBrowserElement(ElementAPI):
     
