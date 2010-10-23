@@ -41,7 +41,8 @@ class ZopeTestBrowser(DriverAPI):
         html = lxml.html.fromstring(self.html)
         return ZopeTestBrowserElement(html.get_element_by_id(id_value))
 
-
+    def find_by_name(self, name):
+        return self.find_by_xpath('//*[@name=%r]' % name)
 
 class ZopeTestBrowserElement(ElementAPI):
     
@@ -50,4 +51,6 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def value(self):
+        if hasattr(self._element, 'type') and self._element.type == 'text':
+            return self._element.value
         return self._element.text
