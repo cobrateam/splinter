@@ -48,6 +48,10 @@ class ZopeTestBrowser(DriverAPI):
         link = self._browser.getLink(text=text)
         return ZopeTestBrowserLinkElement(link)
 
+    def find_link_by_href(self, href):
+        link = self._browser.getLink(url=href)
+        return ZopeTestBrowserLinkElement(link)
+
 
 class ZopeTestBrowserElement(ElementAPI):
     
