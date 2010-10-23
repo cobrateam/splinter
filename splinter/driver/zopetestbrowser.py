@@ -30,6 +30,11 @@ class ZopeTestBrowser(DriverAPI):
         html = lxml.html.fromstring(self.html)
         return ZopeTestBrowserElement(html.cssselect(selector)[0])
 
+    def find_by_xpath(self, xpath):
+        html = lxml.html.fromstring(self.html)
+        return ZopeTestBrowserElement(html.xpath(xpath)[0])
+
+
 class ZopeTestBrowserElement(ElementAPI):
     
     def __init__(self, element):
