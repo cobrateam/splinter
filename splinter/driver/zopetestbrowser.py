@@ -56,6 +56,9 @@ class ZopeTestBrowser(DriverAPI):
     def fill_in(self, name, value):
         self._browser.getControl(name=name).value = value
 
+    def choose(self, name):
+        control = self._browser.getControl(name=name)
+        control.value = control.options
 
 class ZopeTestBrowserElement(ElementAPI):
     
@@ -85,6 +88,10 @@ class ZopeTestBrowserControlElement(ElementAPI):
     @property
     def value(self):
         return self._control.value
+    
+    @property
+    def checked(self):
+        return bool(self._control.value)
 
     def click(self):
         return self._control.click()
