@@ -85,3 +85,6 @@ class ZopeTestBrowserControlElement(ElementAPI):
     @property
     def value(self):
         return self._control.value
+
+    def click(self):
+        return self._control.click()
