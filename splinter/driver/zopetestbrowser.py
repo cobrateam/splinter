@@ -1,6 +1,7 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
 import lxml.html
+import mimetypes
 
 
 class ZopeTestBrowser(DriverAPI):
@@ -65,6 +66,12 @@ class ZopeTestBrowser(DriverAPI):
     def uncheck(self, name):
         control = self._browser.getControl(name=name)
         control.value = []
+
+    def attach_file(self, name, file_path):
+        control = self._browser.getControl(name=name)
+        content_type, _ = mimetypes.guess_type(file_path)
+        control.add_file(open(file_path), content_type, None)
+
 
 class ZopeTestBrowserElement(ElementAPI):
     
