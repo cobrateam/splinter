@@ -37,6 +37,11 @@ class ZopeTestBrowser(DriverAPI):
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)
 
+    def find_by_id(self, id_value):
+        html = lxml.html.fromstring(self.html)
+        return ZopeTestBrowserElement(html.get_element_by_id(id_value))
+
+
 
 class ZopeTestBrowserElement(ElementAPI):
     
