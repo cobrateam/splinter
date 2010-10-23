@@ -44,6 +44,11 @@ class ZopeTestBrowser(DriverAPI):
     def find_by_name(self, name):
         return self.find_by_xpath('//*[@name=%r]' % name)
 
+    def find_link_by_text(self, text):
+        link = self._browser.getLink(text=text)
+        return ZopeTestBrowserLinkElement(link)
+
+
 class ZopeTestBrowserElement(ElementAPI):
     
     def __init__(self, element):
@@ -54,3 +59,12 @@ class ZopeTestBrowserElement(ElementAPI):
         if hasattr(self._element, 'type') and self._element.type == 'text':
             return self._element.value
         return self._element.text
+
+
+class ZopeTestBrowserLinkElement(ElementAPI):
+    
+    def __init__(self, link):
+        self._link = link
+    
+    def __getitem__(self, attr):
+        return self._link.attrs[attr]
