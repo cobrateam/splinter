@@ -42,7 +42,8 @@ class ZopeTestBrowser(DriverAPI):
         return ZopeTestBrowserElement(html.get_element_by_id(id_value))
 
     def find_by_name(self, name):
-        return self.find_by_xpath('//*[@name=%r]' % name)
+        control = self._browser.getControl(name=name)
+        return ZopeTestBrowserControlElement(control)
 
     def find_link_by_text(self, text):
         link = self._browser.getLink(text=text)
@@ -51,6 +52,9 @@ class ZopeTestBrowser(DriverAPI):
     def find_link_by_href(self, href):
         link = self._browser.getLink(url=href)
         return ZopeTestBrowserLinkElement(link)
+
+    def fill_in(self, name, value):
+        self._browser.getControl(name=name).value = value
 
 
 class ZopeTestBrowserElement(ElementAPI):
@@ -72,3 +76,12 @@ class ZopeTestBrowserLinkElement(ElementAPI):
     
     def __getitem__(self, attr):
         return self._link.attrs[attr]
+
+class ZopeTestBrowserControlElement(ElementAPI):
+    
+    def __init__(self, control):
+        self._control = control
+
+    @property
+    def value(self):
+        return self._control.value
