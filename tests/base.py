@@ -51,11 +51,6 @@ class BaseBrowserTests(object):
         value = self.browser.find_by_name('query').value
         value |should| equal_to('default value')
     
-    def test_can_find_by_name(self):
-        "should find elements by name"
-        field = self.browser.find_by_name('query')
-        field.value |should| equal_to('default value')
-    
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com')
@@ -110,21 +105,13 @@ class BaseBrowserTests(object):
         self.browser.uncheck("checked-checkbox")
         self.browser.find_by_name("checked-checkbox") |should_not| be_checked
     
-    def test_can_verify_if_a_element_is_visible(self):
-        "should provide verify if element is visible"
-        self.browser.find_by_id("visible") |should| be_visible
-    
-    def test_can_verify_if_a_element_is_invisible(self):
-        "should provide verify if element is invisible"
-        self.browser.find_by_id("invisible") |should_not| be_visible
-    
-    # def test_save_and_open_page(self):
-    #     self.browser.save_and_open_page()
-    #     
-    # def test_save_and_open_page_when_temp_directory_does_not_exist(self):
-    #     shutil.rmtree('/tmp/splinter')
-    #     self.browser.save_and_open_page()
-    #     
+    def test_save_and_open_page(self):
+        self.browser.save_and_open_page()
+        
+    def test_save_and_open_page_when_temp_directory_does_not_exist(self):
+        shutil.rmtree('/tmp/splinter')
+        self.browser.save_and_open_page()
+        
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
