@@ -62,6 +62,9 @@ class ZopeTestBrowser(DriverAPI):
     
     check = choose
 
+    def uncheck(self, name):
+        control = self._browser.getControl(name=name)
+        control.value = []
 
 class ZopeTestBrowserElement(ElementAPI):
     
