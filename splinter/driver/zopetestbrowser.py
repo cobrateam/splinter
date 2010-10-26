@@ -34,7 +34,12 @@ class ZopeTestBrowser(DriverAPI):
 
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
-        return ZopeTestBrowserElement(html.xpath(xpath)[0])
+        element = html.xpath(xpath)[0]
+        if element.tag == 'a':
+            return self.find_link_by_text(element.text)
+        elif hasattr(element, 'type'):
+            return self.find_by_name(element.name)
+        return ZopeTestBrowserElement(element)
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)

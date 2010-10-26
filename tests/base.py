@@ -111,7 +111,7 @@ class BaseBrowserTests(object):
     def test_save_and_open_page_when_temp_directory_does_not_exist(self):
         shutil.rmtree('/tmp/splinter')
         self.browser.save_and_open_page()
-        
+ 
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
@@ -126,3 +126,14 @@ class BaseBrowserTests(object):
         "should allow to click links"
         self.browser.find_link_by_text('FOO').click()
         self.browser.html |should| include('BAR!')
+    
+    def test_click_element_by_css_selector(self):
+        "should allow to click at elements by css selector"
+        self.browser.find_by_css_selector('a[href="/foo"]').click()
+        self.browser.html |should| include('BAR!')
+    
+    def test_click_input_by_css_selector(self):
+        "should allow to click at inputs by css selector"
+        self.browser.find_by_css_selector('input[name="send"]').click()
+        self.browser.html |should| include('My name is: Master Splinter')
+
