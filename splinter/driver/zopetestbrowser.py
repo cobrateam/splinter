@@ -1,5 +1,6 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
+from lxml.cssselect import CSSSelector
 import lxml.html
 import mimetypes
 
@@ -28,8 +29,8 @@ class ZopeTestBrowser(DriverAPI):
         return self._browser.url
   
     def find_by_css_selector(self, selector):
-        html = lxml.html.fromstring(self.html)
-        return ZopeTestBrowserElement(html.cssselect(selector)[0])
+        xpath = CSSSelector(selector).path
+        return self.find_by_xpath(xpath)
 
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
@@ -39,8 +40,7 @@ class ZopeTestBrowser(DriverAPI):
         return self.find_by_xpath('//%s' % tag)
 
     def find_by_id(self, id_value):
-        html = lxml.html.fromstring(self.html)
-        return ZopeTestBrowserElement(html.get_element_by_id(id_value))
+        return self.find_by_xpath('//*[@id="%s"]' % id_value)
 
     def find_by_name(self, name):
         control = self._browser.getControl(name=name)
