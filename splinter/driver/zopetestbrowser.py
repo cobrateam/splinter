@@ -83,6 +83,9 @@ class ZopeTestBrowserElement(ElementAPI):
     def __init__(self, element):
         self._element = element
 
+    def __getitem__(self, attr):
+        return self._element.attrib[attr]
+
     @property
     def value(self):
         return self._element.text
@@ -96,6 +99,10 @@ class ZopeTestBrowserLinkElement(ElementAPI):
     def __getitem__(self, attr):
         return self._link.attrs[attr]
     
+    @property
+    def value(self):
+        return self._link.text
+
     def click(self):
         return self._link.click()
 
@@ -104,6 +111,9 @@ class ZopeTestBrowserControlElement(ElementAPI):
     
     def __init__(self, control):
         self._control = control
+
+    def __getitem__(self, attr):
+        return self._control.mech_control.attrs[attr]
 
     @property
     def value(self):

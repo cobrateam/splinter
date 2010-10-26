@@ -108,10 +108,6 @@ class BaseBrowserTests(object):
     def test_save_and_open_page(self):
         self.browser.save_and_open_page()
         
-    def test_save_and_open_page_when_temp_directory_does_not_exist(self):
-        shutil.rmtree('/tmp/splinter')
-        self.browser.save_and_open_page()
- 
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
@@ -137,3 +133,21 @@ class BaseBrowserTests(object):
         self.browser.find_by_css_selector('input[name="send"]').click()
         self.browser.html |should| include('My name is: Master Splinter')
 
+    def test_accessing_attributes_of_links(self):
+        "should allow link's attributes retrieval"
+        foo = self.browser.find_link_by_text('FOO')
+        foo['href'] |should| equal_to('/foo')
+
+    def test_accessing_attributes_of_inputs(self):
+        "should allow input's attributes retrieval"
+        button = self.browser.find_by_css_selector('input[name="send"]')
+        button['name'] |should| equal_to('send')
+
+    def test_accessing_attributes_of_simple_elements(self):
+        "should allow simple element's attributes retrieval"
+        header = self.browser.find_by_css_selector('h1')
+        header['id'] |should| equal_to('firstheader')
+
+    def test_links_should_have_value_attribute(self):
+        foo = self.browser.find_link_by_href('/foo')
+        foo.value |should| equal_to('FOO')

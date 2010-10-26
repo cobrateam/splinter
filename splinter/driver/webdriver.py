@@ -30,7 +30,7 @@ class WebDriver(DriverAPI):
         return self.driver.execute_script("return %s" % script)
  
     def find_link_by_href(self, href):
-        return self.find_by_xpath('//a[@href="%s" and (position() = 1)]' % href)
+        return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
         return WebDriverElement(self.driver.find_element_by_link_text(text))
