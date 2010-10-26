@@ -27,6 +27,7 @@ EXAMPLE_HTML = """\
     <a href="http://example.com">Link for Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
+    <a href="/foo">FOO</a>
   </body>
 </html>"""
 
@@ -50,6 +51,9 @@ def upload_file():
 
         return '|'.join(buffer)
 
+@app.route('/foo')
+def foo():
+    return "BAR!"
 
 if __name__ == '__main__':
     import logging

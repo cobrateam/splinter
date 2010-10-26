@@ -121,3 +121,8 @@ class BaseBrowserTests(object):
         html = self.browser.html
         html |should| include('text/plain')
         html |should| include(open(file_path).read())
+    
+    def test_click_links(self):
+        "should allow to click links"
+        self.browser.find_link_by_text('FOO').click()
+        self.browser.html |should| include('BAR!')

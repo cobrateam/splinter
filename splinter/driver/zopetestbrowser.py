@@ -80,8 +80,6 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def value(self):
-        if hasattr(self._element, 'type') and self._element.type == 'text':
-            return self._element.value
         return self._element.text
 
 
@@ -92,6 +90,10 @@ class ZopeTestBrowserLinkElement(ElementAPI):
     
     def __getitem__(self, attr):
         return self._link.attrs[attr]
+    
+    def click(self):
+        return self._link.click()
+
 
 class ZopeTestBrowserControlElement(ElementAPI):
     
