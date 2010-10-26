@@ -1,5 +1,7 @@
 import os
+import tempfile
 import webbrowser
+
 
 class DriverAPI(object):
     @property
@@ -27,17 +29,10 @@ class DriverAPI(object):
         webbrowser.open(path)
         
     def save_and_open_page(self):
-                
-        if not os.path.exists('/tmp/splinter'):
-            os.mkdir('/tmp/splinter')
-            
-        tempfile = open('/tmp/splinter/splinter.html', 'w')
-        tempfile.write(self.html)
-        tempfile.close()
-        
-        tempfile_path = os.path.abspath(tempfile.name)
-        
-        self.open_in_browser(tempfile_path)
+        filepath = tempfile.mktemp(prefix='splinter')
+        with open(filepath, 'w') as temp:
+            temp.write(self.html)
+        self.open_in_browser(filepath)
          
     def find_by_css_selector(self, css_selector):
         raise NotImplementedError
@@ -76,6 +71,7 @@ class DriverAPI(object):
 
     def quit(self):
         raise NotImplementedError
+
 
 class ElementAPI(object):
 
