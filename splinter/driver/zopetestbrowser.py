@@ -35,9 +35,9 @@ class ZopeTestBrowser(DriverAPI):
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
         element = html.xpath(xpath)[0]
-        if element.tag == 'a':
+        if self._element_is_link(element):
             return self.find_link_by_text(element.text)
-        elif hasattr(element, 'type'):
+        if self._element_is_control(element):
             return self.find_by_name(element.name)
         return ZopeTestBrowserElement(element)
 
@@ -76,6 +76,12 @@ class ZopeTestBrowser(DriverAPI):
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
         control.add_file(open(file_path), content_type, None)
+
+    def _element_is_link(self, element):
+        return element.tag == 'a'
+
+    def _element_is_control(self, element):
+        return hasattr(element, 'type')
 
 
 class ZopeTestBrowserElement(ElementAPI):

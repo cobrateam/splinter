@@ -3,6 +3,7 @@ from selenium.remote.errorhandler import InvalidElementStateException
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 
+
 class WebDriver(DriverAPI):
     
     def __init__(self):
