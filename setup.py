@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='splinter',
-      version='0.1',
+      version='0.0.1',
       description='browser abstraction for web acceptance testing',
       long_description='',
       author='CobraTeam',
