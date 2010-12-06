@@ -76,7 +76,7 @@ The visited page's url can be accessed by the ``url`` attribute:
 Finding elements
 ----------------
 
-For finding elements you can use five methods, one for each selector type ``css_selector``, ``xpath``, ``tag``, ``name``, ``id``:
+For finding elements you can use five methods, one for each selector type ``css_selector``, ``xpath``, ``tag``, ``name``, ``id``::
 
     browser.find_by_css_selector('h1')
     browser.find_by_xpath('//h1')
