@@ -1,17 +1,17 @@
 import unittest
 from should_dsl import should, should_not
 from splinter.browser import Browser
-from fake_webapp import EXAMPLE_APP
+from fake_webapp import start_server, stop_server
 from base import BaseBrowserTests
 
 class BrowserTest(BaseBrowserTests, unittest.TestCase):
 
     def setUp(self):
         self.browser = Browser()
-        self.browser.visit(EXAMPLE_APP)
+        start_server(self.browser)
 
     def tearDown(self):
-        self.browser.quit()
+        stop_server()
         
     def test_can_execute_javascript(self):
         "should execute javascript"
