@@ -2,7 +2,7 @@ from selenium.firefox.webdriver import WebDriver as firefox
 from selenium.remote.errorhandler import InvalidElementStateException
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
-
+from splinter.finder import QueryElements
 
 class WebDriver(DriverAPI):
     
@@ -34,40 +34,41 @@ class WebDriver(DriverAPI):
         return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
-        return WebDriverElement(self.driver.find_element_by_link_text(text))
+        return QueryElements([WebDriverElement(element) for element in self.driver.find_elements_by_link_text(text)])
+        
 
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
-        return WebDriverElement(self.driver.find_element_by_xpath(selector.path))
+        return self.find_by_xpath(selector.path)
 
     def find_by_xpath(self, xpath):
-        return WebDriverElement(self.driver.find_element_by_xpath(xpath))
+        return QueryElements([WebDriverElement(element) for element in self.driver.find_elements_by_xpath(xpath)])
 
     def find_by_name(self, name):
-        return WebDriverElement(self.driver.find_element_by_name(name))
+        return QueryElements([WebDriverElement(element) for element in self.driver.find_elements_by_name(name)])
 
     def find_by_id(self, id):
-        return WebDriverElement(self.driver.find_element_by_id(id))
+        return QueryElements([WebDriverElement(self.driver.find_element_by_id(id))])
 
     def find_by_tag(self, tag):
-        return WebDriverElement(self.driver.find_element_by_tag_name(tag))
+        return QueryElements([WebDriverElement(element) for element in self.driver.find_elements_by_tag_name(tag)])
 
     def fill_in(self, name, value):
-        field = self.find_by_name(name)
+        field = self.find_by_name(name).first()
         field.value = value
     
     attach_file = fill_in
     
     def choose(self, name):
-        field = self.find_by_name(name)
+        field = self.find_by_name(name).first()
         field.click()
     
     def check(self, name):
-        field = self.find_by_name(name)
+        field = self.find_by_name(name).first()
         field.check()
 
     def uncheck(self, name):
-        field = self.find_by_name(name)
+        field = self.find_by_name(name).first()
         field.uncheck()
             
     def quit(self):
