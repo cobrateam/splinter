@@ -14,7 +14,7 @@ class BaseBrowserTests(object):
         "should be able to visit, get title and quit"
         title = self.browser.title
         title |should| equal_to('Example Title')
-
+    
     def test_should_have_html(self):
         "should have access to the html"
         html = self.browser.html
@@ -50,7 +50,7 @@ class BaseBrowserTests(object):
         "should find elements by name"
         value = self.browser.find_by_name('query').first().value
         value |should| equal_to('default value')
-
+    
     def test_finding_all_elements_by_css_selector(self):
         "should find elements by css_selector"
         value = self.browser.find_by_css_selector('h1').all()[0].value
@@ -75,7 +75,7 @@ class BaseBrowserTests(object):
         "should find elements by name"
         value = self.browser.find_by_name('query').all()[0].value
         value |should| equal_to('default value')
-
+    
     def test_finding_all_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').all()[0]
@@ -86,6 +86,50 @@ class BaseBrowserTests(object):
         link = self.browser.find_link_by_href('http://example.com').all()[0]
         link['href'] |should| equal_to('http://example.com')
 
+##############
+    def test_finding_last_element_by_css_selector(self):
+        "should find last element by css_selector"
+        value = self.browser.find_by_css_selector('h1').last().value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_last_element_by_xpath(self):
+        "should find last element by xpath"
+        value = self.browser.find_by_xpath('//h1').last().value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_last_element_by_tag(self):
+        "should find last element by tag"
+        value = self.browser.find_by_tag('h1').last().value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_last_element_by_id(self):
+        "should find last element by id"
+        value = self.browser.find_by_id("firstheader").last().value
+        value |should| equal_to('Example Header')
+
+    def test_last_element_is_same_than_first_element_in_find_by_id(self):
+        "should first element is same than last element in find by id"
+        #a html page have contain one element by id
+        first = self.browser.find_by_id("firstheader").first().value
+        last = self.browser.find_by_id("firstheader").last().value
+        first |should| equal_to(last)
+        
+    def test_finding_last_element_by_name(self):
+        "should find last element by name"
+        value = self.browser.find_by_name('query').last().value
+        value |should| equal_to('default last value')
+
+    def test_finding_last_link_by_text(self):
+        "should find last link by text"
+        link = self.browser.find_link_by_text('Link for Example.com').last()
+        link['href'] |should| equal_to('http://example.com/last')
+    
+    def test_finding_last_link_by_href(self):
+        "should find last link by href"
+        link = self.browser.find_link_by_href('http://example.com').last()
+        link['text'] |should| equal_to('Link for last Example.com')
+
+##############
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first()
@@ -167,23 +211,23 @@ class BaseBrowserTests(object):
         "should allow to click at inputs by css selector"
         self.browser.find_by_css_selector('input[name="send"]').first().click()
         self.browser.html |should| include('My name is: Master Splinter')
-
+    
     def test_accessing_attributes_of_links(self):
         #TODO
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO').first()
         foo['href'] |should| equal_to('/foo')
-
+    
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
         button = self.browser.find_by_css_selector('input[name="send"]').first()
         button['name'] |should| equal_to('send')
-
+    
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
         header = self.browser.find_by_css_selector('h1').first()
         header['id'] |should| equal_to('firstheader')
-
+    
     def test_links_should_have_value_attribute(self):
         #TODO
         foo = self.browser.find_link_by_href('/foo').first()

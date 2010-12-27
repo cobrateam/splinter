@@ -8,3 +8,6 @@ class QueryElements(object):
     
     def first(self):
         return self.list[0]
+    
+    def last(self):
+        return self.list[-1]

@@ -10,9 +10,11 @@ EXAMPLE_HTML = """\
   </head>
   <body>
     <h1 id="firstheader">Example Header</h1>
+    <h1 id="firstheader">Example Last Header</h1>
     <form action="name" method="GET">
         <label for="query">Query</label>
         <input type="text" name="query" value="default value" />
+        <input type="text" name="query" value="default last value" />
         <label for="send">Send</label>
         <input type="submit" name="send" />
         <input type="radio" name="some-radio" value="choice" />
@@ -25,6 +27,8 @@ EXAMPLE_HTML = """\
         <input type="submit" name="upload" />
     </form>
     <a href="http://example.com">Link for Example.com</a>
+    <a href="http://example.com/last">Link for Example.com</a>
+    <a href="http://example.com">Link for last Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
     <a href="/foo">FOO</a>

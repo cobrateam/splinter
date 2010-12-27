@@ -36,7 +36,6 @@ class WebDriver(DriverAPI):
     def find_link_by_text(self, text):
         return QueryElements([WebDriverElement(element) for element in self.driver.find_elements_by_link_text(text)])
         
-
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
         return self.find_by_xpath(selector.path)

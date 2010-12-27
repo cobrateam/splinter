@@ -1,6 +1,7 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
 from splinter.finder import QueryElements
+from mechanize import AmbiguityError
 from lxml.cssselect import CSSSelector
 import lxml.html
 import mimetypes
@@ -35,12 +36,18 @@ class ZopeTestBrowser(DriverAPI):
 
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
-        element = html.xpath(xpath)[0]
-        if self._element_is_link(element):
-            return self.find_link_by_text(element.text)
-        if self._element_is_control(element):
-            return self.find_by_name(element.name)
-        return QueryElements([ZopeTestBrowserElement(element)])
+        
+        elements = []
+        
+        for xpath_element in html.xpath(xpath):
+            if self._element_is_link(xpath_element):
+                elements.append(self.find_link_by_text(xpath_element.text))
+            elif self._element_is_control(xpath_element):
+                elements.append(self.find_by_name(xpath_element.name))
+            else:
+                elements.append(xpath_element)
+                
+        return QueryElements([ZopeTestBrowserElement(element) for element in elements])
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)
@@ -49,8 +56,18 @@ class ZopeTestBrowser(DriverAPI):
         return self.find_by_xpath('//*[@id="%s"]' % id_value)
 
     def find_by_name(self, name):
-        control = self._browser.getControl(name=name)
-        return QueryElements([ZopeTestBrowserControlElement(control)])
+        elements = []
+        index = 0
+
+        while True:
+            try:
+                control = self._browser.getControl(name=name, index=index)
+                elements.append(control)
+                index += 1
+            except IndexError:
+                break
+            
+        return QueryElements([ZopeTestBrowserControlElement(element) for element in elements])
 
     def find_link_by_text(self, text):
         link = self._browser.getLink(text=text)
@@ -61,7 +78,8 @@ class ZopeTestBrowser(DriverAPI):
         return QueryElements([ZopeTestBrowserLinkElement(link)])
 
     def fill_in(self, name, value):
-        self._browser.getControl(name=name).value = value
+        self.find_by_name(name=name).first()._control.value = value
+        #self._browser.getControl(name=name).value = value
 
     def choose(self, name):
         control = self._browser.getControl(name=name)
