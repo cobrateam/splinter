@@ -1,6 +1,6 @@
 import lxml.html
 from should_dsl import should, should_not
-from fake_webapp import EXAMPLE_HTML, start_server, stop_server
+from fake_webapp import EXAMPLE_HTML, EXAMPLE_APP
 
 import shutil
 import os

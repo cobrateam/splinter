@@ -3,6 +3,8 @@ from flask import request
 from multiprocessing import Process
 from urllib import urlopen
 
+EXAMPLE_APP = "http://localhost:5000/"
+
 EXAMPLE_HTML = """\
 <html>
   <head>
@@ -73,7 +75,7 @@ def start_flask_app(host, port):
 def wait_until_start():
     while True:
         try:
-            urlopen('http://%s:%s' % (env.host, env.port))
+            urlopen('http://%s:%s/' % (env.host, env.port))
             break
         except IOError:
             pass
@@ -81,8 +83,8 @@ def wait_until_start():
 def wait_until_stop():
     while True:
         try:
-            result = urlopen('http://%s:%s' % (env.host, env.port))
-            if result.code == 404:
+            results = urlopen('http://%s:%s/' % (env.host, env.port))
+            if results.code == 404:
                 break
         except IOError:
             break
@@ -91,11 +93,11 @@ def start_server(browser):
     env.process = Process(target=start_flask_app, args=(env.host, env.port))
     env.process.daemon = True
     env.process.start()
+    wait_until_start()
     env.browser = browser
     env.browser.visit('http://'+env.host+':'+str(env.port)+'/')
-    wait_until_start()
 
 def stop_server():
-    env.process.terminate()
     env.browser.quit()
+    env.process.terminate()
     wait_until_stop()
