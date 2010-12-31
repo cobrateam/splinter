@@ -86,7 +86,6 @@ class BaseBrowserTests(object):
         link = self.browser.find_link_by_href('http://example.com').all()[0]
         link['href'] |should| equal_to('http://example.com')
 
-##############
     def test_finding_last_element_by_css_selector(self):
         "should find last element by css_selector"
         value = self.browser.find_by_css_selector('h1').last().value
@@ -129,7 +128,6 @@ class BaseBrowserTests(object):
         link = self.browser.find_link_by_href('http://example.com').last()
         link['text'] |should| equal_to('Link for last Example.com')
 
-##############
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first()
@@ -213,7 +211,6 @@ class BaseBrowserTests(object):
         self.browser.html |should| include('My name is: Master Splinter')
     
     def test_accessing_attributes_of_links(self):
-        #TODO
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO').first()
         foo['href'] |should| equal_to('/foo')
@@ -229,6 +226,5 @@ class BaseBrowserTests(object):
         header['id'] |should| equal_to('firstheader')
     
     def test_links_should_have_value_attribute(self):
-        #TODO
         foo = self.browser.find_link_by_href('/foo').first()
         foo.value |should| equal_to('FOO')

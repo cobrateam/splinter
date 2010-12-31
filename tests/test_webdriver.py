@@ -29,4 +29,3 @@ class BrowserTest(BaseBrowserTests, unittest.TestCase):
     def test_can_verify_if_a_element_is_invisible(self):
         "should provide verify if element is invisible"
         self.browser.find_by_id("invisible").first() |should_not| be_visible
-    
