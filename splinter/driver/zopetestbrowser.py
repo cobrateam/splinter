@@ -1,6 +1,6 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
-from splinter.finder import QueryElements
+from splinter.element_list import ElementList
 from mechanize import AmbiguityError
 from lxml.cssselect import CSSSelector
 import lxml.html
@@ -47,7 +47,7 @@ class ZopeTestBrowser(DriverAPI):
             else:
                 elements.append(xpath_element)
                 
-        return QueryElements([ZopeTestBrowserElement(element) for element in elements])
+        return ElementList([ZopeTestBrowserElement(element) for element in elements])
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)
@@ -67,7 +67,7 @@ class ZopeTestBrowser(DriverAPI):
             except IndexError:
                 break
             
-        return QueryElements([ZopeTestBrowserControlElement(element) for element in elements])
+        return ElementList([ZopeTestBrowserControlElement(element) for element in elements])
 
 
     def find_link_by_text(self, text):
@@ -77,7 +77,7 @@ class ZopeTestBrowser(DriverAPI):
         return self._find_links_by_xpath("//a[@href='%s']" % href)
 
     def fill_in(self, name, value):
-        self.find_by_name(name=name).first()._control.value = value
+        self.find_by_name(name=name).first._control.value = value
 
     def choose(self, name):
         control = self._browser.getControl(name=name)
@@ -98,7 +98,7 @@ class ZopeTestBrowser(DriverAPI):
         html = lxml.html.fromstring(self.html)
         links = html.xpath(xpath)
     
-        return QueryElements([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
+        return ElementList([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
 
     def _element_is_link(self, element):
         return element.tag == 'a'
