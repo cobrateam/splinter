@@ -10,6 +10,36 @@ Features
 
 - Issue #11: improve find's methods for return all/first/last elements
 
+Now the finder methods returns a QueryElements object that contains a list of all found elements.
+
+Have four ways to get elements in a QueryElements object:
+
+.all() - for get all elements
+
+::
+
+	browser.find_by_name('name').all()
+	
+.first() - for get first element
+
+::
+
+	browser.find_by_name('name').first()
+
+.last() - for get last element
+
+::
+
+	browser.find_by_name('name').last()
+
+using index
+
+::
+
+	browser.find_by_name('name')[1]
+	
+A web page should be only one id per page. Then find_by_id().all() method return always a list with one element.
+
 what's new in splinter 0.0.1?
 ================================
 
