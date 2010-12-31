@@ -128,6 +128,48 @@ class BaseBrowserTests(object):
         link = self.browser.find_link_by_href('http://example.com').last()
         link['text'] |should| equal_to('Link for last Example.com')
 
+    def test_finding_element_by_css_selector_using_slice(self):
+        "should find element by css_selector using slice"
+        value = self.browser.find_by_css_selector('h1')[-1].value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_element_by_xpath_using_slice(self):
+        "should find element by xpath using slice"
+        value = self.browser.find_by_xpath('//h1')[-1].value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_element_by_tag_using_slice(self):
+        "should find element by tag using slice"
+        value = self.browser.find_by_tag('h1')[-1].value
+        value |should| equal_to('Example Last Header')
+        
+    def test_finding_element_by_id_using_slice(self):
+        "should find element by id using slice"
+        value = self.browser.find_by_id("firstheader")[-1].value
+        value |should| equal_to('Example Header')
+
+    def test_all_elements_is_same_than_first_element_in_find_by_id(self):
+        "should all elements is same than first element in find by id"
+        #a html page have contain one element by id
+        first = self.browser.find_by_id("firstheader").first().value
+        some = self.browser.find_by_id("firstheader")[-1].value
+        first |should| equal_to(some)
+        
+    def test_finding_element_by_name_using_slice(self):
+        "should find element by name using slice"
+        value = self.browser.find_by_name('query')[-1].value
+        value |should| equal_to('default last value')
+
+    def test_finding_link_by_text_using_slice(self):
+        "should find link by text using slice"
+        link = self.browser.find_link_by_text('Link for Example.com')[-1]
+        link['href'] |should| equal_to('http://example.com/last')
+    
+    def test_finding_link_by_href_using_slice(self):
+        "should find link by href using slice"
+        link = self.browser.find_link_by_href('http://example.com')[-1]
+        link['text'] |should| equal_to('Link for last Example.com')
+
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first()

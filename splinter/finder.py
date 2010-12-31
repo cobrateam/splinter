@@ -11,3 +11,6 @@ class QueryElements(object):
     
     def last(self):
         return self.list[-1]
+
+    def __getitem__(self, key):
+        return self.list[key]
