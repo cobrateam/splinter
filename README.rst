@@ -22,6 +22,11 @@ community
 
 #cobrateam channel on irc.freenode.net
 
+splinter 0.0.2
+==============
+
+* `what's new in 0.0.2? <https://github.com/cobrateam/splinter/wiki/news>`_
+
 documentation
 =============
 
