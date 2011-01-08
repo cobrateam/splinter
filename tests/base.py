@@ -2,9 +2,6 @@ import lxml.html
 from should_dsl import should, should_not
 from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
 
-import shutil
-import os
-
 class BaseBrowserTests(object):
 
     def setUp(self):
@@ -14,7 +11,7 @@ class BaseBrowserTests(object):
         "should be able to visit, get title and quit"
         title = self.browser.title
         title |should| equal_to('Example Title')
-
+    
     def test_should_have_html(self):
         "should have access to the html"
         html = self.browser.html
@@ -106,18 +103,7 @@ class BaseBrowserTests(object):
         self.browser.find_by_name("checked-checkbox") |should_not| be_checked
     
     def test_save_and_open_page(self):
-        self.browser.save_and_open_page()
-        
-    def test_attach_file(self):
-        "should provide a way to change file field value"
-        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
-        self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').click()
-    
-        html = self.browser.html
-        html |should| include('text/plain')
-        html |should| include(open(file_path).read())
-    
+        self.browser.save_and_open_page()    
     def test_click_links(self):
         "should allow to click links"
         self.browser.find_link_by_text('FOO').click()
@@ -132,22 +118,22 @@ class BaseBrowserTests(object):
         "should allow to click at inputs by css selector"
         self.browser.find_by_css_selector('input[name="send"]').click()
         self.browser.html |should| include('My name is: Master Splinter')
-
+    
     def test_accessing_attributes_of_links(self):
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO')
         foo['href'] |should| equal_to('/foo')
-
+    
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
         button = self.browser.find_by_css_selector('input[name="send"]')
         button['name'] |should| equal_to('send')
-
+    
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
         header = self.browser.find_by_css_selector('h1')
         header['id'] |should| equal_to('firstheader')
-
+    
     def test_links_should_have_value_attribute(self):
         foo = self.browser.find_link_by_href('/foo')
         foo.value |should| equal_to('FOO')
