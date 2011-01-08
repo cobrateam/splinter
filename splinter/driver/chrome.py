@@ -81,12 +81,9 @@ class WebDriverElement(ElementAPI):
         self._element = element
 
     def _get_value(self):
-        try:
-            if self._element.get_value():
-                return self._element.get_value()
-            else:
-                return self._element.get_text()
-        except InvalidElementStateException:
+        if self._element.get_value():
+            return self._element.get_value()
+        else:
             return self._element.get_text()
 
     def _set_value(self, value):
