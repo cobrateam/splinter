@@ -1,6 +1,5 @@
-import lxml.html
 from should_dsl import should, should_not
-from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
+from fake_webapp import EXAMPLE_APP
 
 class BaseBrowserTests(object):
 
