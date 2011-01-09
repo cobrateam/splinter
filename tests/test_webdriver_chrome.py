@@ -8,7 +8,7 @@ class ChromeBrowserTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('chrome')
+        cls.browser = Browser('webdriver.chrome')
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)

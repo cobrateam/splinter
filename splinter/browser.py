@@ -1,12 +1,12 @@
-from splinter.driver.webdriver import WebDriver
-from splinter.driver.chrome import WebDriver as ChromeWebDriver
+from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
+from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
-_DRIVERS = {'webdriver': WebDriver,
+_DRIVERS = {'webdriver.firefox': FirefoxWebDriver,
             'zope.testbrowser': ZopeTestBrowser,
-            'chrome': ChromeWebDriver}
+            'webdriver.chrome': ChromeWebDriver}
 
 
-def Browser(driver_name='webdriver'):
+def Browser(driver_name='webdriver.firefox'):
     driver = _DRIVERS[driver_name]
     return driver()
