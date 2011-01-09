@@ -1,5 +1,3 @@
-import webbrowser
-
 class DriverAPI(object):
     @property
     def title(self):
@@ -22,9 +20,6 @@ class DriverAPI(object):
     def evaluate_script(self, script):
         raise NotImplementedError
 
-    def open_in_browser(self, path):
-        webbrowser.open(path)
-         
     def find_by_css_selector(self, css_selector):
         raise NotImplementedError
         
