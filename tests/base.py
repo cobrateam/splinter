@@ -102,8 +102,6 @@ class BaseBrowserTests(object):
         self.browser.uncheck("checked-checkbox")
         self.browser.find_by_name("checked-checkbox") |should_not| be_checked
     
-    def test_save_and_open_page(self):
-        self.browser.save_and_open_page()    
     def test_click_links(self):
         "should allow to click links"
         self.browser.find_link_by_text('FOO').click()
