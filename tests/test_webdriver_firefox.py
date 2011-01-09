@@ -2,7 +2,7 @@ import unittest
 from should_dsl import should
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
-from webdriver import WebDriverTests
+from base import WebDriverTests
 
 import os
 
