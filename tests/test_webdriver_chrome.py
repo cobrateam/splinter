@@ -6,12 +6,16 @@ from base import BaseBrowserTests
 
 class ChromeBrowserTest(BaseBrowserTests, unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser('chrome')
+
     def setUp(self):
-        self.browser = Browser('chrome')
         self.browser.visit(EXAMPLE_APP)
 
-    def tearDown(self):
-        self.browser.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
         
     def test_can_execute_javascript(self):
         "should execute javascript"

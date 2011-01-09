@@ -8,12 +8,16 @@ import os
 
 class BrowserTest(BaseBrowserTests, unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser()
+
     def setUp(self):
-        self.browser = Browser()
         self.browser.visit(EXAMPLE_APP)
 
-    def tearDown(self):
-        self.browser.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
         
     def test_can_execute_javascript(self):
         "should execute javascript"
