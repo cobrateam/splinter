@@ -12,7 +12,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium
+	@python -c 'import selenium' 2>/dev/null || pip install https://github.com/winhamwr/selenium/tarball/master
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask
