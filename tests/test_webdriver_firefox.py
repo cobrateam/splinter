@@ -6,7 +6,7 @@ from base import BaseBrowserTests
 
 import os
 
-class BrowserTest(BaseBrowserTests, unittest.TestCase):
+class FirefoxBrowserTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
