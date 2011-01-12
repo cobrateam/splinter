@@ -1,4 +1,11 @@
-splinter - Python acceptance testing for web applications 
+splinter - python acceptance testing for web applications 
+=========================================================
+
+install
+=======
+
+::
+	$ [sudo] pip instal splinter
 
 development
 ===========
@@ -35,6 +42,14 @@ To use splinter you need create a Browser instance:
     from splinter.browser import Browser
     browser = Browser()
 
+
+splinter support three drivers: chrome, firefox and zopetestbrowser
+
+::
+	browser = Browser('webdriver.chrome')
+	browser = Browser('webdriver.firefox')
+	browser = Browser('zope.testbrowser')
+	
 Navigating with Browser.visit
 -----------------------------
 
@@ -117,6 +132,23 @@ or
 
     element = browser.find_by_css_selector('h1')
     element.value
+
+
+Clicking links and buttons
+--------------------------
+
+You can click in links and buttons. splinter follows any redirects, and submits forms associated with buttons.
+
+::
+
+	browser.find_by_name('send').click()
+	
+or
+
+::
+
+	browser.find_link_by_text('my link').click()
+	
     
 Interacting with forms
 ----------------------
