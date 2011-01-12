@@ -5,6 +5,7 @@ install
 =======
 
 ::
+
 	$ [sudo] pip instal splinter
 
 development
@@ -46,6 +47,7 @@ To use splinter you need create a Browser instance:
 splinter support three drivers: chrome, firefox and zopetestbrowser
 
 ::
+
 	browser = Browser('webdriver.chrome')
 	browser = Browser('webdriver.firefox')
 	browser = Browser('zope.testbrowser')
