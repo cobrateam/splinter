@@ -1,5 +1,8 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 splinter - python acceptance testing for web applications 
-=========================================================
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+`what's new in splinter 0.0.2? <http://splinter.cobrateam.info/news.html>`_
 
 install
 =======
