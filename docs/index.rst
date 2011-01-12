@@ -9,7 +9,7 @@ install
 
 ::
 
-	$ [sudo] pip instal splinter
+	$ [sudo] pip install splinter
 
 development
 ===========
