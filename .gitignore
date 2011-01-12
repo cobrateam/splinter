@@ -7,3 +7,4 @@ selenium-*.egg
 splinter.egg-info
 .coverage
 distribute-*.egg
+docs/_build/*
