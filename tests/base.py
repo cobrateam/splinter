@@ -1,9 +1,5 @@
-import lxml.html
 from should_dsl import should, should_not
-from fake_webapp import EXAMPLE_APP, EXAMPLE_HTML
-
-import shutil
-import os
+from fake_webapp import EXAMPLE_APP
 
 class BaseBrowserTests(object):
 
@@ -20,32 +16,32 @@ class BaseBrowserTests(object):
         html = self.browser.html
         html |should| include('<title>Example Title</title>')
         html |should| include('<h1 id="firstheader">Example Header</h1>')
-    
+
     def test_should_have_url(self):
         "should have access to the url"
         url = self.browser.url
         url |should| equal_to(EXAMPLE_APP)
-        
+
     def test_finding_by_css_selector(self):
         "should find elements by css_selector"
         value = self.browser.find_by_css_selector('h1').first.value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_by_xpath(self):
         "should find elements by xpath"
         value = self.browser.find_by_xpath('//h1').first.value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_by_tag(self):
         "should find elements by tag"
         value = self.browser.find_by_tag('h1').first.value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_by_id(self):
         "should find elements by id"
         value = self.browser.find_by_id("firstheader").first.value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_by_name(self):
         "should find elements by name"
         value = self.browser.find_by_name('query').first.value
@@ -174,36 +170,52 @@ class BaseBrowserTests(object):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first
         link['href'] |should| equal_to('http://example.com')
-    
+
     def test_finding_links_by_href(self):
         "should find links by href"
         link = self.browser.find_link_by_href('http://example.com').first
         link['href'] |should| equal_to('http://example.com')
-    
+
     def test_can_change_field_value(self):
         "should provide a away to change field value"
         self.browser.fill_in('query', 'new query')
         value = self.browser.find_by_name('query').first.value
         value |should| equal_to('new query')
-    
+
     def test_submiting_a_form_and_verifying_page_content(self):
         "should be able search a term in google and verifying if content expected exists"
         self.browser.fill_in('query', 'my name')
         self.browser.find_by_name('send').first.click()
         self.browser.html |should| include('My name is: Master Splinter')
-        
+
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
         self.browser.find_by_name("some-radio").first |should_not| be_checked
         self.browser.choose("some-radio")
         self.browser.find_by_name("some-radio").first |should| be_checked
         
+    def test_can_find_option_by_value(self):
+        "should provide a way to find select option by value"
+        self.browser.find_option_by_value("rj").text |should| equal_to("Rio de Janeiro")
+
+    def test_can_find_option_by_text(self):
+        "should provide a way to find select option by text"
+        self.browser.find_option_by_text("Rio de Janeiro").value |should| equal_to("rj")
+
+    def test_can_select_a_option(self):
+        
+        "shoul provide a way to select a option"
+        self.browser.find_option_by_value("rj") |should_not| be_selected
+        self.browser.select("uf", "rj")
+        self.browser.find_option_by_value("rj") |should| be_selected
+
     def test_can_check_a_checkbox(self):
         "should provide a way to check a radio checkbox"
         self.browser.find_by_name("some-check").first |should_not| be_checked
         self.browser.check("some-check")
         self.browser.find_by_name("some-check").first |should| be_checked
-    
+
+
     def test_check_keeps_checked_if_called_multiple_times(self):
         "should keep a checkbox checked if check() is called multiple times"
         self.browser.find_by_name("some-check").first |should_not| be_checked
@@ -224,29 +236,16 @@ class BaseBrowserTests(object):
         self.browser.uncheck("checked-checkbox")
         self.browser.find_by_name("checked-checkbox").first |should_not| be_checked
     
-    def test_save_and_open_page(self):
-        self.browser.save_and_open_page()
-        
-    def test_attach_file(self):
-        "should provide a way to change file field value"
-        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
-        self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').first.click()
-    
-        html = self.browser.html
-        html |should| include('text/plain')
-        html |should| include(open(file_path).read())
-    
     def test_click_links(self):
         "should allow to click links"
         self.browser.find_link_by_text('FOO').first.click()
         self.browser.html |should| include('BAR!')
-    
+
     def test_click_element_by_css_selector(self):
         "should allow to click at elements by css selector"
         self.browser.find_by_css_selector('a[href="/foo"]').first.click()
         self.browser.html |should| include('BAR!')
-    
+
     def test_click_input_by_css_selector(self):
         "should allow to click at inputs by css selector"
         self.browser.find_by_css_selector('input[name="send"]').first.click()
@@ -270,3 +269,22 @@ class BaseBrowserTests(object):
     def test_links_should_have_value_attribute(self):
         foo = self.browser.find_link_by_href('/foo').first
         foo.value |should| equal_to('FOO')
+
+class WebDriverTests(BaseBrowserTests):
+
+    def test_can_execute_javascript(self):
+        "should execute javascript"
+        self.browser.execute_script("$('body').empty()")
+        self.browser.find_by_tag("body") == ""
+
+    def test_can_evaluate_script(self):
+        "should evaluate script"
+        assert self.browser.evaluate_script("4+4") == 8
+
+    def test_can_verify_if_a_element_is_visible(self):
+        "should provide verify if element is visible"
+        self.browser.find_by_id("visible").first |should| be_visible
+
+    def test_can_verify_if_a_element_is_invisible(self):
+        "should provide verify if element is invisible"
+        self.browser.find_by_id("invisible").first |should_not| be_visible

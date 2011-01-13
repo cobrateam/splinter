@@ -1,8 +1,3 @@
-import os
-import tempfile
-import webbrowser
-
-
 class DriverAPI(object):
     @property
     def title(self):
@@ -25,15 +20,6 @@ class DriverAPI(object):
     def evaluate_script(self, script):
         raise NotImplementedError
 
-    def open_in_browser(self, path):
-        webbrowser.open(path)
-        
-    def save_and_open_page(self):
-        filepath = tempfile.mktemp(prefix='splinter')
-        with open(filepath, 'w') as temp:
-            temp.write(self.html)
-        self.open_in_browser(filepath)
-         
     def find_by_css_selector(self, css_selector):
         raise NotImplementedError
         

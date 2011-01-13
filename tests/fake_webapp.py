@@ -21,6 +21,10 @@ EXAMPLE_HTML = """\
         <input type="radio" name="other-radio" value="other-choice" />
         <input type="checkbox" name="some-check" value="choice" />
         <input type="checkbox" name="checked-checkbox" value="choosed" checked="checked" />
+        <select name="uf">
+            <option value="mt">Mato Grosso</option>
+            <option value="rj">Rio de Janeiro</option>
+        </select>
     </form>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <input type="file" name="file"> 

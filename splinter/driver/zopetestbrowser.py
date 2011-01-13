@@ -29,7 +29,19 @@ class ZopeTestBrowser(DriverAPI):
     @property
     def url(self):
         return self._browser.url
-  
+
+    def find_option_by_value(self, value):
+        html = lxml.html.fromstring(self.html)
+        element = html.xpath('//option[@value="%s"]' % value)[0]
+        control = self._browser.getControl(element.text)
+        return ZopeTestBrowserOptionElement(control)
+
+    def find_option_by_text(self, text):
+        html = lxml.html.fromstring(self.html)
+        element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
+        control = self._browser.getControl(element.text)
+        return ZopeTestBrowserOptionElement(control)
+
     def find_by_css_selector(self, selector):
         xpath = CSSSelector(selector).path
         return self.find_by_xpath(xpath)
@@ -99,13 +111,15 @@ class ZopeTestBrowser(DriverAPI):
         links = html.xpath(xpath)
     
         return ElementList([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
+    
+    def select(self, name, value):
+        self.find_by_name(name)._control.value = [value,]
 
     def _element_is_link(self, element):
         return element.tag == 'a'
 
     def _element_is_control(self, element):
         return hasattr(element, 'type')
-
 
 class ZopeTestBrowserElement(ElementAPI):
     
@@ -152,3 +166,23 @@ class ZopeTestBrowserControlElement(ElementAPI):
 
     def click(self):
         return self._control.click()
+
+class ZopeTestBrowserOptionElement(ElementAPI):
+    
+    def __init__(self, control):
+        self._control = control
+        
+    def __getitem__(self, attr):
+        return self._control.mech_item.attrs[attr]
+    
+    @property
+    def text(self):
+        return self._control.mech_item.get_labels()[0]._text
+        
+    @property
+    def value(self):
+        return self._control.optionValue
+        
+    @property
+    def selected(self):
+        return self._control.mech_item._selected
