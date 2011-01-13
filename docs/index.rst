@@ -165,6 +165,7 @@ Interacting with forms
     browser.choose('some-radio')
     browser.check('some-check')
     browser.uncheck('some-check')
+	browser.select('uf', 'rj')
     
 Verifying if element is visible or invisible
 --------------------------------------------

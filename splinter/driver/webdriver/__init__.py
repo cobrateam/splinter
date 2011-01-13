@@ -28,6 +28,12 @@ class BaseWebDriver(DriverAPI):
 
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
+    
+    def find_option_by_value(self, value):
+        return self.find_by_xpath('//option[@value="%s"]' % value)
+
+    def find_option_by_text(self, text):
+        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text)
 
     def find_link_by_href(self, href):
         return self.find_by_xpath('//a[@href="%s"]' % href)
@@ -68,6 +74,9 @@ class BaseWebDriver(DriverAPI):
     def uncheck(self, name):
         field = self.find_by_name(name)
         field.uncheck()
+    
+    def select(self, name, value):
+        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value))._element.set_selected()
 
     def quit(self):
         self.driver.quit()
@@ -89,7 +98,11 @@ class WebDriverElement(ElementAPI):
         self._element.send_keys(value)
 
     value = property(_get_value, _set_value)
-
+    
+    @property
+    def text(self):
+        return self._element.get_text()
+                
     def click(self):
         self._element.click()
 
@@ -104,6 +117,8 @@ class WebDriverElement(ElementAPI):
     @property
     def checked(self):
         return self._element.is_selected()
+    
+    selected = checked
 
     @property
     def visible(self):

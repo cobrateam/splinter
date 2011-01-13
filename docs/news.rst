@@ -9,6 +9,7 @@ Features
 -----------------
 
 - support to google chrome selenium 2 driver
+- form interactions now support select
 
 Backward incompatible changes
 -----------------------------
