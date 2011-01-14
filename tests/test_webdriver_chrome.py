@@ -1,21 +1,17 @@
 import unittest
 from should_dsl import should
 from splinter.browser import Browser
-from fake_webapp import EXAMPLE_APP
+from fake_webapp import start_server, stop_server
 from base import WebDriverTests
 
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser('webdriver.chrome')
-
     def setUp(self):
-        self.browser.visit(EXAMPLE_APP)
+        self.browser = Browser('webdriver.chrome')
+        start_server(self.browser)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+    def tearDown(self):
+        stop_server()
 
     def test_attach_file_is_not_implemented(self):
         "attach file is no implemented for chrome driver"
