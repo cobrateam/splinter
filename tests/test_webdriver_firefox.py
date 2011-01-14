@@ -1,19 +1,23 @@
 import unittest
 from should_dsl import should
 from splinter.browser import Browser
-from fake_webapp import start_server, stop_server
+from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
 import os
 
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
-    def setUp(self):
-        self.browser = Browser()
-        start_server(self.browser)
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser('webdriver.firefox')
 
-    def tearDown(self):
-        stop_server()
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
 
     def test_attach_file(self):
         "should provide a way to change file field value"

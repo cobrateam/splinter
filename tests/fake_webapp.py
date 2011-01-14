@@ -79,7 +79,7 @@ def start_flask_app(host, port):
 def wait_until_start():
     while True:
         try:
-            urlopen('http://%s:%s/' % (env.host, env.port))
+            urlopen(EXAMPLE_APP)
             break
         except IOError:
             pass
@@ -87,21 +87,18 @@ def wait_until_start():
 def wait_until_stop():
     while True:
         try:
-            results = urlopen('http://%s:%s/' % (env.host, env.port))
+            results = urlopen(EXAMPLE_APP)
             if results.code == 404:
                 break
         except IOError:
             break
 
-def start_server(browser):
+def start_server():
     env.process = Process(target=start_flask_app, args=(env.host, env.port))
     env.process.daemon = True
     env.process.start()
     wait_until_start()
-    env.browser = browser
-    env.browser.visit('http://'+env.host+':'+str(env.port)+'/')
 
 def stop_server():
-    env.browser.quit()
     env.process.terminate()
     wait_until_stop()
