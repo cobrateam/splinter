@@ -10,7 +10,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser()
+        cls.browser = Browser('webdriver.firefox')
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)

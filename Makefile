@@ -12,7 +12,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install https://github.com/winhamwr/selenium/tarball/master
+	@python -c 'import selenium' 2>/dev/null || pip install https://github.com/cobrateam/selenium/tarball/master
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask
@@ -28,7 +28,5 @@ zopetestbrowser:
 
 test: dependencies clean
 	@echo "Running all tests..."
-	python tests/fake_webapp.py &
 	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
-	kill -9 `ps aux | grep 'python tests/fake_webapp.py' | grep -v grep | awk '{print $$2}'`
 
