@@ -196,18 +196,18 @@ class BaseBrowserTests(object):
         
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
-        self.browser.find_option_by_value("rj").text |should| equal_to("Rio de Janeiro")
+        self.browser.find_option_by_value("rj").first.text |should| equal_to("Rio de Janeiro")
 
     def test_can_find_option_by_text(self):
         "should provide a way to find select option by text"
-        self.browser.find_option_by_text("Rio de Janeiro").value |should| equal_to("rj")
+        self.browser.find_option_by_text("Rio de Janeiro").first.value |should| equal_to("rj")
 
     def test_can_select_a_option(self):
         
         "shoul provide a way to select a option"
-        self.browser.find_option_by_value("rj") |should_not| be_selected
+        self.browser.find_option_by_value("rj").first |should_not| be_selected
         self.browser.select("uf", "rj")
-        self.browser.find_option_by_value("rj") |should| be_selected
+        self.browser.find_option_by_value("rj").first |should| be_selected
 
     def test_can_check_a_checkbox(self):
         "should provide a way to check a radio checkbox"
