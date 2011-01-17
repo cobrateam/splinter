@@ -34,13 +34,13 @@ class ZopeTestBrowser(DriverAPI):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
-        return ZopeTestBrowserOptionElement(control)
+        return ElementList([ZopeTestBrowserOptionElement(control)])
 
     def find_option_by_text(self, text):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
-        return ZopeTestBrowserOptionElement(control)
+        return ElementList([ZopeTestBrowserOptionElement(control)])
 
     def find_by_css_selector(self, selector):
         xpath = CSSSelector(selector).path
@@ -113,7 +113,7 @@ class ZopeTestBrowser(DriverAPI):
         return ElementList([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
     
     def select(self, name, value):
-        self.find_by_name(name)._control.value = [value,]
+        self.find_by_name(name).first._control.value = [value,]
 
     def _element_is_link(self, element):
         return element.tag == 'a'
