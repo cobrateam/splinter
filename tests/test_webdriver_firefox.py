@@ -23,7 +23,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         "should provide a way to change file field value"
         file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
         self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').click()
+        self.browser.find_by_name('upload').first.click()
 
         html = self.browser.html
         html |should| include('text/plain')

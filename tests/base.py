@@ -122,7 +122,7 @@ class BaseBrowserTests(object):
     def test_finding_last_link_by_href(self):
         "should find last link by href"
         link = self.browser.find_link_by_href('http://example.com').last
-        link['text'] |should| equal_to('Link for last Example.com')
+        link.text |should| equal_to('Link for last Example.com')
     
     def test_finding_element_by_css_selector_using_slice(self):
         "should find element by css_selector using slice"
@@ -164,7 +164,7 @@ class BaseBrowserTests(object):
     def test_finding_link_by_href_using_slice(self):
         "should find link by href using slice"
         link = self.browser.find_link_by_href('http://example.com')[-1]
-        link['text'] |should| equal_to('Link for last Example.com')
+        link.text |should| equal_to('Link for last Example.com')
     
     def test_finding_links_by_text(self):
         "should find links by text"
@@ -204,7 +204,7 @@ class BaseBrowserTests(object):
 
     def test_can_select_a_option(self):
         
-        "shoul provide a way to select a option"
+        "should provide a way to select a option"
         self.browser.find_option_by_value("rj").first |should_not| be_selected
         self.browser.select("uf", "rj")
         self.browser.find_option_by_value("rj").first |should| be_selected

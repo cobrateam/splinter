@@ -76,7 +76,7 @@ class BaseWebDriver(DriverAPI):
         field.uncheck()
     
     def select(self, name, value):
-        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value))._element.set_selected()
+        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.set_selected()
 
     def quit(self):
         self.driver.quit()
