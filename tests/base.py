@@ -198,6 +198,10 @@ class BaseBrowserTests(object):
         "should provide a way to find select option by value"
         self.browser.find_option_by_value("rj").first.text |should| equal_to("Rio de Janeiro")
 
+    def test_can_get_value_attribute_for_a_option(self):
+        "should option have a value attribute"
+        self.browser.find_option_by_value("rj").first["value"] |should| equal_to("rj")
+
     def test_can_find_option_by_text(self):
         "should provide a way to find select option by text"
         self.browser.find_option_by_text("Rio de Janeiro").first.value |should| equal_to("rj")

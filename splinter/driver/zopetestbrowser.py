@@ -141,8 +141,6 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
         super(ZopeTestBrowserLinkElement, self).__init__(element)
     
     def __getitem__(self, attr):
-        if attr == 'text':
-            return self._element.text
         return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
     
     def __getattr__(self, attr):
