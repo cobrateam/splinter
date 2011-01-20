@@ -61,7 +61,8 @@ class BaseWebDriver(DriverAPI):
         field = self.find_by_name(name).first
         field.value = value
 
-    attach_file = fill_in
+    fill = fill_in
+    attach_file = fill
 
     def choose(self, name):
         field = self.find_by_name(name).first

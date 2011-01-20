@@ -90,6 +90,8 @@ class ZopeTestBrowser(DriverAPI):
 
     def fill_in(self, name, value):
         self.find_by_name(name=name).first._control.value = value
+    
+    fill = fill_in
 
     def choose(self, name):
         control = self._browser.getControl(name=name)

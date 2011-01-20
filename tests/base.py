@@ -178,13 +178,13 @@ class BaseBrowserTests(object):
 
     def test_can_change_field_value(self):
         "should provide a away to change field value"
-        self.browser.fill_in('query', 'new query')
+        self.browser.fill('query', 'new query')
         value = self.browser.find_by_name('query').first.value
         value |should| equal_to('new query')
 
     def test_submiting_a_form_and_verifying_page_content(self):
         "should be able search a term in google and verifying if content expected exists"
-        self.browser.fill_in('query', 'my name')
+        self.browser.fill('query', 'my name')
         self.browser.find_by_name('send').first.click()
         self.browser.html |should| include('My name is: Master Splinter')
 
