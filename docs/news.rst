@@ -8,6 +8,7 @@ what's new in splinter 0.0.2?
 Features
 -----------------
 
+- fill instead of fill_in to fill inputs
 - support to google chrome selenium 2 driver
 - form interactions now support select
 - issue #11: improve find's methods to return all/first/last elements

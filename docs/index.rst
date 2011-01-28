@@ -191,7 +191,7 @@ Interacting with forms
 
 ::
 
-    browser.fill_in('query', 'my name')
+    browser.fill('query', 'my name')
     browser.attach_file('file', '/path/to/file/somefile.jpg')    
     browser.choose('some-radio')
     browser.check('some-check')
