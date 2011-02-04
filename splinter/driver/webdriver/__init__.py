@@ -2,6 +2,7 @@ from selenium.remote.errorhandler import InvalidElementStateException
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
+import time
 
 class BaseWebDriver(DriverAPI):
 
@@ -78,6 +79,14 @@ class BaseWebDriver(DriverAPI):
     
     def select(self, name, value):
         self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.set_selected()
+
+    def wait_for_xpath(self, xpath, timeout=5, poll_interval=0.5):
+        end_wait_time = time.time() + timeout
+        while time.time() < end_wait_time:
+            result = self.find_by_xpath(xpath)
+            if result: return result
+            time.sleep(poll_interval)
+        return False
 
     def quit(self):
         self.driver.quit()
