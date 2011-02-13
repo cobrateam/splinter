@@ -40,6 +40,9 @@ class DriverAPI(object):
 
     def find_link_by_text(self, text):
         raise NotImplementedError
+    
+    def wait_for_element(self, selector, timeout, interval):
+        raise NotImplementedError
 
     def fill_in(self, name, value):
         raise NotImplementedError
