@@ -7,6 +7,12 @@ splinter - Python acceptance testing for web applications
 
 `splinter documentation <http://splinter.cobrateam.info>`_
 
+external links
+--------------
+
+`Django Full Stack Testing and BDD with Lettuce and Splinter <http://cilliano.com/blog/2011/02/07/django-bdd-with-lettuce-and-splinter/>`_
+`Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
+
 install
 =======
 
