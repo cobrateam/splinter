@@ -1,4 +1,4 @@
-from selenium.firefox.webdriver import WebDriver as firefox_driver
+from selenium.webdriver.firefox.webdriver import WebDriver as firefox_driver
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
 
 class WebDriver(BaseWebDriver):

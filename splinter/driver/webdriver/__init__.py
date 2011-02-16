@@ -1,7 +1,7 @@
-from selenium.remote.errorhandler import InvalidElementStateException
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
+from selenium.webdriver.common.exceptions import WebDriverException
 
 import time 
 
@@ -12,7 +12,7 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def title(self):
-        return self.driver.get_title()
+        return self.driver.title
 
     @property
     def html(self):
@@ -20,7 +20,7 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def url(self):
-        return self.driver.get_current_url()
+        return self.driver.current_url
 
     def visit(self, url):
         self.driver.get(url)
@@ -88,7 +88,7 @@ class BaseWebDriver(DriverAPI):
         field.uncheck()
     
     def select(self, name, value):
-        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.set_selected()
+        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.select()
 
     def quit(self):
         self.driver.quit()
@@ -101,9 +101,9 @@ class WebDriverElement(ElementAPI):
 
     def _get_value(self):
         try:
-            return self._element.get_value()
-        except InvalidElementStateException:
-            return self._element.get_text()
+            return self._element.value
+        except WebDriverException:
+            return self._element.text
 
     def _set_value(self, value):
         self._element.clear()
@@ -113,7 +113,7 @@ class WebDriverElement(ElementAPI):
     
     @property
     def text(self):
-        return self._element.get_text()
+        return self._element.text
                 
     def click(self):
         self._element.click()

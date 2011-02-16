@@ -299,6 +299,5 @@ class WebDriverTests(BaseBrowserTests):
 
     def test_wait_for_element_not_exists(self):
         "should wait for element not exists"
-        self.browser.wait_for_element(selector='h2', timeout=2) |should_not| be(True)
-      
+        self.browser.wait_for_element(selector='h2', timeout=2) |should_not| be(True)      
     
