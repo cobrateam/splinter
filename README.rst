@@ -18,6 +18,14 @@ external links
 install
 =======
 
+splinter 0.0.3 requires selenium 2.0b2. for update your selenium, you can run:
+
+::
+
+	$ [sudo] pip install -U selenium
+
+and for install splinter
+
 ::
 
 	$ [sudo] pip install splinter
