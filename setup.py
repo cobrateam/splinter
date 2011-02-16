@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 README = open('README.rst').read()
 
 setup(name='splinter',
-      version='0.0.2',
+      version='0.0.3dev',
       description='browser abstraction for web acceptance testing',
       long_description=README,
       author='CobraTeam',
@@ -12,6 +12,6 @@ setup(name='splinter',
       packages=find_packages(),
       include_package_data=True,
       test_suite='nose.collector',
-      install_requires=['selenium', 'zope.testbrowser', 'lxml'],
+      install_requires=['selenium==2.0b2', 'zope.testbrowser', 'lxml'],
       tests_require=['nose', 'coverage', 'ludibrio', 'flask'],
       )
