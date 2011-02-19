@@ -14,7 +14,7 @@ Features
 Backward incompatible changes
 -----------------------------
 
-- you should be update your selenium to 2.0b2 version
+- you should update your selenium to 2.0b2 version
 
 what's new in splinter 0.0.2?
 =============================
