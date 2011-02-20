@@ -292,15 +292,7 @@ class WebDriverTests(BaseBrowserTests):
     def test_can_verify_if_a_element_is_invisible(self):
         "should provide verify if element is invisible"
         self.browser.find_by_id("invisible").first |should_not| be_visible
-        
-    def test_wait_for_element_visible_in_browser(self):
-        "should wait for element visible in browser"
-        self.browser.wait_for_element(selector="h1", timeout=2) |should| be(True)
-    
-    def test_wait_for_element_not_exists(self):
-        "should wait for element not exists"
-        self.browser.wait_for_element(selector='h2', timeout=2) |should_not| be(True)
-    
+            
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
         self.browser.wait_time |should| be(2)

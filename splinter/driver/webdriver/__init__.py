@@ -131,15 +131,6 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_tag(self, tag):
         return ElementList([self.element_class(element) for element in self.driver.find_elements_by_tag_name(tag)])
-        
-    def wait_for_element(self, selector, timeout=5, interval=0.5):
-        end_time = time.time() + timeout
-        while time.time() < end_time:
-            result = self.find_by_css_selector(selector)
-            if result:
-                return True
-            time.sleep(interval)
-        return False
 
     def fill_in(self, name, value):
         field = self.find_by_name(name).first
