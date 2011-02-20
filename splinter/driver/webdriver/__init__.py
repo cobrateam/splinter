@@ -45,6 +45,16 @@ class BaseWebDriver(DriverAPI):
         
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
+        
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+                
+        while time.time() < end_time:
+            result = self.find_by_xpath(selector.path)
+            if result:
+                return self.find_by_xpath(selector.path)
+            time.sleep(interval)
         return self.find_by_xpath(selector.path)
 
     def find_by_xpath(self, xpath):

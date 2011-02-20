@@ -10,6 +10,14 @@ EXAMPLE_HTML = """\
   <head>
     <title>Example Title</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $(".add-async-element").click(function() {
+                setTimeout (function() {$('body').append('<div class=\"async-element\">async elment</div>');}, 2000 );
+                
+           }); 
+        });
+    </script>
   </head>
   <body>
     <h1 id="firstheader">Example Header</h1>
@@ -39,6 +47,7 @@ EXAMPLE_HTML = """\
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
     <a href="/foo">FOO</a>
+    <a class='add-async-element' href="#">add async element</a>
   </body>
 </html>"""
 
