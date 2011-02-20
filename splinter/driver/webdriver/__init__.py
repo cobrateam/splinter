@@ -1,14 +1,14 @@
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from selenium.webdriver.common.exceptions import WebDriverException
+from selenium.webdriver.common.exceptions import WebDriverException, NoSuchElementException
 
 import time 
 
 class BaseWebDriver(DriverAPI):
 
     def __init__(self):
-        raise NotImplementedError
+        self.wait_time = 2
 
     @property
     def title(self):
@@ -30,6 +30,125 @@ class BaseWebDriver(DriverAPI):
 
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
+        
+    def is_element_present_by_css_selector(self, css_selector):
+        selector = CSSSelector(css_selector)
+        
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if self.find_by_xpath(selector.path):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_not_present_by_css_selector(self, css_selector):
+        selector = CSSSelector(css_selector)
+        
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if not self.find_by_xpath(selector.path):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_present_by_xpath(self, xpath):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if self.find_by_xpath(xpath):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_not_present_by_xpath(self, xpath):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if not self.find_by_xpath(xpath):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_present_by_tag(self, tag):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if self.find_by_tag(tag):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_not_present_by_tag(self, tag):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if not self.find_by_tag(tag):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_present_by_id(self, id):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            try:
+                self.find_by_id(id)
+                return True
+            except NoSuchElementException:
+                pass
+            time.sleep(interval)
+        return False
+
+    def is_element_not_present_by_id(self, id):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            try:
+                self.find_by_id(id)
+            except NoSuchElementException:
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_present_by_name(self, name):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if self.find_by_name(name):
+                return True
+            time.sleep(interval)
+        return False
+
+    def is_element_not_present_by_name(self, name):
+        timeout = 25
+        interval = 0.5
+        end_time = time.time() + timeout
+            
+        while time.time() < end_time:
+            if not self.find_by_name(name):
+                return True
+            time.sleep(interval)
+        return False
     
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value)

@@ -7,6 +7,8 @@ class WebDriver(BaseWebDriver):
     def __init__(self):
         self.driver = chrome_driver()
         self.element_class = WebDriverElement
+        
+        super(WebDriver, self).__init__()
 
     def attach_file(self, name, value):
         raise NotImplementedError

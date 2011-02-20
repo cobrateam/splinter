@@ -6,3 +6,5 @@ class WebDriver(BaseWebDriver):
     def __init__(self):
         self.driver = firefox_driver()
         self.element_class = WebDriverElement
+
+        super(WebDriver, self).__init__()

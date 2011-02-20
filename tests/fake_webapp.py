@@ -13,8 +13,16 @@ EXAMPLE_HTML = """\
     <script type="text/javascript">
         $(document).ready(function() {
            $(".add-async-element").click(function() {
-                setTimeout (function() {$('body').append('<div class=\"async-element\">async elment</div>');}, 2000 );
-                
+                setTimeout(function() {
+                    $('body').append('<h4 id="async-header" class="async-element">async elment</h4>');
+                    $('body').append('<input type="text" name="async-input" class="async-input" />');
+                }, 2000 );
+           });
+           $(".remove-async-element").click(function() {
+                setTimeout(function() {
+                    $('.async-element').remove();
+                    $('.async-input').remove();
+                }, 2000 );
            }); 
         });
     </script>
@@ -48,6 +56,7 @@ EXAMPLE_HTML = """\
     <div id="invisible" style="display:none">invisible</div>
     <a href="/foo">FOO</a>
     <a class='add-async-element' href="#">add async element</a>
+    <a class='remove-async-element' href="#">remove async element</a>
   </body>
 </html>"""
 
