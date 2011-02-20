@@ -301,11 +301,6 @@ class WebDriverTests(BaseBrowserTests):
         "should wait for element not exists"
         self.browser.wait_for_element(selector='h2', timeout=2) |should_not| be(True)
     
-    def test_find_by_css_selector_should_be_wait_elements(self):
-        "should find by css selector should be wait elements"
-        self.browser.find_by_css_selector('.add-async-element').first.click()
-        self.browser.find_by_css_selector('.async-element').first.value | should | equal_to('async elment')
-
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
         self.browser.wait_time |should| be(2)
