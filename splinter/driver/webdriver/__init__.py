@@ -33,24 +33,20 @@ class BaseWebDriver(DriverAPI):
         
     def is_element_present(self, finder, selector):
         timeout = 25
-        interval = 0.5
         end_time = time.time() + timeout
             
         while time.time() < end_time:
             if finder(selector):
                 return True
-            time.sleep(interval)
         return False
 
     def is_element_not_present(self, finder, selector):
         timeout = 25
-        interval = 0.5
         end_time = time.time() + timeout
             
         while time.time() < end_time:
             if not finder(selector):
                 return True
-            time.sleep(interval)
         return False
         
     def is_element_present_by_css_selector(self, css_selector):
@@ -79,7 +75,6 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_present_by_id(self, id):
         timeout = 25
-        interval = 0.5
         end_time = time.time() + timeout
             
         while time.time() < end_time:
@@ -88,12 +83,10 @@ class BaseWebDriver(DriverAPI):
                 return True
             except NoSuchElementException:
                 pass
-            time.sleep(interval)
         return False
 
     def is_element_not_present_by_id(self, id):
         timeout = 25
-        interval = 0.5
         end_time = time.time() + timeout
             
         while time.time() < end_time:
@@ -101,7 +94,6 @@ class BaseWebDriver(DriverAPI):
                 self.find_by_id(id)
             except NoSuchElementException:
                 return True
-            time.sleep(interval)
         return False
             
     def find_option_by_value(self, value):
