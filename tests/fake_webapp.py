@@ -16,13 +16,13 @@ EXAMPLE_HTML = """\
                 setTimeout(function() {
                     $('body').append('<h4 id="async-header" class="async-element">async elment</h4>');
                     $('body').append('<input type="text" name="async-input" class="async-input" />');
-                }, 2000 );
+                }, 1200 );
            });
            $(".remove-async-element").click(function() {
                 setTimeout(function() {
                     $('.async-element').remove();
                     $('.async-input').remove();
-                }, 2000 );
+                }, 1200 );
            }); 
         });
     </script>
