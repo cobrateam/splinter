@@ -9,7 +9,7 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
            $(".add-async-element").click(function() {
@@ -23,7 +23,15 @@ EXAMPLE_HTML = """\
                     $('.async-element').remove();
                     $('.async-input').remove();
                 }, 1200 );
-           }); 
+           });
+           $(".add-element-mouseover").mouseover(function () {
+                $('body').append('<label for="what-is-your-name" class='over-label'>What is your name?</label>');
+                $('body').append('<input type="text" id="what-is-your-name" class="over-input" name="whatsname" />');
+           });
+           $(".add-element-mouseover").mouseout(function () {
+                $('.over-label).remove();
+                $('.over-input).remove();
+           });
         });
     </script>
   </head>
@@ -57,6 +65,7 @@ EXAMPLE_HTML = """\
     <a href="/foo">FOO</a>
     <a class='add-async-element' href="#">add async element</a>
     <a class='remove-async-element' href="#">remove async element</a>
+    <a class='add-element-on-mouseover' href="#">addelement (mouseover)</a>
   </body>
 </html>"""
 
