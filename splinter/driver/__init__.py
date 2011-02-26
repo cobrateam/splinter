@@ -82,6 +82,9 @@ class ElementAPI(object):
     def uncheck(self):
         raise NotImplementedError
 
+    def mouseover(self):
+        raise NotImplementedError
+
     @property
     def checked(self):
         raise NotImplementedError
