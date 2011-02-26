@@ -7,8 +7,8 @@ import time
 
 class BaseWebDriver(DriverAPI):
 
-    def __init__(self):
-        self.wait_time = 2
+    def __init__(self, wait_time=2):
+        self.wait_time = wait_time
 
     @property
     def title(self):
@@ -31,8 +31,9 @@ class BaseWebDriver(DriverAPI):
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
         
-    def is_element_present(self, finder, selector):
-        end_time = time.time() + self.wait_time
+    def is_element_present(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
             
         while time.time() < end_time:
             if finder(selector):
@@ -47,8 +48,8 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
         
-    def is_element_present_by_css_selector(self, css_selector):
-        return self.is_element_present(self.find_by_css_selector, css_selector)
+    def is_element_present_by_css_selector(self, css_selector, wait_time=None):
+        return self.is_element_present(self.find_by_css_selector, css_selector, wait_time)
 
     def is_element_not_present_by_css_selector(self, css_selector):
         return self.is_element_not_present(self.find_by_css_selector, css_selector)

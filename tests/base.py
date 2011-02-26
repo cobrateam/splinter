@@ -302,6 +302,11 @@ class WebDriverTests(BaseBrowserTests):
         self.browser.find_by_css_selector('.add-async-element').first.click()
         self.browser.is_element_present_by_css_selector('.async-element') | should | be(True)
 
+    def test_is_element_present_by_css_selector_using_a_custom_wait_time(self):
+        "should is element present by css selector verify if element is present using a custom wait time"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element2', wait_time=3) | should | be(True)
+
     def test_is_element_present_by_css_selector_returns_false_if_element_is_not_present(self):
         "should is element present by css selector returns False if element is not present"
         self.browser.is_element_present_by_css_selector('.async-elementzz') | should | be(False)

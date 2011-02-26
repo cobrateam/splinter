@@ -17,6 +17,9 @@ EXAMPLE_HTML = """\
                     $('body').append('<h4 id="async-header" class="async-element">async elment</h4>');
                     $('body').append('<input type="text" name="async-input" class="async-input" />');
                 }, 1200 );
+                setTimeout(function() {
+                    $('body').append('<h5 id="async-header2" class="async-element2">async elment2</h5>');
+                }, 2400 );
            });
            $(".remove-async-element").click(function() {
                 setTimeout(function() {
