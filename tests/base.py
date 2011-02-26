@@ -303,8 +303,7 @@ class WebDriverTests(BaseBrowserTests):
         self.browser.is_element_present_by_css_selector('.async-element') | should | be(True)
 
     def test_is_element_present_by_css_selector_returns_false_if_element_is_not_present(self):
-        "should is element present by css selector return False if element is not present"
-        self.browser.find_by_css_selector('.add-async-element').first.click()
+        "should is element present by css selector returns False if element is not present"
         self.browser.is_element_present_by_css_selector('.async-elementzz') | should | be(False)
 
     def test_is_element_not_present_by_css_selector(self):
@@ -313,6 +312,10 @@ class WebDriverTests(BaseBrowserTests):
         self.browser.is_element_present_by_css_selector('.async-element')
         self.browser.find_by_css_selector('.remove-async-element').first.click()
         self.browser.is_element_not_present_by_css_selector('.async-element') | should | be(True)
+
+    def test_is_element_not_present_by_css_selector_returns_false_if_element_is_present(self):
+        "should is element not present by css selector returns False if element is present"
+        self.browser.is_element_not_present_by_css_selector('h1') | should | be(False)
         
     def test_is_element_present_by_xpath(self):
         "should is element present by xpath verify if element is present"
