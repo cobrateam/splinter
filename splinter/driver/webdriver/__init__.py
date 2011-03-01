@@ -1,14 +1,33 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import subprocess
+from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from selenium.webdriver.common.exceptions import WebDriverException
 
-import time 
+import time
 
 class BaseWebDriver(DriverAPI):
-
+    old_popen = subprocess.Popen
     def __init__(self):
         raise NotImplementedError
+
+    def __patch_subprocess(self):
+        # selenium is such a verbose guy let's make it open the
+        # browser without showing all the meaningless output
+        def MyPopen(*args, **kw):
+            kw['stdout'] = TemporaryFile()
+            kw['stderr'] = TemporaryFile()
+            return self.old_popen(*args, **kw)
+
+        subprocess.Popen = MyPopen
+
+    def __unpatch_subprocess(self):
+        # cleaning up the house
+        subprocess.Popen = self.old_popen
 
     @property
     def title(self):
@@ -30,7 +49,7 @@ class BaseWebDriver(DriverAPI):
 
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
-    
+
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value)
 
@@ -42,7 +61,7 @@ class BaseWebDriver(DriverAPI):
 
     def find_link_by_text(self, text):
         return ElementList([self.element_class(element) for element in self.driver.find_elements_by_link_text(text)])
-        
+
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
         return self.find_by_xpath(selector.path)
@@ -58,7 +77,7 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_tag(self, tag):
         return ElementList([self.element_class(element) for element in self.driver.find_elements_by_tag_name(tag)])
-        
+
     def wait_for_element(self, selector, timeout=5, interval=0.5):
         end_time = time.time() + timeout
         while time.time() < end_time:
@@ -86,7 +105,7 @@ class BaseWebDriver(DriverAPI):
     def uncheck(self, name):
         field = self.find_by_name(name).first
         field.uncheck()
-    
+
     def select(self, name, value):
         self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.select()
 
@@ -110,11 +129,11 @@ class WebDriverElement(ElementAPI):
         self._element.send_keys(value)
 
     value = property(_get_value, _set_value)
-    
+
     @property
     def text(self):
         return self._element.text
-                
+
     def click(self):
         self._element.click()
 
@@ -129,7 +148,7 @@ class WebDriverElement(ElementAPI):
     @property
     def checked(self):
         return self._element.is_selected()
-    
+
     selected = checked
 
     @property

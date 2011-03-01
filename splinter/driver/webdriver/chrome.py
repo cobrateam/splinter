@@ -1,11 +1,16 @@
+# -*- coding: utf-8 -*-
 from selenium.webdriver.chrome.webdriver import WebDriver as chrome_driver
-from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
+
+from splinter.driver.webdriver import BaseWebDriver
+from splinter.driver.webdriver import WebDriverElement as BaseWebDriverElement
 
 
 class WebDriver(BaseWebDriver):
-
     def __init__(self):
+        self.__patch_subprocess()
         self.driver = chrome_driver()
+        self.__unpatch_subprocess()
+
         self.element_class = WebDriverElement
 
     def attach_file(self, name, value):
