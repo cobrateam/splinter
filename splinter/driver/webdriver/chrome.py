@@ -7,9 +7,9 @@ from splinter.driver.webdriver import WebDriverElement as BaseWebDriverElement
 
 class WebDriver(BaseWebDriver):
     def __init__(self):
-        self.__patch_subprocess()
+        self._patch_subprocess()
         self.driver = chrome_driver()
-        self.__unpatch_subprocess()
+        self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
 

@@ -7,8 +7,8 @@ from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
 class WebDriver(BaseWebDriver):
 
     def __init__(self):
-        self.__patch_subprocess()
+        self._patch_subprocess()
         self.driver = firefox_driver()
-        self.__unpatch_subprocess()
+        self._unpatch_subprocess()
 
         self.element_class = WebDriverElement

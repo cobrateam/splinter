@@ -15,7 +15,7 @@ class BaseWebDriver(DriverAPI):
     def __init__(self):
         raise NotImplementedError
 
-    def __patch_subprocess(self):
+    def _patch_subprocess(self):
         # selenium is such a verbose guy let's make it open the
         # browser without showing all the meaningless output
         def MyPopen(*args, **kw):
@@ -25,7 +25,7 @@ class BaseWebDriver(DriverAPI):
 
         subprocess.Popen = MyPopen
 
-    def __unpatch_subprocess(self):
+    def _unpatch_subprocess(self):
         # cleaning up the house
         subprocess.Popen = self.old_popen
 
