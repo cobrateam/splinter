@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import logging
 import subprocess
 from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
@@ -16,6 +16,22 @@ class BaseWebDriver(DriverAPI):
         raise NotImplementedError
 
     def _patch_subprocess(self):
+        loggers_to_silence = [
+            'selenium.webdriver.firefox.utils',
+            'selenium.webdriver.firefox.firefoxlauncher',
+            'selenium.webdriver.firefox.firefox_profile',
+            'selenium.webdriver.remote.utils',
+            'webdriver.ExtensionConnection',
+        ]
+        class MutedHandler(logging.Handler):
+            def emit(self, record):
+                pass
+
+        for name in loggers_to_silence:
+            logger = logging.getLogger(name)
+            logger.addHandler(MutedHandler())
+            logger.setLevel(99999)
+
         # selenium is such a verbose guy let's make it open the
         # browser without showing all the meaningless output
         def MyPopen(*args, **kw):
