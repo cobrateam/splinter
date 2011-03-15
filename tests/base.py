@@ -1,5 +1,6 @@
 from should_dsl import should, should_not
 from fake_webapp import EXAMPLE_APP
+from splinter.element_list import ElementDoesNotExist
 
 class BaseBrowserTests(object):
 
@@ -375,3 +376,10 @@ class WebDriverTests(BaseBrowserTests):
         self.browser.is_element_present_by_css_selector('.async-element')
         self.browser.find_by_css_selector('.remove-async-element').first.click()
         self.browser.is_element_not_present_by_name('async-input') | should | be(True)
+
+    def test_element_query_should_raises_when_element_first_doest_exists(self):
+        try:
+            self.browser.find_by_css_selector('.element-that-dont-exist').first
+        except ElementDoesNotExist:
+            return
+        assert False

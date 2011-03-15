@@ -1,3 +1,6 @@
+class ElementDoesNotExist(Exception):
+    pass
+
 class ElementList(list):
     
     def __init__(self, list):
@@ -5,7 +8,10 @@ class ElementList(list):
     
     @property
     def first(self):
-        return self[0]
+        try:
+            return self[0]
+        except IndexError:
+            raise ElementDoesNotExist('element doest not exist')
     
     @property
     def last(self):
