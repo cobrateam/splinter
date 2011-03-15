@@ -379,7 +379,14 @@ class WebDriverTests(BaseBrowserTests):
 
     def test_element_query_should_raises_when_element_first_doest_exists(self):
         try:
-            self.browser.find_by_css_selector('.element-that-dont-exist').first
+            self.browser.find_by_css_selector('.element-that-dont-exists').first
+        except ElementDoesNotExist:
+            return
+        assert False
+
+    def test_element_list_raises_when_element_last_does_not_exists(self):
+        try:
+            self.browser.find_by_css_selector('.element-that-dont-exists').last
         except ElementDoesNotExist:
             return
         assert False

@@ -11,8 +11,11 @@ class ElementList(list):
         try:
             return self[0]
         except IndexError:
-            raise ElementDoesNotExist('element doest not exist')
+            raise ElementDoesNotExist('element does not exist')
     
     @property
     def last(self):
-        return self[-1]
+        try:
+            return self[-1]
+        except IndexError:
+            raise ElementDoesNotExist('element does not exist')
