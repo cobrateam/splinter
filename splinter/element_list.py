@@ -5,6 +5,12 @@ class ElementList(list):
     
     def __init__(self, list):
         self.extend(list)
+
+    def __getitem__(self, index):
+        try:
+            return super(ElementList, self).__getitem__(index)
+        except IndexError:
+            raise ElementDoesNotExist('element does not exist')
     
     @property
     def first(self):

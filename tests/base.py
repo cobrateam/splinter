@@ -390,3 +390,10 @@ class WebDriverTests(BaseBrowserTests):
         except ElementDoesNotExist:
             return
         assert False
+
+    def test_element_list_raises_when_element_does_not_exists(self):
+        try:
+            self.browser.find_by_css_selector('.element-that-dont-exists')[2]
+        except ElementDoesNotExist:
+            return
+        assert False
