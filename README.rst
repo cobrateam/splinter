@@ -18,7 +18,7 @@ external links
 install
 =======
 
-splinter 0.0.3 requires selenium 2.0b2. for update your selenium, you can run:
+splinter 0.0.3 requires selenium 2.0b3. for update your selenium, you can run:
 
 ::
 
