@@ -1,7 +1,7 @@
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from selenium.webdriver.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.common.exceptions import WebDriverException, NoSuchElementException
 
 import time
 
