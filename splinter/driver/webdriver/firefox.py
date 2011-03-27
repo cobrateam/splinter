@@ -12,3 +12,5 @@ class WebDriver(BaseWebDriver):
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
+
+        super(WebDriver, self).__init__()

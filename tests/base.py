@@ -1,5 +1,7 @@
 from should_dsl import should, should_not
 from fake_webapp import EXAMPLE_APP
+from splinter.element_list import ElementDoesNotExist
+from nose.tools import raises
 
 class BaseBrowserTests(object):
 
@@ -16,32 +18,32 @@ class BaseBrowserTests(object):
         html = self.browser.html
         html |should| include('<title>Example Title</title>')
         html |should| include('<h1 id="firstheader">Example Header</h1>')
-
+    
     def test_should_have_url(self):
         "should have access to the url"
         url = self.browser.url
         url |should| equal_to(EXAMPLE_APP)
-
+    
     def test_finding_by_css_selector(self):
         "should finds by css_selector"
         value = self.browser.find_by_css_selector('h1').first.value
         value |should| equal_to('Example Header')
-
+    
     def test_finding_by_xpath(self):
         "should find elements by xpath"
         value = self.browser.find_by_xpath('//h1').first.value
         value |should| equal_to('Example Header')
-
+    
     def test_finding_by_tag(self):
         "should find elements by tag"
         value = self.browser.find_by_tag('h1').first.value
         value |should| equal_to('Example Header')
-
+    
     def test_finding_by_id(self):
         "should find elements by id"
         value = self.browser.find_by_id("firstheader").first.value
         value |should| equal_to('Example Header')
-
+    
     def test_finding_by_name(self):
         "should find elements by name"
         value = self.browser.find_by_name('query').first.value
@@ -108,64 +110,64 @@ class BaseBrowserTests(object):
         first = self.browser.find_by_id("firstheader").first.value
         last = self.browser.find_by_id("firstheader").last.value
         first |should| equal_to(last)
-        
+
     def test_finding_last_element_by_name(self):
         "should find last element by name"
         value = self.browser.find_by_name('query').last.value
         value |should| equal_to('default last value')
-    
+
     def test_finding_last_link_by_text(self):
         "should find last link by text"
         link = self.browser.find_link_by_text('Link for Example.com').last
         link['href'] |should| equal_to('http://example.com/last')
-    
+
     def test_finding_last_link_by_href(self):
         "should find last link by href"
         link = self.browser.find_link_by_href('http://example.com').last
         link.text |should| equal_to('Link for last Example.com')
-    
+
     def test_finding_element_by_css_selector_using_slice(self):
         "should find element by css_selector using slice"
         value = self.browser.find_by_css_selector('h1')[-1].value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_element_by_xpath_using_slice(self):
         "should find element by xpath using slice"
         value = self.browser.find_by_xpath('//h1')[-1].value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_element_by_tag_using_slice(self):
         "should find element by tag using slice"
         value = self.browser.find_by_tag('h1')[-1].value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_element_by_id_using_slice(self):
         "should find element by id using slice"
         value = self.browser.find_by_id("firstheader")[-1].value
         value |should| equal_to('Example Header')
-    
+
     def test_all_elements_is_same_than_first_element_in_find_by_id(self):
         "should all elements is same than first element in find by id"
         #a html page have contain one element by id
         first = self.browser.find_by_id("firstheader").first.value
         some = self.browser.find_by_id("firstheader")[-1].value
         first |should| equal_to(some)
-        
+
     def test_finding_element_by_name_using_slice(self):
         "should find element by name using slice"
         value = self.browser.find_by_name('query')[-1].value
         value |should| equal_to('default last value')
-    
+
     def test_finding_link_by_text_using_slice(self):
         "should find link by text using slice"
         link = self.browser.find_link_by_text('Link for Example.com')[-1]
         link['href'] |should| equal_to('http://example.com/last')
-    
+
     def test_finding_link_by_href_using_slice(self):
         "should find link by href using slice"
         link = self.browser.find_link_by_href('http://example.com')[-1]
         link.text |should| equal_to('Link for last Example.com')
-    
+
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first
@@ -193,7 +195,7 @@ class BaseBrowserTests(object):
         self.browser.find_by_name("some-radio").first |should_not| be_checked
         self.browser.choose("some-radio")
         self.browser.find_by_name("some-radio").first |should| be_checked
-        
+
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
         self.browser.find_option_by_value("rj").first.text |should| equal_to("Rio de Janeiro")
@@ -207,7 +209,6 @@ class BaseBrowserTests(object):
         self.browser.find_option_by_text("Rio de Janeiro").first.value |should| equal_to("rj")
 
     def test_can_select_a_option(self):
-        
         "should provide a way to select a option"
         self.browser.find_option_by_value("rj").first |should_not| be_selected
         self.browser.select("uf", "rj")
@@ -219,27 +220,26 @@ class BaseBrowserTests(object):
         self.browser.check("some-check")
         self.browser.find_by_name("some-check").first |should| be_checked
 
-
     def test_check_keeps_checked_if_called_multiple_times(self):
         "should keep a checkbox checked if check() is called multiple times"
         self.browser.find_by_name("some-check").first |should_not| be_checked
         self.browser.check("some-check")
         self.browser.check("some-check")
         self.browser.find_by_name("some-check").first |should| be_checked
-    
+
     def test_can_uncheck_a_checkbox(self):
         "should provide a way to uncheck a radio checkbox"
         self.browser.find_by_name("checked-checkbox").first |should| be_checked
         self.browser.uncheck("checked-checkbox")
         self.browser.find_by_name("checked-checkbox").first |should_not| be_checked
-     
+
     def test_uncheck_should_keep_unchecked_if_called_multiple_times(self):
         "should keep a checkbox unchecked if uncheck() is called multiple times"
         self.browser.find_by_name("checked-checkbox").first |should| be_checked
         self.browser.uncheck("checked-checkbox")
         self.browser.uncheck("checked-checkbox")
         self.browser.find_by_name("checked-checkbox").first |should_not| be_checked
-    
+
     def test_click_links(self):
         "should allow to click links"
         self.browser.find_link_by_text('FOO').first.click()
@@ -254,22 +254,22 @@ class BaseBrowserTests(object):
         "should allow to click at inputs by css selector"
         self.browser.find_by_css_selector('input[name="send"]').first.click()
         self.browser.html |should| include('My name is: Master Splinter')
-    
+
     def test_accessing_attributes_of_links(self):
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO').first
         foo['href'] |should| equal_to('/foo')
-    
+
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
         button = self.browser.find_by_css_selector('input[name="send"]').first
         button['name'] |should| equal_to('send')
-    
+
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
         header = self.browser.find_by_css_selector('h1').first
         header['id'] |should| equal_to('firstheader')
-    
+
     def test_links_should_have_value_attribute(self):
         foo = self.browser.find_link_by_href('/foo').first
         foo.value |should| equal_to('FOO')
@@ -292,12 +292,100 @@ class WebDriverTests(BaseBrowserTests):
     def test_can_verify_if_a_element_is_invisible(self):
         "should provide verify if element is invisible"
         self.browser.find_by_id("invisible").first |should_not| be_visible
-        
-    def test_wait_for_element_visible_in_browser(self):
-        "should wait for element visible in browser"
-        self.browser.wait_for_element(selector="h1", timeout=2) |should| be(True)
 
-    def test_wait_for_element_not_exists(self):
-        "should wait for element not exists"
-        self.browser.wait_for_element(selector='h2', timeout=2) |should_not| be(True)      
-    
+    def test_default_wait_time_should_be_2(self):
+        "should driver default wait time 2"
+        self.browser.wait_time |should| be(2)
+
+    def test_is_element_present_by_css_selector(self):
+        "should is element present by css selector verify if element is present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element') | should | be(True)
+
+    def test_is_element_present_by_css_selector_using_a_custom_wait_time(self):
+        "should is element present by css selector verify if element is present using a custom wait time"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element2', wait_time=3) | should | be(True)
+
+    def test_is_element_present_by_css_selector_returns_false_if_element_is_not_present(self):
+        "should is element present by css selector returns False if element is not present"
+        self.browser.is_element_present_by_css_selector('.async-elementzz') | should | be(False)
+
+    def test_is_element_not_present_by_css_selector(self):
+        "should is element not present by css selector verify if element is not present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element')
+        self.browser.find_by_css_selector('.remove-async-element').first.click()
+        self.browser.is_element_not_present_by_css_selector('.async-element') | should | be(True)
+
+    def test_is_element_not_present_by_css_selector_returns_false_if_element_is_present(self):
+        "should is element not present by css selector returns False if element is present"
+        self.browser.is_element_not_present_by_css_selector('h1') | should | be(False)
+
+    def test_is_element_present_by_xpath(self):
+        "should is element present by xpath verify if element is present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_xpath('//h4') | should | be(True)
+
+    def test_is_element_not_present_by_xpath(self):
+        "should is element not present by xpath verify if element is not present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element')
+        self.browser.find_by_css_selector('.remove-async-element').first.click()
+        self.browser.is_element_not_present_by_xpath('//h4') | should | be(True)
+
+    def test_is_element_present_by_tag(self):
+        "should is element present by tag verify if element is present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_tag('h4') | should | be(True)
+
+    def test_is_element_not_present_by_tag(self):
+        "should is element not present by tag verify if element is not present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element')
+        self.browser.find_by_css_selector('.remove-async-element').first.click()
+        self.browser.is_element_not_present_by_tag('h4') | should | be(True)
+
+    def test_is_element_present_by_id(self):
+        "should is element present by id verify if element is present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_id('async-header') | should | be(True)
+
+    def test_is_element_present_by_id_returns_false_if_element_is_not_present(self):
+        "should is element present by id returns False if element is not present"
+        self.browser.is_element_present_by_id('async-headerzz') | should | be(False)
+
+    def test_is_element_not_present_by_id(self):
+        "should is element not present by id verify if element is not present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element')
+        self.browser.find_by_css_selector('.remove-async-element').first.click()
+        self.browser.is_element_not_present_by_id('async-header') | should | be(True)
+
+    def test_is_element_not_present_by_id_returns_false_if_element_is_present(self):
+        "should is element not present by id returns False if element is present"
+        self.browser.is_element_not_present_by_id('firstheader') | should | be(False)
+
+    def test_is_element_present_by_name(self):
+        "should is element present by name verify if element is present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_name('async-input') | should | be(True)
+
+    def test_is_element_not_present_by_name(self):
+        "should is element not present by name verify if element is not present"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_css_selector('.async-element')
+        self.browser.find_by_css_selector('.remove-async-element').first.click()
+        self.browser.is_element_not_present_by_name('async-input') | should | be(True)
+
+    @raises(ElementDoesNotExist)
+    def test_element_query_should_raises_when_element_first_doest_exists(self):
+        self.browser.find_by_css_selector('.element-that-dont-exists').first
+
+    @raises(ElementDoesNotExist)
+    def test_element_list_raises_when_element_last_does_not_exists(self):
+        self.browser.find_by_css_selector('.element-that-dont-exists').last
+
+    @raises(ElementDoesNotExist)
+    def test_element_list_raises_when_element_does_not_exists(self):
+        self.browser.find_by_css_selector('.element-that-dont-exists')[2]

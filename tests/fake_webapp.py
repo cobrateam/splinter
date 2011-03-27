@@ -9,7 +9,37 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $(".add-async-element").click(function() {
+                setTimeout(function() {
+                    $('body').append('<h4 id="async-header" class="async-element">async elment</h4>');
+                    $('body').append('<input type="text" name="async-input" class="async-input" />');
+                }, 1200 );
+                setTimeout(function() {
+                    $('body').append('<h5 id="async-header2" class="async-element2">async elment2</h5>');
+                }, 2400 );
+           });
+
+           $(".remove-async-element").click(function() {
+                setTimeout(function() {
+                    $('.async-element').remove();
+                    $('.async-input').remove();
+                }, 1200 );
+           });
+
+           $(".add-element-mouseover").mouseover(function () {
+                $('body').append('<label for="what-is-your-name" class="over-label">What is your name?</label>');
+                $('body').append('<input type="text" id="what-is-your-name" class="over-input" name="whatsname" />');
+           });
+
+           $(".add-element-mouseover").mouseout(function () {
+                $('.over-label').remove();
+                $('.over-input').remove();
+           });
+        });
+    </script>
   </head>
   <body>
     <h1 id="firstheader">Example Header</h1>
@@ -39,6 +69,9 @@ EXAMPLE_HTML = """\
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
     <a href="/foo">FOO</a>
+    <a class='add-async-element' href="#">add async element</a>
+    <a class='remove-async-element' href="#">remove async element</a>
+    <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
   </body>
 </html>"""
 
