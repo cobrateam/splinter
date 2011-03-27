@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import time
 import logging
 import subprocess
+
 from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
+from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.webdriver.firefox import firefox_profile
+
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from selenium.common.exceptions import WebDriverException, NoSuchElementException
-
-import time
 
 class BaseWebDriver(DriverAPI):
     old_popen = subprocess.Popen
@@ -22,8 +24,11 @@ class BaseWebDriver(DriverAPI):
             'selenium.webdriver.firefox.firefoxlauncher',
             'selenium.webdriver.firefox.firefox_profile',
             'selenium.webdriver.remote.utils',
+            'selenium.webdriver.remote.remote_connection',
+            'addons.xpi',
             'webdriver.ExtensionConnection',
         ]
+
         class MutedHandler(logging.Handler):
             def emit(self, record):
                 pass
@@ -38,9 +43,14 @@ class BaseWebDriver(DriverAPI):
         def MyPopen(*args, **kw):
             kw['stdout'] = TemporaryFile()
             kw['stderr'] = TemporaryFile()
+            kw['close_fds'] = True
             return self.old_popen(*args, **kw)
 
         subprocess.Popen = MyPopen
+
+        # also patching firefox profile in order to NOT produce output
+        firefox_profile.FirefoxProfile. \
+            DEFAULT_PREFERENCES['extensions.logging.enabled'] = "false"
 
     def _unpatch_subprocess(self):
         # cleaning up the house
