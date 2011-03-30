@@ -8,13 +8,13 @@ what's new in splinter 0.0.3?
 Features
 --------
 
-- now splinter use selenium 2.0b2 for firefox and chrome driver
+- now splinter use selenium 2.0b3 for firefox and chrome driver
 - zope.testbrowser.browser dependency is not required
 
 Backward incompatible changes
 -----------------------------
 
-- you should update your selenium to 2.0b2 version
+- you should update your selenium to 2.0b3 version
 
 what's new in splinter 0.0.2?
 =============================
