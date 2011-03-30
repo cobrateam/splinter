@@ -51,4 +51,14 @@ if you are using a virtualenv, all you need is:
 community
 =========
 
+mailing list
+------------
+
+* `for users <http://groups.google.com/group/splinter-users>`_
+* `for developers <http://groups.google.com/group/splinter-developers>`_
+
+irc channel
+-----------
+
 #cobrateam channel on irc.freenode.net
+
