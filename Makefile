@@ -2,7 +2,7 @@ all: test
 
 clean:
 	@find . -name "*.pyc" -delete
-	
+
 dependencies: specloud coverage selenium flask shoulddsl lxml zopetestbrowser
 
 specloud:
@@ -12,7 +12,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install -U selenium
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.0b3
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask
