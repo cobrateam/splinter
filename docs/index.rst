@@ -218,14 +218,15 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 
 will be True if the element is visible, or False if it is invisible.
 
-Ajax and asyn javascript
+Ajax and async javascript
 ------------------------
 
 When working with ajax and async javascript, it's common you work with with an element which is not yet present on the page.
 
-Splinter have methods for verifying if element is present in a page, that wait for a element and returns `True` if element is present:
+splinter have methods for verifying if element is present in a page, that wait for a element and returns `True` if element is present:
 
 ::
+
     browser.is_element_present_by_css_selector('h1')
     browser.is_element_present_by_xpath('//h1')
     browser.is_element_present_by_tag('h1')
@@ -235,6 +236,7 @@ Splinter have methods for verifying if element is present in a page, that wait f
 You can verify too if element is not present in a page:
 
 ::
+
     browser.is_element_not_present_by_css_selector('h1')
     browser.is_element_not_present_by_xpath('//h1')
     browser.is_element_not_present_by_tag('h1')
