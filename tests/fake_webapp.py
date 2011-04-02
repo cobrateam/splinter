@@ -19,6 +19,7 @@ EXAMPLE_HTML = """\
                 }, 1200 );
                 setTimeout(function() {
                     $('body').append('<h5 id="async-header2" class="async-element2">async elment2</h5>');
+                    $('body').append('<input type="text" name="async-input2" class="async-input2" />');
                 }, 2400 );
            });
 
