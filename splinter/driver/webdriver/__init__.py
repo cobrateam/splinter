@@ -120,8 +120,9 @@ class BaseWebDriver(DriverAPI):
     def is_element_not_present_by_name(self, name):
         return self.is_element_not_present(self.find_by_name, name)
 
-    def is_element_present_by_id(self, id):
-        end_time = time.time() + self.wait_time
+    def is_element_present_by_id(self, id, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
 
         while time.time() < end_time:
             try:
