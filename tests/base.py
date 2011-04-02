@@ -12,98 +12,98 @@ class BaseBrowserTests(object):
         "should be able to visit, get title and quit"
         title = self.browser.title
         title |should| equal_to('Example Title')
-    
+
     def test_should_have_html(self):
         "should have access to the html"
         html = self.browser.html
         html |should| include('<title>Example Title</title>')
         html |should| include('<h1 id="firstheader">Example Header</h1>')
-    
+
     def test_should_have_url(self):
         "should have access to the url"
         url = self.browser.url
         url |should| equal_to(EXAMPLE_APP)
-    
+
     def test_finding_by_css_selector(self):
         "should finds by css_selector"
         value = self.browser.find_by_css_selector('h1').first.value
         value |should| equal_to('Example Header')
-    
+
     def test_finding_by_xpath(self):
         "should find elements by xpath"
         value = self.browser.find_by_xpath('//h1').first.value
         value |should| equal_to('Example Header')
-    
+
     def test_finding_by_tag(self):
         "should find elements by tag"
         value = self.browser.find_by_tag('h1').first.value
         value |should| equal_to('Example Header')
-    
+
     def test_finding_by_id(self):
         "should find elements by id"
         value = self.browser.find_by_id("firstheader").first.value
         value |should| equal_to('Example Header')
-    
+
     def test_finding_by_name(self):
         "should find elements by name"
         value = self.browser.find_by_name('query').first.value
         value |should| equal_to('default value')
-    
+
     def test_finding_all_elements_by_css_selector(self):
         "should find elements by css_selector"
         value = self.browser.find_by_css_selector('h1')[0].value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_all_elements_by_xpath(self):
         "should find elements by xpath"
         value = self.browser.find_by_xpath('//h1')[0].value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_all_elements_by_tag(self):
         "should find elements by tag"
         value = self.browser.find_by_tag('h1')[0].value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_all_elements_by_id(self):
         "should find elements by id"
         value = self.browser.find_by_id("firstheader")[0].value
         value |should| equal_to('Example Header')
-        
+
     def test_finding_all_elements_by_name(self):
         "should find elements by name"
         value = self.browser.find_by_name('query')[0].value
         value |should| equal_to('default value')
-    
+
     def test_finding_all_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com')[0]
         link['href'] |should| equal_to('http://example.com')
-    
+
     def test_finding_all_links_by_href(self):
         "should find links by href"
         link = self.browser.find_link_by_href('http://example.com')[0]
         link['href'] |should| equal_to('http://example.com')
-    
+
     def test_finding_last_element_by_css_selector(self):
         "should find last element by css_selector"
         value = self.browser.find_by_css_selector('h1').last.value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_last_element_by_xpath(self):
         "should find last element by xpath"
         value = self.browser.find_by_xpath('//h1').last.value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_last_element_by_tag(self):
         "should find last element by tag"
         value = self.browser.find_by_tag('h1').last.value
         value |should| equal_to('Example Last Header')
-        
+
     def test_finding_last_element_by_id(self):
         "should find last element by id"
         value = self.browser.find_by_id("firstheader").last.value
         value |should| equal_to('Example Header')
-    
+
     def test_last_element_is_same_than_first_element_in_find_by_id(self):
         "should first element is same than last element in find by id"
         #a html page have contain one element by id
