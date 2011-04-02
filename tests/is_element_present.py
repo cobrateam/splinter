@@ -32,6 +32,11 @@ class IsElementPresentTest(object):
         self.browser.find_by_css_selector('.add-async-element').first.click()
         self.browser.is_element_present_by_xpath('//h4') | should | be(True)
 
+    def test_is_element_present_by_xpath_using_a_custom_wait_time(self):
+        "should is element present by xpath verify if element is present using a custom wait time"
+        self.browser.find_by_css_selector('.add-async-element').first.click()
+        self.browser.is_element_present_by_xpath('//h5', wait_time=3) | should | be(True)
+
     def test_is_element_not_present_by_xpath(self):
         "should is element not present by xpath verify if element is not present"
         self.browser.find_by_css_selector('.add-async-element').first.click()
