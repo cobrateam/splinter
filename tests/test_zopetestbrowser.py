@@ -2,7 +2,6 @@ import unittest
 from splinter.browser import Browser
 from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
-from should_dsl import should
 
 import os
 
@@ -26,5 +25,5 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').first.click()
 
         html = self.browser.html
-        html |should| include('text/plain')
-        html |should| include(open(file_path).read())
+        assert 'text/plain' in html
+        assert open(file_path).read() in html
