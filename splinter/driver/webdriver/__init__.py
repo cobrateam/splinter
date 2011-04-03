@@ -12,8 +12,6 @@ from selenium.webdriver.firefox import firefox_profile
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 
-import time
-
 class BaseWebDriver(DriverAPI):
     old_popen = subprocess.Popen
 
