@@ -7,6 +7,7 @@ from click_elements import ClickElementsTest
 from element_does_not_exist import ElementDoestNotExistTest
 from is_element_present import IsElementPresentTest
 from async_finder import AsyncFinderTests
+from mouse_events import MouseEventsTests
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
 
@@ -49,7 +50,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
         assert_equals(foo.value, 'FOO')
 
 
-class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
+class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, MouseEventsTests):
 
     def test_can_execute_javascript(self):
         "should execute javascript"
@@ -71,3 +72,8 @@ class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresen
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
         assert_equals(self.browser.wait_time, 2)
+
+    def test_should_receive_browser_on_parent(self):
+        "element should contains the browser on \"parent\" attribute"
+        element = self.browser.find_by_id("firstheader").first
+        assert_equals(element.parent, self.browser)

@@ -150,7 +150,7 @@ class BaseWebDriver(DriverAPI):
         return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element) for element in self.driver.find_elements_by_link_text(text)])
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
 
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
@@ -160,7 +160,7 @@ class BaseWebDriver(DriverAPI):
         while time.time() < end_time:
             elements = self.driver.find_elements_by_xpath(selector.path)
             if elements:
-                return ElementList([self.element_class(element) for element in elements])
+                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
 
     def find_by_xpath(self, xpath):
@@ -169,7 +169,7 @@ class BaseWebDriver(DriverAPI):
         while time.time() < end_time:
             elements = self.driver.find_elements_by_xpath(xpath)
             if elements:
-                return ElementList([self.element_class(element) for element in elements])
+                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
 
     def find_by_name(self, name):
@@ -178,7 +178,7 @@ class BaseWebDriver(DriverAPI):
         while time.time() < end_time:
             elements = self.driver.find_elements_by_name(name)
             if elements:
-                return ElementList([self.element_class(element) for element in elements])
+                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
 
     def find_by_id(self, id):
@@ -187,7 +187,7 @@ class BaseWebDriver(DriverAPI):
         while time.time() < end_time:
             try:
                 element = self.driver.find_element_by_id(id)
-                return ElementList([self.element_class(element)])
+                return ElementList([self.element_class(element, self)])
             except NoSuchElementException:
                 pass
 
@@ -199,7 +199,7 @@ class BaseWebDriver(DriverAPI):
         while time.time() < end_time:
             elements = self.driver.find_elements_by_tag_name(tag)
             if elements:
-                return ElementList([self.element_class(element) for element in elements])
+                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
 
     def fill_in(self, name, value):
@@ -230,8 +230,9 @@ class BaseWebDriver(DriverAPI):
 
 class WebDriverElement(ElementAPI):
 
-    def __init__(self, element):
+    def __init__(self, element, parent):
         self._element = element
+        self.parent = parent
 
     def _get_value(self):
         try:
