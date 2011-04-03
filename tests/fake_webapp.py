@@ -28,6 +28,10 @@ EXAMPLE_HTML = """\
                     $('.async-element').remove();
                     $('.async-input').remove();
                 }, 1200 );
+                setTimeout(function() {
+                    $('.async-element2').remove();
+                    $('.async-input2').remove();
+                }, 2400 );
            });
 
            $(".add-element-mouseover").mouseover(function () {
