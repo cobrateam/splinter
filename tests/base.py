@@ -49,6 +49,10 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
         foo = self.browser.find_link_by_href('/foo').first
         assert_equals(foo.value, 'FOO')
 
+    def test_should_receive_browser_on_parent(self):
+        "element should contains the browser on \"parent\" attribute"
+        element = self.browser.find_by_id("firstheader").first
+        assert_equals(element.parent, self.browser)
 
 class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, MouseEventsTests):
 
@@ -72,8 +76,3 @@ class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresen
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
         assert_equals(self.browser.wait_time, 2)
-
-    def test_should_receive_browser_on_parent(self):
-        "element should contains the browser on \"parent\" attribute"
-        element = self.browser.find_by_id("firstheader").first
-        assert_equals(element.parent, self.browser)
