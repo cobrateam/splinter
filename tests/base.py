@@ -6,9 +6,10 @@ from form_elements import FormElementsTest
 from click_elements import ClickElementsTest
 from element_does_not_exist import ElementDoestNotExistTest
 from is_element_present import IsElementPresentTest
+from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
 
-class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
+class BaseBrowserTests(FindElementsTest, IFrameElementsTest, FormElementsTest, ClickElementsTest):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")
