@@ -14,6 +14,9 @@ class DriverAPI(object):
     def visit(self, url):
         raise NotImplementedError
 
+    def switch_to_frame(self, id):
+        raise NotImplementedError
+
     def execute_script(self, script):
         raise NotImplementedError
 
