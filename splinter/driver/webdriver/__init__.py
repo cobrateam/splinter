@@ -142,6 +142,9 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
+    def switch_to_frame(self, id):
+        self.driver.switch_to_frame(id)
+
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value)
 
