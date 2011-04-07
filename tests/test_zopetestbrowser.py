@@ -1,9 +1,9 @@
+import os
 import unittest
 from splinter.browser import Browser
 from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
-
-import os
+from nose.tools import raises
 
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
@@ -27,3 +27,8 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         html = self.browser.html
         assert 'text/plain' in html
         assert open(file_path).read() in html
+
+    @raises(NotImplementedError)
+    def test_cant_switch_to_frame(self):
+        "zope.testbrowser should not be able to switch to frames"
+        self.browser.switch_to_frame('frame_123')
