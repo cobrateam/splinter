@@ -75,6 +75,15 @@ You can use the ``visit`` method to navigate to other pages:
 
 The ``visit`` method takes only a single parameter - the ``url`` to be visited.
 
+Reload a page
+-------------
+
+You can reload a page using ``reload`` method:
+
+::
+
+    browser.reload()
+
 Browser.title
 -------------
 

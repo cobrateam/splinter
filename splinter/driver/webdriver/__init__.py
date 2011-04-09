@@ -73,6 +73,9 @@ class BaseWebDriver(DriverAPI):
     def visit(self, url):
         self.driver.get(url)
 
+    def reload(self):
+        self.driver.refresh()
+
     def execute_script(self, script):
         self.driver.execute_script(script)
 
@@ -112,7 +115,7 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_present(self.find_by_tag, tag, wait_time)
 
     def is_element_not_present_by_tag(self, tag):
-        return self.is_element_present(self.find_by_tag, tag)
+        return self.is_element_not_present(self.find_by_tag, tag)
 
     def is_element_present_by_name(self, name, wait_time=None):
         return self.is_element_present(self.find_by_name, name, wait_time)

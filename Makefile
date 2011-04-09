@@ -6,7 +6,7 @@ clean:
 dependencies: specloud coverage selenium flask lxml zopetestbrowser
 
 specloud:
-	@python -c 'import specloud' 2>/dev/null || pip install --no-deps specloud -r http://github.com/hugobr/specloud/raw/master/requirements.txt
+	@python -c 'import specloud' 2>/dev/null || pip install specloud
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
