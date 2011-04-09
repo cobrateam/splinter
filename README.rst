@@ -37,7 +37,7 @@ development
 * Source hosted at `GitHub <http://github.com/cobrateam/splinter>`_
 * Report issues on `GitHub Issues <http://github.com/cobrateam/splinter/issues>`_
 
-Pull requests are very welcome! Make sure your patches are well tested.
+Pull requests are very welcomed! Make sure your patches are well tested.
 
 running the tests
 -----------------

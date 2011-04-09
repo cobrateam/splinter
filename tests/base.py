@@ -6,6 +6,7 @@ from form_elements import FormElementsTest
 from click_elements import ClickElementsTest
 from element_does_not_exist import ElementDoestNotExistTest
 from is_element_present import IsElementPresentTest
+from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
 from mouse_events import MouseEventsTests
 
@@ -54,7 +55,13 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
         element = self.browser.find_by_id("firstheader").first
         assert_equals(element.parent, self.browser)
 
-class WebDriverTests(BaseBrowserTests, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, MouseEventsTests):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
+
+    def test_should_reload_a_page(self):
+        "should reload a page"
+        title = self.browser.title
+        self.browser.reload()
+        assert_equals(title, 'Example Title')
 
     def test_can_execute_javascript(self):
         "should execute javascript"

@@ -14,6 +14,12 @@ class DriverAPI(object):
     def visit(self, url):
         raise NotImplementedError
 
+    def reload(self):
+        raise NotImplementedError
+
+    def switch_to_frame(self, id):
+        raise NotImplementedError
+
     def execute_script(self, script):
         raise NotImplementedError
 
@@ -58,6 +64,10 @@ class DriverAPI(object):
 
     def uncheck(self, name):
         raise NotImplementedError
+
+    def click_link_by_href(self, href):
+        "click returns first element founded"
+        return self.find_link_by_href(href).first.click()
 
     def quit(self):
         raise NotImplementedError
