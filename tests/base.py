@@ -8,7 +8,6 @@ from element_does_not_exist import ElementDoestNotExistTest
 from is_element_present import IsElementPresentTest
 from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
-from mouse_events import MouseEventsTests
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
 
