@@ -202,8 +202,12 @@ or
 ::
 
 	browser.find_link_by_text('my link').first.click()
-	
-    
+
+To click in links by href you can use this.
+
+::
+    browser.click_link_by_href('/my_link')
+
 Interacting with forms
 ----------------------
 
