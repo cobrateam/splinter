@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from selenium.webdriver import Chrome
 from splinter.driver.webdriver import BaseWebDriver
 from splinter.driver.webdriver import WebDriverElement as BaseWebDriverElement
