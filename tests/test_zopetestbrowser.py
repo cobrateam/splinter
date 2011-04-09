@@ -1,10 +1,9 @@
+import os
 import unittest
 from splinter.browser import Browser
 from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
-from should_dsl import should
-
-import os
+from nose.tools import raises
 
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
@@ -26,5 +25,10 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').first.click()
 
         html = self.browser.html
-        html |should| include('text/plain')
-        html |should| include(open(file_path).read())
+        assert 'text/plain' in html
+        assert open(file_path).read() in html
+
+    @raises(NotImplementedError)
+    def test_cant_switch_to_frame(self):
+        "zope.testbrowser should not be able to switch to frames"
+        self.browser.switch_to_frame('frame_123')

@@ -8,3 +8,4 @@ splinter.egg-info
 .coverage
 distribute-*.egg
 docs/_build/*
+tags

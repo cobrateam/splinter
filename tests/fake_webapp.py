@@ -9,7 +9,7 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
            $(".add-async-element").click(function() {
@@ -77,6 +77,17 @@ EXAMPLE_HTML = """\
     <a class='add-async-element' href="#">add async element</a>
     <a class='remove-async-element' href="#">remove async element</a>
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
+    <iframe id="iframemodal" src="/iframe"></iframe>
+  </body>
+</html>"""
+
+EXAMPLE_IFRAME_HTML = """\
+<html>
+  <head>
+    <title>Example Title</title>
+  </head>
+  <body>
+    <h1 id="firstheader">IFrame Example Header</h1>
   </body>
 </html>"""
 
@@ -85,6 +96,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return EXAMPLE_HTML
+
+@app.route('/iframe')
+def iframed():
+    return EXAMPLE_IFRAME_HTML
 
 @app.route('/name', methods=['GET'])
 def get_name():
