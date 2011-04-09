@@ -192,10 +192,25 @@ or
     element.value
 
 
-Clicking links and buttons
---------------------------
+Clicking links
+--------------
 
-You can click in links and buttons. splinter follows any redirects, and submits forms associated with buttons.
+You can click in links. To click in links by href or text you can use this.
+IMPORTANT: This methods return the first element always. 
+
+::
+    browser.click_link_by_href('/my_link')
+
+or
+
+::
+    browser.click_link_by_text('my link')
+
+
+Clicking buttons
+----------------
+
+You can click in buttons. Splinter follows any redirects, and submits forms associated with buttons.
 
 ::
 
@@ -207,10 +222,6 @@ or
 
 	browser.find_link_by_text('my link').first.click()
 
-To click in links by href you can use this.
-
-::
-    browser.click_link_by_href('/my_link')
 
 Interacting with forms
 ----------------------
