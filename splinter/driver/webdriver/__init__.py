@@ -73,6 +73,9 @@ class BaseWebDriver(DriverAPI):
     def visit(self, url):
         self.driver.get(url)
 
+    def reload(self):
+        self.driver.refresh()
+
     def execute_script(self, script):
         self.driver.execute_script(script)
 

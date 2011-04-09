@@ -14,7 +14,10 @@ class ZopeTestBrowser(DriverAPI):
 
     def visit(self, url):
         self._browser.open(url)
-        
+    
+    def reload(self):
+        self._browser.reload()
+
     def quit(self):
         pass
         
