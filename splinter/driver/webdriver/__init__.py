@@ -13,8 +13,6 @@ from selenium.webdriver.firefox import firefox_profile
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 
-import time
-
 class BaseWebDriver(DriverAPI):
     old_popen = subprocess.Popen
 
@@ -151,12 +149,12 @@ class BaseWebDriver(DriverAPI):
         return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element) for element in self.driver.find_elements_by_link_text(text)])
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
 
     def find_by(self, finder, selector):
         elements = None
         end_time = time.time() + self.wait_time
-        
+
         while time.time() < end_time:
             try:
                 elements = finder(selector)
@@ -166,10 +164,9 @@ class BaseWebDriver(DriverAPI):
                 pass
 
             if elements:
-                return ElementList([self.element_class(element) for element in elements])
-
+                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
-        
+
     def find_by_css_selector(self, css_selector):
         selector = CSSSelector(css_selector)
         return self.find_by(self.driver.find_elements_by_xpath, selector.path)
@@ -214,8 +211,9 @@ class BaseWebDriver(DriverAPI):
 
 class WebDriverElement(ElementAPI):
 
-    def __init__(self, element):
+    def __init__(self, element, parent):
         self._element = element
+        self.parent = parent
 
     def _get_value(self):
         try:
