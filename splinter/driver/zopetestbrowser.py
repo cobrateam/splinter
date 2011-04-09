@@ -8,20 +8,23 @@ import mimetypes
 
 
 class ZopeTestBrowser(DriverAPI):
-    
+
     def __init__(self):
         self._browser = Browser()
 
     def visit(self, url):
         self._browser.open(url)
-        
+
+    def reload(self):
+        self._browser.reload()
+
     def quit(self):
         pass
-        
+
     @property
     def title(self):
         return self._browser.title
-        
+
     @property
     def html(self):
         return self._browser.contents
@@ -48,9 +51,9 @@ class ZopeTestBrowser(DriverAPI):
 
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
-        
+
         elements = []
-        
+
         for xpath_element in html.xpath(xpath):
             if self._element_is_link(xpath_element):
                 return self.find_link_by_text(xpath_element.text)
@@ -58,7 +61,7 @@ class ZopeTestBrowser(DriverAPI):
                 return self.find_by_name(xpath_element.name)
             else:
                 elements.append(xpath_element)
-                
+
         return ElementList([ZopeTestBrowserElement(element) for element in elements])
 
     def find_by_tag(self, tag):
@@ -78,7 +81,7 @@ class ZopeTestBrowser(DriverAPI):
                 index += 1
             except IndexError:
                 break
-            
+
         return ElementList([ZopeTestBrowserControlElement(element) for element in elements])
 
 
@@ -90,13 +93,13 @@ class ZopeTestBrowser(DriverAPI):
 
     def fill_in(self, name, value):
         self.find_by_name(name=name).first._control.value = value
-    
+
     fill = fill_in
 
     def choose(self, name):
         control = self._browser.getControl(name=name)
         control.value = control.options
-    
+
     check = choose
 
     def uncheck(self, name):
@@ -107,13 +110,13 @@ class ZopeTestBrowser(DriverAPI):
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
         control.add_file(open(file_path), content_type, None)
-        
+
     def _find_links_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
         links = html.xpath(xpath)
-    
+
         return ElementList([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
-    
+
     def select(self, name, value):
         self.find_by_name(name).first._control.value = [value,]
 
@@ -124,7 +127,7 @@ class ZopeTestBrowser(DriverAPI):
         return hasattr(element, 'type')
 
 class ZopeTestBrowserElement(ElementAPI):
-    
+
     def __init__(self, element):
         self._element = element
 
@@ -137,22 +140,22 @@ class ZopeTestBrowserElement(ElementAPI):
 
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
-    
+
     def __init__(self, element, browser):
         self._browser = browser
         super(ZopeTestBrowserLinkElement, self).__init__(element)
-    
+
     def __getitem__(self, attr):
         return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
-    
+
     def __getattr__(self, attr):
         return getattr(self._element, attr)
-    
+
     def click(self):
         return self._browser.open(self["href"])
 
 class ZopeTestBrowserControlElement(ElementAPI):
-    
+
     def __init__(self, control):
         self._control = control
 
@@ -162,7 +165,7 @@ class ZopeTestBrowserControlElement(ElementAPI):
     @property
     def value(self):
         return self._control.value
-    
+
     @property
     def checked(self):
         return bool(self._control.value)

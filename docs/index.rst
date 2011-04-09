@@ -75,6 +75,15 @@ You can use the ``visit`` method to navigate to other pages:
 
 The ``visit`` method takes only a single parameter - the ``url`` to be visited.
 
+Reload a page
+-------------
+
+You can reload a page using ``reload`` method:
+
+::
+
+    browser.reload()
+
 Browser.title
 -------------
 
@@ -161,6 +170,10 @@ These methods returns a list of all found elements.
 
 For finding links by id, tag, name or xpath you should use other find methods (``find_by_css_selector``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
 
+Element not found exception
+---------------------------
+
+If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
 
 Get element value
 -----------------
@@ -193,8 +206,12 @@ or
 ::
 
 	browser.find_link_by_text('my link').first.click()
-	
-    
+
+To click in links by href you can use this.
+
+::
+    browser.click_link_by_href('/my_link')
+
 Interacting with forms
 ----------------------
 
@@ -260,7 +277,7 @@ You can return the result of the script:
     browser.evaluate_script("4+4") == 8
 
 
-Switching between iframes
+Using iframes
 -------------------------
 
 You can switch between iframes very easily using the ``switch_to_frame`` method.
@@ -274,3 +291,10 @@ You can switch back to the default frame by passing in an id of ``None``.
 ::
 
     browser.switch_to_frame(None)
+
+Or, you can use the ``get_iframe`` method and the ``with`` statement.
+
+::
+
+    with browser.get_iframe('iframemodal') as iframe:
+        iframe.do_stuff()

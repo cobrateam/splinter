@@ -10,6 +10,7 @@ Features
 
 - now splinter use selenium 2.0b3 for firefox and chrome driver
 - zope.testbrowser.browser dependency is not required
+- new method for reload a page
 
 Backward incompatible changes
 -----------------------------
