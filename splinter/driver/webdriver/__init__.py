@@ -121,26 +121,10 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_not_present(self.find_by_name, name)
 
     def is_element_present_by_id(self, id, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            try:
-                self.driver.find_element_by_id(id)
-                return True
-            except NoSuchElementException:
-                pass
-        return False
+        return self.is_element_present(self.find_by_id, id, wait_time)
 
     def is_element_not_present_by_id(self, id):
-        end_time = time.time() + self.wait_time
-
-        while time.time() < end_time:
-            try:
-                self.driver.find_element_by_id(id)
-            except NoSuchElementException:
-                return True
-        return False
+        return self.is_element_not_present(self.find_by_id, id)
 
     def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
