@@ -199,11 +199,13 @@ You can click in links. To click in links by href or text you can use this.
 IMPORTANT: This methods return the first element always. 
 
 ::
+
     browser.click_link_by_href('/my_link')
 
 or
 
 ::
+
     browser.click_link_by_text('my link')
 
 
