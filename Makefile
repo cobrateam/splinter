@@ -23,7 +23,9 @@ lxml:
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser
 
+which = 'tests'
+
 test: dependencies clean
 	@echo "Running all tests..."
-	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter tests
+	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
 

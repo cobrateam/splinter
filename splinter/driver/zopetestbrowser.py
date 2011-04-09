@@ -1,7 +1,6 @@
 from splinter.driver import DriverAPI, ElementAPI
 from zope.testbrowser.browser import Browser
 from splinter.element_list import ElementList
-from mechanize import AmbiguityError
 from lxml.cssselect import CSSSelector
 import lxml.html
 import mimetypes
@@ -37,13 +36,13 @@ class ZopeTestBrowser(DriverAPI):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control)])
+        return ElementList([ZopeTestBrowserOptionElement(control, self)])
 
     def find_option_by_text(self, text):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control)])
+        return ElementList([ZopeTestBrowserOptionElement(control, self)])
 
     def find_by_css_selector(self, selector):
         xpath = CSSSelector(selector).path
@@ -62,7 +61,7 @@ class ZopeTestBrowser(DriverAPI):
             else:
                 elements.append(xpath_element)
 
-        return ElementList([ZopeTestBrowserElement(element) for element in elements])
+        return ElementList([ZopeTestBrowserElement(element, self) for element in elements])
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)
@@ -81,9 +80,7 @@ class ZopeTestBrowser(DriverAPI):
                 index += 1
             except IndexError:
                 break
-
-        return ElementList([ZopeTestBrowserControlElement(element) for element in elements])
-
+        return ElementList([ZopeTestBrowserControlElement(element, self) for element in elements])
 
     def find_link_by_text(self, text):
         return self._find_links_by_xpath("//a[text()='%s']" % text)
@@ -114,8 +111,7 @@ class ZopeTestBrowser(DriverAPI):
     def _find_links_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
         links = html.xpath(xpath)
-
-        return ElementList([ZopeTestBrowserLinkElement(link, self._browser) for link in links])
+        return ElementList([ZopeTestBrowserLinkElement(link, self) for link in links])
 
     def select(self, name, value):
         self.find_by_name(name).first._control.value = [value,]
@@ -128,8 +124,9 @@ class ZopeTestBrowser(DriverAPI):
 
 class ZopeTestBrowserElement(ElementAPI):
 
-    def __init__(self, element):
+    def __init__(self, element, parent):
         self._element = element
+        self.parent = parent
 
     def __getitem__(self, attr):
         return self._element.attrib[attr]
@@ -141,9 +138,9 @@ class ZopeTestBrowserElement(ElementAPI):
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
 
-    def __init__(self, element, browser):
-        self._browser = browser
-        super(ZopeTestBrowserLinkElement, self).__init__(element)
+    def __init__(self, element, parent):
+        super(ZopeTestBrowserLinkElement, self).__init__(element, parent)
+        self._browser = parent._browser
 
     def __getitem__(self, attr):
         return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
@@ -156,8 +153,9 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
 
 class ZopeTestBrowserControlElement(ElementAPI):
 
-    def __init__(self, control):
+    def __init__(self, control, parent):
         self._control = control
+        self.parent = parent
 
     def __getitem__(self, attr):
         return self._control.mech_control.attrs[attr]
@@ -174,21 +172,22 @@ class ZopeTestBrowserControlElement(ElementAPI):
         return self._control.click()
 
 class ZopeTestBrowserOptionElement(ElementAPI):
-    
-    def __init__(self, control):
+
+    def __init__(self, control, parent):
         self._control = control
-        
+        self.parent = parent
+
     def __getitem__(self, attr):
         return self._control.mech_item.attrs[attr]
-    
+
     @property
     def text(self):
         return self._control.mech_item.get_labels()[0]._text
-        
+
     @property
     def value(self):
         return self._control.optionValue
-        
+
     @property
     def selected(self):
         return self._control.mech_item._selected

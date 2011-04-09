@@ -66,8 +66,10 @@ class DriverAPI(object):
         raise NotImplementedError
 
     def click_link_by_href(self, href):
-        "click returns first element founded"
         return self.find_link_by_href(href).first.click()
+
+    def click_link_by_text(self, text):
+        return self.find_link_by_text(text).first.click()
 
     def quit(self):
         raise NotImplementedError
