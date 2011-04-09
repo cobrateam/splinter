@@ -273,7 +273,7 @@ You can return the result of the script:
     browser.evaluate_script("4+4") == 8
 
 
-Switching between iframes
+Using iframes
 -------------------------
 
 You can switch between iframes very easily using the ``switch_to_frame`` method.
@@ -287,3 +287,10 @@ You can switch back to the default frame by passing in an id of ``None``.
 ::
 
     browser.switch_to_frame(None)
+
+Or, you can use the ``get_iframe`` method and the ``with`` statement.
+
+::
+
+    with browser.get_iframe('iframemodal') as iframe:
+        iframe.do_stuff()
