@@ -170,6 +170,10 @@ These methods returns a list of all found elements.
 
 For finding links by id, tag, name or xpath you should use other find methods (``find_by_css_selector``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
 
+Element not found exception
+---------------------------
+
+If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
 
 Get element value
 -----------------
