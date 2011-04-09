@@ -141,55 +141,38 @@ class BaseWebDriver(DriverAPI):
     def find_link_by_text(self, text):
         return ElementList([self.element_class(element) for element in self.driver.find_elements_by_link_text(text)])
 
-    def find_by_css_selector(self, css_selector):
-        selector = CSSSelector(css_selector)
-
+    def find_by(self, finder, selector):
+        elements = None
         end_time = time.time() + self.wait_time
-
-        while time.time() < end_time:
-            elements = self.driver.find_elements_by_xpath(selector.path)
-            if elements:
-                return ElementList([self.element_class(element) for element in elements])
-        return ElementList([])
-
-    def find_by_xpath(self, xpath):
-        end_time = time.time() + self.wait_time
-
-        while time.time() < end_time:
-            elements = self.driver.find_elements_by_xpath(xpath)
-            if elements:
-                return ElementList([self.element_class(element) for element in elements])
-        return ElementList([])
-
-    def find_by_name(self, name):
-        end_time = time.time() + self.wait_time
-
-        while time.time() < end_time:
-            elements = self.driver.find_elements_by_name(name)
-            if elements:
-                return ElementList([self.element_class(element) for element in elements])
-        return ElementList([])
-
-    def find_by_id(self, id):
-        end_time = time.time() + self.wait_time
-
+        
         while time.time() < end_time:
             try:
-                element = self.driver.find_element_by_id(id)
-                return ElementList([self.element_class(element)])
+                elements = finder(selector)
+                if not isinstance(elements, list):
+                    elements = [elements]
             except NoSuchElementException:
                 pass
 
-        return ElementList([])
-
-    def find_by_tag(self, tag):
-        end_time = time.time() + self.wait_time
-
-        while time.time() < end_time:
-            elements = self.driver.find_elements_by_tag_name(tag)
             if elements:
                 return ElementList([self.element_class(element) for element in elements])
+
         return ElementList([])
+        
+    def find_by_css_selector(self, css_selector):
+        selector = CSSSelector(css_selector)
+        return self.find_by(self.driver.find_elements_by_xpath, selector.path)
+
+    def find_by_xpath(self, xpath):
+        return self.find_by(self.driver.find_elements_by_xpath, xpath)
+
+    def find_by_name(self, name):
+        return self.find_by(self.driver.find_elements_by_name, name)
+
+    def find_by_tag(self, tag):
+        return self.find_by(self.driver.find_elements_by_tag_name, tag)
+
+    def find_by_id(self, id):
+        return self.find_by(self.driver.find_element_by_id, id)
 
     def fill_in(self, name, value):
         field = self.find_by_name(name).first
