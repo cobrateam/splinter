@@ -3,6 +3,7 @@
 import time
 import logging
 import subprocess
+from contextlib import contextmanager
 
 from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
@@ -144,6 +145,14 @@ class BaseWebDriver(DriverAPI):
 
     def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
+    
+    @contextmanager    
+    def get_iframe(self, id):
+        self.driver.switch_to_frame(id)
+        try:
+            yield self
+        finally:
+            self.driver.switch_to_frame(None)
 
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value)
