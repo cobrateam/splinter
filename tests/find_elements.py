@@ -1,3 +1,5 @@
+import warnings
+
 from nose.tools import assert_equals
 
 class FindElementsTest(object):
@@ -7,9 +9,18 @@ class FindElementsTest(object):
         value = self.browser.find_by_css('h1').first.value
         assert_equals(value, 'Example Header')
 
-    def test_existence_of_find_by_css_selector_alias(self):
-        "should check the existence of finds_by_css_selector alias"
-        assert_equals(self.browser.find_by_css, self.browser.find_by_css_selector)
+    def test_existence_of_find_by_css_selector_alias_and_that_its_deprecated(self):
+        "should check the existence of find_by_css_selector alias for backwards compatibility"
+        found = self.browser.find_by_css('h1').first.value
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            found_deprecated = self.browser.find_by_css_selector('h1').first.value
+            warn = w[-1]
+            warn_message = str(warn.message)
+            assert issubclass(warn.category, DeprecationWarning)
+            assert "find_by_css" in warn_message
+            assert "find_by_css_selector" in warn_message
+        assert_equals(found, found_deprecated)
 
     def test_finding_by_xpath(self):
         "should find elements by xpath"
