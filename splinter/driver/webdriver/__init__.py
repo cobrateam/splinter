@@ -142,7 +142,6 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
-    #is text present implemented by Siminino
     def is_text_present(self, text, wait_time = None):
         wait_time = wait_time or self.wait_time
         end_time = time.time() + self.wait_time
