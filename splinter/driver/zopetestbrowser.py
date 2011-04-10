@@ -8,7 +8,6 @@ from splinter.element_list import ElementList
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.utils import warn_deprecated
 
-
 class ZopeTestBrowser(DriverAPI):
 
     def __init__(self):

@@ -87,6 +87,26 @@ EXAMPLE_IFRAME_HTML = """\
   </body>
 </html>"""
 
+EXAMPLE_ALERT_HTML = """\
+<html>
+  <head>
+    <title>Alert Example Title</title>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.alerta').click(function() { alert('This is an alert example.'); });
+        
+        $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
+      })
+    </script>
+  </head>
+  <body>
+    <h1 class="alerta">Alert Example Title</h1>
+    <h2 class="pergunta">Prompt Example Subtitle</h2>
+  </body>
+</html>  
+"""
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -96,6 +116,10 @@ def index():
 @app.route('/iframe')
 def iframed():
     return EXAMPLE_IFRAME_HTML
+
+@app.route('/alert')
+def alertd():
+    return EXAMPLE_ALERT_HTML
 
 @app.route('/name', methods=['GET'])
 def get_name():

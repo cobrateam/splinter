@@ -76,11 +76,10 @@ class DriverAPI(object):
         return self.find_link_by_text(text).first.click()
     
     def within(self, context):
-        return Container(context)
+        return Container(context, self)
     
     def quit(self):
         raise NotImplementedError
-
 
 class ElementAPI(object):
     
