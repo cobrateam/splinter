@@ -293,19 +293,7 @@ You can return the result of the script:
 Using iframes
 -------------------------
 
-You can switch between iframes very easily using the ``switch_to_frame`` method.
-
-::
-
-    browser.switch_to_frame('iframemodal')
-
-You can switch back to the default frame by passing in an id of ``None``.
-
-::
-
-    browser.switch_to_frame(None)
-
-Or, you can use the ``get_iframe`` method and the ``with`` statement.
+You can use the ``get_iframe`` method and the ``with`` statement to interact with iframes.
 
 ::
 
