@@ -131,6 +131,9 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_not_present_by_id(self, id):
         return self.is_element_not_present(self.find_by_id, id)
+        
+    def get_alert(self):
+        return AlertElement(self.driver.switch_to_alert())
     
     @contextmanager
     def get_iframe(self, id):
@@ -257,3 +260,25 @@ class WebDriverElement(ElementAPI):
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
+
+
+class AlertElement(object):
+    
+    def __init__(self, alert):
+        self._alert = alert
+        self.text = alert.text
+        
+    def accept(self):
+        self._alert.accept()
+        
+    def dismiss(self):
+        self._alert.dismiss()
+    
+    def fill_with(self, text):
+        self._alert.send_keys(text)
+        
+    def __enter__(self):
+        return self
+        
+    def __exit__(self, type, value, traceback):
+        pass
