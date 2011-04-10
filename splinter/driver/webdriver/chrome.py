@@ -17,6 +17,9 @@ class WebDriver(BaseWebDriver):
 
     def attach_file(self, name, value):
         raise NotImplementedError
+        
+    def get_alert(self):
+        raise NotImplementedError
 
 class WebDriverElement(BaseWebDriverElement):
 
