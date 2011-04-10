@@ -45,9 +45,11 @@ class ZopeTestBrowser(DriverAPI):
         control = self._browser.getControl(element.text)
         return ElementList([ZopeTestBrowserOptionElement(control)])
 
-    def find_by_css_selector(self, selector):
+    def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
         return self.find_by_xpath(xpath)
+
+    find_by_css_selector = find_by_css
 
     def find_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)

@@ -2,10 +2,14 @@ from nose.tools import assert_equals
 
 class FindElementsTest(object):
 
-    def test_finding_by_css_selector(self):
-        "should finds by css_selector"
-        value = self.browser.find_by_css_selector('h1').first.value
+    def test_finding_by_css(self):
+        "should finds by css"
+        value = self.browser.find_by_css('h1').first.value
         assert_equals(value, 'Example Header')
+
+    def test_existence_of_find_by_css_selector_alias(self):
+        "should check the existence of finds_by_css_selector alias"
+        assert_equals(self.browser.find_by_css, self.browser.find_by_css_selector)
 
     def test_finding_by_xpath(self):
         "should find elements by xpath"
@@ -27,9 +31,9 @@ class FindElementsTest(object):
         value = self.browser.find_by_name('query').first.value
         assert_equals(value, 'default value')
 
-    def test_finding_all_elements_by_css_selector(self):
-        "should find elements by css_selector"
-        value = self.browser.find_by_css_selector('h1')[0].value
+    def test_finding_all_elements_by_css(self):
+        "should find elements by css"
+        value = self.browser.find_by_css('h1')[0].value
         assert_equals(value, 'Example Header')
 
     def test_finding_all_elements_by_xpath(self):
@@ -62,9 +66,9 @@ class FindElementsTest(object):
         link = self.browser.find_link_by_href('http://example.com')[0]
         assert_equals(link['href'], 'http://example.com')
 
-    def test_finding_last_element_by_css_selector(self):
-        "should find last element by css_selector"
-        value = self.browser.find_by_css_selector('h1').last.value
+    def test_finding_last_element_by_css(self):
+        "should find last element by css"
+        value = self.browser.find_by_css('h1').last.value
         assert_equals(value, 'Example Last Header')
 
     def test_finding_last_element_by_xpath(self):
@@ -104,9 +108,9 @@ class FindElementsTest(object):
         link = self.browser.find_link_by_href('http://example.com').last
         assert_equals(link.text, 'Link for last Example.com')
 
-    def test_finding_element_by_css_selector_using_slice(self):
-        "should find element by css_selector using slice"
-        value = self.browser.find_by_css_selector('h1')[-1].value
+    def test_finding_element_by_css_using_slice(self):
+        "should find element by css using slice"
+        value = self.browser.find_by_css('h1')[-1].value
         assert_equals(value, 'Example Last Header')
 
     def test_finding_element_by_xpath_using_slice(self):

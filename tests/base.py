@@ -37,12 +37,12 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
 
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
-        button = self.browser.find_by_css_selector('input[name="send"]').first
+        button = self.browser.find_by_css('input[name="send"]').first
         assert_equals(button['name'], 'send')
 
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
-        header = self.browser.find_by_css_selector('h1').first
+        header = self.browser.find_by_css('h1').first
         assert_equals(header['id'], 'firstheader')
 
     def test_links_should_have_value_attribute(self):
