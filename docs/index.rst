@@ -299,3 +299,39 @@ You can use the ``get_iframe`` method and the ``with`` statement to interact wit
 
     with browser.get_iframe('iframemodal') as iframe:
         iframe.do_stuff()
+
+
+Handling alerts and prompts
+----------------------------
+
+You can deal with alerts and prompts using the ``get_alert`` method.
+
+::
+
+    alert = browser.get_alert()
+    alert.text
+    alert.accept() 
+    alert.dismiss()
+    
+    
+In case of prompts, you can answer it using the ``fill_with`` method.
+
+::
+
+    prompt = browser.get_alert()
+    prompt.text
+    prompt.fill_with('text)
+    prompt.accept()
+    prompt.dismiss()
+
+
+You can use the ``with`` statement to interacte with both alerts and prompts too.
+
+::
+
+    with browser.get_alert() as alert:
+        alert.do_stuff()
+    
+If there's not any prompt or alert, ``get_alert`` will return ``None``.
+Remember to always use at least one of the alert/prompt ending methods (accept and dismiss).
+Otherwise your browser instance will be frozen until you accept or dismiss the alert/prompt correctly.
