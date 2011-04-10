@@ -49,13 +49,18 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
         foo = self.browser.find_link_by_href('/foo').first
         assert_equals(foo.value, 'FOO')
 
+    def test_should_receive_browser_on_parent(self):
+        "element should contains the browser on \"parent\" attribute"
+        element = self.browser.find_by_id("firstheader").first
+        assert_equals(element.parent, self.browser)
+
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
+
     def test_should_reload_a_page(self):
         "should reload a page"
         title = self.browser.title
         self.browser.reload()
         assert_equals(title, 'Example Title')
-
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
 
     def test_can_execute_javascript(self):
         "should execute javascript"

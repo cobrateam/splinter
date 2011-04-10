@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from selenium.webdriver.chrome.webdriver import WebDriver as chrome_driver
 
+from selenium.webdriver import Chrome
 from splinter.driver.webdriver import BaseWebDriver
 from splinter.driver.webdriver import WebDriverElement as BaseWebDriverElement
 
@@ -8,7 +8,7 @@ from splinter.driver.webdriver import WebDriverElement as BaseWebDriverElement
 class WebDriver(BaseWebDriver):
     def __init__(self):
         self._patch_subprocess()
-        self.driver = chrome_driver()
+        self.driver = Chrome()
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement

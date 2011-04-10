@@ -159,5 +159,3 @@ class FindElementsTest(object):
         "should find links by href"
         link = self.browser.find_link_by_href('http://example.com').first
         assert_equals(link['href'], 'http://example.com')
-
-
