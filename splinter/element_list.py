@@ -3,7 +3,7 @@ class ElementDoesNotExist(Exception):
 
 class ElementList(list):
 
-    def __init__(self, list):
+    def __init__(self, list, context=None, driver=None):
         self.extend(list)
 
     def __getitem__(self, index):
@@ -19,3 +19,6 @@ class ElementList(list):
     @property
     def last(self):
         return self[-1]
+
+    def find_by_css(self, element):
+        return ElementList([])
