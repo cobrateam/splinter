@@ -22,3 +22,6 @@ class ElementList(list):
 
     def find_by_css(self, element):
         return ElementList([])
+
+    def is_empty(self):
+        return not len(self)
