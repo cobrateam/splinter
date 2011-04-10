@@ -76,7 +76,7 @@ class DriverAPI(object):
         return self.find_link_by_text(text).first.click()
     
     def within(self, context):
-        return ElementList(context, self)
+        return ElementList([], context, self)
     
     def quit(self):
         raise NotImplementedError
