@@ -1,3 +1,5 @@
+from splinter.container import Container
+
 class DriverAPI(object):
     @property
     def title(self):
@@ -15,9 +17,6 @@ class DriverAPI(object):
         raise NotImplementedError
     
     def reload(self):
-        raise NotImplementedError
-    
-    def switch_to_frame(self, id):
         raise NotImplementedError
     
     def get_iframe(self, id):
@@ -73,6 +72,9 @@ class DriverAPI(object):
     
     def click_link_by_text(self, text):
         return self.find_link_by_text(text).first.click()
+    
+    def within(self, context):
+        return Container(context)
     
     def quit(self):
         raise NotImplementedError
