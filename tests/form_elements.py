@@ -1,3 +1,5 @@
+import warnings
+
 from nose.tools import assert_equals, assert_true, assert_false
 
 class FormElementsTest(object):
@@ -5,6 +7,19 @@ class FormElementsTest(object):
     def test_can_change_field_value(self):
         "should provide a away to change field value"
         self.browser.fill('query', 'new query')
+        value = self.browser.find_by_name('query').first.value
+        assert_equals(value, 'new query')
+
+    def test_existence_of_the_fill_in_alias_and_that_its_deprecated(self):
+        "should check the existence of the fill_in alias for backwards compatibility"
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.browser.fill_in('query', 'new query')
+            warn = w[-1]
+            warn_message = str(warn.message)
+            assert issubclass(warn.category, DeprecationWarning)
+            assert "fill" in warn_message
+            assert "fill_in" in warn_message
         value = self.browser.find_by_name('query').first.value
         assert_equals(value, 'new query')
 
