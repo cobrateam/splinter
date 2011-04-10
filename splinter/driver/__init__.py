@@ -18,6 +18,9 @@ class DriverAPI(object):
     
     def reload(self):
         raise NotImplementedError
+        
+    def get_alert(self):
+        raise NotImplementedError
     
     def get_iframe(self, id):
         raise NotImplementedError
