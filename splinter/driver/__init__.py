@@ -1,4 +1,4 @@
-from splinter.container import Container
+from splinter.element_list import ElementList
 
 class DriverAPI(object):
     @property
@@ -79,7 +79,7 @@ class DriverAPI(object):
         return self.find_link_by_text(text).first.click()
     
     def within(self, context):
-        return Container(context, self)
+        return ElementList([], context, self)
     
     def quit(self):
         raise NotImplementedError

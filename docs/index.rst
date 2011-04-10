@@ -114,9 +114,9 @@ The visited page's url can be accessed by the ``url`` attribute:
 Finding elements
 ----------------
 
-For finding elements you can use five methods, one for each selector type ``css_selector``, ``xpath``, ``tag``, ``name``, ``id``::
+For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``::
 
-    browser.find_by_css_selector('h1')
+    browser.find_by_css('h1')
     browser.find_by_xpath('//h1')
     browser.find_by_tag('h1')
     browser.find_by_name('name')
@@ -168,7 +168,7 @@ or
 
 These methods returns a list of all found elements.
 
-For finding links by id, tag, name or xpath you should use other find methods (``find_by_css_selector``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
+For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
 
 Element not found exception
 ---------------------------
@@ -182,13 +182,13 @@ In order to retrieve an element's value, use the ``value`` property:
 
 ::
 
-    browser.find_by_css_selector('h1').first.value
+    browser.find_by_css('h1').first.value
 
 or
 
 ::
 
-    element = browser.find_by_css_selector('h1').first
+    element = browser.find_by_css('h1').first
     element.value
 
 
@@ -244,7 +244,7 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 
 ::
 
-    browser.find_by_css_selector('h1').first.visible
+    browser.find_by_css('h1').first.visible
 
 will be True if the element is visible, or False if it is invisible.
 
@@ -257,7 +257,7 @@ splinter have methods for verifying if element is present in a page, that wait f
 
 ::
 
-    browser.is_element_present_by_css_selector('h1')
+    browser.is_element_present_by_css('h1')
     browser.is_element_present_by_xpath('//h1')
     browser.is_element_present_by_tag('h1')
     browser.is_element_present_by_name('name')
@@ -267,7 +267,7 @@ You can verify too if element is not present in a page:
 
 ::
 
-    browser.is_element_not_present_by_css_selector('h1')
+    browser.is_element_not_present_by_css('h1')
     browser.is_element_not_present_by_xpath('//h1')
     browser.is_element_not_present_by_tag('h1')
     browser.is_element_not_present_by_name('name')
