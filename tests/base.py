@@ -8,6 +8,7 @@ from element_does_not_exist import ElementDoestNotExistTest
 from is_element_present import IsElementPresentTest
 from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
+from is_text_present import IsTextPresentTest
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
 
@@ -49,7 +50,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
         foo = self.browser.find_link_by_href('/foo').first
         assert_equals(foo.value, 'FOO')
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest):
 
     def test_can_execute_javascript(self):
         "should execute javascript"

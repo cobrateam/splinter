@@ -142,6 +142,30 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
+    #is text present implemented by Siminino
+    def is_text_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + self.wait_time
+        
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+                return True
+            except ValueError:
+                pass
+        return False
+
+    def is_text_not_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + self.wait_time
+        
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+            except ValueError:
+                return True
+        return False
+
     def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
 
