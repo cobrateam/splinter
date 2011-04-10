@@ -1,3 +1,5 @@
+import warnings
+
 from nose.tools import assert_true, assert_false, assert_equals
 
 class IsElementPresentTest(object):
@@ -27,13 +29,31 @@ class IsElementPresentTest(object):
         "should is element not present by css selector returns False if element is present"
         assert_false(self.browser.is_element_not_present_by_css('h1'))
 
-    def test_existence_of_is_element_present_by_css_selector_alias(self):
-        "should check ths existance of the is_element_present_by_css_selector alias for backwards compatibility"
-        assert_equals(self.browser.is_element_present_by_css_selector, self.browser.is_element_present_by_css)
+    def test_existence_of_is_element_present_by_css_selector_alias_and_that_its_deprecated(self):
+        "should check the existence of the is_element_present_by_css_selector alias for backwards compatibility"
+        is_present = self.browser.is_element_present_by_css('h1')
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            is_present_deprecated = self.browser.is_element_present_by_css_selector('h1')
+            warn = w[-1]
+            warn_message = str(warn.message)
+            assert issubclass(warn.category, DeprecationWarning)
+            assert "is_element_present_by_css" in warn_message
+            assert "is_element_present_by_css_selector" in warn_message
+        assert_equals(is_present, is_present_deprecated)
 
-    def test_existence_of_is_element_not_present_by_css_selector_alias(self):
-        "should check ths existance of the is_element_not_present_by_css_selector alias for backwards compatibility"
-        assert_equals(self.browser.is_element_not_present_by_css_selector, self.browser.is_element_not_present_by_css)
+    def test_existence_of_is_element_not_present_by_css_selector_alias_and_that_its_deprecated(self):
+        "should check the existence of the is_element_not_present_by_css_selector alias for backwards compatibility"
+        is_not_present = self.browser.is_element_not_present_by_css('h1')
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            is_not_present_deprecated = self.browser.is_element_not_present_by_css_selector('h1')
+            warn = w[-1]
+            warn_message = str(warn.message)
+            assert issubclass(warn.category, DeprecationWarning)
+            assert "is_element_not_present_by_css" in warn_message
+            assert "is_element_not_present_by_css_selector" in warn_message
+        assert_equals(is_not_present, is_not_present_deprecated)
 
     def test_is_element_present_by_xpath(self):
         "should is element present by xpath verify if element is present"

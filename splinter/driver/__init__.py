@@ -27,10 +27,12 @@ class DriverAPI(object):
     
     def evaluate_script(self, script):
         raise NotImplementedError
-    
-    def find_by_css_selector(self, css_selector):
+
+    def find_by_css(self, css_selector):
         raise NotImplementedError
-    
+
+    find_by_css_selector = find_by_css
+
     def find_by_xpath(self, xpath):
         raise NotImplementedError
     
@@ -51,11 +53,11 @@ class DriverAPI(object):
     
     def wait_for_element(self, selector, timeout, interval):
         raise NotImplementedError
-    
-    def fill_in(self, name, value):
+
+    def fill(self, name, value):
         raise NotImplementedError
-    
-    fill = fill_in
+
+    fill_in = fill
     attach_file = fill
     
     def choose(self, name):
@@ -74,11 +76,10 @@ class DriverAPI(object):
         return self.find_link_by_text(text).first.click()
     
     def within(self, context):
-        return Container(context)
+        return Container(context, self)
     
     def quit(self):
         raise NotImplementedError
-
 
 class ElementAPI(object):
     
