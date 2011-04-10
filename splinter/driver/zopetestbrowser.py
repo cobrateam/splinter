@@ -90,10 +90,10 @@ class ZopeTestBrowser(DriverAPI):
     def find_link_by_href(self, href):
         return self._find_links_by_xpath("//a[@href='%s']" % href)
 
-    def fill_in(self, name, value):
+    def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
-    fill = fill_in
+    fill_in = fill
 
     def choose(self, name):
         control = self._browser.getControl(name=name)

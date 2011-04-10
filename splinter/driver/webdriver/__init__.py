@@ -135,7 +135,7 @@ class BaseWebDriver(DriverAPI):
     def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
     
-    @contextmanager    
+    @contextmanager
     def get_iframe(self, id):
         self.driver.switch_to_frame(id)
         try:
@@ -189,11 +189,11 @@ class BaseWebDriver(DriverAPI):
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
 
-    def fill_in(self, name, value):
+    def fill(self, name, value):
         field = self.find_by_name(name).first
         field.value = value
 
-    fill = fill_in
+    fill_in = fill
     attach_file = fill
 
     def choose(self, name):
