@@ -1,6 +1,4 @@
 from lxml.cssselect import CSSSelector
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import Firefox
 import time
 from splinter.element_list import ElementList
 

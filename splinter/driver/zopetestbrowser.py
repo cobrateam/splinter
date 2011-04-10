@@ -5,7 +5,6 @@ from lxml.cssselect import CSSSelector
 import lxml.html
 import mimetypes
 
-
 class ZopeTestBrowser(DriverAPI):
 
     def __init__(self):

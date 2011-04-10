@@ -8,7 +8,11 @@ class WithinElementsTest(object):
         assert isinstance(element, Container)
 
     def test_find_element_within(self):
-        element = self.browser.within('h1').find_by_css()
+        "should return a elementList"
+        element = self.browser.within('h2').find_by_css()
         assert isinstance(element, ElementList)
 
+    def test_element_list_empty(self):
+        element_list = self.browser.within('h2').find_by_css()
+        assert not element_list
 
