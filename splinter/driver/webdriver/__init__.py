@@ -133,9 +133,6 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_not_present_by_id(self, id):
         return self.is_element_not_present(self.find_by_id, id)
-
-    def switch_to_frame(self, id):
-        self.driver.switch_to_frame(id)
     
     @contextmanager
     def get_iframe(self, id):
