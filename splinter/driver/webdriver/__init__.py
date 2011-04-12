@@ -144,7 +144,7 @@ class BaseWebDriver(DriverAPI):
 
     def is_text_present(self, text, wait_time = None):
         wait_time = wait_time or self.wait_time
-        end_time = time.time() + self.wait_time
+        end_time = time.time() + wait_time
         
         while time.time() < end_time:
             try:
@@ -156,7 +156,7 @@ class BaseWebDriver(DriverAPI):
 
     def is_text_not_present(self, text, wait_time = None):
         wait_time = wait_time or self.wait_time
-        end_time = time.time() + self.wait_time
+        end_time = time.time() + wait_time
         
         while time.time() < end_time:
             try:
