@@ -9,8 +9,10 @@ from is_element_present import IsElementPresentTest
 from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
 from is_text_present import IsTextPresentTest
+from within_elements import WithinElementsTest
 
-class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
+
+class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")
@@ -38,19 +40,30 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest):
 
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
-        button = self.browser.find_by_css_selector('input[name="send"]').first
+        button = self.browser.find_by_css('input[name="send"]').first
         assert_equals(button['name'], 'send')
 
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
-        header = self.browser.find_by_css_selector('h1').first
+        header = self.browser.find_by_css('h1').first
         assert_equals(header['id'], 'firstheader')
 
     def test_links_should_have_value_attribute(self):
         foo = self.browser.find_link_by_href('/foo').first
         assert_equals(foo.value, 'FOO')
 
+    def test_should_receive_browser_on_parent(self):
+        "element should contains the browser on \"parent\" attribute"
+        element = self.browser.find_by_id("firstheader").first
+        assert_equals(element.parent, self.browser)
+
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest):
+
+    def test_should_reload_a_page(self):
+        "should reload a page"
+        title = self.browser.title
+        self.browser.reload()
+        assert_equals(title, 'Example Title')
 
     def test_can_execute_javascript(self):
         "should execute javascript"

@@ -3,6 +3,7 @@
 import time
 import logging
 import subprocess
+from contextlib import contextmanager
 
 from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
@@ -11,6 +12,7 @@ from selenium.webdriver.firefox import firefox_profile
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
+from splinter.utils import warn_deprecated
 
 import time
 
@@ -72,6 +74,9 @@ class BaseWebDriver(DriverAPI):
 
     def visit(self, url):
         self.driver.get(url)
+
+    def reload(self):
+        self.driver.refresh()
 
     def execute_script(self, script):
         self.driver.execute_script(script)
@@ -167,6 +172,10 @@ class BaseWebDriver(DriverAPI):
 
     def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
+        try:
+            yield self
+        finally:
+            self.driver.switch_to_frame(None)
 
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value)
@@ -260,6 +269,7 @@ class WebDriverElement(ElementAPI):
 
     def __init__(self, element):
         self._element = element
+        self.parent = parent
 
     def _get_value(self):
         try:
@@ -300,3 +310,25 @@ class WebDriverElement(ElementAPI):
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
+
+
+class AlertElement(object):
+    
+    def __init__(self, alert):
+        self._alert = alert
+        self.text = alert.text
+        
+    def accept(self):
+        self._alert.accept()
+        
+    def dismiss(self):
+        self._alert.dismiss()
+    
+    def fill_with(self, text):
+        self._alert.send_keys(text)
+        
+    def __enter__(self):
+        return self
+        
+    def __exit__(self, type, value, traceback):
+        pass
