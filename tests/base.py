@@ -9,6 +9,7 @@ from is_element_present import IsElementPresentTest
 from iframes import IFrameElementsTest
 from async_finder import AsyncFinderTests
 from within_elements import WithinElementsTest
+from status_code_404 import StatusCode404Test
 
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest):
@@ -56,7 +57,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         element = self.browser.find_by_id("firstheader").first
         assert_equals(element.parent, self.browser)
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, StatusCode404Test):
 
     def test_should_reload_a_page(self):
         "should reload a page"
