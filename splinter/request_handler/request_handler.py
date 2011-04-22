@@ -8,16 +8,16 @@ class RequestHandler(object):
 
     @property
     def status_code(self):
-        """
-        Return the HTTP status code of a request
-        """
-        self.response = self.conn.getresponse()
         return self.response.status
 
     def connect(self):
         self._parse_url()
         self.conn = httplib.HTTPConnection(self.host)
-        self.conn.request('get', self.url)
+        self.conn.request('GET', self.url)
+        self.store_response()
+
+    def store_response(self):
+        self.response = self.conn.getresponse()
 
     def _parse_url(self):
         parsed_url = urlparse(self.url)
