@@ -1,7 +1,7 @@
 import httplib
 from urlparse import urlparse
 
-class PageNotFound(Exception):
+class HtppResponseError(Exception):
     pass
 
 class RequestHandler(object):
@@ -20,7 +20,7 @@ class RequestHandler(object):
 
     def _ensures_success_response(self):
         if(self.status_code == 404):
-            raise PageNotFound("page not found")
+            raise HtppResponseError("page not found")
 
     def _store_response(self):
         self.response = self.conn.getresponse()
