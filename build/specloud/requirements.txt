@@ -1,0 +1,3 @@
+nose
+http://darcs.idyll.org/~t/projects/figleaf-0.6.1.tar.gz
+http://darcs.idyll.org/~t/projects/pinocchio-latest.tar.gz

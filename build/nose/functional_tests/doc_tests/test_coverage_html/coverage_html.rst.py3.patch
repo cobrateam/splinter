@@ -1,0 +1,16 @@
+--- coverage_html.rst.orig	2010-08-31 23:13:33.000000000 -0700
++++ coverage_html.rst	2010-08-31 23:14:25.000000000 -0700
+@@ -78,11 +78,11 @@
+     </div>
+     <div class="coverage">
+     <div class="cov"><span class="num"><pre>1</pre></span><pre>def dostuff():</pre></div>
+-    <div class="cov"><span class="num"><pre>2</pre></span><pre>    print 'hi'</pre></div>
++    <div class="cov"><span class="num"><pre>2</pre></span><pre>    print('hi')</pre></div>
+     <div class="skip"><span class="num"><pre>3</pre></span><pre></pre></div>
+     <div class="skip"><span class="num"><pre>4</pre></span><pre></pre></div>
+     <div class="cov"><span class="num"><pre>5</pre></span><pre>def notcov():</pre></div>
+-    <div class="nocov"><span class="num"><pre>6</pre></span><pre>    print 'not covered'</pre></div>
++    <div class="nocov"><span class="num"><pre>6</pre></span><pre>    print('not covered')</pre></div>
+     <div class="skip"><span class="num"><pre>7</pre></span><pre></pre></div>
+     </div>
+     </body>

@@ -14,6 +14,7 @@ from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from splinter.utils import warn_deprecated
 
+import time
 
 class BaseWebDriver(DriverAPI):
     old_popen = subprocess.Popen
@@ -100,15 +101,11 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
-    def is_element_present_by_css(self, css_selector, wait_time=None):
-        return self.is_element_present(self.find_by_css, css_selector, wait_time)
+    def is_element_present_by_css_selector(self, css_selector, wait_time=None):
+        return self.is_element_present(self.find_by_css_selector, css_selector, wait_time)
 
-    is_element_present_by_css_selector = warn_deprecated(is_element_present_by_css, 'is_element_present_by_css_selector')
-
-    def is_element_not_present_by_css(self, css_selector):
-        return self.is_element_not_present(self.find_by_css, css_selector)
-
-    is_element_not_present_by_css_selector = warn_deprecated(is_element_not_present_by_css, 'is_element_not_present_by_css_selector')
+    def is_element_not_present_by_css_selector(self, css_selector):
+        return self.is_element_not_present(self.find_by_css_selector, css_selector)
 
     def is_element_present_by_xpath(self, xpath, wait_time=None):
         return self.is_element_present(self.find_by_xpath, xpath, wait_time)
@@ -120,7 +117,7 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_present(self.find_by_tag, tag, wait_time)
 
     def is_element_not_present_by_tag(self, tag):
-        return self.is_element_not_present(self.find_by_tag, tag)
+        return self.is_element_present(self.find_by_tag, tag)
 
     def is_element_present_by_name(self, name, wait_time=None):
         return self.is_element_present(self.find_by_name, name, wait_time)
@@ -129,16 +126,51 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_not_present(self.find_by_name, name)
 
     def is_element_present_by_id(self, id, wait_time=None):
-        return self.is_element_present(self.find_by_id, id, wait_time)
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_id(id)
+                return True
+            except NoSuchElementException:
+                pass
+        return False
 
     def is_element_not_present_by_id(self, id):
-        return self.is_element_not_present(self.find_by_id, id)
+        end_time = time.time() + self.wait_time
+
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_id(id)
+            except NoSuchElementException:
+                return True
+        return False
+
+    def is_text_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
         
-    def get_alert(self):
-        return AlertElement(self.driver.switch_to_alert())
-    
-    @contextmanager
-    def get_iframe(self, id):
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+                return True
+            except ValueError:
+                pass
+        return False
+
+    def is_text_not_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+        
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+            except ValueError:
+                return True
+        return False
+
+    def switch_to_frame(self, id):
         self.driver.switch_to_frame(id)
         try:
             yield self
@@ -155,47 +187,63 @@ class BaseWebDriver(DriverAPI):
         return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
+        return ElementList([self.element_class(element) for element in self.driver.find_elements_by_link_text(text)])
 
-    def find_by(self, finder, selector):
-        elements = None
+    def find_by_css_selector(self, css_selector):
+        selector = CSSSelector(css_selector)
+
+        end_time = time.time() + self.wait_time
+
+        while time.time() < end_time:
+            elements = self.driver.find_elements_by_xpath(selector.path)
+            if elements:
+                return ElementList([self.element_class(element) for element in elements])
+        return ElementList([])
+
+    def find_by_xpath(self, xpath):
+        end_time = time.time() + self.wait_time
+
+        while time.time() < end_time:
+            elements = self.driver.find_elements_by_xpath(xpath)
+            if elements:
+                return ElementList([self.element_class(element) for element in elements])
+        return ElementList([])
+
+    def find_by_name(self, name):
+        end_time = time.time() + self.wait_time
+
+        while time.time() < end_time:
+            elements = self.driver.find_elements_by_name(name)
+            if elements:
+                return ElementList([self.element_class(element) for element in elements])
+        return ElementList([])
+
+    def find_by_id(self, id):
         end_time = time.time() + self.wait_time
 
         while time.time() < end_time:
             try:
-                elements = finder(selector)
-                if not isinstance(elements, list):
-                    elements = [elements]
+                element = self.driver.find_element_by_id(id)
+                return ElementList([self.element_class(element)])
             except NoSuchElementException:
                 pass
 
-            if elements:
-                return ElementList([self.element_class(element, self) for element in elements])
         return ElementList([])
 
-    def find_by_css(self, css_selector):
-        selector = CSSSelector(css_selector)
-        return self.find_by(self.driver.find_elements_by_xpath, selector.path)
-
-    find_by_css_selector = warn_deprecated(find_by_css, 'find_by_css_selector')
-
-    def find_by_xpath(self, xpath):
-        return self.find_by(self.driver.find_elements_by_xpath, xpath)
-
-    def find_by_name(self, name):
-        return self.find_by(self.driver.find_elements_by_name, name)
-
     def find_by_tag(self, tag):
-        return self.find_by(self.driver.find_elements_by_tag_name, tag)
+        end_time = time.time() + self.wait_time
 
-    def find_by_id(self, id):
-        return self.find_by(self.driver.find_element_by_id, id)
+        while time.time() < end_time:
+            elements = self.driver.find_elements_by_tag_name(tag)
+            if elements:
+                return ElementList([self.element_class(element) for element in elements])
+        return ElementList([])
 
-    def fill(self, name, value):
+    def fill_in(self, name, value):
         field = self.find_by_name(name).first
         field.value = value
 
-    fill_in = warn_deprecated(fill, 'fill_in')
+    fill = fill_in
     attach_file = fill
 
     def choose(self, name):
@@ -219,7 +267,7 @@ class BaseWebDriver(DriverAPI):
 
 class WebDriverElement(ElementAPI):
 
-    def __init__(self, element, parent):
+    def __init__(self, element):
         self._element = element
         self.parent = parent
 

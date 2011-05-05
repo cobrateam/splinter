@@ -1,0 +1,3 @@
+nose
+figleaf
+pinocchio==0.2

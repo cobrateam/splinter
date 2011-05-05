@@ -1,0 +1,2 @@
+.. automodule :: nose.suite
+   :members:

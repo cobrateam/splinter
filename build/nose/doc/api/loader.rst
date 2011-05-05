@@ -1,0 +1,2 @@
+.. automodule :: nose.loader
+   :members:

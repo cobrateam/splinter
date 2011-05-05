@@ -1,0 +1,74 @@
+@import url(default.css);
+
+body {
+    padding-left: 20px;
+    background-color: #fff;
+    font: x-small Georgia,Serif;
+    font-size/* */:/**/small;
+    font-size: /**/small;
+}
+
+div.body { border-right: 1px solid #ccc; }
+
+div.body h1 { margin-top: 0; font-size: 130%; margin-right: 0px; }
+div.body h2 { font-size: 120%; }
+div.body h3 { font-size: 115%; }
+div.body h4 { font-size: 110%; }
+div.body h5 { font-size: 106%; }
+div.body h6 { font-size: 103%; }
+
+div.body h2,
+div.body h3,
+div.body h4,
+div.body h5,
+div.body h6 {
+    border: none;
+    background-color: #fff;
+}
+
+.new {
+       color: #f00;
+       font-weight: bold;
+}
+
+pre, tt {
+    background-color: #ffe;
+}
+
+div.body h1.big {
+    font-family: courier, "courier new", monospace;
+    font-weight: bold;
+    font-size: 800%;
+    background-color: #fff;
+    margin: 0px -20px 0px -25px;
+    padding: 0px 0px 0px 10px;
+    border: none;
+    color: #000;
+}
+
+div.body h2.big {
+    font-weight: bold;
+    margin: -10px -20px 0px -20px;
+}
+
+p.big {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 200%;
+    margin-left: -20px;
+    padding-left: 10px;
+}
+
+span.biglink {
+    font-size: 1.3em
+}
+
+table.contentstable td {
+    vertical-align: top
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+table.contentstable td p {
+    text-align: left;
+}
