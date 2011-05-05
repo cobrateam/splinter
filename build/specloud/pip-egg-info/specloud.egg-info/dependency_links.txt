@@ -1,0 +1,1 @@
+http://darcs.idyll.org/~t/projects/pinocchio-latest.tar.gz#egg=pinocchio-0.2

@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.rst
+requirements.txt
+setup.py
+specloud/__init__.py
+specloud/example.py
+specloud.egg-info/PKG-INFO
+specloud.egg-info/SOURCES.txt
+specloud.egg-info/dependency_links.txt
+specloud.egg-info/entry_points.txt
+specloud.egg-info/not-zip-safe
+specloud.egg-info/requires.txt
+specloud.egg-info/top_level.txt

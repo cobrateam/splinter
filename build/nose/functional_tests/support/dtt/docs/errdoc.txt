@@ -1,0 +1,7 @@
+This document contains an invalid doctest.
+
+    >>> def foo():
+    >>> def bar():
+    ...     pass
+
+That is all.

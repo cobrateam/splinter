@@ -1,0 +1,38 @@
+--- errorclass_failure.rst.orig	2010-08-31 10:39:35.000000000 -0700
++++ errorclass_failure.rst	2010-08-31 10:40:26.000000000 -0700
+@@ -30,7 +30,7 @@
+     ----------------------------------------------------------------------
+     Traceback (most recent call last):
+     ...
+-    Todo: fix me
++    errorclass_failure_plugin.Todo: fix me
+     <BLANKLINE>
+     ----------------------------------------------------------------------
+     Ran 2 tests in ...s
+@@ -49,7 +49,7 @@
+     ----------------------------------------------------------------------
+     Traceback (most recent call last):
+     ...
+-    Todo: fix me
++    errorclass_failure_plugin.Todo: fix me
+     <BLANKLINE>
+     ----------------------------------------------------------------------
+     Ran 1 test in ...s
+@@ -95,7 +95,7 @@
+     ----------------------------------------------------------------------
+     Traceback (most recent call last):
+     ...
+-    Todo: fix me
++    errorclass_failure_plugin.Todo: fix me
+     <BLANKLINE>
+     ----------------------------------------------------------------------
+     Ran 6 tests in ...s
+@@ -114,7 +114,7 @@
+     ----------------------------------------------------------------------
+     Traceback (most recent call last):
+     ...
+-    Todo: fix me
++    errorclass_failure_plugin.Todo: fix me
+     <BLANKLINE>
+     ----------------------------------------------------------------------
+     Ran 6 tests in ...s

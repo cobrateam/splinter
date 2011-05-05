@@ -1,0 +1,7 @@
+{% extends "!page.html" %}
+{% block body %}
+{% if pagename == 'index' %}
+{% include "index.html" %}
+{% else %}
+{{ super() }}
+{% endif %}{% endblock %}

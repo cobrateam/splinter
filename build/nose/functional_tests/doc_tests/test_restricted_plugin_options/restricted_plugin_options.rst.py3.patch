@@ -1,0 +1,9 @@
+--- restricted_plugin_options.rst.orig	2010-08-31 10:57:04.000000000 -0700
++++ restricted_plugin_options.rst	2010-08-31 10:57:51.000000000 -0700
+@@ -86,5 +86,5 @@
+     >>> run(argv=argv, plugins=restricted) # doctest: +ELLIPSIS
+     Traceback (most recent call last):
+     ...
+-    ConfigError: Error reading config file '...bad.cfg': no such option 'with-meltedcheese'
++    nose.config.ConfigError: Error reading config file '...bad.cfg': no such option 'with-meltedcheese'
+ 

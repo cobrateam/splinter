@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>blah</title>
+</head>
+<body>
+blah
+<style>
+.coverage pre {float: left; margin: 0px 1em; border: none;
+               padding: 0px; }
+.num pre { margin: 0px }
+.nocov, .nocov pre {background-color: #faa}
+.cov, .cov pre {background-color: #cfc}
+div.coverage div { clear: both; height: 1.1em}
+</style>
+<div class="stats">
+Covered: 3 lines<br/>
+Missed: 1 lines<br/>
+Skipped 3 lines<br/>
+Percent: 75 %<br/>
+
+</div>
+<div class="coverage">
+<div class="cov"><span class="num"><pre>1</pre></span><pre>def dostuff():</pre></div>
+<div class="cov"><span class="num"><pre>2</pre></span><pre>    print 'hi'</pre></div>
+<div class="skip"><span class="num"><pre>3</pre></span><pre></pre></div>
+<div class="skip"><span class="num"><pre>4</pre></span><pre></pre></div>
+<div class="cov"><span class="num"><pre>5</pre></span><pre>def notcov():</pre></div>
+<div class="nocov"><span class="num"><pre>6</pre></span><pre>    print 'not covered'</pre></div>
+<div class="skip"><span class="num"><pre>7</pre></span><pre></pre></div>
+</div>
+</body>
+</html>
