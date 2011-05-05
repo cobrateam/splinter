@@ -1,2 +1,0 @@
-.. automodule :: nose.commands
-   :members:

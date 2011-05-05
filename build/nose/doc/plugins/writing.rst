@@ -1,1 +1,0 @@
-.. automodule :: nose.plugins

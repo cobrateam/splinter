@@ -1,6 +1,0 @@
-This document is a doctest.
-
-    >>> 1 + 1
-    2
-
-That's all

@@ -1,8 +1,0 @@
---- test_issue_100.rst.orig	2010-08-30 19:31:28.000000000 -0700
-+++ test_issue_100.rst	2010-08-30 19:31:41.000000000 -0700
-@@ -9,4 +9,4 @@
-     ...         pass
-     >>> test = nose.case.Test(SimpleTest())
-     >>> test.address()
--    (None, '__builtin__', 'SimpleTest.runTest')
-+    (None, 'builtins', 'SimpleTest.runTest')

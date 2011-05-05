@@ -1,2 +1,0 @@
-.. automodule :: nose.selector
-   :members:
