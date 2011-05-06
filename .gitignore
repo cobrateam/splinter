@@ -9,5 +9,3 @@ splinter.egg-info
 distribute-*.egg
 docs/_build/*
 tags
-build/*
-*.orig
