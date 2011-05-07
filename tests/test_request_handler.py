@@ -5,7 +5,8 @@ from splinter.request_handler.request_handler import RequestHandler, HttpRespons
 
 class RequestHandlerTestCase(unittest.TestCase):
     def setUp(self):
-        self.request = RequestHandler(EXAMPLE_APP)
+        self.request = RequestHandler()
+        self.request.connect(EXAMPLE_APP)
 
     def test_should_receive_an_url_and_get_an_200_response(self):
         assert_equals(self.request.status_code, 200)
@@ -15,5 +16,10 @@ class RequestHandlerTestCase(unittest.TestCase):
 
     @raises(HttpResponseError)
     def test_should_get_an_absent_url_and_raise_an_exception(self):
-        request = RequestHandler(EXAMPLE_APP + "page-that-doesnt-exists")
-        assert_equals(request.status_code, 404)
+        request = RequestHandler()
+        request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
+
+    @raises(HttpResponseError)
+    def test_should_get_an_internal_server_error_and_raise_an_exception(self):
+        request = RequestHandler()
+        request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
