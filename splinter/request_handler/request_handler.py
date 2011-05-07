@@ -1,26 +1,26 @@
 import httplib
 from urlparse import urlparse
 
-class HtppResponseError(Exception):
+class HttpResponseError(Exception):
     pass
 
-class RequestHandler(object):
-    def __init__(self, url):
-        self.url = url
-        self.connect()
-
+class RequestHandler():
     @property
     def status_code(self):
         return self.response.status
 
-    def connect(self):
+    def connect(self, url):
+        self.url = url
         self._create_connection()
         self._store_response()
         self._ensures_success_response()
 
+    #TODO how to get an internal server error?
     def _ensures_success_response(self):
-        if(self.status_code == 404):
-            raise HtppResponseError("page not found")
+        if self.status_code == 404:
+            raise HttpResponseError("page not found")
+        elif self.status_code == 500:
+            raise HttpResponseError("internal server error")
 
     def _store_response(self):
         self.response = self.conn.getresponse()
