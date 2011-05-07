@@ -12,6 +12,7 @@ from selenium.webdriver.firefox import firefox_profile
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
+from splinter.request_handler.request_handler import RequestHandler
 from splinter.utils import warn_deprecated
 
 
@@ -20,6 +21,7 @@ class BaseWebDriver(DriverAPI):
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
+        self.request_handler = RequestHandler()
 
     def _patch_subprocess(self):
         loggers_to_silence = [
@@ -72,6 +74,7 @@ class BaseWebDriver(DriverAPI):
         return self.driver.current_url
 
     def visit(self, url):
+        self.request_handler.connect(url)
         self.driver.get(url)
 
     def reload(self):

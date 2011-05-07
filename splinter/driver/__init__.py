@@ -12,13 +12,13 @@ class DriverAPI(object):
     @property
     def url(self):
         raise NotImplementedError
-    
+
     def visit(self, url):
         raise NotImplementedError
     
     def reload(self):
         raise NotImplementedError
-        
+
     def get_alert(self):
         raise NotImplementedError
     
