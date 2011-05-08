@@ -13,10 +13,9 @@ class RequestHandler():
         self.url = url
         self._create_connection()
         self._store_response()
-        self._ensures_success_response()
 
     #TODO how to get an internal server error?
-    def _ensures_success_response(self):
+    def ensures_success_response(self):
         if self.status_code == 404:
             raise HttpResponseError("page not found")
         elif self.status_code == 500:

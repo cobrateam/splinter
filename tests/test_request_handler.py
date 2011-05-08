@@ -18,8 +18,10 @@ class RequestHandlerTestCase(unittest.TestCase):
     def test_should_get_an_absent_url_and_raise_an_exception(self):
         request = RequestHandler()
         request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
+        request.ensures_success_response()
 
     @raises(HttpResponseError)
     def test_should_get_an_internal_server_error_and_raise_an_exception(self):
         request = RequestHandler()
         request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
+        request.ensures_success_response()
