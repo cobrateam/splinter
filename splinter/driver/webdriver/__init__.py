@@ -12,7 +12,7 @@ from selenium.webdriver.firefox import firefox_profile
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from splinter.request_handler.request_handler import RequestHandler
+from splinter.request_handler.request_handler import RequestHandler, HttpResponseError
 from splinter.utils import warn_deprecated
 
 
@@ -73,9 +73,17 @@ class BaseWebDriver(DriverAPI):
     def url(self):
         return self.driver.current_url
 
+    @property
+    def status_code(self):
+        self.request_handler.status_code
+
     def visit(self, url):
-        self.request_handler.connect(url)
-        self.driver.get(url)
+        try:
+            self.request_handler.connect(url)
+            self.request_handler.ensures_success_response()
+            self.driver.get(url)
+        except(HttpResponseError):
+            pass
 
     def reload(self):
         self.driver.refresh()
