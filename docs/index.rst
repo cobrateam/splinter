@@ -75,6 +75,15 @@ You can use the ``visit`` method to navigate to other pages:
 
 The ``visit`` method takes only a single parameter - the ``url`` to be visited.
 
+Reload a page
+-------------
+
+You can reload a page using ``reload`` method:
+
+::
+
+    browser.reload()
+
 Browser.title
 -------------
 
@@ -105,9 +114,9 @@ The visited page's url can be accessed by the ``url`` attribute:
 Finding elements
 ----------------
 
-For finding elements you can use five methods, one for each selector type ``css_selector``, ``xpath``, ``tag``, ``name``, ``id``::
+For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``::
 
-    browser.find_by_css_selector('h1')
+    browser.find_by_css('h1')
     browser.find_by_xpath('//h1')
     browser.find_by_tag('h1')
     browser.find_by_name('name')
@@ -159,8 +168,12 @@ or
 
 These methods returns a list of all found elements.
 
-For finding links by id, tag, name or xpath you should use other find methods (``find_by_css_selector``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
+For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
 
+Element not found exception
+---------------------------
+
+If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
 
 Get element value
 -----------------
@@ -169,20 +182,37 @@ In order to retrieve an element's value, use the ``value`` property:
 
 ::
 
-    browser.find_by_css_selector('h1').first.value
+    browser.find_by_css('h1').first.value
 
 or
 
 ::
 
-    element = browser.find_by_css_selector('h1').first
+    element = browser.find_by_css('h1').first
     element.value
 
 
-Clicking links and buttons
---------------------------
+Clicking links
+--------------
 
-You can click in links and buttons. splinter follows any redirects, and submits forms associated with buttons.
+You can click in links. To click in links by href or text you can use this.
+IMPORTANT: This methods return the first element always. 
+
+::
+
+    browser.click_link_by_href('/my_link')
+
+or
+
+::
+
+    browser.click_link_by_text('my link')
+
+
+Clicking buttons
+----------------
+
+You can click in buttons. Splinter follows any redirects, and submits forms associated with buttons.
 
 ::
 
@@ -193,8 +223,8 @@ or
 ::
 
 	browser.find_link_by_text('my link').first.click()
-	
-    
+
+
 Interacting with forms
 ----------------------
 
@@ -214,7 +244,7 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 
 ::
 
-    browser.find_by_css_selector('h1').first.visible
+    browser.find_by_css('h1').first.visible
 
 will be True if the element is visible, or False if it is invisible.
 
@@ -227,7 +257,7 @@ splinter have methods for verifying if element is present in a page, that wait f
 
 ::
 
-    browser.is_element_present_by_css_selector('h1')
+    browser.is_element_present_by_css('h1')
     browser.is_element_present_by_xpath('//h1')
     browser.is_element_present_by_tag('h1')
     browser.is_element_present_by_name('name')
@@ -237,7 +267,7 @@ You can verify too if element is not present in a page:
 
 ::
 
-    browser.is_element_not_present_by_css_selector('h1')
+    browser.is_element_not_present_by_css('h1')
     browser.is_element_not_present_by_xpath('//h1')
     browser.is_element_not_present_by_tag('h1')
     browser.is_element_not_present_by_name('name')
@@ -260,17 +290,51 @@ You can return the result of the script:
     browser.evaluate_script("4+4") == 8
 
 
-Switching between iframes
+Using iframes
 -------------------------
 
-You can switch between iframes very easily using the ``switch_to_frame`` method.
+You can use the ``get_iframe`` method and the ``with`` statement to interact with iframes.
 
 ::
 
-    browser.switch_to_frame('iframemodal')
+    with browser.get_iframe('iframemodal') as iframe:
+        iframe.do_stuff()
 
-You can switch back to the default frame by passing in an id of ``None``.
+
+Handling alerts and prompts
+----------------------------
+
+IMPORTANT: Only Firefox webdriver has support for alerts and prompts.
+Calling any of the following methods from other webdriver (like Chrome) will raise NotImplementedError.
+
+You can deal with alerts and prompts using the ``get_alert`` method.
 
 ::
 
-    browser.switch_to_frame(None)
+    alert = browser.get_alert()
+    alert.text
+    alert.accept() 
+    alert.dismiss()
+    
+    
+In case of prompts, you can answer it using the ``fill_with`` method.
+
+::
+
+    prompt = browser.get_alert()
+    prompt.text
+    prompt.fill_with('text)
+    prompt.accept()
+    prompt.dismiss()
+
+
+You can use the ``with`` statement to interacte with both alerts and prompts too.
+
+::
+
+    with browser.get_alert() as alert:
+        alert.do_stuff()
+    
+If there's not any prompt or alert, ``get_alert`` will return ``None``.
+Remember to always use at least one of the alert/prompt ending methods (accept and dismiss).
+Otherwise your browser instance will be frozen until you accept or dismiss the alert/prompt correctly.

@@ -10,6 +10,9 @@ Features
 
 - now splinter use selenium 2.0b3 for firefox and chrome driver
 - zope.testbrowser.browser dependency is not required
+- new method for reload a page
+- find_by_css_selector is now deprecated, use find_by_css instead
+- deprecated methods now throw "DeprecationWarning"
 
 Backward incompatible changes
 -----------------------------
