@@ -75,15 +75,12 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def status_code(self):
-        self.request_handler.status_code
+        return self.request_handler.status_code
 
     def visit(self, url):
-        try:
-            self.request_handler.connect(url)
-            self.request_handler.ensures_success_response()
-            self.driver.get(url)
-        except(HttpResponseError):
-            pass
+        self.request_handler.connect(url)
+        self.request_handler.ensures_success_response()
+        self.driver.get(url)
 
     def reload(self):
         self.driver.refresh()
