@@ -101,7 +101,7 @@ class IsElementPresentTest(object):
 
     def test_is_element_present_by_id_returns_false_if_element_is_not_present(self):
         "should is element present by id returns False if element is not present"
-        self.browser.driver.refresh()
+        self.browser.reload()
         assert_false(self.browser.is_element_present_by_id('async-headerzz'))
 
     def test_is_element_not_present_by_id(self):
@@ -113,7 +113,7 @@ class IsElementPresentTest(object):
 
     def test_is_element_not_present_by_id_returns_false_if_element_is_present(self):
         "should is element not present by id returns False if element is present"
-        self.browser.driver.refresh()
+        self.browser.reload()
         assert_false(self.browser.is_element_not_present_by_id('firstheader'))
 
     def test_is_element_present_by_name(self):
@@ -135,7 +135,7 @@ class IsElementPresentTest(object):
 
     def test_is_element_not_present_by_name_using_a_custom_wait_time(self):
         "should is element not present by name verify if element is not present using a custom wait time"
-        self.browser.driver.refresh()
+        self.browser.reload()
         self.browser.find_by_css('.add-async-element').first.click()
         assert_true(self.browser.is_element_present_by_name('async-input2', wait_time=3))
         self.browser.find_by_css('.remove-async-element').first.click()
