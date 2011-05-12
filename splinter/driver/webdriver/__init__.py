@@ -92,8 +92,9 @@ class BaseWebDriver(DriverAPI):
                 return True
         return False
 
-    def is_element_not_present(self, finder, selector):
-        end_time = time.time() + self.wait_time
+    def is_element_not_present(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
 
         while time.time() < end_time:
             if not finder(selector):
@@ -125,18 +126,41 @@ class BaseWebDriver(DriverAPI):
     def is_element_present_by_name(self, name, wait_time=None):
         return self.is_element_present(self.find_by_name, name, wait_time)
 
-    def is_element_not_present_by_name(self, name):
-        return self.is_element_not_present(self.find_by_name, name)
+    def is_element_not_present_by_name(self, name, wait_time=None):
+        return self.is_element_not_present(self.find_by_name, name, wait_time)
 
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
 
     def is_element_not_present_by_id(self, id):
         return self.is_element_not_present(self.find_by_id, id)
-        
+
     def get_alert(self):
         return AlertElement(self.driver.switch_to_alert())
-    
+
+    def is_text_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+                return True
+            except ValueError:
+                pass
+        return False
+
+    def is_text_not_present(self, text, wait_time = None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            try:
+                self.driver.find_element_by_tag_name('body').text.index(text)
+            except ValueError:
+                return True
+        return False
+
     @contextmanager
     def get_iframe(self, id):
         self.driver.switch_to_frame(id)
