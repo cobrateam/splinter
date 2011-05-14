@@ -48,11 +48,11 @@ class FacebookEventsTestCase(unittest.TestCase):
             self.fail("The upload pic iframe did'n't appear :(")
 
         with self.browser.get_iframe('upload_pic_frame') as frame:
-            self.browser.attach_file('pic', picture_path)
-            time.sleep(5)
+            frame.attach_file('pic', picture_path)
+            time.sleep(10)
 
         # Filling the form
-        self.browser.fill('event_startIntlDisplay', '5/12/2011')
+        self.browser.fill('event_startIntlDisplay', '5/21/2011')
         self.browser.select('start_time_min', '480')
         self.browser.fill('name', 'Splinter sprint')
         self.browser.fill('location', 'Rio de Janeiro, Brazil')
