@@ -79,6 +79,9 @@ class DriverAPI(object):
     def uncheck(self, name):
         raise NotImplementedError
 
+    def select(self, name, value):
+        raise NotImplementedError
+
     def click_link_by_href(self, href):
         return self.find_link_by_href(href).first.click()
 
