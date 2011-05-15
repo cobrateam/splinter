@@ -297,22 +297,22 @@ class WebDriverElement(ElementAPI):
 
 
 class AlertElement(object):
-    
+
     def __init__(self, alert):
         self._alert = alert
         self.text = alert.text
-        
+
     def accept(self):
         self._alert.accept()
-        
+
     def dismiss(self):
         self._alert.dismiss()
-    
+
     def fill_with(self, text):
         self._alert.send_keys(text)
-        
+
     def __enter__(self):
         return self
-        
+
     def __exit__(self, type, value, traceback):
         pass

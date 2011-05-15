@@ -29,6 +29,12 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert '<title>Example Title</title>' in html
         assert '<h1 id="firstheader">Example Header</h1>' in html
 
+    def test_should_reload_a_page(self):
+        "should reload a page"
+        title = self.browser.title
+        self.browser.reload()
+        assert_equals(title, 'Example Title')
+
     def test_should_have_url(self):
         "should have access to the url"
         url = self.browser.url
@@ -59,12 +65,6 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert_equals(element.parent, self.browser)
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest):
-
-    def test_should_reload_a_page(self):
-        "should reload a page"
-        title = self.browser.title
-        self.browser.reload()
-        assert_equals(title, 'Example Title')
 
     def test_can_execute_javascript(self):
         "should execute javascript"

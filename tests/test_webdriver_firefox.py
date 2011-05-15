@@ -1,10 +1,11 @@
+import os
 import unittest
+
 from nose.tools import assert_equals
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
-import os
 
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 

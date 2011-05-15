@@ -1,5 +1,6 @@
 from splinter.element_list import ElementList
 
+
 class DriverAPI(object):
     @property
     def title(self):
@@ -58,6 +59,12 @@ class DriverAPI(object):
     def find_link_by_text(self, text):
         raise NotImplementedError
 
+    def find_option_by_value(self, value):
+        raise NotImplementedError
+
+    def find_option_by_text(self, text):
+        raise NotImplementedError
+
     def wait_for_element(self, selector, timeout, interval):
         raise NotImplementedError
 
@@ -76,6 +83,9 @@ class DriverAPI(object):
     def uncheck(self, name):
         raise NotImplementedError
 
+    def select(self, name, value):
+        raise NotImplementedError
+
     def click_link_by_href(self, href):
         return self.find_link_by_href(href).first.click()
 
@@ -87,6 +97,10 @@ class DriverAPI(object):
 
     def quit(self):
         raise NotImplementedError
+
+    def is_element_present(self, finder, selector, wait_time=None):
+        raise NotImplementedError
+
 
 class ElementAPI(object):
 
