@@ -12,7 +12,7 @@ from selenium.webdriver.firefox import firefox_profile
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from splinter.request_handler.request_handler import RequestHandler, HttpResponseError
+from splinter.request_handler.request_handler import RequestHandler
 from splinter.utils import warn_deprecated
 
 
