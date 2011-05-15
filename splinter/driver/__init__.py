@@ -94,6 +94,9 @@ class DriverAPI(object):
     def quit(self):
         raise NotImplementedError
 
+    def is_element_present(self, finder, selector, wait_time=None):
+        raise NotImplementedError
+
 
 class ElementAPI(object):
 
