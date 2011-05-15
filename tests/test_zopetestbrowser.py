@@ -5,6 +5,7 @@ from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
 from nose.tools import raises
 
+
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod

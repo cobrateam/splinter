@@ -4,6 +4,7 @@ from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 from nose.tools import raises
 
+
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -21,8 +22,8 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
     def test_attach_file_is_not_implemented(self):
         "attach file is not implemented for chrome driver"
         self.browser.attach_file('file', 'file_path')
-        
-    @raises(NotImplementedError)    
+
+    @raises(NotImplementedError)
     def test_access_alerts_and_accept_them(self):
         "should raise NotImplementedError when trying to access alerts"
         alert = self.browser.get_alert()
@@ -32,7 +33,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         "should raise NotImplementedError when trying to access prompts"
         alert = self.browser.get_alert()
 
-    @raises(NotImplementedError)    
+    @raises(NotImplementedError)
     def test_access_alerts_using_with(self):
         "should raise NotImplementedError when trying to access alerts/promps using 'with'"
         with self.browser.get_alert() as alert:
