@@ -58,6 +58,9 @@ class DriverAPI(object):
     def find_option_by_value(self, value):
         raise NotImplementedError
 
+    def find_option_by_text(self, text):
+        raise NotImplementedError
+
     def wait_for_element(self, selector, timeout, interval):
         raise NotImplementedError
 
