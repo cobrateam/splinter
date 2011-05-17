@@ -12,3 +12,4 @@ tags
 build/*
 *.orig
 .ropeproject
+dist/*
