@@ -77,6 +77,9 @@ class BaseWebDriver(DriverAPI):
     def back(self):
         self.driver.back()
 
+    def forward(self):
+        self.driver.forward()
+
     def reload(self):
         self.driver.refresh()
 
