@@ -15,6 +15,8 @@ Features
 - deprecated methods now throw "DeprecationWarning"
 - methods for verify if element or text is present
 - find_by methods wait for element
+- added support for iframes and alerts
+- added more specific exception messages for not found elements
 
 Backward incompatible changes
 -----------------------------
