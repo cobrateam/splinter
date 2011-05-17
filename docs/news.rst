@@ -13,6 +13,8 @@ Features
 - new method for reload a page
 - find_by_css_selector is now deprecated, use find_by_css instead
 - deprecated methods now throw "DeprecationWarning"
+- methods for verify if element or text is present
+- find_by methods wait for element
 
 Backward incompatible changes
 -----------------------------
