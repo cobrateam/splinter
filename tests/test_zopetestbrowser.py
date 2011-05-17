@@ -3,8 +3,7 @@ import unittest
 from splinter.browser import Browser
 from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
-from nose.tools import raises
-
+from nose.tools import assert_equals, raises
 
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
@@ -28,6 +27,14 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         html = self.browser.html
         assert 'text/plain' in html
         assert open(file_path).read() in html
+
+    def test_forward_to_none_page(self):
+        "should not fail when trying to forward to none"
+        browser = Browser('zope.testbrowser')
+        browser.visit(EXAMPLE_APP)
+        browser.forward()
+        assert_equals(EXAMPLE_APP, browser.url)
+        browser.quit()
 
     @raises(NotImplementedError)
     def test_cant_switch_to_frame(self):
