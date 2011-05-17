@@ -23,10 +23,18 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert_equals(title, 'Example Title')
 
     def test_can_back_on_history(self):
-        "should be able to back on visit"
+        "should be able to back on history"
         self.browser.visit("%s/iframe" % EXAMPLE_APP.rstrip('/'))
         self.browser.back()
         assert_equals(EXAMPLE_APP, self.browser.url)
+
+    def test_can_forward_on_history(self):
+        "should be able to forward history"
+        url = "%s/iframe" % EXAMPLE_APP.rstrip('/')
+        self.browser.visit(url)
+        self.browser.back()
+        self.browser.forward()
+        assert_equals(url, self.browser.url)
 
     def test_should_have_html(self):
         "should have access to the html"
