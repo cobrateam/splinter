@@ -12,12 +12,20 @@ class ZopeTestBrowser(DriverAPI):
 
     def __init__(self):
         self._browser = Browser()
+        self._last_urls = []
 
     def visit(self, url):
         self._browser.open(url)
 
     def back(self):
+        self._last_urls.insert(0, self.url)
         self._browser.goBack()
+
+    def forward(self):
+        try:
+            self.visit(self._last_urls.pop())
+        except IndexError:
+            pass
 
     def reload(self):
         self._browser.reload()
