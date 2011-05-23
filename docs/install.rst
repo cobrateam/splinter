@@ -35,7 +35,9 @@ Make sure that you have git installed, and that you can run its commands from a 
 
 Check out git like so:
 
+
 ::
+
     git clone splinter
     cd splinter
     [sudo] python setup.py install
