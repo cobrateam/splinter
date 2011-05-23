@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
-
+from splinter import __version__
 
 README = open('README.rst').read()
 
 setup(name='splinter',
-      version='0.0.4dev',
+      version=__version__,
       description='browser abstraction for web acceptance testing',
       long_description=README,
       author='CobraTeam',
