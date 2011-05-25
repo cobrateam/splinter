@@ -4,43 +4,20 @@ splinter - python acceptance testing for web applications
 
 `what's new in splinter 0.0.4dev? <http://splinter.cobrateam.info/news.html>`_
 
-install
-=======
 
-::
-
-	$ [sudo] pip install splinter
-
-development
+first steps
 ===========
 
-* Source hosted at `GitHub <http://github.com/cobrateam/splinter>`_
-* Report issues on `GitHub Issues <http://github.com/cobrateam/splinter/issues>`_
+* `Installation <http://splinter.cobrateam.info/install.html>`_
+* `Quick tutorial <http://splinter.cobrateam.info/install.html>`_
 
-Pull requests are very welcome! Make sure your patches are well tested.
 
-running the tests
------------------
+splinter opensource project
+===========================
 
-if you are using a virtualenv, all you need is:
+* `Community <http://splinter.cobrateam.info/community.html>`_
+* `Contribute <http://splinter.cobrateam.info/contribute.html>`_
 
-::
-
-    $ make test
-
-community
-=========
-
-mailing list
-------------
-
-* `for users <http://groups.google.com/group/splinter-users>`_
-* `for developers <http://groups.google.com/group/splinter-developers>`_
-
-irc channel
------------
-
-#cobrateam channel on irc.freenode.net
 
 documentation
 =============
