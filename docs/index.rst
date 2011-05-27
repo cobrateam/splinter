@@ -2,21 +2,21 @@
 splinter - python acceptance testing for web applications 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-`what's new in splinter 0.0.4dev? <http://splinter.cobrateam.info/news.html>`_
+`what's new in splinter 0.0.4dev? <http://splinter.cobrateam.info/docs/news.html>`_
 
 
 first steps
 ===========
 
-* `Installation <http://splinter.cobrateam.info/install.html>`_
-* `Quick tutorial <http://splinter.cobrateam.info/install.html>`_
+* `Installation <http://splinter.cobrateam.info/docs/install.html>`_
+* `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
 
 
 splinter opensource project
 ===========================
 
-* `Community <http://splinter.cobrateam.info/community.html>`_
-* `Contribute <http://splinter.cobrateam.info/contribute.html>`_
+* `Community <http://splinter.cobrateam.info/docs/community.html>`_
+* `Contribute <http://splinter.cobrateam.info/docs/contribute.html>`_
 
 
 documentation
