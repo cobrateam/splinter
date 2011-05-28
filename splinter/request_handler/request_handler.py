@@ -10,7 +10,7 @@ class RequestHandler():
         return self.response.status
 
     def connect(self, url):
-        self.url = url
+        self.request_url = url
         self._create_connection()
         self._store_response()
 
@@ -27,8 +27,8 @@ class RequestHandler():
     def _create_connection(self):
         self._parse_url()
         self.conn = httplib.HTTPConnection(self.host)
-        self.conn.request('GET', self.url)
+        self.conn.request('GET', self.request_url)
 
     def _parse_url(self):
-        parsed_url = urlparse(self.url)
+        parsed_url = urlparse(self.request_url)
         self.host = parsed_url.hostname
