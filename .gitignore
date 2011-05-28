@@ -11,3 +11,5 @@ docs/_build/*
 tags
 build/*
 *.orig
+.ropeproject
+dist/*

@@ -18,6 +18,12 @@ class DriverAPI(object, RequestHandler):
     def visit(self, url):
         raise NotImplementedError
 
+    def back(self):
+        raise NotImplementedError
+
+    def forward(self):
+        raise NotImplementedError
+
     def reload(self):
         raise NotImplementedError
 

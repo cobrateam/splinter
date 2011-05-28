@@ -65,7 +65,7 @@ EXAMPLE_HTML = """\
         </select>
     </form>
     <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file"> 
+        <input type="file" name="file">
         <input type="submit" name="upload" />
     </form>
     <a href="http://example.com">Link for Example.com</a>
@@ -99,7 +99,7 @@ EXAMPLE_ALERT_HTML = """\
     <script type="text/javascript">
       $(document).ready(function(){
         $('.alerta').click(function() { alert('This is an alert example.'); });
-        
+
         $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
       })
     </script>
@@ -108,7 +108,7 @@ EXAMPLE_ALERT_HTML = """\
     <h1 class="alerta">Alert Example Title</h1>
     <h2 class="pergunta">Prompt Example Subtitle</h2>
   </body>
-</html>  
+</html>
 """
 
 app = Flask(__name__)
@@ -128,7 +128,7 @@ def alertd():
 @app.route('/name', methods=['GET'])
 def get_name():
     return "My name is: Master Splinter"
-    
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -142,7 +142,7 @@ def upload_file():
 @app.route('/foo')
 def foo():
     return "BAR!"
-    
+
 class Env(object):
     pass
 

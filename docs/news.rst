@@ -2,6 +2,10 @@
 splinter news
 +++++++++++++
 
+what's new in splinter 0.0.4dev?
+================================
+
+
 what's new in splinter 0.0.3?
 =============================
 
@@ -13,6 +17,10 @@ Features
 - new method for reload a page
 - find_by_css_selector is now deprecated, use find_by_css instead
 - deprecated methods now throw "DeprecationWarning"
+- methods for verify if element or text is present
+- find_by methods wait for element
+- added support for iframes and alerts
+- added more specific exception messages for not found elements
 
 Backward incompatible changes
 -----------------------------
