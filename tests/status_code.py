@@ -1,6 +1,6 @@
 from fake_webapp import EXAMPLE_APP
 from nose.tools import raises, assert_equals
-from splinter.request_handler.request_handler import HttpResponseError
+from splinter.request_handler.status_code import HttpResponseError
 
 class StatusCodeTest(object):
     @raises(HttpResponseError)
