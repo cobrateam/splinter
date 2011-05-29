@@ -2,7 +2,7 @@ from splinter.element_list import ElementList
 from splinter.request_handler.request_handler import RequestHandler
 
 
-class DriverAPI(object, RequestHandler):
+class DriverAPI(RequestHandler):
     @property
     def title(self):
         raise NotImplementedError

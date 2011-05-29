@@ -2,7 +2,7 @@ import httplib
 from urlparse import urlparse
 from status_code import StatusCode
 
-class RequestHandler():
+class RequestHandler(object):
     def connect(self, url):
         self.request_url = url
         self._create_connection()
