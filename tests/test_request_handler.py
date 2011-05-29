@@ -36,3 +36,12 @@ class RequestHandlerTestCase(unittest.TestCase):
         request = RequestHandler()
         request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
         request.ensures_success_response()
+
+    def test_should_get_an_exception_and_format_it_using_the_exception_attrs(self):
+        request = RequestHandler()
+        request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
+        try:
+            request.ensures_success_response()
+        except HttpResponseError as e:
+            exception = "I failed with code %d and reason %s" % (e.status_code, e.reason)
+        assert_equals(exception, "I failed with code 404 and reason Not Found")
