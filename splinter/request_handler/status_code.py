@@ -1,6 +1,6 @@
 class HttpResponseError(Exception):
-    def __init__(self, msg, code, reason):
-        self.msg = msg
+    def __init__(self, code, reason):
+        self.msg = "%s - %s" % (code, reason)
         self.status_code = code
         self.reason = reason.title()
 
@@ -19,8 +19,7 @@ class StatusCode(object):
 
     def is_valid_response(self):
         if self.code in self.http_errors:
-            msg = "%s - %s" % (str(self.code), self.reason)
-            raise HttpResponseError(msg, self.code, self.reason)
+            raise HttpResponseError(self.code, self.reason)
         return True
 
     def is_success(self):
