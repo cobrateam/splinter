@@ -15,7 +15,8 @@ class StatusCode():
 
     def is_valid_response(self):
         if self.code in self.http_errors:
-            raise HttpResponseError(self.response.reason)
+            exception = "%s - %s" % (str(self.code), self.response.reason)
+            raise HttpResponseError(exception)
         return True
 
     def is_success(self):
