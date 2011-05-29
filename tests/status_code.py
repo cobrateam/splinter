@@ -3,6 +3,7 @@ from nose.tools import raises, assert_equals
 from splinter.request_handler.status_code import HttpResponseError
 
 class StatusCodeTest(object):
+
     @raises(HttpResponseError)
     def test_should_visit_an_absent_page_and_get_an_404_error(self):
         "Should visit an absent page and get an 404 error"
