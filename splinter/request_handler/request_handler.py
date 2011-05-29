@@ -9,7 +9,7 @@ class RequestHandler():
         self._store_response()
         self.conn.close()
 
-    def ensures_success_response(self):
+    def ensure_success_response(self):
         self.status_code.is_valid_response()
 
     def _store_response(self):
