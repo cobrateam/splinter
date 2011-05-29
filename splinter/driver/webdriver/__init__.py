@@ -72,6 +72,8 @@ class BaseWebDriver(DriverAPI):
         return self.driver.current_url
 
     def visit(self, url):
+        self.connect(url)
+        self.ensures_success_response()
         self.driver.get(url)
 
     def back(self):
