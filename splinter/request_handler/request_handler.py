@@ -14,7 +14,7 @@ class RequestHandler():
 
     def _store_response(self):
         self.response = self.conn.getresponse()
-        self.status_code = StatusCode(self.response)
+        self.status_code = StatusCode(self.response.status, self.response.reason)
 
     def _create_connection(self):
         self._parse_url()

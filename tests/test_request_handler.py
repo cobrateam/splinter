@@ -9,7 +9,7 @@ class RequestHandlerTestCase(unittest.TestCase):
         self.request = RequestHandler()
         self.request.connect(EXAMPLE_APP)
 
-    def test_should_receive_an_url_and_get_an_success_response(self):
+    def test_should_receive_an_url_and_get_a_success_response(self):
         assert_true(self.request.status_code.is_success())
 
     def test_should_start_a_request_with_localhost_and_get_localhost_as_hostname(self):
