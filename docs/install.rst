@@ -5,19 +5,19 @@ Install guide
 Install Python
 ==============
 
-Being a Python testing tool, splinter requires Python. It works with any Python version from 2.5 to 2.7 (splinter does not currently work with Python 3.0).
+In order to install Splinter, make sure Python is installed. Note: only Python between 2.5 - 2.7 are supported. Version 3.0 is not supported yet.
 
-Get Python at http://www.python.org. If you’re running Linux or Mac OS X, you probably already have it installed.
+Download Python from http://www.python.org. If you’re using Linux or Mac OS X, it is probably already installed.
 
 Install splinter
 ================
 
-You've got two options to install splinter:
+Basically, there are two ways to install Splinter:
 
-Install an official release
+Install a stable release
 ---------------------------
 
-This is the best approach for users who want a stable version number.
+If you're interested on an official and almost bug-free version, just run from the Terminal:
 
 
 ::
@@ -26,18 +26,19 @@ This is the best approach for users who want a stable version number.
 
 
 
-Install the development version
+Install under-development source-code
 -------------------------------
 
-This is best for users who want the latest-and-greatest features and aren't afraid of running brand-new code. 
-
-Make sure that you have git installed, and that you can run its commands from a shell. (Enter git help at a shell prompt to test this.)
-
-Check out git like so:
-
+Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid of running under development code, run:
 
 ::
 
     git clone splinter
     cd splinter
     [sudo] python setup.py install
+
+
+Note: on this second case, make sure `Git <http://git-scm.com/>`_  is installed.
+
+
+
