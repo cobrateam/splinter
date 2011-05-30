@@ -67,29 +67,28 @@ Note: Both steps presented above could be joined in a single line, such as:
 
 
 Find out that Splinter official website is in the search results
-===========================================
+================================================================
 
 After pressing the button, you can check if Splinter official website is among the search responses. This can be done like this:
 
 ::
 
-    if 'http://splinter.cobrateam.info' in browser.html:
+    if browser.is_text_present('http://splinter.cobrateam.info'):
         print "Yes, found it! :)"
     else:
         print "No, didn't find it :("
 
 
-In this case, we are just printing the result. You might use assertions, if you're writing tests.
+In this case, we are just printing something. You might use assertions, if you're writing tests.
 
 Close the browser
-===================
+=================
 
-When you've finished testing, close your browser using ``browser.close``:
+When you've finished testing, close your browser using ``browser.quit``:
 
 ::
 
     browser.quit()
-
 
 All together
 ===================
@@ -105,12 +104,10 @@ Finally, the source code will be:
     browser.fill('q', 'splinter - python acceptance testing for web applications')
     browser.find_by_css('.lsb').first.click()
 
-    if 'http://splinter.cobrateam.info' in browser.html:
+    if browser.is_text_present('http://splinter.cobrateam.info'):
         print 'Yes, the official website was found!'
     else:
         print 'No, it wasn't found... We need to improve the SEO'
 
     browser.quit()
-
-
 
