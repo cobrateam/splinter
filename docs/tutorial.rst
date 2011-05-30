@@ -55,7 +55,7 @@ Now, it's possible verify if some text is present in the page.
 
     Browser.is_text_present('http://splinter.cobrateam.info')
 
-And even verify is some element is present by xpath, css, tag name or id. 
+And even verify if some element is present by xpath, css, tag, name, or id. 
 
 ::
 
