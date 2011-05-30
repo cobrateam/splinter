@@ -2,65 +2,115 @@
 Splinter Tutorial
 +++++++++++++++++
 
-This guide assumes your machine meets the requirements outlined in the Installation section of this documentation.
+Before starting, make sure Splinter is `installed <http://splinter.cobrateam.info/docs/install.html>`_.
 
-In this guide let's search about splinter in the google.com and verify that splinter website is found.
+This tutorial provides a simple example, teaching step by step how to:
 
-Create a browser instance
+* search for ``splinter - python acceptance testing for web applications'`` in google.com, and
+* find if splinter official website is listed among the search results
+
+Create a Browser instance
 =========================
 
-First it's need import a Browser class and create a browser instance. 
+First of all, import ``Browser`` class and instantiate it. 
 
 ::
+
     from splinter.browser import Browser
     browser = Browser()
 
 
-Visiting a web page
+Visit Google website
 ===================
 
-Using the browser instance you can visit web page, using ``browser.visit`` method:
+Visit any website using the ``browser.visit`` method. Let's go to Google search page:
 
 ::
 
     browser.visit('http://google.com')
 
 
-Make your actions
+Input search text
 =================
 
-After the page is loaded, you can make actions, like click's, fill text input, check radio and checkbox. Let's fill a text input for our search.
+After a page is loaded, you can perform actions, such as clicking, filling text input, checking radio and checkbox. Let's fill Google's search field with ``splinter - python acceptance testing for web applications``:
 
 ::
 
     browser.fill('q', 'splinter - python acceptance testing for web applications')
 
-Finding elelments
+Press the search button
 =================
 
-You can find elements in page using css, xpath, id, tag or name how selector. Let's find and click in search button for make a search.
+Tell Splinter which button should be pressed. A button - or any other element - can be identified using its css, xpath, id, tag or name.
+
+In order to find Google's search button, do:
+
+::
+
+    button = browser.find_by_css('.lsb').first
+
+Note that this ``.lsb`` was found looking at Google's page source code.
+
+With the button in hands, we can then press it:
+
+::
+
+    button.first.click()
+
+
+Note: Both steps presented above could be joined in a single line, such as:
 
 ::
 
     browser.find_by_css('.lsb').first.click()
 
 
-Verify if expect text or element is present
+Find out that Splinter official website is in the search results
 ===========================================
 
-Now, it's possible verify that splinter website url is present in the page.
+After pressing the button, you can check if Splinter official website is among the search responses. This can be done like this:
 
 ::
 
-    'http://splinter.cobrateam.info' in browser.html
+    if 'http://splinter.cobrateam.info' in browser.html:
+        print "Yes, found it! :)"
+    else:
+        print "No, didn't find it :("
 
 
-Closing the browser
+In this case, we are just printing the result. You might use assertions, if you're writing tests.
+
+Close the browser
 ===================
 
-And for close the browser, use the ``browser.close``:
+When you've finished testing, close your browser using ``browser.close``:
 
 ::
 
     browser.quit()
+
+
+All together
+===================
+
+Finally, the source code will be:
+
+::
+
+    from splinter.browser import Browser
+
+    browser = Browser()
+    browser.visit('http://google.com')
+    browser.fill('q', 'splinter - python acceptance testing for web applications')
+    browser.find_by_css('.lsb').first.click()
+
+    if 'http://splinter.cobrateam.info' in browser.html:
+        print 'Yes, the official website was found!'
+    else:
+        print 'No, it wasn't found... We need to improve the SEO'
+
+    browser.quit()
+
+
 
