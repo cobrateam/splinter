@@ -12,6 +12,7 @@ Create a browser instance
 First it's need import a Browser class and create a browser instance. 
 
 ::
+
     from splinter.browser import Browser
     browser = Browser()
 
@@ -48,11 +49,21 @@ You can find elements in page using css, xpath, id, tag or name how selector. Le
 Verify if expect text or element is present
 ===========================================
 
-Now, it's possible verify that splinter website url is present in the page.
+Now, it's possible verify if some text is present in the page.
 
 ::
 
-    'http://splinter.cobrateam.info' in browser.html
+    Browser.is_text_present('http://splinter.cobrateam.info')
+
+And even verify is some element is present by xpath, css, tag name or id. 
+
+::
+
+    Browser.is_element_present_by_xpath('//h1')
+    Browser.is_element_present_by_css('.any_css')  
+    Browser.is_element_present_by_tag('h1')
+    Browser.is_element_present_by_name('name')
+    Browser.is_element_present_by_id('id')
 
 
 Closing the browser
