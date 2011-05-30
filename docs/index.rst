@@ -1,5 +1,5 @@
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-splinter - python acceptance testing for web applications 
+splinter - python acceptance testing for web applications
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 `what's new in splinter 0.0.4dev? <http://splinter.cobrateam.info/docs/news.html>`_
@@ -40,14 +40,14 @@ splinter support three drivers: chrome, firefox and zopetestbrowser
 	browser = Browser('webdriver.chrome')
 	browser = Browser('webdriver.firefox')
 	browser = Browser('zope.testbrowser')
-	
+
 Navigating with Browser.visit
 -----------------------------
 
 You can use the ``visit`` method to navigate to other pages:
 
 ::
-    
+
     browser.visit('http://cobrateam.info')
 
 The ``visit`` method takes only a single parameter - the ``url`` to be visited.
@@ -69,7 +69,7 @@ You can get the title of the visited page using the ``title`` attribute:
 ::
 
     browser.title
-    
+
 Verifying page content with Browser.html
 ----------------------------------------
 
@@ -78,16 +78,16 @@ You can use the ``html`` attribute to get the html content of the visited page:
 ::
 
     browser.html
-    
+
 Verifying page url with Browser.url
 -----------------------------------
 
 The visited page's url can be accessed by the ``url`` attribute:
-    
+
 ::
 
     browser.url
-    
+
 Finding elements
 ----------------
 
@@ -101,7 +101,7 @@ For finding elements you can use five methods, one for each selector type ``css`
 
 These methods returns a list of all found elements.
 
-	
+
 you can get the first found element:
 
 ::
@@ -122,12 +122,12 @@ You also use index for get a element
 ::
 
 	browser.find_by_name('name')[1]
-	
+
 all elements and find_by_id
 ----------------------------
 
 A web page should be only one id per page. Then find_by_id() method return always a list with one element.
-    
+
 Finding links
 -------------
 
@@ -136,7 +136,7 @@ For finding link elements you can use ``find_link_by_text`` or ``find_link_by_hr
 ::
 
     browser.find_link_by_text('Link for Example.com')
-    
+
 or
 
 ::
@@ -173,7 +173,7 @@ Clicking links
 --------------
 
 You can click in links. To click in links by href or text you can use this.
-IMPORTANT: This methods return the first element always. 
+IMPORTANT: This methods return the first element always.
 
 ::
 
@@ -194,7 +194,7 @@ You can click in buttons. Splinter follows any redirects, and submits forms asso
 ::
 
 	browser.find_by_name('send').first.click()
-	
+
 or
 
 ::
@@ -208,12 +208,12 @@ Interacting with forms
 ::
 
     browser.fill('query', 'my name')
-    browser.attach_file('file', '/path/to/file/somefile.jpg')    
+    browser.attach_file('file', '/path/to/file/somefile.jpg')
     browser.choose('some-radio')
     browser.check('some-check')
     browser.uncheck('some-check')
     browser.select('uf', 'rj')
-    
+
 Verifying if element is visible or invisible
 --------------------------------------------
 
@@ -259,7 +259,7 @@ You can easily execute JavaScript, in drivers which support it:
 ::
 
     browser.execute_script("$('body').empty()")
-    
+
 You can return the result of the script:
 
 ::
@@ -290,10 +290,10 @@ You can deal with alerts and prompts using the ``get_alert`` method.
 
     alert = browser.get_alert()
     alert.text
-    alert.accept() 
+    alert.accept()
     alert.dismiss()
-    
-    
+
+
 In case of prompts, you can answer it using the ``fill_with`` method.
 
 ::
@@ -311,7 +311,7 @@ You can use the ``with`` statement to interacte with both alerts and prompts too
 
     with browser.get_alert() as alert:
         alert.do_stuff()
-    
+
 If there's not any prompt or alert, ``get_alert`` will return ``None``.
 Remember to always use at least one of the alert/prompt ending methods (accept and dismiss).
 Otherwise your browser instance will be frozen until you accept or dismiss the alert/prompt correctly.
