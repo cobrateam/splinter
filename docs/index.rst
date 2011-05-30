@@ -61,6 +61,18 @@ You can reload a page using ``reload`` method:
 
     browser.reload()
 
+Navigate through the history
+----------------------------
+
+You can back and forward on your browsing history using ``back`` and ``forward`` methods:
+
+::
+
+    browser.visit('http://cobrateam.info')
+    browser.visit('http://splinter.cobrateam.info')
+    browser.back()
+    browser.forward()
+
 Browser.title
 -------------
 
