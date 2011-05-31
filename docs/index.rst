@@ -242,7 +242,7 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 will be True if the element is visible, or False if it is invisible.
 
 Ajax and async javascript
-------------------------
+-------------------------
 
 When working with ajax and async javascript, it's common you work with with an element which is not yet present on the page.
 
