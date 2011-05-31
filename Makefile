@@ -3,7 +3,7 @@ all: test
 clean:
 	@find . -name "*.pyc" -delete
 
-dependencies: specloud coverage selenium flask lxml zopetestbrowser
+dependencies: specloud coverage selenium flask lxml sphinx zopetestbrowser
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install specloud
@@ -19,6 +19,9 @@ flask:
 
 lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
+
+sphinx:
+	@python -c 'import sphinx' 2>/dev/null || pip install sphinx
 
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser
