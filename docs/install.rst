@@ -15,7 +15,7 @@ Install splinter
 Basically, there are two ways to install Splinter:
 
 Install a stable release
----------------------------
+------------------------
 
 If you're interested on an official and almost bug-free version, just run from the Terminal:
 
@@ -27,7 +27,7 @@ If you're interested on an official and almost bug-free version, just run from t
 
 
 Install under-development source-code
--------------------------------
+-------------------------------------
 
 Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid of running under development code, run:
 

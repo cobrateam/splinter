@@ -21,7 +21,7 @@ First of all, import ``Browser`` class and instantiate it.
 
 
 Visit Google website
-===================
+====================
 
 Visit any website using the ``browser.visit`` method. Let's go to Google search page:
 
@@ -40,7 +40,7 @@ After a page is loaded, you can perform actions, such as clicking, filling text 
     browser.fill('q', 'splinter - python acceptance testing for web applications')
 
 Press the search button
-=================
+=======================
 
 Tell Splinter which button should be pressed. A button - or any other element - can be identified using its css, xpath, id, tag or name.
 
@@ -91,7 +91,7 @@ When you've finished testing, close your browser using ``browser.quit``:
     browser.quit()
 
 All together
-===================
+============
 
 Finally, the source code will be:
 
