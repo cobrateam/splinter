@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import time
-import logging
-import subprocess
 from contextlib import contextmanager
 
-from tempfile import TemporaryFile
 from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
-from selenium.webdriver.firefox import firefox_profile
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -16,48 +12,9 @@ from splinter.utils import warn_deprecated
 
 
 class BaseWebDriver(DriverAPI):
-    old_popen = subprocess.Popen
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
-
-    def _patch_subprocess(self):
-        loggers_to_silence = [
-            'selenium.webdriver.firefox.utils',
-            'selenium.webdriver.firefox.firefoxlauncher',
-            'selenium.webdriver.firefox.firefox_profile',
-            'selenium.webdriver.remote.utils',
-            'selenium.webdriver.remote.remote_connection',
-            'addons.xpi',
-            'webdriver.ExtensionConnection',
-        ]
-
-        class MutedHandler(logging.Handler):
-            def emit(self, record):
-                pass
-
-        for name in loggers_to_silence:
-            logger = logging.getLogger(name)
-            logger.addHandler(MutedHandler())
-            logger.setLevel(99999)
-
-        # selenium is such a verbose guy let's make it open the
-        # browser without showing all the meaningless output
-        def MyPopen(*args, **kw):
-            kw['stdout'] = TemporaryFile()
-            kw['stderr'] = TemporaryFile()
-            kw['close_fds'] = True
-            return self.old_popen(*args, **kw)
-
-        subprocess.Popen = MyPopen
-
-        # also patching firefox profile in order to NOT produce output
-        firefox_profile.FirefoxProfile. \
-            DEFAULT_PREFERENCES['extensions.logging.enabled'] = "false"
-
-    def _unpatch_subprocess(self):
-        # cleaning up the house
-        subprocess.Popen = self.old_popen
 
     @property
     def title(self):
