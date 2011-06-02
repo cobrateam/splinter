@@ -31,6 +31,7 @@
 {%- endif %}
 {%- endblock %}
 {%- block extrahead %}
+<link rel="stylesheet" href="_static/splinter-docs.css" type="text/css" media="screen" charset="utf-8"/>
 <script type="text/javascript"> 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-23628203-1']);
@@ -49,7 +50,7 @@
     <div class="header-container"> 
         <div class="title"> 
             <h1>splinter</h1> 
-            <p>tool for test web applications</p> 
+            <p>tool for testing web applications</p> 
         </div> 
         <ul class="nav"> 
             <li><a href="/docs/install.html">install</a></li> 
@@ -67,18 +68,25 @@
 {%- block content %}
 {%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
 
-<div class="document">
 {%- block document %}
-  <div class="documentwrapper">
-      <div class="body">
+<div class="document">
+<div id="page">
+    <div id="main">
         {% block body %} {% endblock %}
-      </div>
-  </div>
+    </div>
 {%- endblock %}
-
-{%- block sidebar2 %}{% endblock %}
-  <div class="clearer"></div>
+    <div id="right">
+        <div id="release">
+            <a href="https://github.com/cobrateam/splinter/zipball/0.0.3">current release: <strong>0.0.3</strong></a>
+        </div>
+    </div>
 </div>
 {%- endblock %}
+
+{% block footer %}
+<div class="footer">
+    Created using <a href="http://sphinx.pocoo.org" target="_blank" rel="nofollow" title="Sphinx">Sphinx</a> {{ sphinx_version }}.
+</div>
+{% endblock %}
 
 {%- block relbar2 %}{% endblock %}

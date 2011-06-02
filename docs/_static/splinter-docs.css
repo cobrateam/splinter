@@ -1,0 +1,27 @@
+body {
+    background: #FFF;
+    color: #000;
+}
+
+div.document {
+    background-color: #FFF;
+}
+
+#main h1 {
+    font-size: 180%;
+    font-weight: bold;
+}
+
+#main ul.simple {
+    font-size: 95%;
+    margin: 20px 0 20px 20px;
+}
+
+#main ul.simple li {
+    display: block;
+    margin: 5px 0;
+}
+
+.footer {
+    clear: both;
+}
