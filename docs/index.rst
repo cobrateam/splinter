@@ -1,6 +1,6 @@
-++++++++++++++++++++++++++++++++++++++++++++++
-python acceptance testing for web applications
-++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+automate web application actions using python
++++++++++++++++++++++++++++++++++++++++++++++
 
 `what's new in splinter 0.0.3? <http://splinter.cobrateam.info/docs/news.html>`_
 
