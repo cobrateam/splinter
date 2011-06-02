@@ -10,6 +10,9 @@ div.document {
 #main h1 {
     font-size: 180%;
     font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #000;
 }
 
 #main ul.simple {
