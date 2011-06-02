@@ -42,4 +42,4 @@ Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid
     $ [sudo] python setup.py install
 
 
-Note: on this second case, make sure `Git <http://git-scm.com/>`_  is installed.
+**Note:** on this second case, make sure `Git <http://git-scm.com/>`_  is installed.
