@@ -5,6 +5,9 @@ clean:
 
 dependencies: specloud coverage selenium flask lxml sphinx zopetestbrowser
 
+doc:
+	@cd docs && make clean && make html
+
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install specloud
 
