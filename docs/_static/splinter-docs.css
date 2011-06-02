@@ -7,14 +7,6 @@ div.document {
     background-color: #FFF;
 }
 
-#main h1 {
-    font-size: 180%;
-    font-weight: bold;
-    margin-bottom: 15px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #000;
-}
-
 #main ul.simple {
     font-size: 95%;
     margin: 20px 0 20px 20px;
