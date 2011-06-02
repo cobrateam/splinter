@@ -2,10 +2,6 @@
 splinter news
 +++++++++++++
 
-what's new in splinter 0.0.4dev?
-================================
-
-
 what's new in splinter 0.0.3?
 =============================
 
