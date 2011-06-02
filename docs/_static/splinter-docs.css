@@ -25,3 +25,17 @@ div.document {
 .footer {
     clear: both;
 }
+
+div.highlight {
+    margin: 20px;
+}
+
+div.highlight pre {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
