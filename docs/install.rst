@@ -20,9 +20,11 @@ Install a stable release
 If you're interested on an official and almost bug-free version, just run from the Terminal:
 
 
+.. highlight:: bash
+
 ::
 
-	[sudo] pip install splinter
+	$ [sudo] pip install splinter
 
 
 
@@ -31,14 +33,13 @@ Install under-development source-code
 
 Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid of running under development code, run:
 
+.. highlight:: bash
+
 ::
 
-    git clone splinter
-    cd splinter
-    [sudo] python setup.py install
+    $ git clone git://github.com/cobrateam/splinter.git
+    $ cd splinter
+    $ [sudo] python setup.py install
 
 
 Note: on this second case, make sure `Git <http://git-scm.com/>`_  is installed.
-
-
-
