@@ -1,5 +1,4 @@
-class ElementDoesNotExist(Exception):
-    pass
+from splinter.exceptions import ElementDoesNotExist
 
 class ElementList(list):
 

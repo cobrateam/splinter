@@ -1,4 +1,4 @@
-from splinter.element_list import ElementDoesNotExist
+from splinter.exceptions import ElementDoesNotExist
 from nose.tools import raises
 
 class ElementDoestNotExistTest(object):
