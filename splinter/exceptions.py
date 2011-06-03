@@ -1,0 +1,2 @@
+class DriverNotFoundError(Exception):
+    pass
