@@ -41,9 +41,9 @@ splinter support three drivers: chrome, firefox and zopetestbrowser
 
 ::
 
-	browser = Browser('webdriver.chrome')
-	browser = Browser('webdriver.firefox')
-	browser = Browser('zope.testbrowser')
+    browser = Browser('webdriver.chrome')
+    browser = Browser('webdriver.firefox')
+    browser = Browser('zope.testbrowser')
 
 Navigating with Browser.visit
 -----------------------------
@@ -181,7 +181,7 @@ you can get the first found element:
 
 ::
 
-	browser.find_by_name('name').first
+    browser.find_by_name('name').first
 
 You can use too the last attribute, that returns the last found element:
 
@@ -189,7 +189,7 @@ You can use too the last attribute, that returns the last found element:
 
 ::
 
-	browser.find_by_name('name').last
+    browser.find_by_name('name').last
 
 Get element using index
 -----------------------
@@ -200,7 +200,7 @@ You also use index for get a element
 
 ::
 
-	browser.find_by_name('name')[1]
+    browser.find_by_name('name')[1]
 
 all elements and find_by_id
 ----------------------------
@@ -286,7 +286,7 @@ You can click in buttons. Splinter follows any redirects, and submits forms asso
 
 ::
 
-	browser.find_by_name('send').first.click()
+    browser.find_by_name('send').first.click()
 
 or
 
@@ -294,7 +294,7 @@ or
 
 ::
 
-	browser.find_link_by_text('my link').first.click()
+    browser.find_link_by_text('my link').first.click()
 
 
 Interacting with forms
@@ -413,7 +413,7 @@ In case of prompts, you can answer it using the ``fill_with`` method.
 
     prompt = browser.get_alert()
     prompt.text
-    prompt.fill_with('text)
+    prompt.fill_with('text')
     prompt.accept()
     prompt.dismiss()
 
