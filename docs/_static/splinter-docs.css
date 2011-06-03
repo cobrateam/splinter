@@ -21,11 +21,11 @@ div.document {
     clear: both;
 }
 
-div.highlight {
+div.highlight-python, div.highlight-bash {
     margin: 20px;
 }
 
-div.highlight pre {
+div.highlight pre, div.highlight-python pre {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
