@@ -1,3 +1,7 @@
+.. meta::
+    :description: Find the CobraTeam and Splinter communities.
+    :keywords: splinter, python, cobrateam, community, atdd, tests, acceptance tests, web applications
+
 +++++++++
 community
 +++++++++
