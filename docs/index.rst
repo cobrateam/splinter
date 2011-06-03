@@ -27,6 +27,8 @@ Browser
 
 To use splinter you need create a Browser instance:
 
+.. highlight:: python
+
 ::
 
     from splinter.browser import Browser
@@ -34,6 +36,8 @@ To use splinter you need create a Browser instance:
 
 
 splinter support three drivers: chrome, firefox and zopetestbrowser
+
+.. highlight:: python
 
 ::
 
@@ -46,6 +50,8 @@ Navigating with Browser.visit
 
 You can use the ``visit`` method to navigate to other pages:
 
+.. highlight:: python
+
 ::
 
     browser.visit('http://cobrateam.info')
@@ -57,6 +63,8 @@ Reload a page
 
 You can reload a page using ``reload`` method:
 
+.. highlight:: python
+
 ::
 
     browser.reload()
@@ -65,6 +73,8 @@ Navigate through the history
 ----------------------------
 
 You can back and forward on your browsing history using ``back`` and ``forward`` methods:
+
+.. highlight:: python
 
 ::
 
@@ -83,6 +93,8 @@ Dealing with HTTP status code
 It's also possible to check which HTTP status code a browser.visit gets. You can use ``status_code.is_success`` to do the work
 for you or you can compare the status code directly:
 
+.. highlight:: python
+
 ::
 
     browser.visit('http://cobrateam.info')
@@ -98,6 +110,8 @@ Handling HTTP exceptions
 
 Whenever you use the ``visit`` method, Splinter will check if the response is success or not, and if not, it will raise an
 HttpResponseError exception. But don't worry, you can easily catch it:
+
+.. highlight:: python
 
 ::
 
@@ -115,6 +129,8 @@ Browser.title
 
 You can get the title of the visited page using the ``title`` attribute:
 
+.. highlight:: python
+
 ::
 
     browser.title
@@ -123,6 +139,8 @@ Verifying page content with Browser.html
 ----------------------------------------
 
 You can use the ``html`` attribute to get the html content of the visited page:
+
+.. highlight:: python
 
 ::
 
@@ -133,6 +151,8 @@ Verifying page url with Browser.url
 
 The visited page's url can be accessed by the ``url`` attribute:
 
+.. highlight:: python
+
 ::
 
     browser.url
@@ -140,7 +160,11 @@ The visited page's url can be accessed by the ``url`` attribute:
 Finding elements
 ----------------
 
-For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``::
+For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``:
+
+.. highlight:: python
+
+::
 
     browser.find_by_css('h1')
     browser.find_by_xpath('//h1')
@@ -153,11 +177,15 @@ These methods returns a list of all found elements.
 
 you can get the first found element:
 
+.. highlight:: python
+
 ::
 
 	browser.find_by_name('name').first
 
 You can use too the last attribute, that returns the last found element:
+
+.. highlight:: python
 
 ::
 
@@ -167,6 +195,8 @@ Get element using index
 -----------------------
 
 You also use index for get a element
+
+.. highlight:: python
 
 ::
 
@@ -182,11 +212,15 @@ Finding links
 
 For finding link elements you can use ``find_link_by_text`` or ``find_link_by_href``:
 
+.. highlight:: python
+
 ::
 
     browser.find_link_by_text('Link for Example.com')
 
 or
+
+.. highlight:: python
 
 ::
 
@@ -206,11 +240,15 @@ Get element value
 
 In order to retrieve an element's value, use the ``value`` property:
 
+.. highlight:: python
+
 ::
 
     browser.find_by_css('h1').first.value
 
 or
+
+.. highlight:: python
 
 ::
 
@@ -224,11 +262,15 @@ Clicking links
 You can click in links. To click in links by href or text you can use this.
 IMPORTANT: This methods return the first element always.
 
+.. highlight:: python
+
 ::
 
     browser.click_link_by_href('/my_link')
 
 or
+
+.. highlight:: python
 
 ::
 
@@ -240,11 +282,15 @@ Clicking buttons
 
 You can click in buttons. Splinter follows any redirects, and submits forms associated with buttons.
 
+.. highlight:: python
+
 ::
 
 	browser.find_by_name('send').first.click()
 
 or
+
+.. highlight:: python
 
 ::
 
@@ -253,6 +299,8 @@ or
 
 Interacting with forms
 ----------------------
+
+.. highlight:: python
 
 ::
 
@@ -268,6 +316,8 @@ Verifying if element is visible or invisible
 
 To check if an element is visible or invisible, use the ``visible`` property. For instance:
 
+.. highlight:: python
+
 ::
 
     browser.find_by_css('h1').first.visible
@@ -281,6 +331,8 @@ When working with ajax and async javascript, it's common you work with with an e
 
 splinter have methods for verifying if element is present in a page, that wait for a element and returns `True` if element is present:
 
+.. highlight:: python
+
 ::
 
     browser.is_element_present_by_css('h1')
@@ -290,6 +342,8 @@ splinter have methods for verifying if element is present in a page, that wait f
     browser.is_element_present_by_id('firstheader')
 
 You can verify too if element is not present in a page:
+
+.. highlight:: python
 
 ::
 
@@ -305,11 +359,15 @@ Executing javascript
 
 You can easily execute JavaScript, in drivers which support it:
 
+.. highlight:: python
+
 ::
 
     browser.execute_script("$('body').empty()")
 
 You can return the result of the script:
+
+.. highlight:: python
 
 ::
 
@@ -320,6 +378,8 @@ Using iframes
 -------------------------
 
 You can use the ``get_iframe`` method and the ``with`` statement to interact with iframes.
+
+.. highlight:: python
 
 ::
 
@@ -335,6 +395,8 @@ Calling any of the following methods from other webdriver (like Chrome) will rai
 
 You can deal with alerts and prompts using the ``get_alert`` method.
 
+.. highlight:: python
+
 ::
 
     alert = browser.get_alert()
@@ -344,6 +406,8 @@ You can deal with alerts and prompts using the ``get_alert`` method.
 
 
 In case of prompts, you can answer it using the ``fill_with`` method.
+
+.. highlight:: python
 
 ::
 
@@ -355,6 +419,8 @@ In case of prompts, you can answer it using the ``fill_with`` method.
 
 
 You can use the ``with`` statement to interacte with both alerts and prompts too.
+
+.. highlight:: python
 
 ::
 
