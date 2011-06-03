@@ -121,7 +121,7 @@ HttpResponseError exception. But don't worry, you can easily catch it:
 
     try:
         browser.visit('http://cobrateam.info/i-want-cookies')
-    except HttpResponseError as e:
+    except HttpResponseError, e:
         print "Oops, I failed with the status code %s and reason %s" % (e.status_code, e.reason)
 
 ..
