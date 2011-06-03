@@ -1,8 +1,11 @@
 class HttpResponseError(Exception):
     def __init__(self, code, reason):
-        self.msg = "%s - %s" % (code, reason)
         self.status_code = code
         self.reason = reason.title()
+        self.msg = "%s - %s" % (self.status_code, self.reason)
+
+    def __str__(self):
+        return self.msg
 
 class StatusCode(object):
     http_errors = (400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411,

@@ -1,69 +1,93 @@
-{#
-    basic/layout.html
-    ~~~~~~~~~~~~~~~~~
-
-    Master layout template for Sphinx themes.
-
-    :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
-    :license: BSD, see LICENSE for details.
-#}
 {% extends "basic/layout.html" %}
-    {%- block htmltitle %}
-    <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
-    {%- endblock %}
-{%- block linktags %}
-    {%- if hasdoc('about') %}
-    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
-    {%- endif %}
-    {%- if hasdoc('genindex') %}
-    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
-    {%- endif %}
-    {%- if hasdoc('search') %}
-    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
-    {%- endif %}
-    {%- if hasdoc('copyright') %}
-    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
-    {%- endif %}
-    <link rel="top" title="{{ docstitle|e }}" href="{{ pathto('index') }}" />
-    {%- if parents %}
-    <link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" />
-    {%- endif %}
-    {%- if next %}
-    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
-    {%- endif %}
-    {%- if prev %}
-    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
-    {%- endif %}
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+
+{%- block htmltitle %}
+<title>{{ title|striptags|e }}{{ titlesuffix }}</title>
 {%- endblock %}
-{%- block extrahead %} {% endblock %}
-  </head>
-  <body>
-{%- block header %}{% endblock %}
+{%- block linktags %}
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css" type="text/css" media="screen" charset="utf-8"/>
+<link rel="stylesheet" href="http://splinter.cobrateam.info/media/css/splinter.css" type="text/css" media="screen" charset="utf-8"/>
+{%- if hasdoc('about') %}
+<link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+{%- endif %}
+{%- if hasdoc('genindex') %}
+<link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+{%- endif %}
+{%- if hasdoc('search') %}
+<link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+{%- endif %}
+{%- if hasdoc('copyright') %}
+<link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+{%- endif %}
+<link rel="top" title="{{ docstitle|e }}" href="{{ pathto('index') }}" />
+{%- if parents %}
+<link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" />
+{%- endif %}
+{%- if next %}
+<link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+{%- endif %}
+{%- if prev %}
+<link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+{%- endif %}
+{%- endblock %}
+{%- block extrahead %}
+<link rel="stylesheet" href="_static/splinter-docs.css" type="text/css" media="screen" charset="utf-8"/>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23628203-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+{% endblock %}
+</head>
+<body>
+{%- block header %}
+<div id="header">
+    <div class="header-container">
+        <div class="title">
+            <h1>splinter</h1>
+            <p>test framework for web applications</p>
+        </div>
+        <ul class="nav">
+            <li><a href="/">home</a></li>
+            <li><a href="/docs/install.html">install</a></li>
+            <li><a href="/docs/">documentation</a></li>
+            <li><a href="/docs/community.html">community</a></li>
+            <li><a href="/docs/contribute.html">contribute</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
 
 {%- block relbar1 %}
-<div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li><a href="http://splinter.cobrateam.info">splinter v0.0.4dev documentation</a></li> 
-      </ul>
-    </div>
 {% endblock %}
 
 {%- block content %}
-  {%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
+{%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
 
-    <div class="document">
-  {%- block document %}
-      <div class="documentwrapper">
-          <div class="body">
-            {% block body %} {% endblock %}
-          </div>
-      </div>
-  {%- endblock %}
-
-  {%- block sidebar2 %}{% endblock %}
-      <div class="clearer"></div>
+{%- block document %}
+<div class="document">
+<div id="page">
+    <div id="main">
+        {% block body %} {% endblock %}
     </div>
 {%- endblock %}
+    <div id="right">
+        <div id="release">
+            <a href="https://github.com/cobrateam/splinter/zipball/{{ version }}">current release: <strong>{{ version }}</strong></a>
+        </div>
+    </div>
+</div>
+{%- endblock %}
+
+{% block footer %}
+<div class="footer">
+    Sphinx is powered by <a href="http://github.com/cobrateam/splinter" rel="nofollow" target="_blank" title="open source">open source</a>. This docs was created using <a href="http://sphinx.pocoo.org" target="_blank" rel="nofollow" title="Sphinx">Sphinx</a> {{ sphinx_version }}.
+</div>
+{% endblock %}
 
 {%- block relbar2 %}{% endblock %}

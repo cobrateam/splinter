@@ -1,0 +1,42 @@
+body {
+    background: #FFF;
+    color: #000;
+}
+
+div.document {
+    background-color: #FFF;
+}
+
+#main h3 {
+    font-size: 120%;
+    font-weight: bold;
+    margin: 10px 5px;
+}
+
+#main ul.simple {
+    font-size: 95%;
+    margin: 20px 0 20px 20px;
+}
+
+#main ul.simple li {
+    display: block;
+    margin: 5px 0;
+}
+
+.footer {
+    clear: both;
+}
+
+div.highlight-python, div.highlight-bash {
+    margin: 20px;
+}
+
+div.highlight pre, div.highlight-python pre {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
