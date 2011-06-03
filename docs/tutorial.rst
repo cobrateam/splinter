@@ -1,3 +1,7 @@
+.. meta::
+    :description: Splinter tutorial, learn how to test your web applications
+    :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
+
 +++++++++++++++++
 Splinter Tutorial
 +++++++++++++++++
