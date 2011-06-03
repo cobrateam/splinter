@@ -1,3 +1,7 @@
+.. meta::
+    :description: Learn how to install PyQt4 on your machine.
+    :keywords: splinter, python, cobrateam, pyqt, pyqt4
+
 ++++++++++++++++
 Installing PyQt4
 ++++++++++++++++
