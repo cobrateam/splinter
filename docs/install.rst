@@ -1,3 +1,7 @@
+.. meta::
+    :description: Install guide for splinter
+    :keywords: splinter, python, tutorial, how to install, installation
+
 +++++++++++++
 Install guide
 +++++++++++++

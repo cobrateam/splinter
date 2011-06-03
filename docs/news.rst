@@ -1,3 +1,7 @@
+.. meta::
+    :description: New splinter features on earlier versions.
+    :keywords: splinter, python, news, documentation, tutorial, web application
+
 +++++++++++++
 splinter news
 +++++++++++++

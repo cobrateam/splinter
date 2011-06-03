@@ -1,9 +1,13 @@
+.. meta::
+    :description: Documentation for splinter, an open source tool for testing web applications
+    :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
+
+
 +++++++++++++++++++++++++++++++++++++++++++++
 automate web application actions using python
 +++++++++++++++++++++++++++++++++++++++++++++
 
 `what's new in splinter 0.0.3? <http://splinter.cobrateam.info/docs/news.html>`_
-
 
 first steps
 ===========

@@ -1,3 +1,7 @@
+.. meta::
+    :description: Find how to contribute with splinter.
+    :keywords: splinter, python, contribution, open source, testing, web application, atdd
+
 ++++++++++
 contribute
 ++++++++++
