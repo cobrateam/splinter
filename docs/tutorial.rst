@@ -123,9 +123,9 @@ Finally, the source code will be:
     browser.find_by_css('.lsb').first.click()
 
     if browser.is_text_present('http://splinter.cobrateam.info'):
-        print 'Yes, the official website was found!'
+        print "Yes, the official website was found!"
     else:
-        print 'No, it wasn't found... We need to improve the SEO'
+        print "No, it wasn't found... We need to improve our SEO techniques"
 
     browser.quit()
 
