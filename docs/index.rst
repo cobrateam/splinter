@@ -18,6 +18,7 @@ first steps
 
 * `Browser <http://splinter.cobrateam.info/docs/browser.html>`_
 * `Finding elements <http://splinter.cobrateam.info/docs/finding.html>`_
+* `Execute javascript <http://splinter.cobrateam.info/docs/javascript.html>`_
 
 splinter opensource project
 ===========================
@@ -184,26 +185,6 @@ You can verify too if element is not present in a page:
     browser.is_element_not_present_by_tag('h1')
     browser.is_element_not_present_by_name('name')
     browser.is_element_not_present_by_id('firstheader')
-
-
-Executing javascript
---------------------
-
-You can easily execute JavaScript, in drivers which support it:
-
-.. highlight:: python
-
-::
-
-    browser.execute_script("$('body').empty()")
-
-You can return the result of the script:
-
-.. highlight:: python
-
-::
-
-    browser.evaluate_script("4+4") == 8
 
 
 Using iframes
