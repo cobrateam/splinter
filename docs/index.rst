@@ -16,6 +16,8 @@ first steps
 * `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
 
 
+* `Finding elements <http://splinter.cobrateam.info/docs/finding.html>`_
+
 splinter opensource project
 ===========================
 
@@ -160,84 +162,6 @@ The visited page's url can be accessed by the ``url`` attribute:
 ::
 
     browser.url
-
-Finding elements
-----------------
-
-For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``:
-
-.. highlight:: python
-
-::
-
-    browser.find_by_css('h1')
-    browser.find_by_xpath('//h1')
-    browser.find_by_tag('h1')
-    browser.find_by_name('name')
-    browser.find_by_id('firstheader')
-
-These methods returns a list of all found elements.
-
-
-you can get the first found element:
-
-.. highlight:: python
-
-::
-
-    browser.find_by_name('name').first
-
-You can use too the last attribute, that returns the last found element:
-
-.. highlight:: python
-
-::
-
-    browser.find_by_name('name').last
-
-Get element using index
------------------------
-
-You also use index for get a element
-
-.. highlight:: python
-
-::
-
-    browser.find_by_name('name')[1]
-
-all elements and find_by_id
-----------------------------
-
-A web page should be only one id per page. Then find_by_id() method return always a list with one element.
-
-Finding links
--------------
-
-For finding link elements you can use ``find_link_by_text`` or ``find_link_by_href``:
-
-.. highlight:: python
-
-::
-
-    browser.find_link_by_text('Link for Example.com')
-
-or
-
-.. highlight:: python
-
-::
-
-    browser.find_link_by_href('http://example.com')
-
-These methods returns a list of all found elements.
-
-For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
-
-Element not found exception
----------------------------
-
-If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
 
 Get element value
 -----------------
