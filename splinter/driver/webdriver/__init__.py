@@ -6,7 +6,7 @@ import time
 from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
-from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
