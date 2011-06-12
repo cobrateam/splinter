@@ -13,3 +13,4 @@ build/*
 *.orig
 .ropeproject
 dist/*
+*.log
