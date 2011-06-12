@@ -251,9 +251,10 @@ class WebDriverElement(ElementAPI):
         self.parent = parent
 
     def _get_value(self):
-        try:
-            return self._element.get_attribute("value")
-        except WebDriverException:
+        value = self["value"]
+        if value:
+            return value
+        else:
             return self._element.text
 
     def _set_value(self, value):
