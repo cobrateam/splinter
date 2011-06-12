@@ -45,3 +45,8 @@ class RequestHandlerTestCase(unittest.TestCase):
         except HttpResponseError as e:
             exception = "I failed with code %d and reason %s" % (e.status_code, e.reason)
         assert_equals(exception, "I failed with code 404 and reason Not Found")
+
+    def test_should_be_able_to_represent_exception_as_string(self):
+        "HttpResponseError exception should be representable as string"
+        error = HttpResponseError(404, "Not Found")
+        assert_equals("404 - Not Found", str(error))
