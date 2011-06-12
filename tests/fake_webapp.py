@@ -68,12 +68,12 @@ EXAMPLE_HTML = """\
         <input type="file" name="file">
         <input type="submit" name="upload" />
     </form>
-    <a href="http://example.com">Link for Example.com</a>
+    <a href="http://example.com/">Link for Example.com</a>
     <a href="http://example.com/last">Link for Example.com</a>
-    <a href="http://example.com">Link for last Example.com</a>
+    <a href="http://example.com/">Link for last Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
-    <a href="/foo">FOO</a>
+    <a href="http://localhost:5000/foo">FOO</a>
     <a class='add-async-element' href="#">add async element</a>
     <a class='remove-async-element' href="#">remove async element</a>
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
