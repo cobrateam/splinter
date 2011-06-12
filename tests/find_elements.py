@@ -70,12 +70,12 @@ class FindElementsTest(object):
     def test_finding_all_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com')[0]
-        assert_equals(link['href'], 'http://example.com')
+        assert_equals(link['href'], 'http://example.com/')
 
     def test_finding_all_links_by_href(self):
         "should find links by href"
-        link = self.browser.find_link_by_href('http://example.com')[0]
-        assert_equals(link['href'], 'http://example.com')
+        link = self.browser.find_link_by_href('http://example.com/')[0]
+        assert_equals(link['href'], 'http://example.com/')
 
     def test_finding_last_element_by_css(self):
         "should find last element by css"
@@ -116,7 +116,7 @@ class FindElementsTest(object):
 
     def test_finding_last_link_by_href(self):
         "should find last link by href"
-        link = self.browser.find_link_by_href('http://example.com').last
+        link = self.browser.find_link_by_href('http://example.com/').last
         assert_equals(link.text, 'Link for last Example.com')
 
     def test_finding_element_by_css_using_slice(self):
@@ -158,15 +158,15 @@ class FindElementsTest(object):
 
     def test_finding_link_by_href_using_slice(self):
         "should find link by href using slice"
-        link = self.browser.find_link_by_href('http://example.com')[-1]
+        link = self.browser.find_link_by_href('http://example.com/')[-1]
         assert_equals(link.text, 'Link for last Example.com')
 
     def test_finding_links_by_text(self):
         "should find links by text"
         link = self.browser.find_link_by_text('Link for Example.com').first
-        assert_equals(link['href'], 'http://example.com')
+        assert_equals(link['href'], 'http://example.com/')
 
     def test_finding_links_by_href(self):
         "should find links by href"
-        link = self.browser.find_link_by_href('http://example.com').first
-        assert_equals(link['href'], 'http://example.com')
+        link = self.browser.find_link_by_href('http://example.com/').first
+        assert_equals(link['href'], 'http://example.com/')

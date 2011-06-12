@@ -57,7 +57,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
     def test_accessing_attributes_of_links(self):
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO').first
-        assert_equals(foo['href'], '/foo')
+        assert_equals(foo['href'], 'http://localhost:5000/foo')
 
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
@@ -70,7 +70,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert_equals(header['id'], 'firstheader')
 
     def test_links_should_have_value_attribute(self):
-        foo = self.browser.find_link_by_href('/foo').first
+        foo = self.browser.find_link_by_href('http://localhost:5000/foo').first
         assert_equals(foo.value, 'FOO')
 
     def test_should_receive_browser_on_parent(self):

@@ -7,7 +7,7 @@ class ClickElementsTest(object):
 
     def test_click_element_by_css_selector(self):
         "should allow to click at elements by css selector"
-        self.browser.find_by_css('a[href="/foo"]').first.click()
+        self.browser.find_by_css('a[href="http://localhost:5000/foo"]').first.click()
         assert 'BAR!' in self.browser.html
 
     def test_click_input_by_css_selector(self):
@@ -17,7 +17,7 @@ class ClickElementsTest(object):
 
     def test_click_link_by_href(self):
         "should allow to click link by href"
-        self.browser.click_link_by_href('/foo')
+        self.browser.click_link_by_href('http://localhost:5000/foo')
         assert "BAR!" in self.browser.html
 
     def test_click_link_by_text(self):
