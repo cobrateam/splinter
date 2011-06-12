@@ -60,7 +60,7 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def html(self):
-        return self.driver.get_page_source()
+        return self.driver.page_source
 
     @property
     def url(self):
@@ -252,7 +252,7 @@ class WebDriverElement(ElementAPI):
 
     def _get_value(self):
         try:
-            return self._element.value
+            return self._element.get_attribute("value")
         except WebDriverException:
             return self._element.text
 
