@@ -19,14 +19,22 @@ Getting started
 * :doc:`Setup Google Chrome driver </setup-chrome>`
 * :doc:`Quick tutorial </tutorial>`
 
+Basic browsing and interactions
+-------------------------------
+
+* :doc:`Browser and navigation </browser>`
+* :doc:`Finding elements </finding>`
+* :doc:`Interacting with elements and forms </elements-in-the-page>`
+
+JavaScript support
+------------------
+
+* :doc:`Executing JavaScript </javascript>`
+* :doc:`AJAX and asynchronous JavaScript </ajax-and-async-javascript>`
+
 Walking on...
 -------------
 
-* :doc:`Browser </browser>`
-* :doc:`Finding elements </finding>`
-* :doc:`Interacting with elements </elements-in-the-page>`
-* :doc:`Execute JavaScript </javascript>`
-* :doc:`AJAX and asynchronous JavaScript </ajax-and-async-javascript>`
 * :doc:`Dealing with HTTP status code and exceptions </http-status-code-and-exception>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
 

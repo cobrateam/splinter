@@ -4,10 +4,13 @@ from status_code import StatusCode
 
 class RequestHandler(object):
     def connect(self, url):
-        self.request_url = url
-        self._create_connection()
-        self._store_response()
-        self.conn.close()
+        if url.startswith("http://"):
+            self.request_url = url
+            self._create_connection()
+            self._store_response()
+            self.conn.close()
+        else:
+            self.status_code = StatusCode(200, 'Ok')
 
     def ensure_success_response(self):
         self.status_code.is_valid_response()
