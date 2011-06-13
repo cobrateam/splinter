@@ -34,7 +34,6 @@ class FormElementsTest(object):
         assert_false(self.browser.find_by_id("gender-m").first.checked)
         self.browser.choose("gender", "M")
         assert_true(self.browser.find_by_id("gender-m").first.checked)
-        assert_false(self.browser.find_by_id("gender-f").first.checked)
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
