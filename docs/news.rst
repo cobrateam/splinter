@@ -13,7 +13,7 @@ Features
 --------
 
 - capability to handle HTTP errors (using an exception) in Selenium drivers (Firefox and Chrome)
-- capability to work with HTTP status code in Selenium drivers (Firefox and Chrom)
+- capability to work with HTTP status code in Selenium drivers (Firefox and Chrome)
 - browsing history (``back`` and ``forward`` methods in ``Browser`` class)
 - improvements in documentation
 
