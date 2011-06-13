@@ -8,4 +8,4 @@ class IFrameElementsTest(object):
             value = frame.find_by_tag('h1').first.value
             assert_equals(value, 'IFrame Example Header')
         value = self.browser.find_by_tag('h1').first.value
-        assert_equals(value, 'Example Header')
+        assert_equals('Example Header', value)
