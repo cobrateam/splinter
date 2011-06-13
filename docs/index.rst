@@ -25,7 +25,8 @@ Walking on...
 * :doc:`Browser </browser>`
 * :doc:`Finding elements </finding>`
 * :doc:`Interacting with elements </elements-in-the-page>`
-* :doc:`Execute javascript </javascript>`
+* :doc:`Execute JavaScript </javascript>`
+* :doc:`AJAX and asynchronous JavaScript </ajax-and-asyn-javascript>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
 
 splinter open source project
@@ -74,33 +75,3 @@ HttpResponseError exception. But don't worry, you can easily catch it:
 ..
 
     **Note:** ``status_code`` and this HTTP exception handling is available only for selenium webdriver
-
-
-Ajax and async javascript
--------------------------
-
-When working with ajax and async javascript, it's common you work with with an element which is not yet present on the page.
-
-splinter have methods for verifying if element is present in a page, that wait for a element and returns `True` if element is present:
-
-.. highlight:: python
-
-::
-
-    browser.is_element_present_by_css('h1')
-    browser.is_element_present_by_xpath('//h1')
-    browser.is_element_present_by_tag('h1')
-    browser.is_element_present_by_name('name')
-    browser.is_element_present_by_id('firstheader')
-
-You can verify too if element is not present in a page:
-
-.. highlight:: python
-
-::
-
-    browser.is_element_not_present_by_css('h1')
-    browser.is_element_not_present_by_xpath('//h1')
-    browser.is_element_not_present_by_tag('h1')
-    browser.is_element_not_present_by_name('name')
-    browser.is_element_not_present_by_id('firstheader')
