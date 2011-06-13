@@ -9,23 +9,29 @@ automate web application actions using python
 
 `what's new in splinter 0.0.3? <http://splinter.cobrateam.info/docs/news.html>`_
 
-first steps
+First steps
 ===========
 
-* `Installation <http://splinter.cobrateam.info/docs/install.html>`_
-* `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
+Getting started
+---------------
 
+* :doc:`Installation </install>`
+* :doc:`Setup Google Chrome driver </setup-chrome>`
+* :doc:`Quick tutorial </tutorial>`
 
-* `Browser <http://splinter.cobrateam.info/docs/browser.html>`_
-* `Finding elements <http://splinter.cobrateam.info/docs/finding.html>`_
-* `Execute javascript <http://splinter.cobrateam.info/docs/javascript.html>`_
-* `Interacting with iframes, alerts and prompts <http://splinter.cobrateam.info/docs/iframes-and-alerts.html>`_
+Walking on...
+-------------
 
-splinter opensource project
-===========================
+* :doc:`Browser </browser>`
+* :doc:`Finding elements </finding>`
+* :doc:`Execute javascript </javascript>`
+* :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
 
-* `Community <http://splinter.cobrateam.info/docs/community.html>`_
-* `Contribute <http://splinter.cobrateam.info/docs/contribute.html>`_
+splinter open source project
+============================
+
+* :doc:`Community </community>`
+* :doc:`Contribute </contribute>`
 
 
 documentation
