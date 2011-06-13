@@ -67,10 +67,6 @@ You can back and forward on your browsing history using ``back`` and ``forward``
     browser.back()
     browser.forward()
 
-..
-
-    **Note:** This feature is not supported yet on Chrome driver.
-
 =============
 Browser.title
 =============
