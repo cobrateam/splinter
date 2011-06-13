@@ -13,10 +13,10 @@ class RequestHandlerTestCase(unittest.TestCase):
         assert_true(self.request.status_code.is_success())
 
     def test_should_start_a_request_with_localhost_and_get_localhost_as_hostname(self):
-        assert_equals(self.request.host, "localhost")
+        assert_equals("localhost", self.request.host)
 
     def test_should_start_a_request_with_localhost_in_port_5000_and_get_5000_as_port(self):
-        assert_equals(self.request.port, 5000)
+        assert_equals(5000, self.request.port)
 
     def test_should_visit_alert_page_and_get_a_success_response(self):
         request = RequestHandler()
@@ -43,5 +43,10 @@ class RequestHandlerTestCase(unittest.TestCase):
         try:
             request.ensure_success_response()
         except HttpResponseError as e:
-            exception = "I failed with code %d and reason %s" % (e.status_code, e.reason)
-        assert_equals(exception, "I failed with code 404 and reason Not Found")
+            exception = e.msg
+        assert_equals("404 - Not Found", exception)
+
+    def test_should_be_able_to_represent_exception_as_string(self):
+        "HttpResponseError exception should be representable as string"
+        error = HttpResponseError(404, "Not Found")
+        assert_equals("404 - Not Found", str(error))

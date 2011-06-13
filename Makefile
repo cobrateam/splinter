@@ -15,7 +15,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.0b3
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.0rc2
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask

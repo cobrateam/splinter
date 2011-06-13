@@ -77,7 +77,7 @@ class DriverAPI(RequestHandler):
     fill_in = fill
     attach_file = fill
 
-    def choose(self, name):
+    def choose(self, name, value):
         raise NotImplementedError
 
     def check(self, name):

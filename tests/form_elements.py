@@ -8,7 +8,7 @@ class FormElementsTest(object):
         "should provide a away to change field value"
         self.browser.fill('query', 'new query')
         value = self.browser.find_by_name('query').first.value
-        assert_equals(value, 'new query')
+        assert_equals('new query', value)
 
     def test_existence_of_the_fill_in_alias_and_that_its_deprecated(self):
         "should check the existence of the fill_in alias for backwards compatibility"
@@ -21,7 +21,7 @@ class FormElementsTest(object):
             assert "fill" in warn_message
             assert "fill_in" in warn_message
         value = self.browser.find_by_name('query').first.value
-        assert_equals(value, 'new query')
+        assert_equals('new query', value)
 
     def test_submiting_a_form_and_verifying_page_content(self):
         "should be able search a term in google and verifying if content expected exists"
@@ -31,21 +31,21 @@ class FormElementsTest(object):
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
-        assert_false(self.browser.find_by_name("some-radio").first.checked)
-        self.browser.choose("some-radio")
-        assert_true(self.browser.find_by_name("some-radio").first.checked)
+        assert_false(self.browser.find_by_id("gender-m").first.checked)
+        self.browser.choose("gender", "M")
+        assert_true(self.browser.find_by_id("gender-m").first.checked)
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
-        assert_equals(self.browser.find_option_by_value("rj").first.text, "Rio de Janeiro")
+        assert_equals("Rio de Janeiro", self.browser.find_option_by_value("rj").first.text)
 
     def test_can_get_value_attribute_for_a_option(self):
         "should option have a value attribute"
-        assert_equals(self.browser.find_option_by_value("rj").first["value"], "rj")
+        assert_equals("rj", self.browser.find_option_by_value("rj").first["value"])
 
     def test_can_find_option_by_text(self):
         "should provide a way to find select option by text"
-        assert_equals(self.browser.find_option_by_text("Rio de Janeiro").first.value, "rj")
+        assert_equals("rj", self.browser.find_option_by_text("Rio de Janeiro").first.value)
 
     def test_can_select_a_option(self):
         "should provide a way to select a option"

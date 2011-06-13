@@ -6,7 +6,7 @@ import time
 from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
-from selenium.common.exceptions import WebDriverException, NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -22,18 +22,13 @@ class BaseWebDriver(DriverAPI):
 
     def _patch_subprocess(self):
         loggers_to_silence = [
-            'selenium.webdriver.firefox.utils',
-            'selenium.webdriver.firefox.firefoxlauncher',
-            'selenium.webdriver.firefox.firefox_profile',
-            'selenium.webdriver.remote.utils',
+            'selenium.webdriver.firefox.extension_connection',
             'selenium.webdriver.remote.remote_connection',
-            'addons.xpi',
-            'webdriver.ExtensionConnection',
+            'selenium.webdriver.remote.utils',
         ]
 
         class MutedHandler(logging.Handler):
-            def emit(self, record):
-                pass
+            pass
 
         for name in loggers_to_silence:
             logger = logging.getLogger(name)
@@ -60,7 +55,7 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def html(self):
-        return self.driver.get_page_source()
+        return self.driver.page_source
 
     @property
     def url(self):
@@ -225,9 +220,11 @@ class BaseWebDriver(DriverAPI):
     fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
 
-    def choose(self, name):
-        field = self.find_by_name(name).first
-        field.click()
+    def choose(self, name, value):
+        fields = self.find_by_name(name)
+        for field in fields:
+            if field.value == value:
+                field.click()
 
     def check(self, name):
         field = self.find_by_name(name).first
@@ -251,9 +248,10 @@ class WebDriverElement(ElementAPI):
         self.parent = parent
 
     def _get_value(self):
-        try:
-            return self._element.value
-        except WebDriverException:
+        value = self["value"]
+        if value:
+            return value
+        else:
             return self._element.text
 
     def _set_value(self, value):

@@ -34,20 +34,27 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h1').first.click()
         alert = self.browser.get_alert()
-        assert_equals(alert.text, 'This is an alert example.')
+        assert_equals('This is an alert example.', alert.text)
         alert.accept()
+
+    def test_acess_alerts_and_dismiss_them(self):
+        self.browser.visit(EXAMPLE_APP + 'alert')
+        self.browser.find_by_tag('h1').first.click()
+        alert = self.browser.get_alert()
+        assert_equals('This is an alert example.', alert.text)
+        alert.dismiss()
 
     def test_access_prompts_and_be_able_to_fill_then(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h2').first.click()
 
         alert = self.browser.get_alert()
-        assert_equals(alert.text, 'What is your name?')
+        assert_equals('What is your name?', alert.text)
         alert.fill_with('Splinter')
         alert.accept()
 
         response = self.browser.get_alert()
-        assert_equals(response.text, 'Splinter')
+        assert_equals('Splinter', response.text)
         response.accept()
 
     def test_access_alerts_using_with(self):
@@ -55,5 +62,5 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h1').first.click()
         with self.browser.get_alert() as alert:
-            assert_equals(alert.text, 'This is an alert example.')
+            assert_equals('This is an alert example.', alert.text)
             alert.accept()
