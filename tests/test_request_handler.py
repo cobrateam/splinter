@@ -1,8 +1,11 @@
+import os
 import unittest
+
 from fake_webapp import EXAMPLE_APP
 from nose.tools import assert_equals, assert_true, assert_false, raises
 from splinter.request_handler.request_handler import RequestHandler
 from splinter.request_handler.status_code import HttpResponseError
+from tests import TESTS_ROOT
 
 class RequestHandlerTestCase(unittest.TestCase):
     def setUp(self):
@@ -50,3 +53,9 @@ class RequestHandlerTestCase(unittest.TestCase):
         "HttpResponseError exception should be representable as string"
         error = HttpResponseError(404, "Not Found")
         assert_equals("404 - Not Found", str(error))
+
+    def test_should_not_connect_to_non_http_protocols(self):
+        mockfile_path = "file://%s" % os.path.join(TESTS_ROOT, "mockfile.txt")
+        request = RequestHandler()
+        request.connect(mockfile_path)
+        assert_true(request.status_code.is_success())
