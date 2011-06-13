@@ -77,7 +77,7 @@ Interacting with forms
 
     browser.fill('query', 'my name')
     browser.attach_file('file', '/path/to/file/somefile.jpg')
-    browser.choose('some-radio')
+    browser.choose('some-radio', 'radio-value')
     browser.check('some-check')
     browser.uncheck('some-check')
     browser.select('uf', 'rj')
