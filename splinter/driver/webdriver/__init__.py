@@ -22,13 +22,9 @@ class BaseWebDriver(DriverAPI):
 
     def _patch_subprocess(self):
         loggers_to_silence = [
-            'selenium.webdriver.firefox.utils',
-            'selenium.webdriver.firefox.firefoxlauncher',
-            'selenium.webdriver.firefox.firefox_profile',
-            'selenium.webdriver.remote.utils',
+            'selenium.webdriver.firefox.extension_connection',
             'selenium.webdriver.remote.remote_connection',
-            'addons.xpi',
-            'webdriver.ExtensionConnection',
+            'selenium.webdriver.remote.utils',
         ]
 
         class MutedHandler(logging.Handler):
