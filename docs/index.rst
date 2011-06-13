@@ -26,7 +26,7 @@ Walking on...
 * :doc:`Finding elements </finding>`
 * :doc:`Interacting with elements </elements-in-the-page>`
 * :doc:`Execute JavaScript </javascript>`
-* :doc:`AJAX and asynchronous JavaScript </ajax-and-asyn-javascript>`
+* :doc:`AJAX and asynchronous JavaScript </ajax-and-async-javascript>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
 
 splinter open source project
