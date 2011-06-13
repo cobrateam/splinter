@@ -6,6 +6,29 @@
 splinter news
 +++++++++++++
 
+what's new in splinter 0.1?
+===========================
+
+Features
+--------
+
+- capability to handle HTTP errors (using an exception) in Selenium drivers (Firefox and Chrome)
+- capability to work with HTTP status code in Selenium drivers (Firefox and Chrom)
+- browsing history (``back`` and ``forward`` methods in ``Browser`` class)
+- documentation improvements
+
+Bugfixes
+--------
+
+- fixed Chrome driver instability
+- fixed ``Browser.choose`` behaviour
+- fixed WebDriver silenting routine
+
+Backward incompatible changes
+-----------------------------
+
+- you should update your selenium to 2.0rc2 version
+
 what's new in splinter 0.0.3?
 =============================
 
@@ -43,7 +66,7 @@ now finder methods (find_by_name, find_by_css_selector, find_by_tag, find_by_id,
 ::
 
 	browser.find_by_name('name')
-	
+
 .first - to find first element
 
 ::
@@ -61,7 +84,7 @@ And additionally, using index
 ::
 
 	browser.find_by_name('name')[1]
-	
+
 An id should be unique in a web page, so find_by_id() method always returns a list with a single element.
 
 Backward incompatible changes
@@ -69,7 +92,7 @@ Backward incompatible changes
 
 - issue #24 remove save_and_open_page method from splinter api. This feature is out of splinter's scope, hence should be implemented as an external package.
 - now finder methods (find_by_name, find_by_css_selector, find_by_tag, find_by_id, find_by_xpath) returns a list with elements, to get the first element founded use `first` attribute
-	
+
 ::
 
 	browser.find_by_name('name').first
