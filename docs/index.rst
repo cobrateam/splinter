@@ -7,7 +7,7 @@
 automate web application actions using python
 +++++++++++++++++++++++++++++++++++++++++++++
 
-`what's new in splinter 0.0.3? <http://splinter.cobrateam.info/docs/news.html>`_
+:doc:`what's new in splinter 0.0.3? </news>`
 
 First steps
 ===========
