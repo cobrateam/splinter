@@ -220,9 +220,11 @@ class BaseWebDriver(DriverAPI):
     fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
 
-    def choose(self, name):
-        field = self.find_by_name(name).first
-        field.click()
+    def choose(self, name, value):
+        fields = self.find_by_name(name)
+        for field in fields:
+            if field.value == value:
+                field.click()
 
     def check(self, name):
         field = self.find_by_name(name).first
