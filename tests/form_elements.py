@@ -31,9 +31,10 @@ class FormElementsTest(object):
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
-        assert_false(self.browser.find_by_name("some-radio").first.checked)
-        self.browser.choose("some-radio")
-        assert_true(self.browser.find_by_name("some-radio").first.checked)
+        assert_false(self.browser.find_by_id("gender-m").first.checked)
+        self.browser.choose("gender", "M")
+        assert_true(self.browser.find_by_id("gender-m").first.checked)
+        assert_false(self.browser.find_by_id("gender-f").first.checked)
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"

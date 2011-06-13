@@ -55,8 +55,8 @@ EXAMPLE_HTML = """\
         <input type="text" name="query" value="default last value" />
         <label for="send">Send</label>
         <input type="submit" name="send" />
-        <input type="radio" name="some-radio" value="choice" />
-        <input type="radio" name="other-radio" value="other-choice" />
+        <input type="radio" name="gender" value="M" id="gender-m" /> Male
+        <input type="radio" name="gender" value="F" id="gender-f" /> Female
         <input type="checkbox" name="some-check" value="choice" />
         <input type="checkbox" name="checked-checkbox" value="choosed" checked="checked" />
         <select name="uf">
