@@ -21,7 +21,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
     def test_can_open_page(self):
         "should be able to visit, get title and quit"
         title = self.browser.title
-        assert_equals(title, 'Example Title')
+        assert_equals('Example Title', title)
 
     def test_can_back_on_history(self):
         "should be able to back on history"
@@ -47,47 +47,46 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         "should reload a page"
         title = self.browser.title
         self.browser.reload()
-        assert_equals(title, 'Example Title')
+        assert_equals('Example Title', title)
 
     def test_should_have_url(self):
         "should have access to the url"
-        url = self.browser.url
-        assert_equals(url, EXAMPLE_APP)
+        assert_equals(EXAMPLE_APP, self.browser.url)
 
     def test_accessing_attributes_of_links(self):
         "should allow link's attributes retrieval"
         foo = self.browser.find_link_by_text('FOO').first
-        assert_equals(foo['href'], 'http://localhost:5000/foo')
+        assert_equals('http://localhost:5000/foo', foo['href'])
 
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
         button = self.browser.find_by_css('input[name="send"]').first
-        assert_equals(button['name'], 'send')
+        assert_equals('send', button['name'])
 
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
         header = self.browser.find_by_css('h1').first
-        assert_equals(header['id'], 'firstheader')
+        assert_equals('firstheader', header['id'])
 
     def test_links_should_have_value_attribute(self):
         foo = self.browser.find_link_by_href('http://localhost:5000/foo').first
-        assert_equals(foo.value, 'FOO')
+        assert_equals('FOO', foo.value)
 
     def test_should_receive_browser_on_parent(self):
         "element should contains the browser on \"parent\" attribute"
         element = self.browser.find_by_id("firstheader").first
-        assert_equals(element.parent, self.browser)
+        assert_equals(self.browser, element.parent)
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest):
 
     def test_can_execute_javascript(self):
-        "should execute javascript"
+        "should be able to execute javascript"
         self.browser.execute_script("$('body').empty()")
-        self.browser.find_by_tag("body") == ""
+        assert_equals("", self.browser.find_by_tag("body").first.value)
 
     def test_can_evaluate_script(self):
         "should evaluate script"
-        assert self.browser.evaluate_script("4+4") == 8
+        assert_equals(8, self.browser.evaluate_script("4+4"))
 
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
@@ -99,4 +98,4 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
 
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
-        assert_equals(self.browser.wait_time, 2)
+        assert_equals(2, self.browser.wait_time)
