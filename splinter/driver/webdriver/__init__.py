@@ -32,8 +32,7 @@ class BaseWebDriver(DriverAPI):
         ]
 
         class MutedHandler(logging.Handler):
-            def emit(self, record):
-                pass
+            pass
 
         for name in loggers_to_silence:
             logger = logging.getLogger(name)
