@@ -22,6 +22,23 @@ If you are using a virtualenv, all you need is:
 
     $ make test
 
+You can also specify one or more test files to run:
+
+.. highlight:: bash
+
+::
+
+    $ make test which=tests/test_webdriver_firefox.py,tests/test_request_handler.py
+
+You can pass which test files you want to run, separated by comma, to the ``which`` variable.
+
+some conventions we like
+========================
+
+You can feel free to create and pull request new branches to Splinter project.
+When adding support for new drivers, we usually work in a separated branch.
+
+
 writing docs
 ============
 
