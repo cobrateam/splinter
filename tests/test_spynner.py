@@ -3,7 +3,7 @@ from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
 from splinter.browser import Browser
 
-class PhantomJSTest(BaseBrowserTests, unittest.TestCase):
+class SpynnerTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
