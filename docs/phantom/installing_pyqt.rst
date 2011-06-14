@@ -48,8 +48,14 @@ package and install PyQt4 using these commands:
 
     $ tar -xvzf PyQt-plat-gpl-4.x.x.tar.gz
     $ cd PyQt-plat-gpl-4.x.x
-    $ python configure.py --no-designer-plugin
+    $ python configure.py --no-designer-plugin --qmake=/usr/bin/qmake-4.x # important, on Mac OS X don't use /usr/bin/qmake, specify the version!
     $ make
     $ [sudo] make install
 
 Now you PyQt4 installed on your system. Happy hacking :)
+
+For more information in specific platforms, check these links out:
+
+    * `Installing PyQt on Mac OS X (Snow Leopard) <http://blog.oak-tree.us/index.php/2010/05/27/pyqt-snow-leopard>`_
+    * `Installing PyQt on Windows <http://blog.oak-tree.us/index.php/2009/05/12/pyqt-windows>`_
+    * `Installing PyQt on Linux (Ubuntu) <http://blog.oak-tree.us/index.php/2009/05/12/pyqt-linux>`_
