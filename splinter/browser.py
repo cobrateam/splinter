@@ -14,8 +14,8 @@ except ImportError:
     pass
 
 try:
-    from splinter.driver.phantomjs import PhantomJS
-    _DRIVERS['phantomjs'] = PhantomJS
+    from splinter.driver.spynner import Spynner
+    _DRIVERS['spynner'] = Spynner
 except ImportError:
     pass
 
