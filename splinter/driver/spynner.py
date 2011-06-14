@@ -1,4 +1,4 @@
 from splinter.driver import DriverAPI
 
-class PhantomJS(DriverAPI):
+class Spynner(DriverAPI):
     pass
