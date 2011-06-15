@@ -17,6 +17,10 @@ div.document {
     margin: 5px 0;
 }
 
+strong {
+    font-weight: bold;
+}
+
 .footer {
     clear: both;
 }
