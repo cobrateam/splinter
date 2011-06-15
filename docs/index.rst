@@ -40,20 +40,21 @@ Walking on...
 Drivers
 -------
 
-WebDriver
-+++++++++
+Browser based drivers
++++++++++++++++++++++
 
-* :doc:`Chrome </drivers/chrome>`
-* :doc:`Firefox </drivers/firefox>`
+The following drivers open a browser to run your actions:
 
-WebKit
-++++++
+* :doc:`Chrome WebDriver </drivers/chrome>`
+* :doc:`Firefox WebDriver </drivers/firefox>`
+
+Headless drivers
+++++++++++++++++
+
+The following drivers don't open a browser to run your actions (but has its own dependencies, check the
+specific docs for each driver):
 
 * :doc:`Spynner </drivers/spynner>`
-
-etc
-+++
-
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
 Get in touch
