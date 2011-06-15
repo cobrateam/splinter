@@ -55,3 +55,17 @@ and add that directory to the ``PATH``:
     $ mv chromedriver $HOME/bin
     $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
 
+Using Chrome WebDriver
+----------------------
+
+To use the Chrome driver, all you need to do is pass the string ``webdriver.chrome`` when you create
+the ``Browser`` instance:
+
+.. highlight:: python
+
+::
+
+    from splinter.browser import Browser
+    browser = Browser('firefox.chrome')
+
+**Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
