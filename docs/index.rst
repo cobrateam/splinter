@@ -9,14 +9,13 @@ automate web application actions using python
 
 :doc:`what's new in splinter 0.1? </news>`
 
-First steps
-===========
+Using splinter
+==============
 
 Getting started
 ---------------
 
 * :doc:`Installation </install>`
-* :doc:`Setup Google Chrome driver </setup-chrome>`
 * :doc:`Quick tutorial </tutorial>`
 
 Basic browsing and interactions
@@ -37,6 +36,25 @@ Walking on...
 
 * :doc:`Dealing with HTTP status code and exceptions </http-status-code-and-exception>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
+
+Drivers
+-------
+
+WebDriver
++++++++++
+
+* :doc:`Chrome </drivers/chrome>`
+* :doc:`Firefox </drivers/firefox>`
+
+WebKit
+++++++
+
+* :doc:`Spynner </drivers/spynner>`
+
+etc
++++
+
+* :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
 Get in touch
 ============
