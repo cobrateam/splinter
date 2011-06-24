@@ -6,6 +6,11 @@
 splinter news
 +++++++++++++
 
+what's new in splinter 0.1.1?
+=============================
+
+- compability with Firefox 5
+
 what's new in splinter 0.1?
 ===========================
 
