@@ -13,12 +13,6 @@ try:
 except ImportError:
     pass
 
-try:
-    from splinter.driver.spynner import Spynner
-    _DRIVERS['spynner'] = Spynner
-except ImportError:
-    pass
-
 def Browser(driver_name='webdriver.firefox'):
     try:
         driver = _DRIVERS[driver_name]
