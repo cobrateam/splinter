@@ -7,7 +7,7 @@ class SpynnerTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('phantomjs')
+        cls.browser = Browser('spynner')
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
