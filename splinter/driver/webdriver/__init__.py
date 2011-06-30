@@ -235,7 +235,8 @@ class BaseWebDriver(DriverAPI):
         field.uncheck()
 
     def select(self, name, value):
-        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.select()
+        element = self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element
+        element.select()
 
     def quit(self):
         self.driver.quit()
@@ -269,11 +270,11 @@ class WebDriverElement(ElementAPI):
 
     def check(self):
         if not self.checked:
-            self._element.toggle()
+            self._element.click()
 
     def uncheck(self):
         if self.checked:
-            self._element.toggle()
+            self._element.click()
 
     @property
     def checked(self):
