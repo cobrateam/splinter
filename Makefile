@@ -3,9 +3,11 @@ all: test
 clean:
 	@find . -name "*.pyc" -delete
 
-dependencies: nose coverage selenium flask lxml sphinx zopetestbrowser
+doc_dependencies: sphinx
 
-doc:
+dependencies: nose coverage selenium flask lxml zopetestbrowser
+
+doc: doc_dependencies
 	@cd docs && make clean && make html
 
 nose:
