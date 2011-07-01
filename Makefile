@@ -35,5 +35,4 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	nosetests --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
-
+	@nosetests --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
