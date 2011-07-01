@@ -1,5 +1,3 @@
-all: test
-
 clean:
 	@find . -name "*.pyc" -delete
 
