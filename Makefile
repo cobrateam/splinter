@@ -3,10 +3,13 @@ all: test
 clean:
 	@find . -name "*.pyc" -delete
 
-dependencies: coverage selenium flask lxml sphinx zopetestbrowser
+dependencies: nose coverage selenium flask lxml sphinx zopetestbrowser
 
 doc:
 	@cd docs && make clean && make html
+
+nose:
+	@python -c 'import nose' 2>/dev/null || pip install nose
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
