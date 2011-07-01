@@ -1,30 +1,66 @@
+# -*- coding: utf-8 -*-:
+"""
+This module contains the basic API for splinter drivers and elemnts.
+"""
+
 from splinter.element_list import ElementList
 from splinter.request_handler.request_handler import RequestHandler
 
 
 class DriverAPI(RequestHandler):
+    """
+    Basic driver API class.
+    """
+
     @property
     def title(self):
+        """
+        Title of current page.
+        """
         raise NotImplementedError
 
     @property
     def html(self):
+        """
+        Source of current page.
+        """
         raise NotImplementedError
 
     @property
     def url(self):
+        """
+        URL of current page.
+        """
         raise NotImplementedError
 
     def visit(self, url):
+        """
+        Visits a given URL.
+
+        The ``url`` parameter is a string.
+        """
         raise NotImplementedError
 
     def back(self):
+        """
+        Back to the last URL in the browsing history.
+
+        If there is no URL to back, this method does nothing.
+        """
         raise NotImplementedError
 
     def forward(self):
+        """
+        Forward to the next URL in the browsing history.
+
+        If there is no URL to forward, this method does nothing.
+        """
         raise NotImplementedError
 
     def reload(self):
+        """
+        Revisits the current URL
+        """
         raise NotImplementedError
 
     def get_alert(self):
@@ -34,6 +70,12 @@ class DriverAPI(RequestHandler):
         raise NotImplementedError
 
     def execute_script(self, script):
+        """
+        Executes a given JavaScript in the browser.
+
+        e.g.: ::
+            >>> browser.execute_script('document.getElementById("body").innerHTML = "<p>Hello world!</p>"')
+        """
         raise NotImplementedError
 
     def evaluate_script(self, script):
