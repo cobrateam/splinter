@@ -1,15 +1,15 @@
-all: test
-
 clean:
 	@find . -name "*.pyc" -delete
 
-dependencies: specloud coverage selenium flask lxml sphinx zopetestbrowser
+doc_dependencies: sphinx
 
-doc:
+dependencies: nose coverage selenium flask lxml zopetestbrowser
+
+doc: doc_dependencies
 	@cd docs && make clean && make html
 
-specloud:
-	@python -c 'import specloud' 2>/dev/null || pip install specloud
+nose:
+	@python -c 'import nose' 2>/dev/null || pip install nose
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
@@ -33,5 +33,4 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
-
+	@nosetests --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
