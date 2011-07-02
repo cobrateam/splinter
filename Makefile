@@ -1,12 +1,15 @@
-all: test
-
 clean:
 	@find . -name "*.pyc" -delete
 
-dependencies: coverage selenium flask lxml sphinx zopetestbrowser
+doc_dependencies: sphinx
 
-doc:
+dependencies: nose coverage selenium flask lxml zopetestbrowser
+
+doc: doc_dependencies
 	@cd docs && make clean && make html
+
+nose:
+	@python -c 'import nose' 2>/dev/null || pip install nose
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
@@ -30,5 +33,4 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	nosetests --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
-
+	@nosetests --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
