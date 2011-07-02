@@ -104,6 +104,22 @@ class DriverAPI(RequestHandler):
     def is_element_present(self, finder, selector, wait_time=None):
         raise NotImplementedError
 
+    def cookie(self):
+        raise NotImplementedError
+
+    @property
+    def cookies(self):
+        raise NotImplementedError
+
+    def add_cookie():
+        raise NotImplementedError
+
+    def delete_cookies(self):
+        raise NotImplementedError
+
+    def delete_cookie(self, key):
+        raise NotImplementedError
+
 
 class ElementAPI(object):
 

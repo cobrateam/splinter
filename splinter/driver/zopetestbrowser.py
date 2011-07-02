@@ -139,6 +139,25 @@ class ZopeTestBrowser(DriverAPI):
     def _element_is_control(self, element):
         return hasattr(element, 'type')
 
+    def cookie(self, key):
+        return self._browser.cookies[key]
+
+    @property
+    def cookies(self):
+        return dict(self._browser.cookies)
+
+    def add_cookie(self, cookie):
+        self._browser.cookies[cookie.keys()[0]] = cookie.values()[0]
+
+    def delete_cookies(self):
+        self._browser.cookies.clearAll()
+
+    def delete_cookie(self, key):
+        try:
+            del(self._browser.cookies[key])
+        except KeyError:
+            pass
+
 class ZopeTestBrowserElement(ElementAPI):
 
     def __init__(self, element, parent):
