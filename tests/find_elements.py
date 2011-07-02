@@ -14,6 +14,11 @@ class FindElementsTest(object):
         element = self.browser.get_by_css('h1')
         assert_equals('Example Header', element.value)
 
+    def test_getting_by_id(self):
+        "should return the element by id"
+        element = self.browser.get_by_id('firstheader')
+        assert_equals('Example Header', element.value)
+
     def test_existence_of_find_by_css_selector_alias_and_that_its_deprecated(self):
         "should check the existence of find_by_css_selector alias for backwards compatibility"
         found = self.browser.find_by_css('h1').first.value
