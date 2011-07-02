@@ -95,6 +95,9 @@ class DriverAPI(RequestHandler):
     def find_by_id(self, id):
         raise NotImplementedError
 
+    def get_by_css(self, selector):
+        return self.find_by_css(selector).first
+
     def find_by_tag(self, tag):
         raise NotImplementedError
 

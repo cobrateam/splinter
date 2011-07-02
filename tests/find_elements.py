@@ -9,6 +9,11 @@ class FindElementsTest(object):
         value = self.browser.find_by_css('h1').first.value
         assert_equals('Example Header', value)
 
+    def test_getting_by_css(self):
+        "should finds only one element by css"
+        element = self.browser.get_by_css('h1')
+        assert_equals('Example Header', element.value)
+
     def test_existence_of_find_by_css_selector_alias_and_that_its_deprecated(self):
         "should check the existence of find_by_css_selector alias for backwards compatibility"
         found = self.browser.find_by_css('h1').first.value
