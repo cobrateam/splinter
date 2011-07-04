@@ -25,3 +25,7 @@ class ClickElementsTest(object):
         self.browser.click_link_by_text('FOO')
         assert "BAR!" in self.browser.html
 
+    def test_click_on_first_element_of_list(self):
+        "when clicking in an ElementList object, should call the click method of the first element"
+        self.browser.find_by_css('input[name="send"]').click()
+        assert 'My name is: Master Splinter' in self.browser.html

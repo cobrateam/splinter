@@ -26,3 +26,6 @@ class ElementList(list):
 
     def is_empty(self):
         return not len(self)
+
+    def click(self):
+        self.first.click()
