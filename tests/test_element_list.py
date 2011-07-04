@@ -38,3 +38,18 @@ class ElementListTest(unittest.TestCase):
     def test_raise_exception_on_indexerror(self):
         "should raise ElementDoesNotExist exception on IndexError"
         ElementList([]).first
+
+    @raises(AttributeError)
+    def test_raise_attribute_error(self):
+        "should raise AttributeError when trying to access a non-existent method on list and element"
+        the_list = ElementList([Person(), Person()])
+        the_list.talk()
+
+    def test_attribute_error_content(self):
+        "should raise AttributeError with right content"
+        expected_message = "'ElementList' object has no attribute 'talk'"
+        try:
+            the_list = ElementList([Person(), Person()])
+            the_list.talk()
+        except AttributeError, e:
+            assert_equals(expected_message, e.message)
