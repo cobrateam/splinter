@@ -95,3 +95,22 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 
 will be True if the element is visible, or False if it is invisible.
 
+Interacting with elements through a ElementList object
+======================================================
+
+Don't you like to always use ``first`` when selecting an element for clicking, for example:
+
+.. highlight:: python
+
+::
+
+    browser.find_by_css('a.my-website').first.click()
+
+You can invoke any ``Element`` method on ``ElementList`` and it will be proxied to the **first** element of the list. So the two lines below are equivalent:
+
+.. highlight:: python
+
+::
+
+    assert browser.find_by_css('a.banner').first.visible
+    assert browser.find_by_css('a.banner').visible
