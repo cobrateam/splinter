@@ -27,8 +27,7 @@ class ElementList(list):
         return len(self) == 0
 
     def __getattr__(self, name):
-        try:
+        if hasattr(self.first, name):
             return getattr(self.first, name)
-        except AttributeError, e:
-            e.message = "'%s' object has no attribute '%s'" % (self.__class__.__name__, name)
-            raise e
+
+        raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
