@@ -45,6 +45,12 @@ class ElementListTest(unittest.TestCase):
         the_list = ElementList([Person(), Person()])
         the_list.talk()
 
+    @raises(AttributeError)
+    def test_attribute_error_for_empty(self):
+        "should raise AttributeError when the list is empty and someone tries to access a method or property on it"
+        the_list = ElementList([])
+        the_list.unknown_method()
+
     def test_attribute_error_content(self):
         "should raise AttributeError with right content"
         expected_message = "'ElementList' object has no attribute 'talk'"
