@@ -1,6 +1,19 @@
 from splinter.exceptions import ElementDoesNotExist
 
+class AttributesGrouper(type):
+
+    def __init__(self, name, bases, class_dict):
+        super(AttributesGrouper, self).__init__(name, bases, class_dict)
+
+        attributes = {}
+        for key, value in class_dict.items():
+            if not key.startswith('__') or not key.endswith('__'):
+                attributes[key] = value
+
+        setattr(self, "_attributes", attributes)
+
 class ElementList(list):
+    __metaclass__ = AttributesGrouper
 
     def __init__(self, list, context=None, driver=None):
         self.extend(list)
@@ -27,5 +40,8 @@ class ElementList(list):
     def is_empty(self):
         return not len(self)
 
-    def click(self):
-        self.first.click()
+    def __getattr__(self, name):
+        if name in self._attributes:
+            return self._attributes[name]
+
+        return getattr(self.first, name)
