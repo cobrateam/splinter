@@ -24,7 +24,7 @@ class ElementList(list):
         return self.driver.find_by_css(element)
 
     def is_empty(self):
-        return not len(self)
+        return len(self) == 0
 
     def __getattr__(self, name):
         return getattr(self.first, name)
