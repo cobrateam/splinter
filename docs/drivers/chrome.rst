@@ -19,7 +19,7 @@ It's important to note that you also need to have Google Chrome installed in you
 Setting up Chrome WebDriver
 ---------------------------
 
-In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.0 RC2,
+In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.0.1,
 you need to setup Chrome webdriver properly. All you need to do is `download <http://code.google.com/p/selenium/downloads/list>`_
 a prebuilt distribution of ChromeDriver server and put it in your ``PATH``.
 
@@ -44,16 +44,57 @@ the properly version for you Linux (32 or 64 bits) or Mac OS ("ChromeDriver serv
 downloaded file in a directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any directory
 and add that directory to the ``PATH``:
 
+
+Mac OSX
+=======
+
 .. highlight:: bash
 
 ::
 
     $ cd $HOME/Downloads
-    $ wget http://selenium.googlecode.com/files/chromedriver_mac_13.0.775.0.zip
-    $ unzip chromedriver_mac_13.0.775.zip
+    $ wget http://chromium.googlecode.com/files/chromedriver_mac_14.0.813.0.zip
+    $ unzip chromedriver_mac_14.0.813.0.zip
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
     $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+
+
+Linux 32bits
+============
+
+.. highlight:: bash
+
+::
+
+    $ cd $HOME/Downloads
+    $ wget http://chromium.googlecode.com/files/chromedriver_linux32_14.0.813.0.zip
+    $ unzip chromedriver_linux32_14.0.813.0.zip
+
+
+Linux 64bits
+============
+
+.. highlight:: bash
+
+::
+    
+    $ cd $HOME/Downloads
+    $ wget http://chromium.googlecode.com/files/chromedriver_linux64_14.0.813.0.zip
+    $ unzip chromedriver_linux64_14.0.813.0.zip
+
+
+Linux (common steps for 32 and 64bits)
+======================================
+
+.. highlight:: bash
+
+::
+
+    $ mkdir -p $HOME/bin
+    $ mv chromedriver $HOME/bin
+    $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+
 
 Using Chrome WebDriver
 ----------------------
