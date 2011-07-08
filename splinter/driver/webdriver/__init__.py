@@ -286,6 +286,12 @@ class WebDriverElement(ElementAPI):
     def visible(self):
         return self._element.is_displayed()
 
+    def find_by_css(self, selector):
+        return ElementList(self._element.find_elements_by_css_selector(selector))
+
+    def find_by_xpath(self, selector):
+        return ElementList(self._element.find_elements_by_xpath(selector))
+
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
 
