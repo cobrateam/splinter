@@ -24,7 +24,7 @@ lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3
 
 sphinx:
-	@python -c 'import sphinx' 2>/dev/null || pip install sphinx
+	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.0.7
 
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser
