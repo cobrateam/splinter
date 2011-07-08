@@ -12,6 +12,6 @@ setup(name='splinter',
       packages=find_packages(),
       include_package_data=True,
       test_suite='nose.collector',
-      install_requires=['selenium==2.0rc3', 'lxml'],
+      install_requires=['selenium==2.0.1', 'lxml==2.3'],
       tests_require=['nose', 'coverage', 'flask'],
       )
