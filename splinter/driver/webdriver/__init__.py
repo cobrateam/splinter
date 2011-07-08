@@ -236,7 +236,7 @@ class BaseWebDriver(DriverAPI):
 
     def select(self, name, value):
         element = self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element
-        element.select()
+        element.click()
 
     def quit(self):
         self.driver.quit()
