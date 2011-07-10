@@ -170,3 +170,15 @@ class FindElementsTest(object):
         "should find links by href"
         link = self.browser.find_link_by_href('http://example.com/').first
         assert_equals('http://example.com/', link['href'])
+
+    def test_find_by_css_in_element_context(self):
+        "should find elements by css in element context"
+        elements = self.browser.find_by_css("#inside")
+        h2_in_div = elements[0].find_by_css('h2')
+        assert_equals(h2_in_div.text, 'inside')
+
+    def test_find_by_xpath_in_element_context(self):
+        "should find elements by xpath in element context"
+        elements = self.browser.find_by_xpath("//div[@id='inside']")
+        h2_in_div = elements[0].find_by_xpath("//h2")
+        assert_equals(h2_in_div.text, 'inside')

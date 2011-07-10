@@ -13,7 +13,7 @@ class WithinElementsTest(object):
 
     def test_return_a_empty_list(self):
         "should return a empty list"
-        elements = self.browser.within('body').find_by_css('h2')
+        elements = self.browser.within('body').find_by_css('h3')
         assert elements.is_empty()
 
     def test_return_a_list_with_elements(self):

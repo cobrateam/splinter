@@ -78,6 +78,7 @@ EXAMPLE_HTML = """\
     <a class='remove-async-element' href="#">remove async element</a>
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
     <iframe id="iframemodal" src="/iframe"></iframe>
+    <div id="inside"><h2>inside</h1></div>
   </body>
 </html>"""
 
