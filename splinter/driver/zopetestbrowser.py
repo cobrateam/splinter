@@ -167,6 +167,13 @@ class ZopeTestBrowserElement(ElementAPI):
     def __getitem__(self, attr):
         return self._element.attrib[attr]
 
+    def find_by_css(self, selector):
+        xpath = CSSSelector(selector).path
+        return ElementList(self._element.xpath(xpath))
+
+    def find_by_xpath(self, selector):
+        return ElementList(self._element.xpath(selector))
+
     @property
     def value(self):
         return self._element.text
