@@ -6,6 +6,19 @@
 splinter news
 +++++++++++++
 
+what's new in splinter 0.2?
+===========================
+
+- selenium 2.0.1
+- :doc:`suport to new chrome driver </drivers/chrome>`
+
+Features
+--------
+
+- suport for cookie
+- find elements within an element
+
+
 what's new in splinter 0.1.1?
 =============================
 
