@@ -79,7 +79,7 @@ EXAMPLE_HTML = """\
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
     <iframe id="iframemodal" src="/iframe"></iframe>
     <div id="inside">
-        <h2>inside</h1>
+        <h2>inside</h2>
         <form>
             <input id="visible" name="upload" type="text" />
         </form>
