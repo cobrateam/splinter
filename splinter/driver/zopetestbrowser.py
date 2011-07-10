@@ -168,11 +168,19 @@ class ZopeTestBrowserElement(ElementAPI):
         return self._element.attrib[attr]
 
     def find_by_css(self, selector):
-        xpath = CSSSelector(selector).path
-        return ElementList(self._element.xpath(xpath))
+        return ElementList(self._element.cssselect(selector))
 
     def find_by_xpath(self, selector):
         return ElementList(self._element.xpath(selector))
+
+    def find_by_name(self, name):
+        return ElementList(self._element.cssselect('[name="%s"]' % name))
+
+    def find_by_tag(self, name):
+        return ElementList(self._element.cssselect(name))
+
+    def find_by_id(self, id):
+        return ElementList(self._element.cssselect('#%s' % id))
 
     @property
     def value(self):

@@ -174,11 +174,31 @@ class FindElementsTest(object):
     def test_find_by_css_in_element_context(self):
         "should find elements by css in element context"
         elements = self.browser.find_by_css("#inside")
-        h2_in_div = elements[0].find_by_css('h2')
-        assert_equals(h2_in_div.text, 'inside')
+        decendent = elements[0].find_by_css('h2')
+        assert_equals(decendent.text.strip(), 'inside')
 
     def test_find_by_xpath_in_element_context(self):
         "should find elements by xpath in element context"
-        elements = self.browser.find_by_xpath("//div[@id='inside']")
-        h2_in_div = elements[0].find_by_xpath("//h2")
-        assert_equals(h2_in_div.text, 'inside')
+        elements = self.browser.find_by_css("#inside")
+        decendent = elements[0].find_by_xpath("//h2")
+        assert_equals(decendent.text.strip(), 'inside')
+
+    def test_find_by_name_in_element_context(self):
+        "should find elements by name in element context"
+        elements = self.browser.find_by_css("#inside")
+        decendent = elements[0].find_by_name("upload")
+        assert_equals(len(decendent), 1)
+
+    def test_find_by_tag_in_element_context(self):
+        "should find elements by tag in element context"
+        elements = self.browser.find_by_css("#inside")
+        decendent = elements[0].find_by_tag("input")
+        assert_equals(len(decendent), 1)
+
+    def test_find_by_id_in_element_context(self):
+        "should find elements by id in element context"
+        elements = self.browser.find_by_css("#inside")
+        decendent = elements[0].find_by_id("visible")
+        assert_equals(len(decendent), 1)
+
+

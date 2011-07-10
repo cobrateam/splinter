@@ -292,6 +292,15 @@ class WebDriverElement(ElementAPI):
     def find_by_xpath(self, selector):
         return ElementList(self._element.find_elements_by_xpath(selector))
 
+    def find_by_name(self, name):
+        return ElementList(self._element.find_elements_by_name(name))
+
+    def find_by_tag(self, tag):
+        return ElementList(self._element.find_elements_by_tag_name(tag))
+
+    def find_by_id(self, id):
+        return ElementList(self._element.find_elements_by_id(id))
+
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
 
