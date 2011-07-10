@@ -27,7 +27,7 @@ sphinx:
 	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.0.7
 
 zopetestbrowser:
-	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser
+	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
 
 which = 'tests'
 
