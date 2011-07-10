@@ -168,23 +168,32 @@ class ZopeTestBrowserElement(ElementAPI):
         return self._element.attrib[attr]
 
     def find_by_css(self, selector):
-        return ElementList(self._element.cssselect(selector))
+        elements = self._element.cssselect(selector)
+        return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_xpath(self, selector):
-        return ElementList(self._element.xpath(selector))
+        elements = self._element.xpath(selector)
+        return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_name(self, name):
-        return ElementList(self._element.cssselect('[name="%s"]' % name))
+        elements = self._element.cssselect('[name="%s"]' % name)
+        return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_tag(self, name):
-        return ElementList(self._element.cssselect(name))
+        elements = self._element.cssselect(name)
+        return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_id(self, id):
-        return ElementList(self._element.cssselect('#%s' % id))
+        elements = self._element.cssselect('#%s' % id)
+        return ElementList([self.__class__(element, self) for element in elements])
 
     @property
     def value(self):
         return self._element.text
+
+    @property
+    def text(self):
+        return self.value
 
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
