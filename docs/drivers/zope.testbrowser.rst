@@ -6,7 +6,7 @@
 zope.testbrowser
 ++++++++++++++++
 
-In ``zope.testbrowser`` driver, we use `zope.testbrowser <>`_. You can install it via pip:
+In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_. You can install it via pip:
 
 .. highlight:: bash
 
