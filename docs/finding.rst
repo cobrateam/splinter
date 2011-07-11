@@ -86,7 +86,7 @@ For find an element within an element you can use the same methods:
 ::
 
     elements = browser.find_by_css("div")
-    within_elements = elements.fisrt.find_by_name("name")
+    within_elements = elements.first.find_by_name("name")
 
 Element not found exception
 ===========================
