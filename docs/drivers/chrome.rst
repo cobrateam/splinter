@@ -20,7 +20,7 @@ Setting up Chrome WebDriver
 ---------------------------
 
 In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.0.1,
-you need to setup Chrome webdriver properly. All you need to do is `download <http://code.google.com/p/selenium/downloads/list>`_
+you need to setup Chrome webdriver properly. All you need to do is `download <http://code.google.com/p/chromium/downloads/list>`_
 a prebuilt distribution of ChromeDriver server and put it in your ``PATH``.
 
 Windows
@@ -28,7 +28,7 @@ Windows
 
     **Note:** We don't provide official support for Windows, but you can try it by yourself.
 
-All you need to do is go to `download page on Selenium project <http://code.google.com/p/selenium/downloads/list>`_ and choose
+All you need to do is go to `download page on Selenium project <http://code.google.com/p/chromium/downloads/list>`_ and choose
 "ChromeDriver server for win32". Your browser will download a zip file, extract it and add the ``.exe`` file to your PATH.
 
 If you don't know how to add an executable to the PATH on Windows, check these link out:
@@ -39,7 +39,7 @@ If you don't know how to add an executable to the PATH on Windows, check these l
 Linux and Mac OS X
 ------------------
 
-Go to the `download page on Selenium project <http://code.google.com/p/selenium/downloads/list>`_ and choose
+Go to the `download page on Chromium project <http://code.google.com/p/chromium/downloads/list>`_ and choose
 the properly version for you Linux (32 or 64 bits) or Mac OS ("ChromeDriver server for Mac OSX"). Then extract the
 downloaded file in a directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any directory
 and add that directory to the ``PATH``:
