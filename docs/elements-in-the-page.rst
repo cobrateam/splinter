@@ -96,7 +96,7 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 will be True if the element is visible, or False if it is invisible.
 
 Interacting with elements through a ElementList object
-======================================================
+------------------------------------------------------
 
 Don't you like to always use ``first`` when selecting an element for clicking, for example:
 
