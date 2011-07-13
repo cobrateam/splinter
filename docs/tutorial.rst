@@ -91,7 +91,7 @@ After pressing the button, you can check if Splinter official website is among t
 
 ::
 
-    if browser.is_text_present('splinter.cobrateam.info/'):
+    if browser.is_text_present('splinter.cobrateam.info'):
         print "Yes, found it! :)"
     else:
         print "No, didn't find it :("
@@ -126,7 +126,7 @@ Finally, the source code will be:
     browser.fill('q', 'splinter - python acceptance testing for web applications')
     browser.find_by_css('.lsb').first.click()
 
-    if browser.is_text_present('splinter.cobrateam.info/'):
+    if browser.is_text_present('splinter.cobrateam.info'):
         print "Yes, the official website was found!"
     else:
         print "No, it wasn't found... We need to improve our SEO techniques"
