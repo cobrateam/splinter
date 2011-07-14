@@ -242,17 +242,18 @@ class BaseWebDriver(DriverAPI):
         self.driver.quit()
 
     def cookie(self, key):
-        return self.driver.get_cookie(key)
+        return self.driver.get_cookie(key)['value']
 
     @property
     def cookies(self):
-        return self.driver.get_cookies()
+        cookies = {}
+        for cookie in self.driver.get_cookies():
+            cookies[cookie['name']] = cookie['value']
+        return cookies
 
-    def add_cookie(self, key, value, **kw):
-        cookie = {'name': key, 'value': value}
-        for option, option_value in kw.items():
-            cookie[option] = option_value
-        self.driver.add_cookie(cookie)
+    def add_cookie(self, cookie):
+        self.driver.add_cookie({'name': cookie.keys()[0],
+                                'value': cookie.values()[0]})
 
     def delete_cookies(self):
         self.driver.delete_all_cookies()
