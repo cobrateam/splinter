@@ -44,3 +44,19 @@ class CookiesTest(unittest.TestCase):
         cookie = self.browser.cookies[0]
         assert_equals(cookie['name'], 'foo')
         assert_equals(cookie['value'], 'bar')
+
+    def test_cookie_accept_options(self):
+        self.browser.delete_cookies()
+        key = 'foo'
+        value = 'bar'
+        domain = EXAMPLE_APP[len('http://'):-len(':5000/')]
+        secure = True
+        path = '/'
+        self.browser.add_cookie(key=key, value=value, domain=domain,
+                                                      secure=secure, path=path)
+        cookie = self.browser.cookies[0]
+        assert_equals(cookie['name'], 'foo')
+        assert_equals(cookie['value'], 'bar')
+        assert_equals(cookie['domain'], domain)
+        assert_equals(cookie['secure'], secure)
+        assert_equals(cookie['path'], path)
