@@ -17,7 +17,7 @@ In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org
 Using zope.testbrowser
 ----------------------
 
-To use the Firefox driver, all you need to do is pass the string ``webdriver.firefox`` when you create
+To use the ``zope.testbrowser`` driver, all you need to do is pass the string ``zope.testbrowser`` when you create
 the ``Browser`` instance:
 
 .. highlight:: python
