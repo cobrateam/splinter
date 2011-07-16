@@ -111,4 +111,4 @@ the ``Browser`` instance:
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
 
-**Note:** if you have trouble with ``$HOME/.bash_profile``, may you could to try ``$HOME/.bashrc``.
+**Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
