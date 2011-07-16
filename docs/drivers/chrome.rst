@@ -78,7 +78,7 @@ Linux 64bits
 .. highlight:: bash
 
 ::
-    
+
     $ cd $HOME/Downloads
     $ wget http://chromium.googlecode.com/files/chromedriver_linux64_14.0.813.0.zip
     $ unzip chromedriver_linux64_14.0.813.0.zip
@@ -107,6 +107,8 @@ the ``Browser`` instance:
 ::
 
     from splinter.browser import Browser
-    browser = Browser('firefox.chrome')
+    browser = Browser('webdriver.chrome')
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+
+**Note:** if you have trouble with ``$HOME/.bash_profile``, may you could to try ``$HOME/.bashrc``.
