@@ -110,4 +110,5 @@ the ``Browser`` instance:
     browser = Browser('webdriver.chrome')
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+
 **Note:** if you have trouble with ``$HOME/.bash_profile``, may you could to try ``$HOME/.bashrc``.
