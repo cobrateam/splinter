@@ -5,6 +5,7 @@ from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
 
 from splinter.element_list import ElementList
+from splinter.cookie_manager import CookieManager
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.utils import warn_deprecated
 
@@ -12,6 +13,7 @@ class ZopeTestBrowser(DriverAPI):
 
     def __init__(self):
         self._browser = Browser()
+        self._cookie_manager = CookieManager(self._browser.cookies)
         self._last_urls = []
 
     def visit(self, url):
@@ -139,24 +141,10 @@ class ZopeTestBrowser(DriverAPI):
     def _element_is_control(self, element):
         return hasattr(element, 'type')
 
-    def cookie(self, key):
-        return self._browser.cookies[key]
-
     @property
     def cookies(self):
-        return dict(self._browser.cookies)
+        return self._cookie_manager
 
-    def add_cookie(self, cookie):
-        self._browser.cookies[cookie.keys()[0]] = cookie.values()[0]
-
-    def delete_cookies(self):
-        self._browser.cookies.clearAll()
-
-    def delete_cookie(self, key):
-        try:
-            del(self._browser.cookies[key])
-        except KeyError:
-            pass
 
 class ZopeTestBrowserElement(ElementAPI):
 
