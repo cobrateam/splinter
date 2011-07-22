@@ -1,6 +1,6 @@
 class CookieManager(object):
 
-    def __init__(self, browser_cookies, *args, **kwargs):
+    def __init__(self, browser_cookies):
         self._cookies = browser_cookies
 
     def add(self, cookies):
