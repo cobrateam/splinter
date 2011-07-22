@@ -14,3 +14,5 @@ build/*
 .ropeproject
 dist/*
 *.log
+*.swn
+*.swo
