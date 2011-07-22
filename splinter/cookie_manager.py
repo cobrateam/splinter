@@ -1,7 +1,6 @@
-class CookieManager(dict):
+class CookieManager(object):
 
     def __init__(self, browser_cookies, *args, **kwargs):
-        dict.__init__(self, *args, **kwargs)
         self._cookies = browser_cookies
 
     def add(self, cookies):
@@ -22,3 +21,7 @@ class CookieManager(dict):
 
     def __repr__(self):
         return repr(dict(self._cookies))
+
+    def __eq__(self, other_object):
+        if isinstance(other_object, dict):
+            return dict(self._cookies) == other_object
