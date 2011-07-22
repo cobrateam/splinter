@@ -19,9 +19,6 @@ class CookieManager(object):
     def __getitem__(self, item):
         return self._cookies.__getitem__(item)
 
-    def __repr__(self):
-        return repr(dict(self._cookies))
-
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             return dict(self._cookies) == other_object
