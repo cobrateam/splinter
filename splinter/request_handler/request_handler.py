@@ -2,7 +2,9 @@ import httplib
 from urlparse import urlparse
 from status_code import StatusCode
 
+
 class RequestHandler(object):
+
     def connect(self, url):
         if url.startswith("http://"):
             self.request_url = url
