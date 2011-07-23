@@ -1,6 +1,7 @@
+from nose.tools import assert_equals, assert_true, assert_false
+
 import warnings
 
-from nose.tools import assert_equals, assert_true, assert_false
 
 class FormElementsTest(object):
 
