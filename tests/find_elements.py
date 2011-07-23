@@ -1,9 +1,9 @@
-import warnings
-
 from nose.tools import assert_equals
-
 from splinter.driver import ElementAPI
 from splinter.element_list import ElementList
+
+import warnings
+
 
 class FindElementsTest(object):
 
