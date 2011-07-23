@@ -27,4 +27,3 @@ class CookiesTest(object):
         self.browser.cookies.add({'foo': 'bar'})
         self.browser.cookies.delete('mwahahahaha')
         assert_equals(self.browser.cookies, {'foo': 'bar'})
-
