@@ -1,11 +1,12 @@
-import os
-import unittest
-
 from fake_webapp import EXAMPLE_APP
 from nose.tools import assert_equals, assert_true, assert_false, raises
 from splinter.request_handler.request_handler import RequestHandler
 from splinter.request_handler.status_code import HttpResponseError
 from tests import TESTS_ROOT
+
+import os
+import unittest
+
 
 class RequestHandlerTestCase(unittest.TestCase):
     def setUp(self):
