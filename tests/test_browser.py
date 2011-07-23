@@ -1,6 +1,8 @@
-import unittest
 from nose.tools import raises
 from splinter.exceptions import DriverNotFoundError
+
+import unittest
+
 
 class BrowserTest(unittest.TestCase):
 
