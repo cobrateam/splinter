@@ -9,7 +9,7 @@ splinter news
 what's new in splinter 0.2?
 ===========================
 
-- selenium 2.0.1
+- selenium 2.1.0
 - :doc:`suport to new chrome driver </drivers/chrome>`
 
 Features

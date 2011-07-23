@@ -19,7 +19,7 @@ It's important to note that you also need to have Google Chrome installed in you
 Setting up Chrome WebDriver
 ---------------------------
 
-In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.0.1,
+In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.1.0,
 you need to setup Chrome webdriver properly. All you need to do is `download <http://code.google.com/p/chromium/downloads/list>`_
 a prebuilt distribution of ChromeDriver server and put it in your ``PATH``.
 
