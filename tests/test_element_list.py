@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-import unittest
 from nose.tools import assert_equals, assert_false, assert_true, raises
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
+
+import unittest
+
 
 class Person(object):
     """Very simple class, just for tests"""
@@ -12,6 +14,7 @@ class Person(object):
 
     def walk(self):
         self.current_action = "walking"
+
 
 class ElementListTest(unittest.TestCase):
 
