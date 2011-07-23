@@ -119,21 +119,26 @@ EXAMPLE_ALERT_HTML = """\
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return EXAMPLE_HTML
+
 
 @app.route('/iframe')
 def iframed():
     return EXAMPLE_IFRAME_HTML
 
+
 @app.route('/alert')
 def alertd():
     return EXAMPLE_ALERT_HTML
 
+
 @app.route('/name', methods=['GET'])
 def get_name():
     return "My name is: Master Splinter"
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -145,23 +150,28 @@ def upload_file():
 
         return '|'.join(buffer)
 
+
 @app.route('/foo')
 def foo():
     return "BAR!"
 
+
 class Env(object):
     pass
+
 
 env = Env()
 env.process = None
 env.host, env.port = 'localhost', 5000
 env.browser = None
 
+
 def start_flask_app(host, port):
     """Runs the server."""
     app.run(host=host, port=port)
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
+
 
 def wait_until_start():
     while True:
@@ -170,6 +180,7 @@ def wait_until_start():
             break
         except IOError:
             pass
+
 
 def wait_until_stop():
     while True:
@@ -180,11 +191,13 @@ def wait_until_stop():
         except IOError:
             break
 
+
 def start_server():
     env.process = Process(target=start_flask_app, args=(env.host, env.port))
     env.process.daemon = True
     env.process.start()
     wait_until_start()
+
 
 def stop_server():
     env.process.terminate()
