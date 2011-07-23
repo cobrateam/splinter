@@ -1,6 +1,5 @@
 from nose.tools import assert_equals, assert_true, assert_false
 from fake_webapp import EXAMPLE_APP
-
 from find_elements import FindElementsTest
 from form_elements import FormElementsTest
 from click_elements import ClickElementsTest
@@ -77,6 +76,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         "element should contains the browser on \"parent\" attribute"
         element = self.browser.find_by_id("firstheader").first
         assert_equals(self.browser, element.parent)
+
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest):
 
