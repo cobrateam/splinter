@@ -24,5 +24,3 @@ class AsyncFinderTests(object):
         "should find by name found an async element"
         self.browser.find_by_css('.add-async-element').first.click()
         assert 1 == len(self.browser.find_by_name('async-input'))
-
-
