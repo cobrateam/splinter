@@ -1,6 +1,5 @@
 from splinter.browser import Browser
 from base import BaseBrowserTests
-from test_cookies import CookiesTest
 from fake_webapp import EXAMPLE_APP
 from nose.tools import assert_equals, raises
 
@@ -8,7 +7,7 @@ import os
 import unittest
 
 
-class ZopeTestBrowserDriverTest(BaseBrowserTests, CookiesTest, unittest.TestCase):
+class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):

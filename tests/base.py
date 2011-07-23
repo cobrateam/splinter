@@ -11,9 +11,10 @@ from status_code import StatusCodeTest
 from async_finder import AsyncFinderTests
 from is_text_present import IsTextPresentTest
 from within_elements import WithinElementsTest
+from cookies import Cookies
 
 
-class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest):
+class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest, Cookies):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")
