@@ -13,7 +13,9 @@ try:
 except ImportError:
     pass
 
+
 def Browser(driver_name='webdriver.firefox'):
+
     try:
         driver = _DRIVERS[driver_name]
         return driver()
