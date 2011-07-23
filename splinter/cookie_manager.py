@@ -4,8 +4,8 @@ class CookieManager(object):
         self._cookies = browser_cookies
 
     def add(self, cookies):
-        for key in cookies.keys():
-            self._cookies[key] = cookies[key]
+        for key, value in cookies.items():
+            self._cookies[key] = value
 
     def delete(self, cookie=None):
         if not cookie:
