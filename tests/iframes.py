@@ -1,5 +1,6 @@
 from nose.tools import assert_equals
 
+
 class IFrameElementsTest(object):
 
     def test_can_work_on_iframes(self):
