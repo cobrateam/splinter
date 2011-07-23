@@ -1,13 +1,13 @@
-import mimetypes
-
-import lxml.html
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
-
 from splinter.element_list import ElementList
 from splinter.cookie_manager import CookieManager
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.utils import warn_deprecated
+
+import mimetypes
+import lxml.html
+
 
 class ZopeTestBrowser(DriverAPI):
 
@@ -133,7 +133,7 @@ class ZopeTestBrowser(DriverAPI):
         return ElementList([ZopeTestBrowserLinkElement(link, self) for link in links])
 
     def select(self, name, value):
-        self.find_by_name(name).first._control.value = [value,]
+        self.find_by_name(name).first._control.value = [value]
 
     def _element_is_link(self, element):
         return element.tag == 'a'
@@ -199,6 +199,7 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
     def click(self):
         return self._browser.open(self["href"])
 
+
 class ZopeTestBrowserControlElement(ElementAPI):
 
     def __init__(self, control, parent):
@@ -218,6 +219,7 @@ class ZopeTestBrowserControlElement(ElementAPI):
 
     def click(self):
         return self._control.click()
+
 
 class ZopeTestBrowserOptionElement(ElementAPI):
 
