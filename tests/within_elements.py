@@ -1,6 +1,8 @@
 from splinter.element_list import ElementList
 
+
 class WithinElementsTest(object):
+
     def test_element_should_be_a_elementList(self):
         "should be element list"
         element = self.browser.within('body')
