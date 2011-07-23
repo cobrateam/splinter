@@ -5,9 +5,10 @@ from nose.tools import assert_equals
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
+from test_cookies import CookiesTest
 
 
-class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
+class FirefoxBrowserTest(WebDriverTests, CookiesTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):

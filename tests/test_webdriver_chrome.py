@@ -2,10 +2,11 @@ import unittest
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
+from test_cookies import CookiesTest
 from nose.tools import raises
 
 
-class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
+class ChromeBrowserTest(WebDriverTests, CookiesTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
