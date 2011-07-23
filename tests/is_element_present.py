@@ -1,6 +1,7 @@
+from nose.tools import assert_true, assert_false, assert_equals
+
 import warnings
 
-from nose.tools import assert_true, assert_false, assert_equals
 
 class IsElementPresentTest(object):
 
