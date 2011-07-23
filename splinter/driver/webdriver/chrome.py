@@ -2,6 +2,7 @@
 
 from selenium.webdriver import Chrome
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
+from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
@@ -12,6 +13,8 @@ class WebDriver(BaseWebDriver):
 
         self.element_class = WebDriverElement
 
+        self._cookie_manager = CookieManager(self.driver)
+
         super(WebDriver, self).__init__()
 
     def attach_file(self, name, value):
@@ -19,3 +22,7 @@ class WebDriver(BaseWebDriver):
 
     def get_alert(self):
         raise NotImplementedError
+
+    @property
+    def cookies(self):
+        return self._cookie_manager
