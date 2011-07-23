@@ -17,7 +17,7 @@ class CookieManager(object):
                 pass
 
     def __getitem__(self, item):
-        return self._cookies.__getitem__(item)
+        return self._cookies[item]
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
