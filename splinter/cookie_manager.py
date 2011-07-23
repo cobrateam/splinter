@@ -8,13 +8,13 @@ class CookieManager(object):
             self._cookies[key] = value
 
     def delete(self, cookie=None):
-        if not cookie:
-            self._cookies.clearAll()
-        else:
+        if cookie:
             try:
-                del(self._cookies[cookie])
+                del self._cookies[cookie]
             except KeyError:
                 pass
+        else:
+            self._cookies.clearAll()
 
     def __getitem__(self, item):
         return self._cookies[item]
