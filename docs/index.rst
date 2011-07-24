@@ -24,6 +24,7 @@ Basic browsing and interactions
 * :doc:`Browser and navigation </browser>`
 * :doc:`Finding elements </finding>`
 * :doc:`Interacting with elements and forms </elements-in-the-page>`
+* :doc:`Cookies manipulation </cookies>`
 
 JavaScript support
 ------------------
