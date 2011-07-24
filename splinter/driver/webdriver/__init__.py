@@ -241,6 +241,10 @@ class BaseWebDriver(DriverAPI):
     def quit(self):
         self.driver.quit()
 
+    @property
+    def cookies(self):
+        return self._cookie_manager
+
 
 class WebDriverElement(ElementAPI):
 

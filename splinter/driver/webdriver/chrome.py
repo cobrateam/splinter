@@ -22,7 +22,3 @@ class WebDriver(BaseWebDriver):
 
     def get_alert(self):
         raise NotImplementedError
-
-    @property
-    def cookies(self):
-        return self._cookie_manager

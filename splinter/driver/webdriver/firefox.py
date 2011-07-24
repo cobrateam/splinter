@@ -24,7 +24,3 @@ class WebDriver(BaseWebDriver):
         self._cookie_manager = CookieManager(self.driver)
 
         super(WebDriver, self).__init__()
-
-    @property
-    def cookies(self):
-        return self._cookie_manager
