@@ -1,28 +1,13 @@
-class CookieManager(object):
-
-    def __init__(self, browser_cookies):
-        self._cookies = browser_cookies
+class CookieManagerAPI(object):
 
     def add(self, cookies):
-        for key, value in cookies.items():
-            self._cookies[key] = value
+        raise NotImplementedError
 
     def delete(self, cookie=None):
-        if cookie:
-            try:
-                del self._cookies[cookie]
-            except KeyError:
-                pass
-        else:
-            self._cookies.clearAll()
+        raise NotImplementedError
 
     def __getitem__(self, item):
-        return self._cookies[item]
+        raise NotImplementedError
 
     def __eq__(self, other_object):
-        if isinstance(other_object, dict):
-            return dict(self._cookies) == other_object
-
-
-class CookieManagerAPI(CookieManager):
-    pass
+        raise NotImplementedError
