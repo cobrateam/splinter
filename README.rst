@@ -4,7 +4,7 @@ splinter - python tool for test web applications
 
 splinter is a tool for test web applications with a simple for find elements, form actions, and others browser actions.
 
-`what's new in splinter 0.1.1? <http://splinter.cobrateam.info/docs/news.html>`_
+`what's new in splinter 0.2? <http://splinter.cobrateam.info/docs/news.html>`_
 
 first steps
 ===========
