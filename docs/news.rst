@@ -9,15 +9,17 @@ splinter news
 what's new in splinter 0.2?
 ===========================
 
-- selenium 2.1.0
-- :doc:`suport to new chrome driver </drivers/chrome>`
-
 Features
 --------
 
-- suport for cookie
+- :doc:`cookies manipulation </cookies>`
 - find elements within an element
+- improvements in `ElementList`
 
+Backward incompatible changes
+-----------------------------
+
+- you should update your selenium to 2.1.0 version and your chrome driver. See more in :doc:`suport to new chrome driver </drivers/chrome>` 
 
 what's new in splinter 0.1.1?
 =============================
