@@ -9,13 +9,13 @@ doc: doc_dependencies
 	@cd docs && make clean && make html
 
 nose:
-	@python -c 'import nose' 2>/dev/null || pip install nose==1.0.0
+	@python -c 'import nose' 2>/dev/null || pip install nose==1.1.1
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.1.0
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.2.0
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2
