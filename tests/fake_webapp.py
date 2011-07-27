@@ -74,6 +74,7 @@ EXAMPLE_HTML = """\
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
     <a href="http://localhost:5000/foo">FOO</a>
+    <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
     <a class='add-async-element' href="#">add async element</a>
     <a class='remove-async-element' href="#">remove async element</a>
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
@@ -202,3 +203,4 @@ def start_server():
 def stop_server():
     env.process.terminate()
     wait_until_stop()
+
