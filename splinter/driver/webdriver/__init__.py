@@ -210,6 +210,9 @@ class BaseWebDriver(DriverAPI):
     def find_by_tag(self, tag):
         return self.find_by(self.driver.find_elements_by_tag_name, tag)
 
+    def find_by_value(self, value):
+        return self.find_by_xpath('//*[@value="%s"]' % value)
+
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
 
