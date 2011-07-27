@@ -6,7 +6,7 @@
 Finding elements
 ++++++++++++++++
 
-For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``:
+For finding elements you can use six methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``:
 
 .. highlight:: python
 
@@ -17,6 +17,7 @@ For finding elements you can use five methods, one for each selector type ``css`
     browser.find_by_tag('h1')
     browser.find_by_name('name')
     browser.find_by_id('firstheader')
+    browser.find_by_value('query')
 
 These methods returns a list of all found elements.
 
