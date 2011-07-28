@@ -45,5 +45,5 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @raises(NotImplementedError)
     def test_can_change_field_value_by_type(self):
-        "zope.testbrowser does not support type_keys from selenium"
+        "zope.testbrowser won't support type method because it doesn't interact with Javascritp, and this is the meaning of that method"
         self.browser.type('query',' with type method')
