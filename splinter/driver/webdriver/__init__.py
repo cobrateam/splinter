@@ -229,6 +229,11 @@ class BaseWebDriver(DriverAPI):
     def type(self, name, value):
         element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
         element.send_keys(value)
+        return value
+
+    def type_slowly(self, name, value):
+        for key in value:
+            yield self.type(name, value)
 
     def choose(self, name, value):
         fields = self.find_by_name(name)
