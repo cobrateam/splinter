@@ -82,6 +82,26 @@ Interacting with forms
     browser.uncheck('some-check')
     browser.select('uf', 'rj')
 
+To trigger JavaScript events, like KeyDown or KeyUp, you can use the `type` method.
+
+.. highlight:: python
+
+::
+
+    browser.type('type', 'typing text')
+
+With `type_slowly` method you can interact with the page on every key pressed. Useful
+for testing field's autocompletion (the browser will wait until next iteration to type
+the subsequent key).
+
+.. highlight:: python
+
+::
+
+    for key in browser.type_slowly('type', 'typing slowly'):
+        // you can do some test of a field autocompletion here
+
+
 Verifying if element is visible or invisible
 --------------------------------------------
 
