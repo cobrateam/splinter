@@ -6,7 +6,7 @@
 Chrome WebDriver
 ++++++++++++++++
 
-Chrome WebDriver is provided by Selenium 2.0. To use it, you need to install Selenium 2.0 via pip:
+Chrome WebDriver is provided by Selenium2. To use it, you need to install Selenium2 via pip:
 
 .. highlight:: bash
 
@@ -19,7 +19,7 @@ It's important to note that you also need to have Google Chrome installed in you
 Setting up Chrome WebDriver
 ---------------------------
 
-In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.1.0,
+In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.2.0,
 you need to setup Chrome webdriver properly. All you need to do is `download <http://code.google.com/p/chromium/downloads/list>`_
 a prebuilt distribution of ChromeDriver server and put it in your ``PATH``.
 

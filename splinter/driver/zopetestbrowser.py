@@ -134,6 +134,9 @@ class ZopeTestBrowser(DriverAPI):
     def find_link_by_href(self, href):
         return self._find_links_by_xpath("//a[@href='%s']" % href)
 
+    def find_link_by_partial_text(self, partial_text):
+        return self._find_links_by_xpath("//a[contains(text(), '%s')]" % partial_text)
+
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
@@ -270,3 +273,4 @@ class ZopeTestBrowserOptionElement(ElementAPI):
     @property
     def selected(self):
         return self._control.mech_item._selected
+

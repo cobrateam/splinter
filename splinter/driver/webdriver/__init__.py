@@ -176,6 +176,9 @@ class BaseWebDriver(DriverAPI):
     def find_link_by_href(self, href):
         return self.find_by_xpath('//a[@href="%s"]' % href)
 
+    def find_link_by_partial_text(self, partial_text):
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)])
+
     def find_link_by_text(self, text):
         return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
 
@@ -341,3 +344,4 @@ class AlertElement(object):
 
     def __exit__(self, type, value, traceback):
         pass
+

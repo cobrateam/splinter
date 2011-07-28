@@ -107,6 +107,9 @@ class DriverAPI(RequestHandler):
     def find_link_by_text(self, text):
         raise NotImplementedError
 
+    def find_link_by_partial_text(self, partial_text):
+        raise NotImplementedError
+
     def find_option_by_value(self, value):
         raise NotImplementedError
 
@@ -142,6 +145,9 @@ class DriverAPI(RequestHandler):
 
     def click_link_by_text(self, text):
         return self.find_link_by_text(text).first.click()
+
+    def click_link_by_partial_text(self, partial_text):
+        return self.find_link_by_partial_text(partial_text).first.click()
 
     def within(self, context):
         return ElementList([], context, self)
@@ -189,3 +195,4 @@ class ElementAPI(object):
 
     def __getitem__(self, attribute):
         raise NotImplementedError
+
