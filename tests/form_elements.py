@@ -5,6 +5,12 @@ import warnings
 
 class FormElementsTest(object):
 
+    def test_can_change_field_value_by_type(self):
+        "should provide a away to change field value using type method"
+        self.browser.type('query',' with type method')
+        value = self.browser.find_by_name('query').first.value
+        assert_equals('default value with type method', value)
+
     def test_can_change_field_value(self):
         "should provide a away to change field value"
         self.browser.fill('query', 'new query')

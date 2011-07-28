@@ -226,6 +226,10 @@ class BaseWebDriver(DriverAPI):
     fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
 
+    def type(self, name, value):
+        element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
+        element.send_keys(value)
+
     def choose(self, name, value):
         fields = self.find_by_name(name)
         for field in fields:
