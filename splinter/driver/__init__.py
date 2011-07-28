@@ -116,6 +116,9 @@ class DriverAPI(RequestHandler):
     def wait_for_element(self, selector, timeout, interval):
         raise NotImplementedError
 
+    def type(self, name, value):
+        raise NotImplementedError
+
     def fill(self, name, value):
         raise NotImplementedError
 

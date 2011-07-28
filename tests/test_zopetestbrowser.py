@@ -42,3 +42,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
     def test_cant_switch_to_frame(self):
         "zope.testbrowser should not be able to switch to frames"
         self.browser.get_iframe('frame_123')
+
+    @raises(NotImplementedError)
+    def test_can_change_field_value_by_type(self):
+        self.browser.type('query',' with type method')
