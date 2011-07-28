@@ -24,8 +24,3 @@ class ClickElementsTest(object):
         "should allow to click link by text"
         self.browser.click_link_by_text('FOO')
         assert "BAR!" in self.browser.html
-
-    def test_click_link_by_value(self):
-        "should allow to click link by value"
-        self.browser.find_by_value('goes bar').first.click()
-        assert "BAR!" in self.browser.html
