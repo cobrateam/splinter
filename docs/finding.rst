@@ -57,13 +57,21 @@ A web page should be only one id per page. Then find_by_id() method return alway
 Finding links
 =============
 
-For finding link elements you can use ``find_link_by_text`` or ``find_link_by_href``:
+For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text`` or ``find_link_by_href``:
 
 .. highlight:: python
 
 ::
 
     browser.find_link_by_text('Link for Example.com')
+
+or
+
+.. highlight:: python
+
+::
+
+    browser.find_link_by_partial_text('for Example')
 
 or
 
@@ -93,3 +101,4 @@ Element not found exception
 ===========================
 
 If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
+
