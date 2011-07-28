@@ -95,6 +95,9 @@ class DriverAPI(RequestHandler):
     def find_by_id(self, id):
         raise NotImplementedError
 
+    def find_by_value(self, value):
+        raise NotImplementedError
+
     def find_by_tag(self, tag):
         raise NotImplementedError
 

@@ -109,6 +109,9 @@ class ZopeTestBrowser(DriverAPI):
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag)
 
+    def find_by_value(self, value):
+        return self.find_by_xpath('//*[@value="%s"]' % value)
+
     def find_by_id(self, id_value):
         return self.find_by_xpath('//*[@id="%s"][1]' % id_value)
 
