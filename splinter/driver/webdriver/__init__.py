@@ -316,6 +316,10 @@ class WebDriverElement(ElementAPI):
         elements = ElementList(self._element.find_elements_by_tag_name(tag))
         return ElementList([self.__class__(element, self) for element in elements])
 
+    def find_by_value(self, value):
+        elements = ElementList(self._element.find_elements_by_value(value))
+        return ElementList([self.__class__(element, self) for element in elements])
+
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
         return ElementList([self.__class__(element, self) for element in elements])

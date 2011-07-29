@@ -203,6 +203,10 @@ class ZopeTestBrowserElement(ElementAPI):
         elements = self._element.cssselect(name)
         return ElementList([self.__class__(element, self) for element in elements])
 
+    def find_by_value(self, value):
+        elements = self._element.cssselect('[value="%s"]' % value)
+        return ElementList([self.__class__(element, self) for element in elements])
+
     def find_by_id(self, id):
         elements = self._element.cssselect('#%s' % id)
         return ElementList([self.__class__(element, self) for element in elements])
