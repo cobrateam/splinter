@@ -75,6 +75,14 @@ class IsElementPresentTest(object):
         self.browser.find_by_css('.add-async-element').first.click()
         assert_true(self.browser.is_element_present_by_xpath('//h5', wait_time=3))
 
+    def test_is_element_present_by_xpath_returns_false_if_element_is_not_present(self):
+        "should is element present by xpath should returns false if element is not present"
+        self.browser.reload()
+        self.browser.find_by_css('.add-async-element').first.click()
+        self.browser.is_element_present_by_css('.async-element')
+        self.browser.find_by_css('.remove-async-element').first.click()
+        assert_false(self.browser.is_element_present_by_xpath('//h4'))
+
     def test_is_element_not_present_by_xpath(self):
         "should is element not present by xpath verify if element is not present"
         self.browser.reload()
@@ -82,6 +90,12 @@ class IsElementPresentTest(object):
         self.browser.is_element_present_by_css('.async-element')
         self.browser.find_by_css('.remove-async-element').first.click()
         assert_true(self.browser.is_element_not_present_by_xpath('//h4'))
+
+    def test_is_element_not_present_by_xpath_returns_false_if_element_is_present(self):
+        "should is element not present by xpath returns false if elements is present"
+        self.browser.reload()
+        self.browser.find_by_css('.add-async-element').first.click()
+        assert_false(self.browser.is_element_not_present_by_xpath('//h4'))
 
     def test_is_element_present_by_tag(self):
         "should is element present by tag verify if element is present"
