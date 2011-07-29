@@ -103,6 +103,36 @@ class IsElementPresentTest(object):
         self.browser.find_by_css('.remove-async-element').first.click()
         assert_true(self.browser.is_element_not_present_by_tag('h4'))
 
+    def test_is_element_present_by_value(self):
+        "should is element present by value verify if element is present"
+        self.browser.reload()
+        self.browser.find_by_css('.add-async-element').first.click()
+        assert_true(self.browser.is_element_present_by_value('async-header-value'))
+
+    def test_is_element_present_by_value_using_a_custom_wait_time(self):
+        "should is element present by value verify if element is present using a custom wait time"
+        self.browser.reload()
+        self.browser.find_by_css('.add-async-element').first.click()
+        assert_true(self.browser.is_element_present_by_value('async-header-value', wait_time=3))
+
+    def test_is_element_present_by_value_returns_false_if_element_is_not_present(self):
+        "should is element present by value returns False if element is not present"
+        self.browser.reload()
+        assert_false(self.browser.is_element_present_by_value('async-header-value'))
+
+    def test_is_element_not_present_by_value(self):
+        "should is element not present by value verify if element is not present"
+        self.browser.reload()
+        self.browser.find_by_css('.add-async-element').first.click()
+        self.browser.is_element_present_by_css('.async-element')
+        self.browser.find_by_css('.remove-async-element').first.click()
+        assert_true(self.browser.is_element_not_present_by_value('async-header-value'))
+
+    def test_is_element_not_present_by_value_returns_false_if_element_is_present(self):
+        "should is element not present by value returns False if element is present"
+        self.browser.reload()
+        assert_false(self.browser.is_element_not_present_by_value('default value'))
+
     def test_is_element_present_by_id(self):
         "should is element present by id verify if element is present"
         self.browser.reload()

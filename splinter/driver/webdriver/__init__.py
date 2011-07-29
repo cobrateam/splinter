@@ -127,6 +127,12 @@ class BaseWebDriver(DriverAPI):
     def is_element_not_present_by_name(self, name, wait_time=None):
         return self.is_element_not_present(self.find_by_name, name, wait_time)
 
+    def is_element_present_by_value(self, value, wait_time=None):
+        return self.is_element_present(self.find_by_value, value, wait_time)
+
+    def is_element_not_present_by_value(self, value, wait_time=None):
+        return self.is_element_not_present(self.find_by_value, value, wait_time)
+
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
 
