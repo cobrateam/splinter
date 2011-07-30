@@ -1,5 +1,5 @@
-from splinter.exceptions import ElementDoesNotExist
 from nose.tools import raises
+from splinter.exceptions import ElementDoesNotExist
 
 
 class ElementDoestNotExistTest(object):

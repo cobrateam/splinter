@@ -197,6 +197,11 @@ class IsElementPresentTest(object):
         self.browser.find_by_css('.add-async-element').first.click()
         assert_true(self.browser.is_element_present_by_name('async-input2', wait_time=3))
 
+    def test_is_element_present_by_name_returns_false_if_element_is_not_present(self):
+        "should is element present by name returns false if element is not present"
+        self.browser.reload()
+        assert_false(self.browser.is_element_present_by_name('async-input'))
+
     def test_is_element_not_present_by_name(self):
         "should is element not present by name verify if element is not present"
         self.browser.reload()
