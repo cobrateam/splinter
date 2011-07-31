@@ -104,6 +104,9 @@ class DriverAPI(RequestHandler):
     def find_link_by_href(self, href):
         raise NotImplementedError
 
+    def find_link_by_partial_href(self, partial_href):
+        raise NotImplementedError
+
     def find_link_by_text(self, text):
         raise NotImplementedError
 
@@ -142,6 +145,9 @@ class DriverAPI(RequestHandler):
 
     def click_link_by_href(self, href):
         return self.find_link_by_href(href).first.click()
+
+    def click_link_by_partial_href(self, partial_href):
+        return self.find_link_by_partial_href(partial_href).first.click()
 
     def click_link_by_text(self, text):
         return self.find_link_by_text(text).first.click()
