@@ -127,6 +127,12 @@ class BaseWebDriver(DriverAPI):
     def is_element_not_present_by_name(self, name, wait_time=None):
         return self.is_element_not_present(self.find_by_name, name, wait_time)
 
+    def is_element_present_by_value(self, value, wait_time=None):
+        return self.is_element_present(self.find_by_value, value, wait_time)
+
+    def is_element_not_present_by_value(self, value, wait_time=None):
+        return self.is_element_not_present(self.find_by_value, value, wait_time)
+
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
 
@@ -175,6 +181,9 @@ class BaseWebDriver(DriverAPI):
 
     def find_link_by_href(self, href):
         return self.find_by_xpath('//a[@href="%s"]' % href)
+
+    def find_link_by_partial_href(self, partial_href):
+        return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href)
 
     def find_link_by_partial_text(self, partial_text):
         return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)])
@@ -319,6 +328,10 @@ class WebDriverElement(ElementAPI):
 
     def find_by_tag(self, tag):
         elements = ElementList(self._element.find_elements_by_tag_name(tag))
+        return ElementList([self.__class__(element, self) for element in elements])
+
+    def find_by_value(self, value):
+        elements = ElementList(self._element.find_elements_by_value(value))
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_id(self, id):

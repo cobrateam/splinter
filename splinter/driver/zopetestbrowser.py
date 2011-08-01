@@ -134,6 +134,9 @@ class ZopeTestBrowser(DriverAPI):
     def find_link_by_href(self, href):
         return self._find_links_by_xpath("//a[@href='%s']" % href)
 
+    def find_link_by_partial_href(self, partial_href):
+        return self._find_links_by_xpath("//a[contains(@href, '%s')]" % partial_href)
+
     def find_link_by_partial_text(self, partial_text):
         return self._find_links_by_xpath("//a[contains(text(), '%s')]" % partial_text)
 
@@ -201,6 +204,10 @@ class ZopeTestBrowserElement(ElementAPI):
 
     def find_by_tag(self, name):
         elements = self._element.cssselect(name)
+        return ElementList([self.__class__(element, self) for element in elements])
+
+    def find_by_value(self, value):
+        elements = self._element.cssselect('[value="%s"]' % value)
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_id(self, id):

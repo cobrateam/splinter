@@ -2,6 +2,7 @@ from splinter.exceptions import ElementDoesNotExist
 
 
 class ElementList(list):
+
     def __init__(self, list, context=None, driver=None):
         self.extend(list)
         self.context = context

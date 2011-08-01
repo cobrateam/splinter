@@ -30,8 +30,8 @@ or
 Clicking links
 --------------
 
-You can click in links. To click in links by href or text you can use this.
-IMPORTANT: This methods return the first element always.
+You can click in links. To click in links by href, text or partial text you can use this.
+IMPORTANT: These methods return the first element always.
 
 .. highlight:: python
 
@@ -46,6 +46,14 @@ or
 ::
 
     browser.click_link_by_text('my link')
+
+or
+
+.. highlight:: python
+
+::
+
+    browser.click_link_by_partial_text('part of link text')
 
 
 Clicking buttons
@@ -134,3 +142,4 @@ You can invoke any ``Element`` method on ``ElementList`` and it will be proxied 
 
     assert browser.find_by_css('a.banner').first.visible
     assert browser.find_by_css('a.banner').visible
+
