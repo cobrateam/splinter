@@ -14,10 +14,9 @@ class SlowlyTypeTest(object):
     def test_slowly_typing(self):
         "should be able to slowly type some text in a field"
         self.browser.visit(EXAMPLE_APP + 'type')
-
         num = 0
         num_max = 6
-        for key in self.browser.type_slowly('type-input', 'typing'):
+        for key in self.browser.type('type-input', 'typing', slowly=True):
             assert_equals(self.browser.is_text_present("#%d" % num), True)
             num += 1
         assert_equals(num, num_max)
