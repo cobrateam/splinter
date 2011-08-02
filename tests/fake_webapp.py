@@ -118,6 +118,34 @@ EXAMPLE_ALERT_HTML = """\
 </html>
 """
 
+EXAMPLE_TYPE_HTML = """\
+<html>
+    <head>
+        <script type="text/javascript">
+        window.onload = function(f) {
+            var number = 0;
+            var name_input = document.getElementById('type-input-id');
+            name_input.onkeyup = function(e) {
+                showSuggest();
+            };
+            function showSuggest() {
+                var hidden_suggest = document.getElementById('suggest');
+                hidden_suggest.innerHTML += 'Hi, I am here #' + number + '! ';
+                number++;
+            };
+        };
+        </script>
+    </head>
+    <body>
+        <form method="GET" action="">
+            <input name="type-input" value="" id="type-input-id"/>
+        </form>
+
+        <span id="suggest"></span>
+    </body>
+</html>
+"""
+
 app = Flask(__name__)
 
 
@@ -134,6 +162,11 @@ def iframed():
 @app.route('/alert')
 def alertd():
     return EXAMPLE_ALERT_HTML
+
+
+@app.route('/type')
+def type():
+    return EXAMPLE_TYPE_HTML
 
 
 @app.route('/name', methods=['GET'])

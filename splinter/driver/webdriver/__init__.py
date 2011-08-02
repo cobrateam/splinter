@@ -235,9 +235,12 @@ class BaseWebDriver(DriverAPI):
     fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
 
-    def type(self, name, value):
+    def type(self, name, value, slowly=False):
         element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
+        if slowly:
+            return TypeIterator(element, value)
         element.send_keys(value)
+        return value
 
     def choose(self, name, value):
         fields = self.find_by_name(name)
@@ -263,6 +266,19 @@ class BaseWebDriver(DriverAPI):
     @property
     def cookies(self):
         return self._cookie_manager
+
+
+class TypeIterator(object):
+
+
+    def __init__(self, element, keys):
+        self._element = element
+        self._keys = keys
+
+    def __iter__(self):
+        for key in self._keys:
+            self._element.send_keys(key)
+            yield key
 
 
 class WebDriverElement(ElementAPI):
