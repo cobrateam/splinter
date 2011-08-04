@@ -61,4 +61,4 @@ class ElementListTest(unittest.TestCase):
             the_list = ElementList([Person(), Person()])
             the_list.talk()
         except AttributeError, e:
-            assert_equals(expected_message, e.message)
+            assert_equals(expected_message, e.args[0])
