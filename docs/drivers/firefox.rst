@@ -31,3 +31,18 @@ the ``Browser`` instance:
     browser = Browser('firefox.webdriver')
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+
+How to use a specific profile for Firefox
+-----------------------------------------
+
+You can specify a `Firefox profile <http://support.mozilla.com/en-US/kb/Profiles>`_ for using on ``Browser`` function
+using the ``profile`` keyword:
+
+.. highlight:: python
+
+::
+
+    from splinter.browser import Browser
+    browser = Browser('firefox.webdriver', profile='my_profile')
+
+If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
