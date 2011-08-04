@@ -342,8 +342,8 @@ class WebDriverElement(ElementAPI):
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_value(self, value):
-        elements = ElementList(self._element.find_elements_by_value(value))
-        return ElementList([self.__class__(element, self) for element in elements])
+        selector = '[value="%s"]' % value
+        return self.find_by_css(selector)
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
