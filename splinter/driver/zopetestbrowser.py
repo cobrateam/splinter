@@ -232,9 +232,6 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
     def __getitem__(self, attr):
         return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
 
-    def __getattr__(self, attr):
-        return getattr(self._element, attr)
-
     def click(self):
         return self._browser.open(self["href"])
 
