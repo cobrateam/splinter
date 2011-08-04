@@ -82,7 +82,7 @@ EXAMPLE_HTML = """\
     <div id="inside">
         <h2>inside</h2>
         <form>
-            <input id="visible" name="upload" type="text" />
+            <input id="visible" name="upload" type="text" value="crazy diamond" />
         </form>
     </div>
   </body>

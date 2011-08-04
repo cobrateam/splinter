@@ -239,3 +239,10 @@ class FindElementsTest(object):
         assert isinstance(decendent, ElementList)
         assert isinstance(decendent[0], ElementAPI)
 
+    def test_find_by_value_in_element_context(self):
+        "should find elements by value in element context"
+        elements = self.browser.find_by_css("#inside")
+        decendent = elements[0].find_by_value("crazy diamond")
+        assert_equals(len(decendent), 1)
+        assert isinstance(decendent, ElementList)
+        assert isinstance(decendent[0], ElementAPI)
