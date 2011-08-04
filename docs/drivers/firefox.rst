@@ -36,7 +36,7 @@ How to use a specific profile for Firefox
 -----------------------------------------
 
 You can specify a `Firefox profile <http://support.mozilla.com/en-US/kb/Profiles>`_ for using on ``Browser`` function
-using the ``profile`` keyword:
+using the ``profile`` keyword (passing the name of the profile as a ``str`` instance):
 
 .. highlight:: python
 
