@@ -11,9 +11,11 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 class WebDriver(BaseWebDriver):
     old_popen = subprocess.Popen
 
-    def __init__(self, profile=None):
+    def __init__(self, profile=None, extension=None):
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', 'false')
+        if extension:
+            firefox_profile.add_extension(extension)
 
         self._patch_subprocess()
         self.driver = Firefox(firefox_profile)
