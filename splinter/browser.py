@@ -14,12 +14,12 @@ except ImportError:
     pass
 
 
-def Browser(driver_name='webdriver.firefox', profile=None, extension=None):
+def Browser(driver_name='webdriver.firefox', profile=None, extensions=[]):
 
     try:
         driver = _DRIVERS[driver_name]
         if driver_name == 'webdriver.firefox':
-            return driver(profile, extension)
+            return driver(profile, extensions)
         else:
             return driver()
     except KeyError:
