@@ -70,7 +70,7 @@ With the button in hands, we can then press it:
 
 ::
 
-    button.first.click()
+    button.click()
 
 
 Note: Both steps presented above could be joined in a single line, such as:
