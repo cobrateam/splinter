@@ -19,3 +19,12 @@ ElementAPI
 
 .. autoclass:: ElementAPI
    :members:
+
+.. module:: splinter.element_list
+   :members:
+
+ElementList
+===========
+
+.. autoclass:: ElementList
+   :members:
