@@ -185,14 +185,6 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    def wait_for_element(self, selector, timeout, interval):
-        """
-        Waits for an element to appear in the page.
-
-        Receives the ``selector`` of the element, a ``timeout`` and an ``interval``.
-        """
-        raise NotImplementedError
-
     def type(self, name, value, slowly=False):
         """
         Types the ``value`` in the field identified by ``name``.
