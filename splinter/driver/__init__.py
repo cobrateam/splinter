@@ -80,7 +80,7 @@ class DriverAPI(RequestHandler):
 
     def evaluate_script(self, script):
         """
-        Similar to :meth:`DriverAPI.execute_script`.
+        Similar to :meth:`execute_script <DriverAPI.execute_script>` method.
 
         Executes javascript in the browser and returns the value of the expression.
 
@@ -203,12 +203,44 @@ class DriverAPI(RequestHandler):
     attach_file = fill
 
     def choose(self, name, value):
+        """
+        Chooses a value in a radio buttons group.
+
+        Suppose you have the two radio buttons in a page, with the name ``gender`` and values 'F' and 'M'.
+        If you use the ``choose`` method the following way:
+
+            >>> browser.choose('gender', 'F')
+
+        Then you're choosing the female gender.
+        """
         raise NotImplementedError
 
     def check(self, name):
+        """
+        Checks a checkbox by its name.
+
+        Example:
+
+            >>> browser.check("agree-with-terms")
+
+        If you call ``browser.check`` n times, the checkbox keeps checked, it never get unchecked.
+
+        To unckech a checkbox, take a look in the :meth:`uncheck <DriverAPI.uncheck>` method.
+        """
         raise NotImplementedError
 
     def uncheck(self, name):
+        """
+        Unchecks a checkbox by its name.
+
+        Example:
+
+            >>> browser.uncheck("send-me-emails")
+
+        If you call ``brower.uncheck`` n times, the checkbox keeps unchecked, it never get checked.
+
+        To check a checkbox, take a look in the :meth:`check <DriverAPI.check>` method.
+        """
         raise NotImplementedError
 
     def select(self, name, value):
@@ -230,6 +262,11 @@ class DriverAPI(RequestHandler):
         return ElementList([], context, self)
 
     def quit(self):
+        """
+        Quits the browser, closing its windows (if it has one).
+
+        After quit the browser, you can't use it anymore.
+        """
         raise NotImplementedError
 
     def is_element_present(self, finder, selector, wait_time=None):
