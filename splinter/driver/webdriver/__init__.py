@@ -174,26 +174,30 @@ class BaseWebDriver(DriverAPI):
             self.driver.switch_to_frame(None)
 
     def find_option_by_value(self, value):
-        return self.find_by_xpath('//option[@value="%s"]' % value)
+        return self.find_by_xpath('//option[@value="%s"]' % value, original_find="option by value", original_query=value)
 
     def find_option_by_text(self, text):
-        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text)
+        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text, original_find="option by text", original_query=text)
 
     def find_link_by_href(self, href):
-        return self.find_by_xpath('//a[@href="%s"]' % href)
+        return self.find_by_xpath('//a[@href="%s"]' % href, original_find="link by href", original_query=href)
 
     def find_link_by_partial_href(self, partial_href):
-        return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href)
+        return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href", original_query=partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)])
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)], find_by="partial text", query=partial_text)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)], find_by="link by text", query=text)
 
-    def find_by(self, finder, selector):
+    def find_by(self, finder, selector, original_find=None, original_query=None):
         elements = None
         end_time = time.time() + self.wait_time
+
+        func_name = finder.im_func.func_name
+        find_by = original_find or func_name[func_name.rfind('_by_') + 4:]
+        query = original_query or selector
 
         while time.time() < end_time:
             try:
@@ -204,17 +208,19 @@ class BaseWebDriver(DriverAPI):
                 pass
 
             if elements:
-                return ElementList([self.element_class(element, self) for element in elements])
-        return ElementList([])
+                return ElementList([self.element_class(element, self) for element in elements], find_by=find_by, query=query)
+        return ElementList([], find_by=find_by, query=query)
 
     def find_by_css(self, css_selector):
         selector = CSSSelector(css_selector)
-        return self.find_by(self.driver.find_elements_by_xpath, selector.path)
+        return self.find_by(self.driver.find_elements_by_xpath, selector.path, original_find='css', original_query=css_selector)
 
     find_by_css_selector = warn_deprecated(find_by_css, 'find_by_css_selector')
 
-    def find_by_xpath(self, xpath):
-        return self.find_by(self.driver.find_elements_by_xpath, xpath)
+    def find_by_xpath(self, xpath, original_find=None, original_query=None):
+        original_find = original_find or "xpath"
+        original_query = original_query or xpath
+        return self.find_by(self.driver.find_elements_by_xpath, xpath, original_find=original_find, original_query=original_query)
 
     def find_by_name(self, name):
         return self.find_by(self.driver.find_elements_by_name, name)
@@ -223,7 +229,7 @@ class BaseWebDriver(DriverAPI):
         return self.find_by(self.driver.find_elements_by_tag_name, tag)
 
     def find_by_value(self, value):
-        return self.find_by_xpath('//*[@value="%s"]' % value)
+        return self.find_by_xpath('//*[@value="%s"]' % value, original_find='value', original_query=value)
 
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
