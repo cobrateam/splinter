@@ -29,3 +29,15 @@ class ElementDoestNotExistTest(object):
             element_list.first
         except ElementDoesNotExist, e:
             assert_equals(expected_message, e.args[0])
+
+    def test_element_list_raises_when_element_first_doesnt_exists_in_element_context(self):
+        "element list raises exception with right information in element context"
+        expected_message = 'no elements could be find with css ".inner-element-that-dont-exists"'
+        element_list = self.browser.find_by_css("#inside").first.find_by_css('.inner-element-that-dont-exists')
+        assert_equals('css', element_list.find_by)
+        assert_equals('.inner-element-that-dont-exists', element_list.query)
+
+        try:
+            element_list.first
+        except ElementDoesNotExist, e:
+            assert_equals(expected_message, e.args[0])
