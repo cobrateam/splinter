@@ -20,11 +20,12 @@ ElementAPI
 .. autoclass:: ElementAPI
    :members:
 
-.. module:: splinter.element_list
-   :members:
-
 ElementList
 ===========
 
+.. module:: splinter.element_list
+
 .. autoclass:: ElementList
+   :show-inheritance:
    :members:
+   :inherited-members:
