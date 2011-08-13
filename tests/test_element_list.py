@@ -62,3 +62,12 @@ class ElementListTest(unittest.TestCase):
             the_list.talk()
         except AttributeError, e:
             assert_equals(expected_message, e.args[0])
+
+    def test_not_found_exception_with_query_and_method(self):
+        "should receive the find method and the query and use them in exception"
+        expected_message = 'no elements could be find with id "menu"'
+        try:
+            the_list = ElementList([], find_by="id", query="menu")
+            the_list.first
+        except ElementDoesNotExist, e:
+            assert_equals(expected_message, e.args[0])

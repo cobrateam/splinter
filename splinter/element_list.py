@@ -3,16 +3,18 @@ from splinter.exceptions import ElementDoesNotExist
 
 class ElementList(list):
 
-    def __init__(self, list, context=None, driver=None):
+    def __init__(self, list, context=None, driver=None, find_by=None, query=None):
         self.extend(list)
         self.context = context
         self.driver = driver
+        self.find_by = find_by
+        self.query = query
 
     def __getitem__(self, index):
         try:
             return super(ElementList, self).__getitem__(index)
         except IndexError:
-            raise ElementDoesNotExist('element does not exist')
+            raise ElementDoesNotExist('no elements could be find with %s "%s"' % (self.find_by, self.query))
 
     @property
     def first(self):
