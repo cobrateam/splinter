@@ -6,6 +6,8 @@
 Firefox WebDriver
 +++++++++++++++++
 
+.. module:: splinter.driver.webdriver.firefox
+
 Firefox WebDriver is provided by Selenium 2.0. To use it, you need to install Selenium 2.0 via pip:
 
 .. highlight:: bash
@@ -46,3 +48,8 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
     browser = Browser('firefox.webdriver', profile='my_profile')
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
+
+API docs
+--------
+
+.. autoclass:: WebDriver

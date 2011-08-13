@@ -6,6 +6,8 @@
 zope.testbrowser
 ++++++++++++++++
 
+.. module:: splinter.driver.zopetestbrowser
+
 In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_. You can install it via pip:
 
 .. highlight:: bash
@@ -28,3 +30,9 @@ the ``Browser`` instance:
     browser = Browser('zope.testbrowser')
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+
+API docs
+--------
+
+.. autoclass:: ZopeTestBrowser
+   :members:
