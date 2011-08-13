@@ -244,18 +244,38 @@ class DriverAPI(RequestHandler):
         raise NotImplementedError
 
     def select(self, name, value):
+        """
+        Selects an ``<option>`` element in an ``<select>`` element using the ``name`` of the ``<select>`` and
+        the ``value`` of the ``<option>``.
+
+        Example:
+
+            >>> browser.select("state", "NY")
+        """
         raise NotImplementedError
 
     def click_link_by_href(self, href):
+        """
+        Clicks in a link by its ``href`` attribute.
+        """
         return self.find_link_by_href(href).first.click()
 
     def click_link_by_partial_href(self, partial_href):
+        """
+        Clicks in a link by looking for partial content of ``href`` attribute.
+        """
         return self.find_link_by_partial_href(partial_href).first.click()
 
     def click_link_by_text(self, text):
+        """
+        Clicks in a link by its ``text``.
+        """
         return self.find_link_by_text(text).first.click()
 
     def click_link_by_partial_text(self, partial_text):
+        """
+        Clicks in a link by partial content of its text.
+        """
         return self.find_link_by_partial_text(partial_text).first.click()
 
     def within(self, context):
