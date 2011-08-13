@@ -79,53 +79,132 @@ class DriverAPI(RequestHandler):
         raise NotImplementedError
 
     def evaluate_script(self, script):
+        """
+        Similar to :meth:`DriverAPI.execute_script`.
+
+        Executes javascript in the browser and returns the value of the expression.
+
+        e.g.: ::
+            >>> assert 4 == browser.evaluate_script('2 + 2')
+        """
         raise NotImplementedError
 
     def find_by_css(self, css_selector):
+        """
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`, using a CSS selector to query the
+        current page content.
+        """
         raise NotImplementedError
 
     find_by_css_selector = find_by_css
 
     def find_by_xpath(self, xpath):
+        """
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`, using a xpath selector to query the
+        current page content.
+        """
         raise NotImplementedError
 
     def find_by_name(self, name):
+        """
+        Finds elements in current page by them name.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`.
+        """
         raise NotImplementedError
 
     def find_by_id(self, id):
+        """
+        Finds an element in current page by its id.
+
+        Even when only one element is find, this method returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_by_value(self, value):
+        """
+        Finds elements in current page by them value.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_by_tag(self, tag):
+        """
+        Find all elements of a given tag in current page.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_link_by_href(self, href):
+        """
+        Find all elements of a given tag in current page.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_link_by_partial_href(self, partial_href):
+        """
+        Find links by looking for a partial ``str`` in them href attribute.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_link_by_text(self, text):
+        """
+        Find links querying for they text.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_link_by_partial_text(self, partial_text):
+        """
+        Find links by looking for a partial ``str`` in them text.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_option_by_value(self, value):
+        """
+        Finds ``<option>`` elements by them value.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def find_option_by_text(self, text):
+        """
+        Finds ``<option>`` elements by them text.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
         raise NotImplementedError
 
     def wait_for_element(self, selector, timeout, interval):
+        """
+        Waits for an element to appear in the page.
+
+        Receives the ``selector`` of the element, a ``timeout`` and an ``interval``.
+        """
         raise NotImplementedError
 
     def type(self, name, value, slowly=False):
+        """
+        Types the ``value`` in the field identified by ``name``.
+
+        It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
+        """
         raise NotImplementedError
 
     def fill(self, name, value):
+        """
+        Fill the field identified by ``name`` with the content specified by ``value``.
+        """
         raise NotImplementedError
 
     fill_in = fill
