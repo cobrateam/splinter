@@ -6,8 +6,6 @@
 Chrome WebDriver
 ++++++++++++++++
 
-.. module:: splinter.driver.webdriver.chrome
-
 Chrome WebDriver is provided by Selenium2. To use it, you need to install Selenium2 via pip:
 
 .. highlight:: bash
@@ -118,7 +116,5 @@ the ``Browser`` instance:
 API docs
 --------
 
-.. autoclass:: WebDriver
-   :show-inheritance:
+.. autoclass:: splinter.driver.webdriver.chrome.WebDriver
    :members:
-   :inherited-members:
