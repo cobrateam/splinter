@@ -21,11 +21,24 @@ class SubClass(SuperClass):
     def say_hello(self):
         print "hello"
 
+    @property
+    def name(self):
+        """
+        Stores the name
+        """
+        pass
+
 
 class SubSubClass(SubClass):
 
     def say_hello(self):
         print "I can't say hello"
+
+
+    @property
+    def name(self):
+        pass
+
 
 class MetaTest(unittest.TestCase):
 
@@ -36,3 +49,7 @@ class MetaTest(unittest.TestCase):
     def test_should_include_docs_from_any_class_in_hierarchy(self):
         "should include doc from any class in hierarchy"
         assert_equals(SuperClass.say_hello.__doc__, SubSubClass.say_hello.__doc__)
+
+    def test_change_docs_for_readonly_properties(self):
+        "should also change docs for readonly properties"
+        assert_equals(SubClass.name.__doc__, SubSubClass.name.__doc__)

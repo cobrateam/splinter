@@ -13,7 +13,11 @@ class InheritedDocs(type):
                     doc = getattr(base, name).__doc__
 
                     if doc:
-                        obj.__doc__ = doc
+                        if type(obj) == type(property()) and not obj.fset:
+                            obj.fget.__doc__ = doc
+                            dict[name] = property(fget=obj.fget)
+                        else:
+                            obj.__doc__ = doc
                         break
 
         return type.__new__(mcs, name, bases, dict)
