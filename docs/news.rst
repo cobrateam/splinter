@@ -65,7 +65,7 @@ Features
 Backward incompatible changes
 -----------------------------
 
-- you should update your selenium to 2.1.0 version and your chrome driver. See more in :doc:`suport to new chrome driver </drivers/chrome>` 
+- you should update your selenium to 2.1.0 version and your chrome driver. See more in :doc:`suport to new chrome driver </drivers/chrome>`
 
 what's new in splinter 0.1.1?
 =============================
