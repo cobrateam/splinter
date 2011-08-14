@@ -313,6 +313,18 @@ class DriverAPI(RequestHandler):
 
 
 class ElementAPI(object):
+    """
+    Basic element API class.
+
+    Any element in the page can be represented as an instance of ``ElementAPI``.
+
+    Once you have an instance, you can easily access its attributes like a ``dict``:
+
+        >>> element = browser.find_by_id("link-logo").first
+        >>> assert element['href'] == 'http://splinter.cobrateam.info'
+
+    You can also interact with the instance using the methods and properties listed below.
+    """
 
     def _get_value(self):
         raise NotImplementedError
@@ -320,15 +332,31 @@ class ElementAPI(object):
     def _set_value(self, value):
         raise NotImplementedError
 
+    #: value of the element, usually a form element
     value = property(_get_value, _set_value)
 
     def click(self):
+        """
+        Clicks in the element.
+        """
         raise NotImplementedError
 
     def check(self):
+        """
+        Checks the element, if it's "checkable" (e.g.: a checkbox).
+
+        If the element is already checked, this method does nothing. For unchecking
+        elements, take a loot in the :meth:`uncheck <ElementAPI.uncheck>` method.
+        """
         raise NotImplementedError
 
     def uncheck(self):
+        """
+        Unchecks the element, if it's "checkable" (e.g.: a checkbox).
+
+        If the element is already unchecked, this method does nothing. For checking
+        elements, take a loot in the :meth:`check <ElementAPI.check>` method.
+        """
         raise NotImplementedError
 
     def mouseover(self):
@@ -336,10 +364,23 @@ class ElementAPI(object):
 
     @property
     def checked(self):
+        """
+        Boolean property that says if the element is checked or not.
+
+        Example:
+
+            >>> element.check()
+            >>> assert element.checked
+            >>> element.uncheck()
+            >>> assert not element.checked
+        """
         raise NotImplementedError
 
     @property
     def visible(self):
+        """
+        Boolean property that says if the element is visible or hidden in the current page.
+        """
         raise NotImplementedError
 
     def __getitem__(self, attribute):
