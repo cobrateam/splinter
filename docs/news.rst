@@ -47,6 +47,11 @@ Now:
 
     >>> driver.cookies.delete('whatever')
 
+Bugfixes
+--------
+
+- Fixed cookies behavior on Chrome driver (it was impossible to delete one cookie, Chrome was always deleting all cookies)
+
 what's new in splinter 0.2?
 ===========================
 
