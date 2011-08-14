@@ -8,7 +8,8 @@ class ElementList(list):
     Beyond the traditional list methods, the ``ElementList`` provides some other methods, listed below.
 
     There is a peculiar behavior on ElementList: you never get an ``IndexError``. Instead, you can an
-    ElementDoesNotExist exception when trying to access an inexistent item in the list:
+    :class:`ElementDoesNotExist <splinter.exceptions.ElementDoesNotExist>` exception when trying to
+    access an inexistent item in the list:
 
         >>> element_list = ElementList([])
         >>> element_list[0] # raises ElementDoesNotExist
