@@ -34,6 +34,7 @@ class SubSubClass(SubClass):
     def say_hello(self):
         print "I can't say hello"
 
+    say_hi = say_hello
 
     @property
     def name(self):
@@ -53,3 +54,7 @@ class MetaTest(unittest.TestCase):
     def test_change_docs_for_readonly_properties(self):
         "should also change docs for readonly properties"
         assert_equals(SubClass.name.__doc__, SubSubClass.name.__doc__)
+
+    def test_should_not_touch_the_class_type(self):
+        "shouldn't touch the type of the object"
+        assert_equals('SubSubClass', SubSubClass.__name__)
