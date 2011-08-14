@@ -2,8 +2,8 @@ class CookieManagerAPI(object):
     """
     An API that specifies how a splinter driver deals with cookies.
 
-    You can add cookies using the :meth:``add <CookieManagerAPI.add>`` method,
-    and remove one or all cookies using the :meth:``delete <CookieManagerAPI.delete>``
+    You can add cookies using the :meth:`add <CookieManagerAPI.add>` method,
+    and remove one or all cookies using the :meth:`delete <CookieManagerAPI.delete>`
     method.
 
     A CookieManager acts like a ``dict``, so you can access the value of a cookie through the []
