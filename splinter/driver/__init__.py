@@ -332,7 +332,7 @@ class ElementAPI(object):
     def _set_value(self, value):
         raise NotImplementedError
 
-    #: value of the element, usually a form element
+    #: Value of the element, usually a form element
     value = property(_get_value, _set_value)
 
     def click(self):
