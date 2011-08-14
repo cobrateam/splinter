@@ -35,5 +35,6 @@ API docs
 --------
 
 .. autoclass:: ZopeTestBrowser
+   :show-inheritance:
    :members:
    :inherited-members:
