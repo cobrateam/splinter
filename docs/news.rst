@@ -18,7 +18,12 @@ Features
 - support for finding and clicking links by partial :meth:`text <splinter.driver.DriverAPI.click_link_by_partial_text>`
   and :meth:`href <splinter.driver.DriverAPI.click_link_by_partial_href>`
 - support for :meth:`finding by value <splinter.driver.DriverAPI.find_by_value>`
+
+Documentation improvements
+--------------------------
+
 - complete :doc:`API reference </api/index>`
+- instructions on :doc:`new drivers creation </contribute/writing-new-drivers>`
 
 Backward incompatible changes
 -----------------------------
