@@ -64,9 +64,19 @@ class DriverAPI(RequestHandler):
         raise NotImplementedError
 
     def get_alert(self):
+        """
+        Changes the context for working with alerts and prompts.
+
+        For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
+        """
         raise NotImplementedError
 
     def get_iframe(self, id):
+        """
+        Changes the context for working with iframes.
+
+        For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
+        """
         raise NotImplementedError
 
     def execute_script(self, script):
@@ -294,6 +304,11 @@ class DriverAPI(RequestHandler):
 
     @property
     def cookies(self):
+        """
+        A :class:`CookieManager <splinter.cookie_manager.CookieManagerAPI>` instance.
+
+        For more details, check the :doc:`cookies manipulation section </cookies>`.
+        """
         raise NotImplementedError
 
 
