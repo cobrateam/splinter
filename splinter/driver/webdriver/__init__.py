@@ -364,9 +364,18 @@ class WebDriverElement(ElementAPI):
         """
         Performs a mouse over the element.
 
-        Currently works only for Chrome driver.
+        Currently works only on Chrome driver.
         """
         self.action_chains.move_to_element(self._element)
+        self.action_chains.perform()
+
+    def mouseout(self):
+        """
+        Performs a mouse out the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
 
     def __getitem__(self, attr):

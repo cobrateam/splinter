@@ -69,3 +69,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     def test_mouse_over(self):
         "Firefox should not support mouseover"
         self.browser.find_by_id('visible').first.mouseover()
+
+    @raises(NotImplementedError)
+    def test_mouse_out(self):
+        "Firefox should not support mouseout"
+        self.browser.find_by_id('visible').first.mouseout()

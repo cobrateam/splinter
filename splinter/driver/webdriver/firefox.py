@@ -40,3 +40,9 @@ class WebDriverElement(BaseWebDriverElement):
         Firefox doesn't support mouseover.
         """
         raise NotImplementedError("Firefox doesn't support mouse over")
+
+    def mouseout(self):
+        """
+        Firefox doesn't support mouseout.
+        """
+        raise NotImplementedError("Firefox doesn't support mouseout")
