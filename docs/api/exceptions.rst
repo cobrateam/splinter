@@ -10,3 +10,8 @@ Exceptions
 .. autoclass:: DriverNotFoundError
 
 .. autoclass:: ElementDoesNotExist
+
+.. module:: splinter.request_handler.status_code
+
+.. autoclass:: HttpResponseError
+   :members:
