@@ -53,6 +53,5 @@ API docs
 --------
 
 .. autoclass:: WebDriver
-   :show-inheritance:
    :members:
    :inherited-members:
