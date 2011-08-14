@@ -8,6 +8,7 @@ from splinter.meta import InheritedDocs
 class MetaTest(unittest.TestCase):
 
     def test_should_include_docs_from_superclass(self):
+        "should include doc from superclass"
         class SuperClass(object):
             __metaclass__ = InheritedDocs
 
@@ -22,4 +23,4 @@ class MetaTest(unittest.TestCase):
             def say_hello(self):
                 print "hello"
 
-        assert_equals("Says hello", SubClass.say_hello.__doc__)
+        assert_equals(SuperClass.say_hello.__doc__, SubClass.say_hello.__doc__)
