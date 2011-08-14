@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from nose.tools import assert_equals
+from nose.tools import assert_equals, raises
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
@@ -64,3 +64,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         with self.browser.get_alert() as alert:
             assert_equals('This is an alert example.', alert.text)
             alert.accept()
+
+    @raises(NotImplementedError)
+    def test_mouse_over(self):
+        "Firefox should not support mouseover"
+        self.browser.find_by_id('visible').first.mouseover()

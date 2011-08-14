@@ -361,6 +361,11 @@ class WebDriverElement(ElementAPI):
         return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
 
     def mouseover(self):
+        """
+        Performs a mouse over the element.
+
+        Currently works only for Chrome driver.
+        """
         self.action_chains.move_to_element(self._element)
         self.action_chains.perform()
 
