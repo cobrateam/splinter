@@ -37,7 +37,7 @@ Walking on...
 
 * :doc:`Dealing with HTTP status code and exceptions </http-status-code-and-exception>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
-* :doc:`Full API documentation </api>`
+* :doc:`Full API documentation </api/index>`
 
 Drivers
 -------
