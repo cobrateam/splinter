@@ -57,3 +57,8 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
     def test_cant_mouseover(self):
         "zope.testbrowser should not be able to put the mouse over the element"
         self.browser.find_by_css('#visible').first.mouseover()
+
+    @raises(NotImplementedError)
+    def test_cant_mouseout(self):
+        "zope.testbrowser should not be able to mouse out of an element"
+        self.browser.find_by_css('#visible').first.mouseout()
