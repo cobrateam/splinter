@@ -7,6 +7,7 @@ from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -292,6 +293,7 @@ class WebDriverElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
+        self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
         value = self["value"]
@@ -357,6 +359,10 @@ class WebDriverElement(ElementAPI):
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
         return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
+
+    def mouseover(self):
+        self.action_chains.move_to_element(self._element)
+        self.action_chains.perform()
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
