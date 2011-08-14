@@ -14,5 +14,6 @@ Check above the API docs:
    driver-and-element-api
    cookie-manager
    element-list
+   request-handling
    exceptions
 
