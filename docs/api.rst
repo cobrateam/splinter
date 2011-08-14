@@ -28,7 +28,6 @@ ElementList
 .. autoclass:: ElementList
    :show-inheritance:
    :members:
-   :inherited-members:
 
 CookieManager
 =============
