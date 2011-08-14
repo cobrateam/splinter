@@ -6,6 +6,39 @@
 splinter news
 +++++++++++++
 
+what's new in splinter 0.3?
+===========================
+
+Features
+--------
+
+- support for browser extensions on :doc:`Firefox driver </drivers/firefox>`
+- support for Firefox profiles on :doc:`Firefox driver </drivers/firefox>`
+- support for mouse over and mouse out on :doc:`Chrome driver </drivers/chrome>`
+- complete :doc:`API reference </api/index>`
+
+Backward incompatible changes
+-----------------------------
+
+- changes on :doc:`cookies manipulation </cookies>`. Affects only who used :meth:`cookies.delete <splinter.cookie_manager.CookieManagerAPI.delete>` passing the
+``cookie`` keyword.
+
+Before version **0.3**:
+
+.. highlight:: python
+
+::
+
+    >>> driver.cookies.delete(cookie='whatever')
+
+Now:
+
+.. highlight:: python
+
+::
+
+    >>> driver.cookies.delete('whatever')
+
 what's new in splinter 0.2?
 ===========================
 
