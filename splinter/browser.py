@@ -23,4 +23,4 @@ def Browser(driver_name='webdriver.firefox', profile=None, extensions=[]):
         else:
             return driver()
     except KeyError:
-        raise DriverNotFoundError
+        raise DriverNotFoundError("No driver for %s" % driver_name)
