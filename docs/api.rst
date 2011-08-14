@@ -29,3 +29,11 @@ ElementList
    :show-inheritance:
    :members:
    :inherited-members:
+
+CookieManager
+=============
+
+.. module:: splinter.cookie_manager
+
+.. autoclass:: CookieManagerAPI
+   :members:
