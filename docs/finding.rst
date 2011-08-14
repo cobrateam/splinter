@@ -85,10 +85,10 @@ These methods returns a list of all found elements.
 
 For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
 
-Finding elements within an element
-==================================
+Chaining find of elements
+=========================
 
-For find an element within an element you can use the same methods:
+Finding methods are chainable, so you can find the descendants of a previously found element.
 
 .. highlight:: python
 
