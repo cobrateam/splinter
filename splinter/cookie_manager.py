@@ -26,11 +26,17 @@ class CookieManagerAPI(object):
         """
         raise NotImplementedError
 
-    def delete(self, cookie=None):
+    def delete(self, *cookies):
         """
-        Deletes a cookie. The ``cookie`` parameter stands for the cookie identifier.
+        Deletes one or more cookies. You can pass all the cookies identifier that you want to delete.
 
         If none identifier is provided, all cookies are deleted.
+
+        Examples:
+
+            >>> cookie.delete() # deletes all cookies
+            >>> cookie.delete('name', 'birthday', 'favorite_color') # deletes these three cookies
+            >>> cookie.delete('name') # deletes one cookie
         """
         raise NotImplementedError
 
