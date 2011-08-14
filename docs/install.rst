@@ -49,4 +49,4 @@ Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid
 **Notes:**
 
     * - in this second case, make sure `Git <http://git-scm.com/>`_  is installed.
-    * - in order to use Chrome webdriver, you need to :doc:`setup Google Chrome </setup-chrome>`.
+    * - in order to use Chrome webdriver, you need to :doc:`setup Google Chrome properly </drivers/chrome>`.
