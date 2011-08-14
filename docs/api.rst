@@ -36,3 +36,12 @@ CookieManager
 
 .. autoclass:: CookieManagerAPI
    :members:
+
+Exceptions
+==========
+
+.. module:: splinter.exceptions
+
+.. autoclass:: DriverNotFoundError
+
+.. autoclass:: ElementDoesNotExist
