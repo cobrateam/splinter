@@ -15,13 +15,16 @@ Features
 - support for browser extensions on :doc:`Firefox driver </drivers/firefox>`
 - support for Firefox profiles on :doc:`Firefox driver </drivers/firefox>`
 - support for mouse over and mouse out on :doc:`Chrome driver </drivers/chrome>`
+- support for finding and clicking links by partial :meth:`text <splinter.driver.DriverAPI.click_link_by_partial_text>`
+  and :meth:`href <splinter.driver.DriverAPI.click_link_by_partial_href>`
+- support for :meth:`finding by value <splinter.driver.DriverAPI.find_by_value>`
 - complete :doc:`API reference </api/index>`
 
 Backward incompatible changes
 -----------------------------
 
-- changes on :doc:`cookies manipulation </cookies>`. Affects only who used :meth:`cookies.delete <splinter.cookie_manager.CookieManagerAPI.delete>` passing the
-``cookie`` keyword.
+- changes on :doc:`cookies manipulation </cookies>`. Affects only who used :meth:`cookies.delete <splinter.cookie_manager.CookieManagerAPI.delete>`
+  passing the ``cookie`` keyword.
 
 Before version **0.3**:
 
