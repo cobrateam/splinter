@@ -22,13 +22,14 @@ For add a cookie use the add method:
 Delete a cookie
 ---------------
 
-For delete a cookie use the delete method:
+For delete one or more cookies use the delete method:
 
 .. highlight:: python
 
 ::
 
     browser.cookies.delete('mwahahahaha')
+    browser.cookies.delete('whatever', 'wherever')
 
 Delete all cookies
 ------------------
