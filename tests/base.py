@@ -1,17 +1,20 @@
+# -*- coding: utf-8 -*-
 from nose.tools import assert_equals, assert_true, assert_false
+
+from async_finder import AsyncFinderTests
+from click_elements import ClickElementsTest
+from cookies import CookiesTest
+from element_does_not_exist import ElementDoestNotExistTest
 from fake_webapp import EXAMPLE_APP
 from find_elements import FindElementsTest
 from form_elements import FormElementsTest
-from click_elements import ClickElementsTest
-from element_does_not_exist import ElementDoestNotExistTest
-from is_element_present import IsElementPresentTest
 from iframes import IFrameElementsTest
-from status_code import StatusCodeTest
-from async_finder import AsyncFinderTests
+from is_element_present import IsElementPresentTest
 from is_text_present import IsTextPresentTest
-from within_elements import WithinElementsTest
-from cookies import CookiesTest
+from mouse_interaction import MouseInteractionTest
+from status_code import StatusCodeTest
 from type import SlowlyTypeTest
+from within_elements import WithinElementsTest
 
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest, CookiesTest, SlowlyTypeTest):
@@ -79,7 +82,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert_equals(self.browser, element.parent)
 
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseInteractionTest):
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
