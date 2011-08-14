@@ -13,10 +13,7 @@ class InheritedDocs(type):
                     doc = getattr(base, name).__doc__
 
                     if doc:
+                        obj.__doc__ = doc
                         break
 
-            obj.__doc__ = doc
-
-        cls = type.__new__(mcs, name, bases, dict)
-
-        return cls
+        return type.__new__(mcs, name, bases, dict)
