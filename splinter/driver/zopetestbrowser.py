@@ -18,12 +18,13 @@ class CookieManager(CookieManagerAPI):
         for key, value in cookies.items():
             self._cookies[key] = value
 
-    def delete(self, cookie=None):
-        if cookie:
-            try:
-                del self._cookies[cookie]
-            except KeyError:
-                pass
+    def delete(self, *cookies):
+        if cookies:
+            for cookie in cookies:
+                try:
+                    del self._cookies[cookie]
+                except KeyError:
+                    pass
         else:
             self._cookies.clearAll()
 
