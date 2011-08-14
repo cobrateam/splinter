@@ -1,5 +1,5 @@
 .. meta::
-    :description: Cookie manipulation 
+    :description: Cookie manipulation
     :keywords: splinter, python, tutorial, documentation, cookies
 
 ++++++++++++++++++++
