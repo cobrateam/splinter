@@ -2,10 +2,6 @@
     :description: Splinter exceptions API documentation
     :keywords: splinter, python, api documentation, exceptions
 
-++++++++++++++++++
-API Documentation
-++++++++++++++++++
-
 Exceptions
 ==========
 

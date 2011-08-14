@@ -2,10 +2,6 @@
     :description: Splinter cookies API documentation
     :keywords: splinter, python, api documentation, cookies, cookies manipulation
 
-++++++++++++++++++
-API Documentation
-++++++++++++++++++
-
 CookieManager
 =============
 
