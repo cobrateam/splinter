@@ -53,3 +53,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         "zope.testbrowser won't support type method because it doesn't interact with Javascritp, and this is the meaning of that method"
         self.browser.type('query',' with type method', slowly=True)
 
+    @raises(NotImplementedError)
+    def test_cant_mouseover(self):
+        "zope.testbrowser should not be able to put the mouse over the element"
+        self.browser.find_by_css('#visible').first.mouseover()
