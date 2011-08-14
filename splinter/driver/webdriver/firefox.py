@@ -29,9 +29,6 @@ class WebDriver(BaseWebDriver):
 
         super(WebDriver, self).__init__()
 
-    def mouseover(self):
-        pass
-
 
 class WebDriverElement(BaseWebDriverElement):
 
