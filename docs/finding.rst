@@ -100,4 +100,4 @@ Finding methods are chainable, so you can find the descendants of a previously f
 Element not found exception
 ===========================
 
-If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.
+If element not found, find methods returns a empty list. But, if you try, access a element in list raises the :class:`splinter.exceptions.ElementDoesNotExist` exception.
