@@ -41,3 +41,5 @@ For delete all cookies use the delete method without parameter:
 ::
 
     browser.cookies.delete()
+
+For more details, check the API :class:`docs for CookieManager objects <splinter.cookie_manager.CookieManagerAPI>`.
