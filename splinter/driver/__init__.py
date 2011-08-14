@@ -383,6 +383,12 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
+    def mouseover(self):
+        """
+        Puts the mouse over the element.
+        """
+        raise NotImplementedError
+
     def __getitem__(self, attribute):
         raise NotImplementedError
 
