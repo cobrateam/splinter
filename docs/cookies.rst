@@ -17,7 +17,7 @@ For add a cookie use the add method:
 
 ::
 
-    browser.cookies.add({'whatever': 'and ever'})i
+    browser.cookies.add({'whatever': 'and ever'})
 
 Delete a cookie
 ---------------
