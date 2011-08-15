@@ -7,6 +7,7 @@ from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -312,6 +313,11 @@ class WebDriverElement(ElementAPI):
 
     def click(self):
         self._element.click()
+
+    def double_click(self):
+        action_chains = ActionChains(self._element._parent)
+        action_chains.double_click(self._element)
+        action_chains.perform()
 
     def check(self):
         if not self.checked:
