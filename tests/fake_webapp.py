@@ -237,3 +237,5 @@ def stop_server():
     env.process.terminate()
     wait_until_stop()
 
+if __name__ == '__main__':
+    app.run()
