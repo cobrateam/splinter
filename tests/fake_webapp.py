@@ -12,6 +12,13 @@ EXAMPLE_HTML = """\
     <script type="text/javascript" src="/static/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $("body").dblclick(function(){
+                $("body").css("background-color", "#ff0000");
+            });
+            $(".should-be-visible-after-double-click").hide();
+            $(".db-button").dblclick(function(){
+                $(".should-be-visible-after-double-click").show();
+            });
            $(".add-async-element").click(function() {
                 setTimeout(function() {
                     $('body').append('<h4 id="async-header" value="async-header-value" class="async-element">async elment</h4>');
@@ -85,6 +92,8 @@ EXAMPLE_HTML = """\
             <input id="visible" name="upload" type="text" value="crazy diamond" />
         </form>
     </div>
+    <a href="#" class="db-button">double click button</a>
+    <div class="should-be-visible-after-double-click">should-be-visible-after-double-click</div>
   </body>
 </html>"""
 
