@@ -12,6 +12,7 @@ from is_text_present import IsTextPresentTest
 from within_elements import WithinElementsTest
 from cookies import CookiesTest
 from type import SlowlyTypeTest
+from mouse_events import MouseEventsTest
 
 
 class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest, CookiesTest, SlowlyTypeTest):
@@ -79,7 +80,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Wi
         assert_equals(self.browser, element.parent)
 
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseEventsTest):
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
