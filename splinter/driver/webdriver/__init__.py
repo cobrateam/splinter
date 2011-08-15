@@ -391,9 +391,6 @@ class AlertElement(object):
     def accept(self):
         self._alert.accept()
 
-    def dismiss(self):
-        self._alert.dismiss()
-
     def fill_with(self, text):
         self._alert.send_keys(text)
 

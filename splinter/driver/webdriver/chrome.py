@@ -22,9 +22,3 @@ class WebDriver(BaseWebDriver):
         Chrome doesn't have support for file uploading.
         """
         raise NotImplementedError
-
-    def get_alert(self):
-        """
-        Chrome doesn't have support for alerts.
-        """
-        raise NotImplementedError
