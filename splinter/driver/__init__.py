@@ -201,7 +201,7 @@ class DriverAPI(RequestHandler):
         """
         Searchs for ``text`` in the browser and wait the seconds specified in ``wait_time``.
 
-        Retunrs True if finds a match for the ``text`` and False if not.
+        Returns True if finds a match for the ``text`` and False if not.
         """
         raise NotImplementedError
 

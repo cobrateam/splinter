@@ -30,14 +30,22 @@ or
 Clicking links
 --------------
 
-You can click in links. To click in links by href, text or partial text you can use this.
+You can click in links. To click in links by href, partial href, text or partial text you can use this.
 IMPORTANT: These methods return the first element always.
 
 .. highlight:: python
 
 ::
 
-    browser.click_link_by_href('/my_link')
+    browser.click_link_by_href('http://www.the_site.com/my_link')
+
+or
+
+.. highlight:: python
+
+::
+
+    browser.click_link_by_partial_href('my_link')
 
 or
 
