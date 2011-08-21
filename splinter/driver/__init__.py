@@ -197,6 +197,14 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
+    def is_text_present(self, text, wait_time=None):
+        """
+        Searchs for ``text`` in the browser and wait the seconds specified in ``wait_time``.
+
+        Retunrs True if finds a match for the ``text`` and False if not.
+        """
+        raise NotImplementedError
+
     def type(self, name, value, slowly=False):
         """
         Types the ``value`` in the field identified by ``name``.
