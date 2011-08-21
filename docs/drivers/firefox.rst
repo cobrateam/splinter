@@ -30,7 +30,7 @@ the ``Browser`` instance:
 ::
 
     from splinter.browser import Browser
-    browser = Browser('firefox.webdriver')
+    browser = Browser('webdriver.firefox')
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
 
@@ -45,7 +45,7 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 ::
 
     from splinter.browser import Browser
-    browser = Browser('firefox.webdriver', profile='my_profile')
+    browser = Browser('webdriver.firefox', profile='my_profile')
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
