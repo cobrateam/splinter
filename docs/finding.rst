@@ -57,7 +57,7 @@ A web page should be only one id per page. Then find_by_id() method return alway
 Finding links
 =============
 
-For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text`` or ``find_link_by_href``:
+For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or ``find_link_by_partial_href``:
 
 .. highlight:: python
 
