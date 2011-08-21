@@ -101,3 +101,18 @@ Element not found exception
 ===========================
 
 If element not found, find methods returns a empty list. But, if you try, access a element in list raises the :class:`splinter.exceptions.ElementDoesNotExist` exception.
+
+
+Checking if a text is present
+=============================
+
+The method ``is_text_present`` is responsible for checking whether a text is present on the page content. This method returns a boolean value.
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    browser.visit('http://splinter.cobrateam.info/')
+    browser.is_text_present('splinter') # true
+    browser.is_text_present('text not present') # false
