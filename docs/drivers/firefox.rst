@@ -49,8 +49,8 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
-How to use specifics extensions for Firefox
--------------------------------------------
+How to use specific extensions for Firefox
+------------------------------------------
 
 An extension for firefox is a .xpi archive. To use an extension in Firefox webdriver profile you need to give the path of the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
 

@@ -81,6 +81,14 @@ or
 
     browser.find_link_by_href('http://example.com')
 
+or
+
+.. highlight:: python
+
+::
+
+    browser.find_link_by_partial_href('example')
+
 These methods returns a list of all found elements.
 
 For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``, ``find_by_value`` and ``find_by_id``).
