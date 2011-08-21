@@ -49,6 +49,20 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
+How to use specifics extensions for Firefox
+-------------------------------------------
+
+An extension for firefox is a .xpi archive. To use an extension in Firefox webdriver profile you need to give the path of the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
+
+.. highlight:: python
+
+::
+
+    from splinter.browser import Browser
+    browser = Browser('webdriver.firefox', extensions=['extension1.xpi', 'extension2.xpi'])
+
+If you give an extension, after you close the browser, the extension will be deleted from the profile, even if is not a temporary one.
+
 API docs
 --------
 
