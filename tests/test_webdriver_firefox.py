@@ -74,3 +74,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     def test_mouse_out(self):
         "Firefox should not support mouseout"
         self.browser.find_by_id('visible').first.mouseout()
+
+    @raises(NotImplementedError)
+    def test_double_click(self):
+        "Firefox should not support doubleclick"
+        self.browser.find_by_id('visible').double_click()
