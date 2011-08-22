@@ -57,7 +57,7 @@ A web page should be only one id per page. Then find_by_id() method return alway
 Finding links
 =============
 
-For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text`` or ``find_link_by_href``:
+For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or ``find_link_by_partial_href``:
 
 .. highlight:: python
 
@@ -81,6 +81,14 @@ or
 
     browser.find_link_by_href('http://example.com')
 
+or
+
+.. highlight:: python
+
+::
+
+    browser.find_link_by_partial_href('example')
+
 These methods returns a list of all found elements.
 
 For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``, ``find_by_value`` and ``find_by_id``).
@@ -101,3 +109,18 @@ Element not found exception
 ===========================
 
 If element not found, find methods returns a empty list. But, if you try, access a element in list raises the :class:`splinter.exceptions.ElementDoesNotExist` exception.
+
+
+Checking if a text is present
+=============================
+
+The method ``is_text_present`` is responsible for checking whether a text is present on the page content. This method returns a boolean value.
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    browser.visit('http://splinter.cobrateam.info/')
+    browser.is_text_present('splinter') # true
+    browser.is_text_present('text not present') # false

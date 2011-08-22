@@ -17,6 +17,16 @@ body {
     color: #000;
 }
 
+.section blockquote div {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    margin-left: 40px;
+    width: 590px;
+    padding: 10px;
+}
+
 div.document {
     background-color: #FFF;
 }

@@ -22,8 +22,9 @@ You can use the ``get_iframe`` method and the ``with`` statement to interact wit
 Handling alerts and prompts
 ---------------------------
 
-IMPORTANT: Only Firefox webdriver has support for alerts and prompts.
-Calling any of the following methods from other webdriver (like Chrome) will raise NotImplementedError.
+    Chrome support for alerts and prompts is new in Splinter 0.4.
+
+**IMPORTANT:** Only webdrivers (Firefox and Chrome) has support for alerts and prompts.
 
 You can deal with alerts and prompts using the ``get_alert`` method.
 
