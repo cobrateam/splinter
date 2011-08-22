@@ -18,7 +18,13 @@ class WebDriver(BaseWebDriver):
         super(WebDriver, self).__init__()
 
     def attach_file(self, name, value):
+        """
+        Chrome doesn't have support for file uploading.
+        """
         raise NotImplementedError
 
     def get_alert(self):
+        """
+        Chrome doesn't have support for alerts.
+        """
         raise NotImplementedError

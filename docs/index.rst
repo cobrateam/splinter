@@ -7,7 +7,7 @@
 automate web application actions using python
 +++++++++++++++++++++++++++++++++++++++++++++
 
-:doc:`what's new in splinter 0.2? </news>`
+:doc:`what's new in splinter 0.3? </news>`
 
 Using splinter
 ==============

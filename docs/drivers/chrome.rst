@@ -118,3 +118,4 @@ API docs
 
 .. autoclass:: splinter.driver.webdriver.chrome.WebDriver
    :members:
+   :inherited-members:

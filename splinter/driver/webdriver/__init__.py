@@ -7,7 +7,7 @@ from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import ActionChains
+from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -293,6 +293,7 @@ class WebDriverElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
+        self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
         value = self["value"]
@@ -313,11 +314,6 @@ class WebDriverElement(ElementAPI):
 
     def click(self):
         self._element.click()
-
-    def double_click(self):
-        action_chains = ActionChains(self._element._parent)
-        action_chains.double_click(self._element)
-        action_chains.perform()
 
     def check(self):
         if not self.checked:
@@ -342,19 +338,19 @@ class WebDriverElement(ElementAPI):
         query = original_query or selector
 
         elements = self._element.find_elements_by_css_selector(selector)
-        return ElementList([self.__class__(element, self) for element in elements], find_by=find_by, query=query)
+        return ElementList([self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
 
     def find_by_xpath(self, selector):
         elements = ElementList(self._element.find_elements_by_xpath(selector))
-        return ElementList([self.__class__(element, self) for element in elements], find_by='xpath', query=selector)
+        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
 
     def find_by_name(self, name):
         elements = ElementList(self._element.find_elements_by_name(name))
-        return ElementList([self.__class__(element, self) for element in elements], find_by='name', query=name)
+        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='name', query=name)
 
     def find_by_tag(self, tag):
         elements = ElementList(self._element.find_elements_by_tag_name(tag))
-        return ElementList([self.__class__(element, self) for element in elements], find_by='tag', query=tag)
+        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='tag', query=tag)
 
     def find_by_value(self, value):
         selector = '[value="%s"]' % value
@@ -362,7 +358,34 @@ class WebDriverElement(ElementAPI):
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
-        return ElementList([self.__class__(element, self) for element in elements], find_by='id', query=id)
+        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
+
+    def mouseover(self):
+        """
+        Performs a mouse over the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.move_to_element(self._element)
+        self.action_chains.perform()
+
+    def mouseout(self):
+        """
+        Performs a mouse out the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.move_by_offset(5000, 5000)
+        self.action_chains.perform()
+
+    def double_click(self):
+        """
+        Performs a double click in the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.double_click(self._element)
+        self.action_chains.perform()
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
