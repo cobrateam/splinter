@@ -43,3 +43,9 @@ class WebDriverElement(BaseWebDriverElement):
         Firefox doesn't support mouseout.
         """
         raise NotImplementedError("Firefox doesn't support mouseout")
+
+    def double_click(self):
+        """
+        Firefox doesn't support doubleclick.
+        """
+        raise NotImplementedError("Firefox doesn't support doubleclick")
