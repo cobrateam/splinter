@@ -58,8 +58,10 @@ specific docs for each driver):
 
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
-Get in touch
-============
+Get in touch and contribute
+===========================
 
 * :doc:`Community </community>`
 * :doc:`Contribute </contribute>`
+* :doc:`Writing new drivers </contribute/writing-new-drivers>`
+* :doc:`Setting up your splinter development environment </contribute/setting-up-your-development-environment>`
