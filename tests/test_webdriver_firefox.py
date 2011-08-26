@@ -44,3 +44,12 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     def test_double_click(self):
         "Firefox should not support doubleclick"
         self.browser.find_by_id('visible').double_click()
+
+
+class FirefoxWithExtensionTest(unittest.TestCase):
+
+    def test_create_a_firefox_instance_with_extension(self):
+        "should be load a extension"
+        extension_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'firebug.xpi')
+        browser = Browser(extensions=[extension_path])
+        browser.quit()
