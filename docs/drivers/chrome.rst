@@ -99,7 +99,7 @@ Linux (common steps for 32 and 64bits)
 Using Chrome WebDriver
 ----------------------
 
-To use the Chrome driver, all you need to do is pass the string ``webdriver.chrome`` when you create
+To use the Chrome driver, all you need to do is pass the string ``chrome`` when you create
 the ``Browser`` instance:
 
 .. highlight:: python
@@ -107,9 +107,9 @@ the ``Browser`` instance:
 ::
 
     from splinter.browser import Browser
-    browser = Browser('webdriver.chrome')
+    browser = Browser('chrome')
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 

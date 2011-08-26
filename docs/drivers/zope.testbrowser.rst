@@ -29,7 +29,7 @@ the ``Browser`` instance:
     from splinter.browser import Browser
     browser = Browser('zope.testbrowser')
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 API docs
 --------
