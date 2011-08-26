@@ -28,7 +28,7 @@ except ImportError:
     pass
 
 
-def Browser(driver_name='firefox', profile=None, extensions=[]):
+def Browser(driver_name='firefox', *args, **kwargs):
     """
     Returns a driver instance for the given name.
 
@@ -43,9 +43,6 @@ def Browser(driver_name='firefox', profile=None, extensions=[]):
 
     try:
         driver = _DRIVERS[driver_name]
-        if driver_name == 'firefox':
-            return driver(profile, extensions)
-        else:
-            return driver()
+        return driver(*args, **kwargs)
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
