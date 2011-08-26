@@ -56,3 +56,4 @@ Once you had all development libraries installed for you OS, just install all sp
 
 **Note:** You will need ``sudo`` only if you aren't using virtualenv (which means you're a really bad guy - *no donuts for you*).
 
+Also make sure you have properly configured you :doc:`Chrome driver </drivers/chrome>`.
