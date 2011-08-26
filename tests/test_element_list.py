@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from nose.tools import assert_equals, assert_false, assert_true, raises
-from splinter.element_list import ElementList
-from splinter.exceptions import ElementDoesNotExist
 
 import unittest
+from nose.tools import assert_equals, assert_false, assert_true, raises
+
+from splinter.element_list import ElementList
+from splinter.exceptions import ElementDoesNotExist
 
 
 class Person(object):

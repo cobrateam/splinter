@@ -5,6 +5,8 @@ This snippet show how to "test" a Facebook feature: the creation of an event.
 It creates an event by going to http://www.facebook.com, login and navigate to "Create an event" page.
 """
 
+from __future__ import with_statement
+
 import os
 import unittest
 import time

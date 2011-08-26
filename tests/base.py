@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+from __future__ import with_statement
+
 from nose.tools import assert_equals, assert_true, assert_false
 
 from async_finder import AsyncFinderTests

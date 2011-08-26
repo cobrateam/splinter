@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import with_statement
+
 import warnings
 from nose.tools import assert_true, assert_false, assert_equals
 

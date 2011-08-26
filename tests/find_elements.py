@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import with_statement
+
 import warnings
 from nose.tools import assert_equals
+
 from splinter.driver import ElementAPI
 from splinter.element_list import ElementList
 
