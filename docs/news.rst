@@ -6,6 +6,20 @@
 splinter news
 +++++++++++++
 
+whats's new in splinter 0.4?
+============================
+
+Documentation improvements
+--------------------------
+
+- improved :doc:`API docs </api/index>`
+
+Backward incompatible changes
+-----------------------------
+
+- simplified name of Selenium drivers, they're just ``chrome`` and ``firefox`` now (instead
+  of ``webdriver.chrome`` and ``webdriver.firefox``)
+
 what's new in splinter 0.3?
 ===========================
 

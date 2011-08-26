@@ -3,8 +3,8 @@ from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
 
 _DRIVERS = {
-    'webdriver.firefox': FirefoxWebDriver,
-    'webdriver.chrome': ChromeWebDriver
+    'firefox': FirefoxWebDriver,
+    'chrome': ChromeWebDriver
 }
 
 try:
@@ -14,14 +14,14 @@ except ImportError:
     pass
 
 
-def Browser(driver_name='webdriver.firefox', *args, **kwargs):
+def Browser(driver_name='firefox', *args, **kwargs):
     """
     Returns a driver instance for the given name.
 
-    When working with ``webdriver.firefox``, it's possible to provide a profile name and a
+    When working with ``firefox``, it's possible to provide a profile name and a
     list of extensions.
 
-    If you don't provide any driver_name, then ``webdriver.firefox`` will be used.
+    If you don't provide any driver_name, then ``firefox`` will be used.
 
     If there is no driver registered with the provided ``driver_name``, this function
     will raise a :class:`splinter.exceptions.DriverNotFoundError` exception.

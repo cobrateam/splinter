@@ -14,7 +14,7 @@ class FacebookEventsTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('webdriver.firefox')
+        cls.browser = Browser('firefox')
 
     @classmethod
     def tearDownClass(cls):
