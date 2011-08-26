@@ -71,3 +71,7 @@ div.toctree-wrapper ul li {
 strong {
     font-weight: bold;
 }
+
+em {
+    font-style: italic;
+}
