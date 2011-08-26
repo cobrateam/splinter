@@ -16,3 +16,4 @@ dist/*
 *.log
 *.swn
 *.swo
+*.DS_Store
