@@ -31,7 +31,6 @@ JavaScript support
 ------------------
 
 * :doc:`Executing JavaScript </javascript>`
-* :doc:`AJAX and asynchronous JavaScript </ajax-and-async-javascript>`
 
 Walking on...
 -------------
