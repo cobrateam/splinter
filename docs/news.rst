@@ -14,11 +14,11 @@ Documentation improvements
 
 - improved :doc:`API docs </api/index>`
 
-Backward incompatible changes
------------------------------
+Deprecations
+------------
 
 - simplified name of Selenium drivers, they're just ``chrome`` and ``firefox`` now (instead
-  of ``webdriver.chrome`` and ``webdriver.firefox``)
+  of ``webdriver.chrome`` and ``webdriver.firefox``). The older names were deprecated.
 
 what's new in splinter 0.3?
 ===========================

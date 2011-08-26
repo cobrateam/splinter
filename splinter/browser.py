@@ -17,6 +17,8 @@ def deprecate(cls, message):
 _DRIVERS = {
     'firefox': FirefoxWebDriver,
     'chrome': ChromeWebDriver,
+    'webdriver.chrome': deprecate(ChromeWebDriver, message="'webdriver.chrome' is deprecated, use just 'chrome'"),
+    'webdriver.firefox': deprecate(FirefoxWebDriver, message="'webdriver.firefox' is deprecated, use just 'firefox'"),
 }
 
 try:
