@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+import warnings
+
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
 
+def deprecate(cls, message):
+    warnings.warn(message, DeprecationWarning)
+    return cls
+
 _DRIVERS = {
     'firefox': FirefoxWebDriver,
-    'chrome': ChromeWebDriver
+    'chrome': ChromeWebDriver,
 }
 
 try:
