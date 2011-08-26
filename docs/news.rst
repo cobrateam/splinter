@@ -13,6 +13,8 @@ Documentation improvements
 --------------------------
 
 - improved :doc:`API docs </api/index>`
+- added docs for ``is_text_present`` method
+- added API docs for ``is_element_present_by_*`` methods
 
 Deprecations
 ------------
