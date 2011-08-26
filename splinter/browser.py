@@ -6,8 +6,13 @@ from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
 
 def deprecate(cls, message):
-    warnings.warn(message, DeprecationWarning)
-    return cls
+    def new_init(self, *args, **kwargs):
+        cls.__init__(self, *args, **kwargs)
+        warnings.warn(message, DeprecationWarning)
+
+    cls_dict = dict(cls.__dict__)
+    cls_dict['__init__'] = new_init
+    return type("Deprecated%s" % cls.__name__, (cls,), cls_dict)
 
 _DRIVERS = {
     'firefox': FirefoxWebDriver,
