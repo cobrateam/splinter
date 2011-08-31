@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import unittest
 
@@ -48,8 +49,15 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
 class FirefoxWithExtensionTest(unittest.TestCase):
 
-    def test_create_a_firefox_instance_with_extension(self):
-        "should be load a extension"
+    @classmethod
+    def setUpClass(cls):
         extension_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'firebug.xpi')
-        browser = Browser(extensions=[extension_path])
-        browser.quit()
+        cls.browser = Browser(extensions=[extension_path])
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def test_create_a_firefox_instance_with_extension(self):
+        "should be able to load an extension"
+        assert 'firebug@software.joehewitt.com' in os.listdir(self.browser.driver.profile.extensionsDir)
