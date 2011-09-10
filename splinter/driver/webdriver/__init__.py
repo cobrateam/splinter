@@ -387,6 +387,15 @@ class WebDriverElement(ElementAPI):
         self.action_chains.double_click(self._element)
         self.action_chains.perform()
 
+    def right_click(self):
+        """
+        Performs a right click in the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.context_click(self._element)
+        self.action_chains.perform()
+
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
 
