@@ -38,10 +38,14 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         assert_equals(EXAMPLE_APP, browser.url)
         browser.quit()
 
-    @raises(NotImplementedError)
     def test_cant_switch_to_frame(self):
         "zope.testbrowser should not be able to switch to frames"
-        self.browser.get_iframe('frame_123')
+        try:
+            self.browser.get_iframe('frame_123')
+            self.fail()
+        except NotImplementedError as e:
+            assert_equals("zope.testbrowser does not support frames", e.args[0])
+
 
     @raises(NotImplementedError)
     def test_simple_type(self):

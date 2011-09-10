@@ -38,6 +38,8 @@ class CookieManager(CookieManagerAPI):
 
 class ZopeTestBrowser(DriverAPI):
 
+    driver_name = "zope.testbrowser"
+
     def __init__(self):
         self._browser = Browser()
         self._cookie_manager = CookieManager(self._browser.cookies)

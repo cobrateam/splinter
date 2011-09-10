@@ -13,6 +13,7 @@ class DriverAPI(RequestHandler):
     Basic driver API class.
     """
     __metaclass__ = InheritedDocs
+    driver_name = None
 
     @property
     def title(self):
@@ -79,7 +80,7 @@ class DriverAPI(RequestHandler):
 
         For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s does not support frames" % self.driver_name)
 
     def execute_script(self, script):
         """
