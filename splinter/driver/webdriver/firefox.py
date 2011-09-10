@@ -49,3 +49,9 @@ class WebDriverElement(BaseWebDriverElement):
         Firefox doesn't support doubleclick.
         """
         raise NotImplementedError("Firefox doesn't support doubleclick")
+
+    def right_click(self):
+        """
+        Firefox doesn't support right click'
+        """
+        raise NotImplementedError("Firefox doesn't support right click")
