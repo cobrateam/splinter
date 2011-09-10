@@ -46,6 +46,11 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         "Firefox should not support doubleclick"
         self.browser.find_by_id('visible').double_click()
 
+    @raises(NotImplementedError)
+    def test_right_click(self):
+        "Firefox should not support right_click"
+        self.browser.find_by_id('visible').right_click()
+
 
 class FirefoxWithExtensionTest(unittest.TestCase):
 
