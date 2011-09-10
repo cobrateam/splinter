@@ -46,7 +46,6 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         except NotImplementedError as e:
             assert_equals("zope.testbrowser does not support frames", e.args[0])
 
-
     @raises(NotImplementedError)
     def test_simple_type(self):
         "zope.testbrowser won't support type method because it doesn't interact with Javascritp, and this is the meaning of that method"
