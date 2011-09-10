@@ -30,6 +30,10 @@ EXAMPLE_HTML = """\
                 }, 2400 );
            });
 
+           $('.right-clicable').bind('contextmenu', function(){
+                $(this).html('right clicked');
+           });
+
            $(".remove-async-element").click(function() {
                 setTimeout(function() {
                     $('.async-element').remove();
@@ -94,6 +98,7 @@ EXAMPLE_HTML = """\
     </div>
     <a href="#" class="db-button">double click button</a>
     <div class="should-be-visible-after-double-click">should-be-visible-after-double-click</div>
+    <div class="right-clicable">no right click</div>
   </body>
 </html>"""
 
