@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import with_statement
+
 import warnings
 
 from fake_webapp import EXAMPLE_APP
