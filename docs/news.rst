@@ -30,6 +30,16 @@ Deprecations
   of ``webdriver.chrome`` and ``webdriver.firefox``). The older names were deprecated.
 - changed name of ``mouseover`` and ``mouseout`` methods to ``mouse_over`` and ``mouse_out``
 
+IMPORTANT
+---------
+
+The following deprecated methods will be **removed** in the next splinter release (0.5) from Browser classes:
+
+- fill_in
+- find_by_css_selector
+- is_element_present_by_css_selector
+- is_element_not_present_by_css_selector
+
 what's new in splinter 0.3?
 ===========================
 
