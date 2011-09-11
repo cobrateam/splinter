@@ -396,6 +396,15 @@ class WebDriverElement(ElementAPI):
         self.action_chains.context_click(self._element)
         self.action_chains.perform()
 
+    def drag_and_drop(self, droppable):
+        """
+        Performs drag a element to another elmenet.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.drag_and_drop(self._element, droppable._element)
+        self.action_chains.perform()
+
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
 
