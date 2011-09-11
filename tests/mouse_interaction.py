@@ -38,6 +38,13 @@ class MouseInteractionTest(object):
         element.right_click()
         assert self.browser.find_by_css('.right-clicable').text == 'right clicked'
 
+    def test_drag_and_drop(self):
+        "should be able to perform a drag an element and drop in another element"
+        droppable = self.browser.find_by_css('.droppable')
+        draggable = self.browser.find_by_css('.draggable')
+        draggable.drag_and_drop(droppable)
+        assert self.browser.find_by_css('.dragged').text == 'yes'
+
     def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
         "mouseover should be an alias to mouse_over and be deprecated"
         with warnings.catch_warnings(record=True) as warnings_list:

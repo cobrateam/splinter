@@ -52,6 +52,12 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.find_by_id('visible').right_click()
 
     @raises(NotImplementedError)
+    def test_drag_and_drop(self):
+        "Firefox should not support drag_and_drop"
+        droppable = self.browser.find_by_css('.droppable')
+        self.browser.find_by_css('.draggable').drag_and_drop(droppable)
+
+    @raises(NotImplementedError)
     def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
         "Firefox should not support mouseover"
         self.browser.find_by_id('visible').mouseover()
