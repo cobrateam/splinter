@@ -55,3 +55,9 @@ class WebDriverElement(BaseWebDriverElement):
         Firefox doesn't support right click'
         """
         raise NotImplementedError("Firefox doesn't support right click")
+
+    def drag_and_drop(self, droppable):
+        """
+        Firefox doesn't support drag and drop
+        """
+        raise NotImplementedError("Firefox doesn't support drag an drop")

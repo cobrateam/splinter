@@ -51,6 +51,12 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         "Firefox should not support right_click"
         self.browser.find_by_id('visible').right_click()
 
+    @raises(NotImplementedError)
+    def test_drag_and_drop(self):
+        "Firefox should not support drag_and_drop"
+        droppable = self.browser.find_by_css('.droppable')
+        self.browser.find_by_css('.draggable').drag_and_drop(droppable)
+
 
 class FirefoxWithExtensionTest(unittest.TestCase):
 
