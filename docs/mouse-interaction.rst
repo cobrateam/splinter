@@ -79,4 +79,21 @@ right click
 
 .. highlight:: python
 
-    browser.find_by_cs('h1').right_click()
+::
+
+    browser.find_by_css('h1').right_click()
+
+drag and drop
+-------------
+
+You can drag an element and drop it to another element.
+
+The code below drags the ``<h1></h1>`` element and drop it to a container element (identified by
+a CSS class).
+
+.. highlight:: python
+
+::
+
+    target_element = browser.find_by_css('.container')
+    browser.find_by_css('h1').drag_and_drop(target_element)
