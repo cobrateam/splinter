@@ -9,18 +9,26 @@ splinter news
 whats's new in splinter 0.4?
 ============================
 
+Features
+--------
+
+- support for double click, right click, drag and drop and other :doc:`mouse interactions </mouse-interaction>`
+  (only :doc:`Chrome </drivers/chrome>` driver)
+
 Documentation improvements
 --------------------------
 
 - improved :doc:`API docs </api/index>`
 - added docs for ``is_text_present`` method
 - added API docs for ``is_element_present_by_*`` methods
+- added docs for :doc:`mouse interactions </mouse-interaction>`
 
 Deprecations
 ------------
 
 - simplified name of Selenium drivers, they're just ``chrome`` and ``firefox`` now (instead
   of ``webdriver.chrome`` and ``webdriver.firefox``). The older names were deprecated.
+- changed name of ``mouseover`` and ``mouseout`` methods to ``mouse_over`` and ``mouse_out``
 
 what's new in splinter 0.3?
 ===========================
