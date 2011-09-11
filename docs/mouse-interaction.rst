@@ -79,4 +79,6 @@ right click
 
 .. highlight:: python
 
+::
+
     browser.find_by_cs('h1').right_click()
