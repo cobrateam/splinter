@@ -28,3 +28,10 @@ class MouseInteractionTest(object):
         element = self.browser.find_by_css(".right-clicable")
         element.right_click()
         assert self.browser.find_by_css('.right-clicable').text == 'right clicked' 
+
+    def test_drag_and_drop(self):
+        "should be able to perform a drag an element and drop in another element"
+        droppable = self.browser.find_by_css('.droppable')
+        draggable = self.browser.find_by_css('.draggable')
+        draggable.drag_and_drop(droppable)
+        assert self.browser.find_by_css('.dragged').text == 'yes'
