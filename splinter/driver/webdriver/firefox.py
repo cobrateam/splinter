@@ -32,13 +32,13 @@ class WebDriver(BaseWebDriver):
 
 class WebDriverElement(BaseWebDriverElement):
 
-    def mouseover(self):
+    def mouse_over(self):
         """
         Firefox doesn't support mouseover.
         """
         raise NotImplementedError("Firefox doesn't support mouse over")
 
-    def mouseout(self):
+    def mouse_out(self):
         """
         Firefox doesn't support mouseout.
         """
@@ -61,3 +61,6 @@ class WebDriverElement(BaseWebDriverElement):
         Firefox doesn't support drag and drop
         """
         raise NotImplementedError("Firefox doesn't support drag an drop")
+
+    mouseover = mouse_over
+    mouseout = mouse_out

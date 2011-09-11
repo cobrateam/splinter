@@ -220,9 +220,6 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    fill_in = fill
-    attach_file = fill
-
     def choose(self, name, value):
         """
         Chooses a value in a radio buttons group.
@@ -489,13 +486,13 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
-    def mouseover(self):
+    def mouse_over(self):
         """
         Puts the mouse over the element.
         """
         raise NotImplementedError
 
-    def mouseout(self):
+    def mouse_out(self):
         """
         Moves the mouse away from the element.
         """
@@ -503,4 +500,3 @@ class ElementAPI(object):
 
     def __getitem__(self, attribute):
         raise NotImplementedError
-
