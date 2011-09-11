@@ -14,6 +14,7 @@ Features
 
 - support for double click, right click, drag and drop and other :doc:`mouse interactions </mouse-interaction>`
   (only :doc:`Chrome </drivers/chrome>` driver)
+- support for Python 2.5
 
 Documentation improvements
 --------------------------
