@@ -1,12 +1,14 @@
 .. meta::
     :description: Mouse interatcion.
-    :keywords: splinter, python, tutorial, documentation, mouse interaction, mouseover, mouseout, doube click 
+    :keywords: splinter, python, tutorial, documentation, mouse interaction, mouseover, mouseout, doube click, mouse events
 
 +++++++++++++++++
 Mouse interaction
 +++++++++++++++++
 
-Mouse interaction currently works only on Chrome driver.
+    **Note:** Mouse interaction currently works only on Chrome driver.
+
+
 
 mouseover
 ---------
@@ -15,7 +17,7 @@ mouseover
 
 ::
 
-    browser.find_by_css('h1').mouseover()
+    browser.find_by_css('h1').mouseo_ver()
 
 mouseout
 --------
@@ -24,13 +26,20 @@ mouseout
 
 ::
 
-    browser.find_by_css('h1').mouseout()
+    browser.find_by_css('h1').mouse_out()
 
-doube click
------------
+double click
+------------
 
 .. highlight:: python
 
 ::
 
     browser.find_by_css('h1').double_click()
+
+right click
+-----------
+
+.. highlight:: python
+
+    browser.find_by_cs('h1').right_click()
