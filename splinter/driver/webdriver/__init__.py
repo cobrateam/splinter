@@ -216,8 +216,6 @@ class BaseWebDriver(DriverAPI):
         selector = CSSSelector(css_selector)
         return self.find_by(self.driver.find_elements_by_xpath, selector.path, original_find='css', original_query=css_selector)
 
-    find_by_css_selector = warn_deprecated(find_by_css, 'find_by_css_selector')
-
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         original_find = original_find or "xpath"
         original_query = original_query or xpath

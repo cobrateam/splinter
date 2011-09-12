@@ -92,8 +92,6 @@ class ZopeTestBrowser(DriverAPI):
         xpath = CSSSelector(selector).path
         return self.find_by_xpath(xpath, original_find="css", original_selector=selector)
 
-    find_by_css_selector = warn_deprecated(find_by_css, 'find_by_css_selector')
-
     def find_by_xpath(self, xpath, original_find=None, original_selector=None):
         html = lxml.html.fromstring(self.html)
 

@@ -109,8 +109,6 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    find_by_css_selector = find_by_css
-
     def find_by_xpath(self, xpath):
         """
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`, using a xpath selector to query the
