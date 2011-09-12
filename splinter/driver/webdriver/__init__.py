@@ -239,7 +239,6 @@ class BaseWebDriver(DriverAPI):
         field = self.find_by_name(name).first
         field.value = value
 
-    fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
 
     def type(self, name, value, slowly=False):

@@ -149,8 +149,6 @@ class ZopeTestBrowser(DriverAPI):
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
-    fill_in = warn_deprecated(fill, 'fill_in')
-
     def choose(self, name, value):
         control = self._browser.getControl(name=name)
         control.value = [option for option in control.options if option == value]
