@@ -2,7 +2,6 @@ from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
 from splinter.element_list import ElementList
 from splinter.driver import DriverAPI, ElementAPI
-from splinter.utils import warn_deprecated
 from splinter.cookie_manager import CookieManagerAPI
 
 import mimetypes
