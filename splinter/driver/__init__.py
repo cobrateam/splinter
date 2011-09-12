@@ -313,8 +313,6 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    is_element_present_by_css_selector = is_element_present_by_css
-
     def is_element_not_present_by_css(self, css_selector, wait_time=None):
         """
         Verify if the element is not present in the current page by css, and wait the specified time in ``wait_time``.

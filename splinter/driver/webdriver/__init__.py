@@ -103,8 +103,6 @@ class BaseWebDriver(DriverAPI):
     def is_element_present_by_css(self, css_selector, wait_time=None):
         return self.is_element_present(self.find_by_css, css_selector, wait_time)
 
-    is_element_present_by_css_selector = warn_deprecated(is_element_present_by_css, 'is_element_present_by_css_selector')
-
     def is_element_not_present_by_css(self, css_selector, wait_time=None):
         return self.is_element_not_present(self.find_by_css, css_selector, wait_time)
 
