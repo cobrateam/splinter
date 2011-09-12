@@ -34,17 +34,38 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     @raises(NotImplementedError)
     def test_mouse_over(self):
         "Firefox should not support mouseover"
-        self.browser.find_by_id('visible').first.mouseover()
+        self.browser.find_by_id('visible').first.mouse_over()
 
     @raises(NotImplementedError)
     def test_mouse_out(self):
         "Firefox should not support mouseout"
-        self.browser.find_by_id('visible').first.mouseout()
+        self.browser.find_by_id('visible').first.mouse_out()
 
     @raises(NotImplementedError)
     def test_double_click(self):
-        "Firefox should not support doubleclick"
+        "Firefox should not support double_click"
         self.browser.find_by_id('visible').double_click()
+
+    @raises(NotImplementedError)
+    def test_right_click(self):
+        "Firefox should not support right_click"
+        self.browser.find_by_id('visible').right_click()
+
+    @raises(NotImplementedError)
+    def test_drag_and_drop(self):
+        "Firefox should not support drag_and_drop"
+        droppable = self.browser.find_by_css('.droppable')
+        self.browser.find_by_css('.draggable').drag_and_drop(droppable)
+
+    @raises(NotImplementedError)
+    def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
+        "Firefox should not support mouseover"
+        self.browser.find_by_id('visible').mouseover()
+
+    @raises(NotImplementedError)
+    def test_mouseout_should_be_an_alias_to_mouse_out_and_be_deprecated(self):
+        "Firefox should not support mouseout"
+        self.browser.find_by_id('visible').mouseout()
 
 
 class FirefoxWithExtensionTest(unittest.TestCase):

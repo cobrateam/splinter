@@ -9,18 +9,37 @@ splinter news
 whats's new in splinter 0.4?
 ============================
 
+Features
+--------
+
+- support for double click, right click, drag and drop and other :doc:`mouse interactions </mouse-interaction>`
+  (only :doc:`Chrome </drivers/chrome>` driver)
+- support for Python 2.5
+
 Documentation improvements
 --------------------------
 
 - improved :doc:`API docs </api/index>`
 - added docs for ``is_text_present`` method
 - added API docs for ``is_element_present_by_*`` methods
+- added docs for :doc:`mouse interactions </mouse-interaction>`
 
 Deprecations
 ------------
 
 - simplified name of Selenium drivers, they're just ``chrome`` and ``firefox`` now (instead
   of ``webdriver.chrome`` and ``webdriver.firefox``). The older names were deprecated.
+- changed name of ``mouseover`` and ``mouseout`` methods to ``mouse_over`` and ``mouse_out``
+
+IMPORTANT
+---------
+
+The following deprecated methods will be **removed** in the next splinter release (0.5) from Browser classes:
+
+- fill_in
+- find_by_css_selector
+- is_element_present_by_css_selector
+- is_element_not_present_by_css_selector
 
 what's new in splinter 0.3?
 ===========================

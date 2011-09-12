@@ -13,6 +13,7 @@ class DriverAPI(RequestHandler):
     Basic driver API class.
     """
     __metaclass__ = InheritedDocs
+    driver_name = None
 
     @property
     def title(self):
@@ -79,7 +80,7 @@ class DriverAPI(RequestHandler):
 
         For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s does not support frames" % self.driver_name)
 
     def execute_script(self, script):
         """
@@ -218,9 +219,6 @@ class DriverAPI(RequestHandler):
         Fill the field identified by ``name`` with the content specified by ``value``.
         """
         raise NotImplementedError
-
-    fill_in = fill
-    attach_file = fill
 
     def choose(self, name, value):
         """
@@ -488,13 +486,13 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
-    def mouseover(self):
+    def mouse_over(self):
         """
         Puts the mouse over the element.
         """
         raise NotImplementedError
 
-    def mouseout(self):
+    def mouse_out(self):
         """
         Moves the mouse away from the element.
         """
@@ -502,4 +500,3 @@ class ElementAPI(object):
 
     def __getitem__(self, attribute):
         raise NotImplementedError
-

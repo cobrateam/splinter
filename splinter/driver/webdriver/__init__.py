@@ -360,7 +360,7 @@ class WebDriverElement(ElementAPI):
         elements = ElementList(self._element.find_elements_by_id(id))
         return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
 
-    def mouseover(self):
+    def mouse_over(self):
         """
         Performs a mouse over the element.
 
@@ -369,7 +369,7 @@ class WebDriverElement(ElementAPI):
         self.action_chains.move_to_element(self._element)
         self.action_chains.perform()
 
-    def mouseout(self):
+    def mouse_out(self):
         """
         Performs a mouse out the element.
 
@@ -378,6 +378,9 @@ class WebDriverElement(ElementAPI):
         self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
 
+    mouseover = warn_deprecated(mouse_over, 'mouseover')
+    mouseout = warn_deprecated(mouse_out, 'mouseout')
+
     def double_click(self):
         """
         Performs a double click in the element.
@@ -385,6 +388,24 @@ class WebDriverElement(ElementAPI):
         Currently works only on Chrome driver.
         """
         self.action_chains.double_click(self._element)
+        self.action_chains.perform()
+
+    def right_click(self):
+        """
+        Performs a right click in the element.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.context_click(self._element)
+        self.action_chains.perform()
+
+    def drag_and_drop(self, droppable):
+        """
+        Performs drag a element to another elmenet.
+
+        Currently works only on Chrome driver.
+        """
+        self.action_chains.drag_and_drop(self._element, droppable._element)
         self.action_chains.perform()
 
     def __getitem__(self, attr):

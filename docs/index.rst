@@ -7,7 +7,7 @@
 automate web application actions using python
 +++++++++++++++++++++++++++++++++++++++++++++
 
-:doc:`what's new in splinter 0.3? </news>`
+:doc:`what's new in splinter 0.4? </news>`
 
 Using splinter
 ==============
@@ -23,6 +23,7 @@ Basic browsing and interactions
 
 * :doc:`Browser and navigation </browser>`
 * :doc:`Finding elements </finding>`
+* :doc:`Mouse interactions </mouse-interaction>`
 * :doc:`Interacting with elements and forms </elements-in-the-page>`
 * :doc:`Verify the presence of texts and elements in a page, with matchers </matchers>`
 * :doc:`Cookies manipulation </cookies>`

@@ -9,9 +9,31 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
+    <style>
+        .draggable {
+            display: block;
+            background-color: #0000ff;
+            width: 100px;
+            height: 30px;
+        }
+
+        .droppable {
+            display: block;
+            background-color: #ccc;
+            width: 200px;
+            height: 50px;
+        }
+    </style>
     <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $(".draggable").draggable();
+            $(".droppable").droppable({
+                drop: function() {
+                    $('.dragged').html('yes');
+                }
+            });
             $("body").dblclick(function(){
                 $("body").css("background-color", "#ff0000");
             });
@@ -28,6 +50,10 @@ EXAMPLE_HTML = """\
                     $('body').append('<h5 id="async-header2" class="async-element2">async elment2</h5>');
                     $('body').append('<input type="text" name="async-input2" class="async-input2" />');
                 }, 2400 );
+           });
+
+           $('.right-clicable').bind('contextmenu', function(){
+                $(this).html('right clicked');
            });
 
            $(".remove-async-element").click(function() {
@@ -94,6 +120,10 @@ EXAMPLE_HTML = """\
     </div>
     <a href="#" class="db-button">double click button</a>
     <div class="should-be-visible-after-double-click">should-be-visible-after-double-click</div>
+    <div class="right-clicable">no right click</div>
+    <div class='draggable'>draggable</div>
+    <div class='droppable'>droppable</div>
+    <div class='dragged'>no</div>
   </body>
 </html>"""
 
