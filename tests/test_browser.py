@@ -7,6 +7,7 @@ import warnings
 
 from nose.tools import assert_equals, raises
 from splinter.exceptions import DriverNotFoundError
+from splinter.utils import deprecate_driver_class
 
 
 class BrowserTest(unittest.TestCase):
@@ -23,20 +24,18 @@ class BrowserDeprecationTest(unittest.TestCase):
         pass
 
     def test_should_deprecate_with_the_given_message(self):
-        from splinter.browser import deprecate
         with warnings.catch_warnings(record=True) as warnings_list:
             warnings.simplefilter('default')
-            cls = deprecate(self.Foo, message="Foo was deprecated")
+            cls = deprecate_driver_class(self.Foo, message="Foo was deprecated")
             cls()
             warning = warnings_list[0]
             assert type(warning.message) is DeprecationWarning
             assert_equals("Foo was deprecated", warning.message.args[0])
 
     def test_should_prepend_a_Deprecated_to_class(self):
-        from splinter.browser import deprecate
         with warnings.catch_warnings(record=True):
             warnings.simplefilter('default')
-            cls = deprecate(self.Foo, message="Foo was deprecated")
+            cls = deprecate_driver_class(self.Foo, message="Foo was deprecated")
             assert_equals("DeprecatedFoo", cls.__name__)
 
     def test_webdriverfirefox_should_be_deprecated(self):

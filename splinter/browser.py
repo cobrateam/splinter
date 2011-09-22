@@ -1,24 +1,15 @@
 # -*- coding: utf-8 -*-
-import warnings
-
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
+from splinter.utils import deprecate_driver_class
 
-def deprecate(cls, message):
-    def new_init(self, *args, **kwargs):
-        cls.__init__(self, *args, **kwargs)
-        warnings.warn(message, DeprecationWarning)
-
-    cls_dict = dict(cls.__dict__)
-    cls_dict['__init__'] = new_init
-    return type("Deprecated%s" % cls.__name__, (cls,), cls_dict)
 
 _DRIVERS = {
     'firefox': FirefoxWebDriver,
     'chrome': ChromeWebDriver,
-    'webdriver.chrome': deprecate(ChromeWebDriver, message="'webdriver.chrome' is deprecated, use just 'chrome'"),
-    'webdriver.firefox': deprecate(FirefoxWebDriver, message="'webdriver.firefox' is deprecated, use just 'firefox'"),
+    'webdriver.chrome': deprecate_driver_class(ChromeWebDriver, message="'webdriver.chrome' is deprecated, use just 'chrome'"),
+    'webdriver.firefox': deprecate_driver_class(FirefoxWebDriver, message="'webdriver.firefox' is deprecated, use just 'firefox'"),
 }
 
 try:
