@@ -33,4 +33,6 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	@./run_tests.py -w $(which)
+	@coverage run run_tests.py -w $(which)
+	@coverage report
+	@echo
