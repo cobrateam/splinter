@@ -33,4 +33,4 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	@nosetests -s --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
+	@./run_tests.py -w $(which)
