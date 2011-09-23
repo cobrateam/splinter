@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     print_failures(result)
     print_errors(result)
-    sys.stdout.write("Ran %d tests, %d failures, %d errors.\n" % (result.testsRun, len(result.failures), len(result.errors)))
+    sys.stdout.write("%d tests. %d failures. %d errors.\n" % (result.testsRun, len(result.failures), len(result.errors)))
 
     stop_server()
     sys.exit(not result.wasSuccessful())
