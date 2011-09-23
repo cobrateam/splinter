@@ -76,21 +76,26 @@ def run_tests_from_modules(modules, result):
 
     return result
 
+def run_all_tests(result):
+    pass
+
 def print_errors(result):
-    sys.stdout.write("\nERRORS\n\n")
-    for method, trace in result.errors:
-        sys.stdout.write("Test method: %s\n" % method)
-        sys.stdout.write("%s" % trace)
-        sys.stdout.write("="*120)
-        sys.stdout.write("\n\n")
+    if result.errors:
+        sys.stdout.write("\nERRORS\n\n")
+        for method, trace in result.errors:
+            sys.stdout.write("Test method: %s\n" % method)
+            sys.stdout.write("%s" % trace)
+            sys.stdout.write("="*120)
+            sys.stdout.write("\n\n")
 
 def print_failures(result):
-    sys.stdout.write("\nFAILURES\n\n")
-    for method, trace in result.failures:
-        sys.stdout.write("Test method: %s\n" % method)
-        sys.stdout.write("%s" % trace)
-        sys.stdout.write("="*120)
-        sys.stdout.write("\n\n")
+    if result.failures:
+        sys.stdout.write("\nFAILURES\n\n")
+        for method, trace in result.failures:
+            sys.stdout.write("Test method: %s\n" % method)
+            sys.stdout.write("%s" % trace)
+            sys.stdout.write("="*120)
+            sys.stdout.write("\n\n")
 
 if __name__ == '__main__':
     start_server()
@@ -101,7 +106,9 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     if args.which and args.which != 'tests':
         modules = get_modules(args.which)
-        result = run_tests_from_modules(modules, result)
+        run_tests_from_modules(modules, result)
+    else:
+        run_all_tests(result)
 
     print_failures(result)
     print_errors(result)
