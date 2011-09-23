@@ -6,21 +6,22 @@ from nose.tools import raises
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
+from tests import Namespace
 
-browser = None
+ns = Namespace()
 
 def setUpModule():
-    browser = Browser('firefox')
+    ns.browser = Browser('firefox')
 
-def tearDown():
-    browser.quit()
+def tearDownModule():
+    ns.browser.quit()
 
 
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = browser
+        cls.browser = ns.browser
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
@@ -77,8 +78,12 @@ class FirefoxWithExtensionTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         extension_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'firebug.xpi')
-        cls.browser = browser
+        cls.browser = Browser('firefox', extensions=[extension_path])
 
     def test_create_a_firefox_instance_with_extension(self):
         "should be able to load an extension"
         assert 'firebug@software.joehewitt.com' in os.listdir(self.browser.driver.profile.extensionsDir)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()

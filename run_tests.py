@@ -7,6 +7,7 @@ import unittest
 from multiprocessing import Process
 from urllib import urlopen
 
+from tests import TESTS_ROOT
 from tests.fake_webapp import start_flask_app, EXAMPLE_APP
 
 parser = argparse.ArgumentParser('Run splinter tests')
@@ -66,18 +67,31 @@ def get_modules(modules_str):
     return modules
 
 
-def run_tests_from_modules(modules, result):
-    loader = unittest.TestLoader()
-    for module in modules:
-        suite = loader.loadTestsFromModule(module)
+def run_suites(suites):
+    result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
+
+    for suite in suites:
         suite.run(result)
 
     sys.stdout.write("\n\n")
 
     return result
 
-def run_all_tests(result):
-    pass
+
+def get_suites_from_modules(modules):
+    loader = unittest.TestLoader()
+    suites = []
+
+    for module in modules:
+        suites.append(loader.loadTestsFromModule(module))
+
+    return suites
+
+
+def get_all_suites():
+    loader = unittest.TestLoader()
+    return loader.discover(TESTS_ROOT)
+
 
 def print_errors(result):
     if result.errors:
@@ -85,8 +99,9 @@ def print_errors(result):
         for method, trace in result.errors:
             sys.stdout.write("Test method: %s\n" % method)
             sys.stdout.write("%s" % trace)
-            sys.stdout.write("="*120)
+            sys.stdout.write("=" * 120)
             sys.stdout.write("\n\n")
+
 
 def print_failures(result):
     if result.failures:
@@ -94,22 +109,22 @@ def print_failures(result):
         for method, trace in result.failures:
             sys.stdout.write("Test method: %s\n" % method)
             sys.stdout.write("%s" % trace)
-            sys.stdout.write("="*120)
+            sys.stdout.write("=" * 120)
             sys.stdout.write("\n\n")
 
 if __name__ == '__main__':
     start_server()
 
     args = parser.parse_args()
-    result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
 
     loader = unittest.TestLoader()
     if args.which and args.which != 'tests':
         modules = get_modules(args.which)
-        run_tests_from_modules(modules, result)
+        suites = get_suites_from_modules(modules)
     else:
-        run_all_tests(result)
+        suites = get_all_suites()
 
+    result = run_suites(suites)
     print_failures(result)
     print_errors(result)
     sys.stdout.write("%d tests. %d failures. %d errors.\n" % (result.testsRun, len(result.failures), len(result.errors)))
