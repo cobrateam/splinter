@@ -2,6 +2,7 @@
 
 from __future__ import with_statement
 
+import __builtin__
 import unittest
 import warnings
 
@@ -12,22 +13,26 @@ from splinter.utils import deprecate_driver_class
 
 class BrowserTest(unittest.TestCase):
 
-    def test_should_work_even_without_zope_testbrowser(self):
-        import __builtin__
-        old_import = __builtin__.__import__
+    def patch_driver(self, pattern):
+        self.old_import = __builtin__.__import__
 
         def custom_import(name, *args, **kwargs):
-              if 'zope' in name:
+              if pattern in name:
                   return None
-              return old_import(name, *args, **kwargs)
+              return self.old_import(name, *args, **kwargs)
 
         __builtin__.__import__ = custom_import
 
+    def unpatch_driver(self, module):
+        __builtin__.__import__ = self.old_import
+        reload(module)
+
+    def test_should_work_even_without_zope_testbrowser(self):
+        self.patch_driver('zope')
         from splinter import browser
         reload(browser)
         assert 'zope.testbrowser' not in browser._DRIVERS, 'zope.testbrowser driver should not be registered when zope.testbrowser is not installed'
-        __builtin__.__import__ = old_import
-        reload(browser)
+        self.unpatch_driver(browser)
 
     @raises(DriverNotFoundError)
     def test_should_raise_an_exception_when_browser_driver_is_not_found(self):
