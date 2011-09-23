@@ -7,19 +7,23 @@ from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
+browser = None
+
+def setUpModule():
+    browser = Browser('firefox')
+
+def tearDown():
+    browser.quit()
+
 
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('firefox')
+        cls.browser = browser
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
     def test_attach_file(self):
         "should provide a way to change file field value"
@@ -73,11 +77,7 @@ class FirefoxWithExtensionTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         extension_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'firebug.xpi')
-        cls.browser = Browser(extensions=[extension_path])
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+        cls.browser = browser
 
     def test_create_a_firefox_instance_with_extension(self):
         "should be able to load an extension"
