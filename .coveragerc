@@ -1,3 +1,10 @@
 [report]
 exclude_lines =
     raise NotImplementedError
+
+[run]
+branch = True
+omit = *tests*
+
+[paths]
+source = splinter
