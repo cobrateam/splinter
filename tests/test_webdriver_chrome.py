@@ -1,4 +1,5 @@
 import unittest
+
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
