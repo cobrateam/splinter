@@ -223,7 +223,6 @@ def upload_file():
 
         return '|'.join(buffer)
 
-
 @app.route('/foo')
 def foo():
     return "BAR!"
@@ -274,6 +273,7 @@ def start_server():
 
 def stop_server():
     env.process.terminate()
+    env.process.join()
     wait_until_stop()
 
 if __name__ == '__main__':
