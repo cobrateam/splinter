@@ -67,28 +67,26 @@ def get_modules(modules_str):
     return modules
 
 
-def run_suites(suites):
+def run_suite(suite):
     result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
-
-    for suite in suites:
-        suite.run(result)
+    suite.run(result)
 
     sys.stdout.write("\n\n")
 
     return result
 
 
-def get_suites_from_modules(modules):
+def get_suite_from_modules(modules):
     loader = unittest.TestLoader()
-    suites = []
+    suite = unittest.TestSuite()
 
     for module in modules:
-        suites.append(loader.loadTestsFromModule(module))
+        suite.addTest(loader.loadTestsFromModule(module))
 
-    return suites
+    return suite
 
 
-def get_all_suites():
+def get_complete_suite():
     loader = unittest.TestLoader()
     return loader.discover(TESTS_ROOT)
 
@@ -120,14 +118,14 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     if args.which and args.which != 'tests':
         modules = get_modules(args.which)
-        suites = get_suites_from_modules(modules)
+        suite = get_suite_from_modules(modules)
     else:
-        suites = get_all_suites()
+        suite = get_complete_suite()
 
-    result = run_suites(suites)
+    result = run_suite(suite)
     print_failures(result)
     print_errors(result)
-    sys.stdout.write("%d tests. %d failures. %d errors.\n" % (result.testsRun, len(result.failures), len(result.errors)))
+    sys.stdout.write("%d tests. %d failures. %d errors.\n\n" % (result.testsRun, len(result.failures), len(result.errors)))
 
     stop_server()
     sys.exit(not result.wasSuccessful())
