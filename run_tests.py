@@ -42,6 +42,7 @@ def wait_until_stop():
 
 
 def start_server():
+    sys.stderr = open('/dev/null', 'w')
     env.process = Process(target=start_flask_app, args=(env.host, env.port))
     env.process.daemon = True
     env.process.start()
@@ -71,6 +72,26 @@ def run_tests_from_modules(modules, result):
         suite = loader.loadTestsFromModule(module)
         suite.run(result)
 
+    sys.stdout.write("\n\n")
+
+    return result
+
+def print_errors(result):
+    sys.stdout.write("\nERRORS\n\n")
+    for method, trace in result.errors:
+        sys.stdout.write("Test method: %s\n" % method)
+        sys.stdout.write("%s" % trace)
+        sys.stdout.write("="*120)
+        sys.stdout.write("\n\n")
+
+def print_failures(result):
+    sys.stdout.write("\nFAILURES\n\n")
+    for method, trace in result.failures:
+        sys.stdout.write("Test method: %s\n" % method)
+        sys.stdout.write("%s" % trace)
+        sys.stdout.write("="*120)
+        sys.stdout.write("\n\n")
+
 if __name__ == '__main__':
     start_server()
 
@@ -78,8 +99,13 @@ if __name__ == '__main__':
     result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
 
     loader = unittest.TestLoader()
-    if args.which:
+    if args.which and args.which != 'tests':
         modules = get_modules(args.which)
-        run_tests_from_modules(modules, result)
+        result = run_tests_from_modules(modules, result)
+
+    print_failures(result)
+    print_errors(result)
+    sys.stdout.write("Ran %d tests, %d failures, %d errors.\n" % (result.testsRun, len(result.failures), len(result.errors)))
 
     stop_server()
+    sys.exit(not result.wasSuccessful())
