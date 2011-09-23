@@ -1,5 +1,8 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import argparse
+import sys
+import unittest
 
 from multiprocessing import Process
 from urllib import urlopen
@@ -50,8 +53,33 @@ def stop_server():
     env.process.join()
     wait_until_stop()
 
+
+def get_modules(modules_str):
+    names = modules_str.split(',')
+    modules = []
+
+    for name in names:
+        name = name.replace('/', '.').replace('.py', '')
+        modules.append(__import__(name, fromlist='tests'))
+
+    return modules
+
+
+def run_tests_from_modules(modules, result):
+    loader = unittest.TestLoader()
+    for module in modules:
+        suite = loader.loadTestsFromModule(module)
+        suite.run(result)
+
 if __name__ == '__main__':
-    args = parser.parse_args()
-    print args
     start_server()
+
+    args = parser.parse_args()
+    result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
+
+    loader = unittest.TestLoader()
+    if args.which:
+        modules = get_modules(args.which)
+        run_tests_from_modules(modules, result)
+
     stop_server()
