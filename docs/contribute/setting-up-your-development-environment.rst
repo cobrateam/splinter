@@ -6,9 +6,6 @@
 Setting up you splinter development environment
 +++++++++++++++++++++++++++++++++++++++++++++++
 
-    **Note:** We use unittest2 to test Splinter itself, so the splinter development environment
-    is based on Python 2.7.
-
 Setting up a splinter development environment is a really easy task, you need to make sure you have some
 basic development tools in your machine, you can setup the entire environment with just one command.
 
