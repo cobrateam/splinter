@@ -10,8 +10,10 @@ from tests import Namespace
 
 ns = Namespace()
 
+
 def setUpModule():
     ns.browser = Browser('firefox')
+
 
 def tearDownModule():
     ns.browser.quit()
