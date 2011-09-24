@@ -3,13 +3,10 @@ clean:
 
 doc_dependencies: sphinx
 
-dependencies: nose coverage selenium flask lxml zopetestbrowser
+dependencies: coverage selenium flask lxml zopetestbrowser
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
-
-nose:
-	@python -c 'import nose' 2>/dev/null || pip install nose==1.1.2
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5

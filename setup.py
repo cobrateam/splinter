@@ -11,7 +11,6 @@ setup(name='splinter',
       author_email='andrewsmedina@gmail.com',
       packages=find_packages(),
       include_package_data=True,
-      test_suite='nose.collector',
       install_requires=['selenium==2.6.0', 'lxml==2.3'],
-      tests_require=['nose', 'coverage', 'flask'],
+      tests_require=['coverage', 'flask'],
       )
