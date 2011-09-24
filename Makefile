@@ -3,7 +3,7 @@ clean:
 
 doc_dependencies: sphinx
 
-dependencies: coverage selenium flask lxml zopetestbrowser
+dependencies: unittest2 coverage selenium flask lxml zopetestbrowser
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
@@ -12,7 +12,10 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.6.0
+	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.6.0
+
+unittest2:
+	@python -c 'import unittest.skip' 2>/dev/null || pip install unittest2
 
 flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2
