@@ -12,8 +12,8 @@ first steps
 * `Installation <http://splinter.cobrateam.info/docs/install.html>`_
 * `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
 
-splinter opensource project
-===========================
+splinter opens ource project
+============================
 
 * `Community <http://splinter.cobrateam.info/docs/community.html>`_
 * `Contribute <http://splinter.cobrateam.info/docs/contribute.html>`_
