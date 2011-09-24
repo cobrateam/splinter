@@ -3,7 +3,6 @@ import unittest
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
-from nose.tools import raises
 from tests import Namespace
 
 ns = Namespace()
@@ -26,7 +25,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
 
-    @raises(NotImplementedError)
     def test_attach_file_is_not_implemented(self):
         "attach file is not implemented for chrome driver"
-        self.browser.attach_file('file', 'file_path')
+        with self.assertRaises(NotImplementedError):
+            self.browser.attach_file('file', 'file_path')
