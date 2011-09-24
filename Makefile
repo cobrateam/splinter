@@ -3,10 +3,13 @@ clean:
 
 doc_dependencies: sphinx
 
-dependencies: unittest2 coverage selenium flask lxml zopetestbrowser
+dependencies: unittest2 argparse coverage selenium flask lxml zopetestbrowser
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
+
+argparse:
+	@python -c 'import argparse' 2>/dev/null || pip install argparse
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5
