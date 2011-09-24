@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+import os
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittet
+
 from fake_webapp import EXAMPLE_APP
 from splinter.request_handler.request_handler import RequestHandler
 from splinter.request_handler.status_code import HttpResponseError
 from tests import TESTS_ROOT
-
-import os
-import unittest
 
 
 class RequestHandlerTestCase(unittest.TestCase):

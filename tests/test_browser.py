@@ -3,7 +3,12 @@
 from __future__ import with_statement
 
 import __builtin__
-import unittest
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
+
 import warnings
 
 from splinter.exceptions import DriverNotFoundError

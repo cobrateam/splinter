@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist

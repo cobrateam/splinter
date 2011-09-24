@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
-import unittest
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 from splinter.browser import Browser
 from fake_webapp import EXAMPLE_APP

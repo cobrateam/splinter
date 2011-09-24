@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 import argparse
 import sys
-import unittest
+
+try:
+    import unittest2 as unittest
+except ImportError, e:
+    import unittest
 
 from multiprocessing import Process
 from urllib import urlopen
