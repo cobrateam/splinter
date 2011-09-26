@@ -4,7 +4,7 @@ import os
 try:
     import unittest2 as unittest
 except ImportError:
-    import unittet
+    import unittest
 
 from fake_webapp import EXAMPLE_APP
 from splinter.request_handler.request_handler import RequestHandler
