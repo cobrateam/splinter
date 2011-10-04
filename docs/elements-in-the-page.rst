@@ -116,7 +116,7 @@ will wait until next iteration to type the subsequent key).
 ::
 
     for key in browser.type('type', 'typing slowly', slowly=True):
-        // you can do some test of a field autocompletion here
+        pass # make some assertion here with the key object :)
 
 
 Verifying if element is visible or invisible
