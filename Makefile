@@ -15,7 +15,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.7.0
+	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.8.1
 
 unittest2:
 	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2
