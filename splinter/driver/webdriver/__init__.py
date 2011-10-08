@@ -305,6 +305,16 @@ class WebDriverElement(ElementAPI):
     def text(self):
         return self._element.text
 
+    def fill(self, value):
+        self.value = value
+
+    def type(self, value, slowly=False):
+        if slowly:
+            return TypeIterator(self._element, value)
+
+        self._element.send_keys(value)
+        return value
+
     def click(self):
         self._element.click()
 
