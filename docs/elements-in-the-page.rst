@@ -106,7 +106,6 @@ To trigger JavaScript events, like KeyDown or KeyUp, you can use the `type` meth
 
     browser.type('type', 'typing text')
 
-
 If you pass the argument `slowly=True` to the `type` method you can interact with the
 page on every key pressed. Useful for testing field's autocompletion (the browser
 will wait until next iteration to type the subsequent key).
@@ -117,6 +116,15 @@ will wait until next iteration to type the subsequent key).
 
     for key in browser.type('type', 'typing slowly', slowly=True):
         pass # make some assertion here with the key object :)
+
+You can also use ``type`` and ``fill`` methods in an element:
+
+.. highlight:: python
+
+::
+
+    browser.find_by_name('name').type('Steve Jobs', slowly=True)
+    browser.find_by_css('.city').fill('San Francisco')
 
 
 Verifying if element is visible or invisible
