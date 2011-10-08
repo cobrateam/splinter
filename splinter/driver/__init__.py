@@ -492,5 +492,19 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
+    def fill(self, value):
+        """
+        Fill the field with the content specified by ``value``.
+        """
+        raise NotImplementedError
+
+    def type(self, value, slowly=False):
+        """
+        Types the ``value`` in the field.
+
+        It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
+        """
+        raise NotImplementedError
+
     def __getitem__(self, attribute):
         raise NotImplementedError
