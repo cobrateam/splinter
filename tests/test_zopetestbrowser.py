@@ -52,14 +52,24 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.assertEquals("zope.testbrowser does not support frames", e.args[0])
 
     def test_simple_type(self):
-        "zope.testbrowser won't support type method because it doesn't interact with Javascritp, and this is the meaning of that method"
+        "zope.testbrowser won't support type method because it doesn't interact with JavaScript"
         with self.assertRaises(NotImplementedError):
             self.browser.type('query', 'with type method')
 
+    def test_simple_type_on_element(self):
+        "zope.testbrowser won't support type method on element because it doesn't interact with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('query').type('with type method')
+
     def test_slowly_typing(self):
-        "zope.testbrowser won't support type method because it doesn't interact with Javascritp, and this is the meaning of that method"
+        "zope.testbrowser won't support type method because it doesn't interact with JavaScript"
         with self.assertRaises(NotImplementedError):
             self.browser.type('query', 'with type method', slowly=True)
+
+    def test_slowly_typing_on_element(self):
+        "zope.testbrowser won't support type method on element because it doesn't interac with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('query').type('with type method', slowly=True)
 
     def test_cant_mouseover(self):
         "zope.testbrowser should not be able to put the mouse over the element"

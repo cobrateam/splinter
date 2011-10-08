@@ -257,6 +257,9 @@ class ZopeTestBrowserControlElement(ElementAPI):
     def click(self):
         return self._control.click()
 
+    def fill(self, value):
+        self._control.value = value
+
 
 class ZopeTestBrowserOptionElement(ElementAPI):
 

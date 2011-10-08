@@ -11,8 +11,12 @@ class FormElementsTest(object):
         value = self.browser.find_by_name('query').first.value
         self.assertEquals('new query', value)
 
+    def test_should_provide_a_method_on_element_to_change_its_value(self):
+        self.browser.find_by_name('query').fill('new query')
+        value = self.browser.find_by_name('query').first.value
+        self.assertEquals('new query', value)
+
     def test_submiting_a_form_and_verifying_page_content(self):
-        "should be able search a term in google and verifying if content expected exists"
         self.browser.fill('query', 'my name')
         self.browser.find_by_name('send').first.click()
         assert 'My name is: Master Splinter' in self.browser.html
