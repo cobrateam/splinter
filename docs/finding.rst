@@ -6,7 +6,9 @@
 Finding elements
 ++++++++++++++++
 
-For finding elements you can use six methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``:
+Splinter provides 6 methods for finding elements in the page, one for each
+selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``.
+Examples:
 
 .. highlight:: python
 
@@ -19,93 +21,83 @@ For finding elements you can use six methods, one for each selector type ``css``
     browser.find_by_id('firstheader')
     browser.find_by_value('query')
 
-These methods returns a list of all found elements.
 
-
-you can get the first found element:
-
-.. highlight:: python
-
-::
-
-    browser.find_by_name('name').first
-
-You can use too the last attribute, that returns the last found element:
+Each of these methods returns a list with the found elements. You can get the
+first found element with the ``first`` shortcut:
 
 .. highlight:: python
 
 ::
 
-    browser.find_by_name('name').last
+    first_found = browser.find_by_name('name').first
+
+There's also the ``last`` shortcut -- obviously, it returns the last found
+element:
+
+.. highlight:: python
+
+::
+
+    last_found = browser.find_by_name('name').last
+
 
 Get element using index
 =======================
 
-You also use index for get a element
+You also can use an index to get the desired element in the list of found
+elements:
 
 .. highlight:: python
 
 ::
 
-    browser.find_by_name('name')[1]
+    second_found = browser.find_by_name('name')[1]
 
-all elements and find_by_id
-===========================
+All elements and ``find_by_id``
+===============================
 
-A web page should be only one id per page. Then find_by_id() method return always a list with one element.
+A web page should have only one id, so the ``find_by_id`` method returns always
+a list with just one element.
 
 Finding links
 =============
 
-For finding link elements you can use ``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or ``find_link_by_partial_href``:
+If you need to find the links in a page, you can use the methods
+``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or
+``find_link_by_partial_href``. Examples:
 
 .. highlight:: python
 
 ::
 
-    browser.find_link_by_text('Link for Example.com')
+    links_found = browser.find_link_by_text('Link for Example.com')
+    links_found = browser.find_link_by_partial_text('for Example')
+    links_found = browser.find_link_by_href('http://example.com')
+    links_found = browser.find_link_by_partial_href('example')
 
-or
 
-.. highlight:: python
+As the other ``find_*`` methods, these returns a list of all found elements.
 
-::
-
-    browser.find_link_by_partial_text('for Example')
-
-or
-
-.. highlight:: python
-
-::
-
-    browser.find_link_by_href('http://example.com')
-
-or
-
-.. highlight:: python
-
-::
-
-    browser.find_link_by_partial_href('example')
-
-These methods returns a list of all found elements.
-
-For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``, ``find_by_value`` and ``find_by_id``).
+You also can search for links using other selector types with the methods 
+``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``,
+``find_by_value`` and ``find_by_id``.
 
 Chaining find of elements
 =========================
 
-Finding methods are chainable, so you can find the descendants of a previously found element.
+Finding methods are chainable, so you can find the descendants of a previously
+found element.
 
 .. highlight:: python
 
 ::
 
-    elements = browser.find_by_css("div")
-    within_elements = elements.first.find_by_name("name")
+    divs = browser.find_by_tag("div")
+    within_elements = divs.first.find_by_name("name")
 
-Element not found exception
-===========================
+``ElementDoesNotExist`` exception
+=================================
 
-If element not found, find methods returns a empty list. But, if you try, access a element in list raises the :class:`splinter.exceptions.ElementDoesNotExist` exception.
+If an element is not found, the ``find_*`` methods returns an empty list. But
+if you try to access an element in this list, it will raise the
+:class:`splinter.exceptions.ElementDoesNotExist` exception.
