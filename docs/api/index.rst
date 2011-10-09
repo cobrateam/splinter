@@ -6,7 +6,7 @@
 API Documentation
 ++++++++++++++++++
 
-Check above the API docs:
+Welcome to the Splinter API documentation! Check what's inside:
 
 .. toctree::
    :glob:
