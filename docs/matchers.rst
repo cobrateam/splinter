@@ -1,26 +1,29 @@
 .. meta::
-    :description: Verifying if a texxt pattern is or not present
+    :description: Checking if a text pattern is or not present
     :keywords: splinter, python, tutorial, element
 
 ++++++++
 Matchers
 ++++++++
 
-There are two kind of methods to verify the presence of texts and elements in a page: "is_element_present" and "is_text_present".
-When working with ajax and async javascript, it's common you work with an element which is not yet present on the page.
+When working with AJAX and asynchronous JavaScript, it's common to have
+elements which are not present in the HTML code (they are created with
+JavaScript, dynamically). In this case you can use the methods
+``is_element_present`` and ``is_text_present`` to check the existence of an
+element or text -- Splinter will load the HTML and JavaScript in the browser
+and the check will be performed *before* processing JavaScript.
 
-To use these methods you give the element or text to be found.
-There is also the opcional "wait_time" argument which is given the time in seconds.
-If the "wait_time" is given and the verification method gets True it will return the result, even if the wait_time is not over,
-and if it doesn't gets True, the method will wait until the wait_time is over to return the result.
+There is also the optional argument ``wait_time`` (given in seconds) -- it's a
+timeout: if the verification method gets ``True`` it will return the result
+(even if the ``wait_time`` is not over), if it doesn't get ``True``, the
+method will wait until the ``wait_time`` is over (so it'll return the result).
 
 
-Verifying text presence
------------------------
+Checking the presence of text
+-----------------------------
 
-There's one method responsible for checking whether a text is present on the page content, the ``is_text_present`` method.
-
-This method returns a boolean value, True if is present and False if is not present.
+The method ``is_text_present`` is responsible for checking if a text is present
+in the page content. It returns ``True`` or ``False``.
 
 .. highlight:: python
 
@@ -28,28 +31,30 @@ This method returns a boolean value, True if is present and False if is not pres
 
     browser = Browser()
     browser.visit('http://splinter.cobrateam.info/')
-    browser.is_text_present('splinter') # true
-    browser.is_text_present('splinter', wait_time=10) # true, using wait_time
-    browser.is_text_present('text not present') # false
+    browser.is_text_present('splinter') # True
+    browser.is_text_present('splinter', wait_time=10) # True, using wait_time
+    browser.is_text_present('text not present') # False
 
-There's also the method to verify if the test is not present, the ``is_text_not_present`` method.
 
-This method also returns a boolean value, True if is not present and False if is present.
+There's also a method to check if the text *is not* present:
+``is_text_not_present``. It works the same way but returns ``True`` if the text
+is not present.
 
 .. highlight:: python
 
 ::
 
-    browser.is_text_not_present('text not present') # true
-    browser.is_text_not_present('text not present', wait_time=10) # true, using wait_time
-    browser.is_text_not_present('splinter') # false
+    browser.is_text_not_present('text not present') # True
+    browser.is_text_not_present('text not present', wait_time=10) # True, using wait_time
+    browser.is_text_not_present('splinter') # False
 
 
-Verifying elements presence
----------------------------
+Checking the presence of elements
+---------------------------------
 
-For verifying the elements presence you can use six methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``:
-Verifying if the element is present:
+Splinter provides 6 methods to check the presence of elements in the page, one
+for each selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``,
+``value``. Examples:
 
 .. highlight:: python
 
@@ -63,10 +68,10 @@ Verifying if the element is present:
     browser.is_element_present_by_value('query')
     browser.is_element_present_by_value('query', wait_time=10) # using wait_time
 
-These methods returns True if the element is present and False if is not present.
+As expected, these methods returns ``True`` if the element is present and
+``False`` if it is not present.
 
-
-Verifying if the element is not present:
+There's also the negative forms of these methods, as in ``is_text_present``:
 
 .. highlight:: python
 
