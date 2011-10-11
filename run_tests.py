@@ -66,7 +66,15 @@ def get_modules(modules_str):
 
     for name in names:
         name = name.replace('/', '.').replace('.py', '')
-        modules.append(__import__(name, fromlist='tests'))
+        try:
+            module = __import__(name, fromlist='tests')
+        except:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            print 'Error importing module %s:' % name
+            import traceback
+            traceback.print_exception(exc_type, exc_value, exc_traceback,
+                                      file=sys.stdout)
+        modules.append(module)
 
     return modules
 
