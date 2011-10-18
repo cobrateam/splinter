@@ -47,7 +47,7 @@ class FacebookEventsTestCase(unittest.TestCase):
         self.browser.find_by_css('div.eventEditUpload a.uiButton').first.click()
 
         if not self.browser.is_element_present_by_css('iframe#upload_pic_frame', wait_time=10):
-            self.fail("The upload pic iframe did'n't appear :(")
+            self.fail("The upload pic iframe didn't appear :(")
 
         with self.browser.get_iframe('upload_pic_frame') as frame:
             frame.attach_file('pic', picture_path)
