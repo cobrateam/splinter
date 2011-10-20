@@ -19,3 +19,6 @@ class Spynner(GenericDriver):
     @property
     def url(self):
         return self._browser.url
+
+    def fill(self, name, value):
+        self._browser.fill('[name="%s"]' % name, value);
