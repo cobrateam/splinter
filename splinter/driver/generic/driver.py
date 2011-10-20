@@ -10,13 +10,13 @@ class GenericDriver(DriverAPI):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([GenericOptionElement(control, self)], find_by="value", query=value)
+        return ElementList([GenericOptionElement(control, self)])
 
     def find_option_by_text(self, text):
         html = lxml.html.fromstring(self.html)
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([GenericOptionElement(control, self)], find_by="text", query=text)
+        return ElementList([GenericOptionElement(control, self)])
 
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
@@ -38,7 +38,7 @@ class GenericDriver(DriverAPI):
         find_by = original_find or "xpath"
         query = original_selector or xpath
 
-        return ElementList([GenericElement(element, self) for element in elements], find_by=find_by, query=query)
+        return ElementList([GenericElement(element, self) for element in elements])
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag, original_find="tag", original_selector=tag)
@@ -60,7 +60,7 @@ class GenericDriver(DriverAPI):
                 index += 1
             except IndexError:
                 break
-        return ElementList([GenericControlElement(element, self) for element in elements], find_by="name", query=name)
+        return ElementList([GenericControlElement(element, self) for element in elements])
 
     def find_link_by_text(self, text):
         return self._find_links_by_xpath("//a[text()='%s']" % text)
@@ -97,7 +97,7 @@ class GenericDriver(DriverAPI):
     def _find_links_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
         links = html.xpath(xpath)
-        return ElementList([GenericLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
+        return ElementList([GenericLinkElement(link, self) for link in links])
 
     def select(self, name, value):
         self.find_by_name(name).first._control.value = [value]
