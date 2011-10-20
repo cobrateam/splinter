@@ -1,41 +1,37 @@
+all: test
+
 clean:
 	@find . -name "*.pyc" -delete
 
-doc_dependencies: sphinx
+dependencies: specloud coverage selenium flask lxml sphinx zopetestbrowser
 
-dependencies: unittest2 argparse coverage selenium flask lxml zopetestbrowser
-
-doc: doc_dependencies
+doc:
 	@cd docs && make clean && make html
 
-argparse:
-	@python -c 'import argparse' 2>/dev/null || pip install argparse
+specloud:
+	@python -c 'import specloud' 2>/dev/null || pip install specloud
 
 coverage:
-	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1
+	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.8.1
-
-unittest2:
-	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.0rc2
 
 flask:
-	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2
+	@python -c 'import flask' 2>/dev/null || pip install flask
 
 lxml:
-	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3.1
+	@python -c 'import lxml' 2>/dev/null || pip install lxml
 
 sphinx:
-	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.0.8
+	@python -c 'import sphinx' 2>/dev/null || pip install sphinx
 
 zopetestbrowser:
-	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
+	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser
 
 which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	@coverage run run_tests.py -w $(which)
-	@coverage report
-	@echo
+	specloud --nocapture --with-coverage --cover-erase --cover-inclusive --cover-package=splinter --tests=$(which)
+

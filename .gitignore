@@ -14,6 +14,3 @@ build/*
 .ropeproject
 dist/*
 *.log
-*.swn
-*.swo
-*.DS_Store

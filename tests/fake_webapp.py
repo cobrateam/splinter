@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import request
+from multiprocessing import Process
+from urllib import urlopen
 
 EXAMPLE_APP = "http://localhost:5000/"
 
@@ -7,51 +9,18 @@ EXAMPLE_HTML = """\
 <html>
   <head>
     <title>Example Title</title>
-    <style>
-        .draggable {
-            display: block;
-            background-color: #0000ff;
-            width: 100px;
-            height: 30px;
-        }
-
-        .droppable {
-            display: block;
-            background-color: #ccc;
-            width: 200px;
-            height: 50px;
-        }
-    </style>
     <script type="text/javascript" src="/static/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $(".draggable").draggable();
-            $(".droppable").droppable({
-                drop: function() {
-                    $('.dragged').html('yes');
-                }
-            });
-            $("body").dblclick(function(){
-                $("body").css("background-color", "#ff0000");
-            });
-            $(".should-be-visible-after-double-click").hide();
-            $(".db-button").dblclick(function(){
-                $(".should-be-visible-after-double-click").show();
-            });
            $(".add-async-element").click(function() {
                 setTimeout(function() {
-                    $('body').append('<h4 id="async-header" value="async-header-value" class="async-element">async elment</h4>');
+                    $('body').append('<h4 id="async-header" class="async-element">async elment</h4>');
                     $('body').append('<input type="text" name="async-input" class="async-input" />');
                 }, 1200 );
                 setTimeout(function() {
                     $('body').append('<h5 id="async-header2" class="async-element2">async elment2</h5>');
                     $('body').append('<input type="text" name="async-input2" class="async-input2" />');
                 }, 2400 );
-           });
-
-           $('.right-clicable').bind('contextmenu', function(){
-                $(this).html('right clicked');
            });
 
            $(".remove-async-element").click(function() {
@@ -105,23 +74,10 @@ EXAMPLE_HTML = """\
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
     <a href="http://localhost:5000/foo">FOO</a>
-    <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
     <a class='add-async-element' href="#">add async element</a>
     <a class='remove-async-element' href="#">remove async element</a>
     <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
     <iframe id="iframemodal" src="/iframe"></iframe>
-    <div id="inside">
-        <h2>inside</h2>
-        <form>
-            <input id="visible" name="upload" type="text" value="crazy diamond" />
-        </form>
-    </div>
-    <a href="#" class="db-button">double click button</a>
-    <div class="should-be-visible-after-double-click">should-be-visible-after-double-click</div>
-    <div class="right-clicable">no right click</div>
-    <div class='draggable'>draggable</div>
-    <div class='droppable'>droppable</div>
-    <div class='dragged'>no</div>
   </body>
 </html>"""
 
@@ -155,61 +111,23 @@ EXAMPLE_ALERT_HTML = """\
 </html>
 """
 
-EXAMPLE_TYPE_HTML = """\
-<html>
-    <head>
-        <script type="text/javascript">
-        window.onload = function(f) {
-            var number = 0;
-            var name_input = document.getElementById('type-input-id');
-            name_input.onkeyup = function(e) {
-                showSuggest();
-            };
-            function showSuggest() {
-                var hidden_suggest = document.getElementById('suggest');
-                hidden_suggest.innerHTML += 'Hi, I am here #' + number + '! ';
-                number++;
-            };
-        };
-        </script>
-    </head>
-    <body>
-        <form method="GET" action="">
-            <input name="type-input" value="" id="type-input-id"/>
-        </form>
-
-        <span id="suggest"></span>
-    </body>
-</html>
-"""
-
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
     return EXAMPLE_HTML
 
-
 @app.route('/iframe')
 def iframed():
     return EXAMPLE_IFRAME_HTML
-
 
 @app.route('/alert')
 def alertd():
     return EXAMPLE_ALERT_HTML
 
-
-@app.route('/type')
-def type():
-    return EXAMPLE_TYPE_HTML
-
-
 @app.route('/name', methods=['GET'])
 def get_name():
     return "My name is: Master Splinter"
-
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -225,6 +143,13 @@ def upload_file():
 def foo():
     return "BAR!"
 
+class Env(object):
+    pass
+
+env = Env()
+env.process = None
+env.host, env.port = 'localhost', 5000
+env.browser = None
 
 def start_flask_app(host, port):
     """Runs the server."""
@@ -232,5 +157,29 @@ def start_flask_app(host, port):
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
 
-if __name__ == '__main__':
-    app.run()
+def wait_until_start():
+    while True:
+        try:
+            urlopen(EXAMPLE_APP)
+            break
+        except IOError:
+            pass
+
+def wait_until_stop():
+    while True:
+        try:
+            results = urlopen(EXAMPLE_APP)
+            if results.code == 404:
+                break
+        except IOError:
+            break
+
+def start_server():
+    env.process = Process(target=start_flask_app, args=(env.host, env.port))
+    env.process.daemon = True
+    env.process.start()
+    wait_until_start()
+
+def stop_server():
+    env.process.terminate()
+    wait_until_stop()

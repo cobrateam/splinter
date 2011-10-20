@@ -6,9 +6,7 @@
 Finding elements
 ++++++++++++++++
 
-Splinter provides 6 methods for finding elements in the page, one for each
-selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``.
-Examples:
+For finding elements you can use five methods, one for each selector type ``css``, ``xpath``, ``tag``, ``name``, ``id``:
 
 .. highlight:: python
 
@@ -19,85 +17,66 @@ Examples:
     browser.find_by_tag('h1')
     browser.find_by_name('name')
     browser.find_by_id('firstheader')
-    browser.find_by_value('query')
+
+These methods returns a list of all found elements.
 
 
-Each of these methods returns a list with the found elements. You can get the
-first found element with the ``first`` shortcut:
-
-.. highlight:: python
-
-::
-
-    first_found = browser.find_by_name('name').first
-
-There's also the ``last`` shortcut -- obviously, it returns the last found
-element:
+you can get the first found element:
 
 .. highlight:: python
 
 ::
 
-    last_found = browser.find_by_name('name').last
+    browser.find_by_name('name').first
 
+You can use too the last attribute, that returns the last found element:
+
+.. highlight:: python
+
+::
+
+    browser.find_by_name('name').last
 
 Get element using index
 =======================
 
-You also can use an index to get the desired element in the list of found
-elements:
+You also use index for get a element
 
 .. highlight:: python
 
 ::
 
-    second_found = browser.find_by_name('name')[1]
+    browser.find_by_name('name')[1]
 
-All elements and ``find_by_id``
-===============================
+all elements and find_by_id
+===========================
 
-A web page should have only one id, so the ``find_by_id`` method returns always
-a list with just one element.
+A web page should be only one id per page. Then find_by_id() method return always a list with one element.
 
 Finding links
 =============
 
-If you need to find the links in a page, you can use the methods
-``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or
-``find_link_by_partial_href``. Examples:
+For finding link elements you can use ``find_link_by_text`` or ``find_link_by_href``:
 
 .. highlight:: python
 
 ::
 
-    links_found = browser.find_link_by_text('Link for Example.com')
-    links_found = browser.find_link_by_partial_text('for Example')
-    links_found = browser.find_link_by_href('http://example.com')
-    links_found = browser.find_link_by_partial_href('example')
+    browser.find_link_by_text('Link for Example.com')
 
-
-As the other ``find_*`` methods, these returns a list of all found elements.
-
-You also can search for links using other selector types with the methods 
-``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``,
-``find_by_value`` and ``find_by_id``.
-
-Chaining find of elements
-=========================
-
-Finding methods are chainable, so you can find the descendants of a previously
-found element.
+or
 
 .. highlight:: python
 
 ::
 
-    divs = browser.find_by_tag("div")
-    within_elements = divs.first.find_by_name("name")
+    browser.find_link_by_href('http://example.com')
 
-``ElementDoesNotExist`` exception
-=================================
+These methods returns a list of all found elements.
 
-If an element is not found, the ``find_*`` methods returns an empty list. But
-if you try to access an element in this list, it will raise the
-:class:`splinter.exceptions.ElementDoesNotExist` exception.
+For finding links by id, tag, name or xpath you should use other find methods (``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name`` and ``find_by_id``).
+
+Element not found exception
+===========================
+
+If element not found, find methods returns a empty list. But, if you try, access a element in list raises the ``splinter.element_list.ElementDoesNotExist`` exception.

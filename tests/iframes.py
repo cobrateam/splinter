@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import with_statement
-
+from nose.tools import assert_equals
 
 class IFrameElementsTest(object):
 
@@ -9,6 +6,6 @@ class IFrameElementsTest(object):
         """can work on iframes and switch back to the page"""
         with self.browser.get_iframe('iframemodal') as frame:
             value = frame.find_by_tag('h1').first.value
-            self.assertEquals(value, 'IFrame Example Header')
+            assert_equals(value, 'IFrame Example Header')
         value = self.browser.find_by_tag('h1').first.value
-        self.assertEquals('Example Header', value)
+        assert_equals('Example Header', value)

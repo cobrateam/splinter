@@ -7,7 +7,6 @@ from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -103,8 +102,12 @@ class BaseWebDriver(DriverAPI):
     def is_element_present_by_css(self, css_selector, wait_time=None):
         return self.is_element_present(self.find_by_css, css_selector, wait_time)
 
+    is_element_present_by_css_selector = warn_deprecated(is_element_present_by_css, 'is_element_present_by_css_selector')
+
     def is_element_not_present_by_css(self, css_selector, wait_time=None):
         return self.is_element_not_present(self.find_by_css, css_selector, wait_time)
+
+    is_element_not_present_by_css_selector = warn_deprecated(is_element_not_present_by_css, 'is_element_not_present_by_css_selector')
 
     def is_element_present_by_xpath(self, xpath, wait_time=None):
         return self.is_element_present(self.find_by_xpath, xpath, wait_time)
@@ -123,12 +126,6 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_not_present_by_name(self, name, wait_time=None):
         return self.is_element_not_present(self.find_by_name, name, wait_time)
-
-    def is_element_present_by_value(self, value, wait_time=None):
-        return self.is_element_present(self.find_by_value, value, wait_time)
-
-    def is_element_not_present_by_value(self, value, wait_time=None):
-        return self.is_element_not_present(self.find_by_value, value, wait_time)
 
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
@@ -171,30 +168,20 @@ class BaseWebDriver(DriverAPI):
             self.driver.switch_to_frame(None)
 
     def find_option_by_value(self, value):
-        return self.find_by_xpath('//option[@value="%s"]' % value, original_find="option by value", original_query=value)
+        return self.find_by_xpath('//option[@value="%s"]' % value)
 
     def find_option_by_text(self, text):
-        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text, original_find="option by text", original_query=text)
+        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text)
 
     def find_link_by_href(self, href):
-        return self.find_by_xpath('//a[@href="%s"]' % href, original_find="link by href", original_query=href)
-
-    def find_link_by_partial_href(self, partial_href):
-        return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href", original_query=partial_href)
-
-    def find_link_by_partial_text(self, partial_text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)], find_by="partial text", query=partial_text)
+        return self.find_by_xpath('//a[@href="%s"]' % href)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)], find_by="link by text", query=text)
+        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)])
 
-    def find_by(self, finder, selector, original_find=None, original_query=None):
+    def find_by(self, finder, selector):
         elements = None
         end_time = time.time() + self.wait_time
-
-        func_name = finder.im_func.func_name
-        find_by = original_find or func_name[func_name.rfind('_by_') + 4:]
-        query = original_query or selector
 
         while time.time() < end_time:
             try:
@@ -205,26 +192,23 @@ class BaseWebDriver(DriverAPI):
                 pass
 
             if elements:
-                return ElementList([self.element_class(element, self) for element in elements], find_by=find_by, query=query)
-        return ElementList([], find_by=find_by, query=query)
+                return ElementList([self.element_class(element, self) for element in elements])
+        return ElementList([])
 
     def find_by_css(self, css_selector):
         selector = CSSSelector(css_selector)
-        return self.find_by(self.driver.find_elements_by_xpath, selector.path, original_find='css', original_query=css_selector)
+        return self.find_by(self.driver.find_elements_by_xpath, selector.path)
 
-    def find_by_xpath(self, xpath, original_find=None, original_query=None):
-        original_find = original_find or "xpath"
-        original_query = original_query or xpath
-        return self.find_by(self.driver.find_elements_by_xpath, xpath, original_find=original_find, original_query=original_query)
+    find_by_css_selector = warn_deprecated(find_by_css, 'find_by_css_selector')
+
+    def find_by_xpath(self, xpath):
+        return self.find_by(self.driver.find_elements_by_xpath, xpath)
 
     def find_by_name(self, name):
         return self.find_by(self.driver.find_elements_by_name, name)
 
     def find_by_tag(self, tag):
         return self.find_by(self.driver.find_elements_by_tag_name, tag)
-
-    def find_by_value(self, value):
-        return self.find_by_xpath('//*[@value="%s"]' % value, original_find='value', original_query=value)
 
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
@@ -233,14 +217,8 @@ class BaseWebDriver(DriverAPI):
         field = self.find_by_name(name).first
         field.value = value
 
+    fill_in = warn_deprecated(fill, 'fill_in')
     attach_file = fill
-
-    def type(self, name, value, slowly=False):
-        element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
-        if slowly:
-            return TypeIterator(element, value)
-        element.send_keys(value)
-        return value
 
     def choose(self, name, value):
         fields = self.find_by_name(name)
@@ -257,28 +235,10 @@ class BaseWebDriver(DriverAPI):
         field.uncheck()
 
     def select(self, name, value):
-        element = self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element
-        element.click()
+        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.select()
 
     def quit(self):
         self.driver.quit()
-
-    @property
-    def cookies(self):
-        return self._cookie_manager
-
-
-class TypeIterator(object):
-
-
-    def __init__(self, element, keys):
-        self._element = element
-        self._keys = keys
-
-    def __iter__(self):
-        for key in self._keys:
-            self._element.send_keys(key)
-            yield key
 
 
 class WebDriverElement(ElementAPI):
@@ -286,7 +246,6 @@ class WebDriverElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
-        self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
         value = self["value"]
@@ -305,26 +264,16 @@ class WebDriverElement(ElementAPI):
     def text(self):
         return self._element.text
 
-    def fill(self, value):
-        self.value = value
-
-    def type(self, value, slowly=False):
-        if slowly:
-            return TypeIterator(self._element, value)
-
-        self._element.send_keys(value)
-        return value
-
     def click(self):
         self._element.click()
 
     def check(self):
         if not self.checked:
-            self._element.click()
+            self._element.toggle()
 
     def uncheck(self):
         if self.checked:
-            self._element.click()
+            self._element.toggle()
 
     @property
     def checked(self):
@@ -335,81 +284,6 @@ class WebDriverElement(ElementAPI):
     @property
     def visible(self):
         return self._element.is_displayed()
-
-    def find_by_css(self, selector, original_find=None, original_query=None):
-        find_by = original_find or 'css'
-        query = original_query or selector
-
-        elements = self._element.find_elements_by_css_selector(selector)
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
-
-    def find_by_xpath(self, selector):
-        elements = ElementList(self._element.find_elements_by_xpath(selector))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
-
-    def find_by_name(self, name):
-        elements = ElementList(self._element.find_elements_by_name(name))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='name', query=name)
-
-    def find_by_tag(self, tag):
-        elements = ElementList(self._element.find_elements_by_tag_name(tag))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='tag', query=tag)
-
-    def find_by_value(self, value):
-        selector = '[value="%s"]' % value
-        return self.find_by_css(selector, original_find='value', original_query=value)
-
-    def find_by_id(self, id):
-        elements = ElementList(self._element.find_elements_by_id(id))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
-
-    def mouse_over(self):
-        """
-        Performs a mouse over the element.
-
-        Currently works only on Chrome driver.
-        """
-        self.action_chains.move_to_element(self._element)
-        self.action_chains.perform()
-
-    def mouse_out(self):
-        """
-        Performs a mouse out the element.
-
-        Currently works only on Chrome driver.
-        """
-        self.action_chains.move_by_offset(5000, 5000)
-        self.action_chains.perform()
-
-    mouseover = warn_deprecated(mouse_over, 'mouseover')
-    mouseout = warn_deprecated(mouse_out, 'mouseout')
-
-    def double_click(self):
-        """
-        Performs a double click in the element.
-
-        Currently works only on Chrome driver.
-        """
-        self.action_chains.double_click(self._element)
-        self.action_chains.perform()
-
-    def right_click(self):
-        """
-        Performs a right click in the element.
-
-        Currently works only on Chrome driver.
-        """
-        self.action_chains.context_click(self._element)
-        self.action_chains.perform()
-
-    def drag_and_drop(self, droppable):
-        """
-        Performs drag a element to another elmenet.
-
-        Currently works only on Chrome driver.
-        """
-        self.action_chains.drag_and_drop(self._element, droppable._element)
-        self.action_chains.perform()
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
@@ -424,6 +298,9 @@ class AlertElement(object):
     def accept(self):
         self._alert.accept()
 
+    def dismiss(self):
+        self._alert.dismiss()
+
     def fill_with(self, text):
         self._alert.send_keys(text)
 
@@ -432,4 +309,3 @@ class AlertElement(object):
 
     def __exit__(self, type, value, traceback):
         pass
-

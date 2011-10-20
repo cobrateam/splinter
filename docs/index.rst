@@ -7,7 +7,7 @@
 automate web application actions using python
 +++++++++++++++++++++++++++++++++++++++++++++
 
-:doc:`what's new in splinter 0.4? </news>`
+:doc:`what's new in splinter 0.1? </news>`
 
 Using splinter
 ==============
@@ -23,22 +23,19 @@ Basic browsing and interactions
 
 * :doc:`Browser and navigation </browser>`
 * :doc:`Finding elements </finding>`
-* :doc:`Mouse interactions </mouse-interaction>`
 * :doc:`Interacting with elements and forms </elements-in-the-page>`
-* :doc:`Verify the presence of texts and elements in a page, with matchers </matchers>`
-* :doc:`Cookies manipulation </cookies>`
 
 JavaScript support
 ------------------
 
 * :doc:`Executing JavaScript </javascript>`
+* :doc:`AJAX and asynchronous JavaScript </ajax-and-async-javascript>`
 
 Walking on...
 -------------
 
 * :doc:`Dealing with HTTP status code and exceptions </http-status-code-and-exception>`
 * :doc:`Interacting with iframes, alerts and prompts </iframes-and-alerts>`
-* :doc:`Full API documentation </api/index>`
 
 Drivers
 -------
@@ -57,12 +54,11 @@ Headless drivers
 The following drivers don't open a browser to run your actions (but has its own dependencies, check the
 specific docs for each driver):
 
+* :doc:`Spynner </drivers/spynner>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
-Get in touch and contribute
-===========================
+Get in touch
+============
 
 * :doc:`Community </community>`
 * :doc:`Contribute </contribute>`
-* :doc:`Writing new drivers </contribute/writing-new-drivers>`
-* :doc:`Setting up your splinter development environment </contribute/setting-up-your-development-environment>`

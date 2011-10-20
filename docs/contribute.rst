@@ -11,8 +11,6 @@ contribute
 
 Pull requests are very welcome! Make sure your patches are well tested and documented :)
 
-If you want to add any new driver, check out our :doc:`docs for creating new splinter drivers </contribute/writing-new-drivers>`.
-
 running the tests
 =================
 

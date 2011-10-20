@@ -6,9 +6,7 @@
 zope.testbrowser
 ++++++++++++++++
 
-.. module:: splinter.driver.zopetestbrowser
-
-In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_. You can install it via pip:
+In ``zope.testbrowser`` driver, we use `zope.testbrowser <>`_. You can install it via pip:
 
 .. highlight:: bash
 
@@ -19,7 +17,7 @@ In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org
 Using zope.testbrowser
 ----------------------
 
-To use the ``zope.testbrowser`` driver, all you need to do is pass the string ``zope.testbrowser`` when you create
+To use the Firefox driver, all you need to do is pass the string ``webdriver.firefox`` when you create
 the ``Browser`` instance:
 
 .. highlight:: python
@@ -29,11 +27,4 @@ the ``Browser`` instance:
     from splinter.browser import Browser
     browser = Browser('zope.testbrowser')
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
-
-API docs
---------
-
-.. autoclass:: ZopeTestBrowser
-   :members:
-   :inherited-members:
+**Note:** if you don't provide any driver to ``Browser`` function, ``webdriver.firefox`` will be used.

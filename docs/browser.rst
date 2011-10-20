@@ -22,8 +22,8 @@ splinter support three drivers: chrome, firefox and zopetestbrowser
 
 ::
 
-    browser = Browser('chrome')
-    browser = Browser('firefox')
+    browser = Browser('webdriver.chrome')
+    browser = Browser('webdriver.firefox')
     browser = Browser('zope.testbrowser')
 
 =============================

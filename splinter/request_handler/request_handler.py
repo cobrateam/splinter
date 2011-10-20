@@ -2,9 +2,7 @@ import httplib
 from urlparse import urlparse
 from status_code import StatusCode
 
-
 class RequestHandler(object):
-
     def connect(self, url):
         if url.startswith("http://"):
             self.request_url = url
@@ -15,13 +13,6 @@ class RequestHandler(object):
             self.status_code = StatusCode(200, 'Ok')
 
     def ensure_success_response(self):
-        """
-        Guarantee the success on response.
-
-        If the response is not successed, raises an
-        :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
-        exception.
-        """
         self.status_code.is_valid_response()
 
     def _store_response(self):

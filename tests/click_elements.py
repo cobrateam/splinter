@@ -20,17 +20,8 @@ class ClickElementsTest(object):
         self.browser.click_link_by_href('http://localhost:5000/foo')
         assert "BAR!" in self.browser.html
 
-    def test_click_link_by_partial_href(self):
-        "should allow to click link by partial href"
-        self.browser.click_link_by_partial_href('5000/foo')
-        assert "BAR!" in self.browser.html
-
     def test_click_link_by_text(self):
         "should allow to click link by text"
         self.browser.click_link_by_text('FOO')
         assert "BAR!" in self.browser.html
 
-    def test_click_link_by_partial_text(self):
-        "should allow to click link by partial text"
-        self.browser.click_link_by_partial_text("wordier")
-        assert "BAR!" in self.browser.html
