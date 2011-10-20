@@ -1,0 +1,13 @@
+.. meta::
+    :description: New splinter features on version 0.5.
+    :keywords: splinter 0.5, python, news, documentation, tutorial, web application
+
+whats's new in splinter 0.5?
+============================
+
+Features
+--------
+
+* Partial Windows support
+* Internet Explorer driver
+* Added ``type`` and ``fill`` methods to :doc:`ElementAPI </api/driver-and-element-api>`.

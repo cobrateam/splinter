@@ -1,6 +1,8 @@
 from splinter.element_list import ElementList
 
+
 class WithinElementsTest(object):
+
     def test_element_should_be_a_elementList(self):
         "should be element list"
         element = self.browser.within('body')
@@ -13,7 +15,7 @@ class WithinElementsTest(object):
 
     def test_return_a_empty_list(self):
         "should return a empty list"
-        elements = self.browser.within('body').find_by_css('h2')
+        elements = self.browser.within('body').find_by_css('h3')
         assert elements.is_empty()
 
     def test_return_a_list_with_elements(self):

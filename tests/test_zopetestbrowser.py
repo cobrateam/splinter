@@ -1,9 +1,15 @@
+# -*- coding: utf-8 -*-
 import os
-import unittest
+
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
+
 from splinter.browser import Browser
 from base import BaseBrowserTests
 from fake_webapp import EXAMPLE_APP
-from nose.tools import assert_equals, raises
+
 
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
@@ -33,10 +39,44 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         browser = Browser('zope.testbrowser')
         browser.visit(EXAMPLE_APP)
         browser.forward()
-        assert_equals(EXAMPLE_APP, browser.url)
+        self.assertEquals(EXAMPLE_APP, browser.url)
         browser.quit()
 
-    @raises(NotImplementedError)
     def test_cant_switch_to_frame(self):
         "zope.testbrowser should not be able to switch to frames"
-        self.browser.get_iframe('frame_123')
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.get_iframe('frame_123')
+            self.fail()
+
+        e = cm.exception
+        self.assertEquals("zope.testbrowser does not support frames", e.args[0])
+
+    def test_simple_type(self):
+        "zope.testbrowser won't support type method because it doesn't interact with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.type('query', 'with type method')
+
+    def test_simple_type_on_element(self):
+        "zope.testbrowser won't support type method on element because it doesn't interact with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('query').type('with type method')
+
+    def test_slowly_typing(self):
+        "zope.testbrowser won't support type method because it doesn't interact with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.type('query', 'with type method', slowly=True)
+
+    def test_slowly_typing_on_element(self):
+        "zope.testbrowser won't support type method on element because it doesn't interac with JavaScript"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('query').type('with type method', slowly=True)
+
+    def test_cant_mouseover(self):
+        "zope.testbrowser should not be able to put the mouse over the element"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_css('#visible').first.mouse_over()
+
+    def test_cant_mouseout(self):
+        "zope.testbrowser should not be able to mouse out of an element"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_css('#visible').first.mouse_out()

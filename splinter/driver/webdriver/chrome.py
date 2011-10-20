@@ -2,6 +2,7 @@
 
 from selenium.webdriver import Chrome
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
+from splinter.driver.webdriver.cookie_manager import ChromeCookieManager
 
 
 class WebDriver(BaseWebDriver):
@@ -12,10 +13,12 @@ class WebDriver(BaseWebDriver):
 
         self.element_class = WebDriverElement
 
+        self._cookie_manager = ChromeCookieManager(self.driver)
+
         super(WebDriver, self).__init__()
 
     def attach_file(self, name, value):
-        raise NotImplementedError
-
-    def get_alert(self):
+        """
+        Chrome doesn't have support for file uploading.
+        """
         raise NotImplementedError
