@@ -14,7 +14,7 @@ except ImportError:
     pass
 
 try:
-    from splinter.driver.spynner import Spynner
+    from splinter.driver.spynner_driver import Spynner
     _DRIVERS['spynner'] = Spynner
 except ImportError:
     pass
