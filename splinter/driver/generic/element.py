@@ -38,11 +38,15 @@ class GenericElement(ElementAPI):
 
     @property
     def value(self):
-        return self._element.text
+        # @todo: tests are calling this method even if element is h1, what should we do?
+        try:
+            return self._element.attrib['value']
+        except KeyError:
+            return self._element.text
 
     @property
     def text(self):
-        return self.value
+        return self._element.text
 
 
 class GenericLinkElement(GenericElement):
@@ -62,21 +66,15 @@ class GenericControlElement(ElementAPI):
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_control.attrs[attr]
+        return self._control.attrib[attr]
 
     @property
     def value(self):
-        return self._control.value
+        return self.value
 
     @property
     def checked(self):
         return bool(self._control.value)
-
-    def click(self):
-        return self._control.click()
-
-    def fill(self, value):
-        self._control.value = value
 
 
 class GenericOptionElement(ElementAPI):
@@ -86,7 +84,7 @@ class GenericOptionElement(ElementAPI):
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_item.attrs[attr]
+        return self._control.attrib[attr]
 
     @property
     def text(self):
@@ -94,7 +92,7 @@ class GenericOptionElement(ElementAPI):
 
     @property
     def value(self):
-        return self._control.optionValue
+        return self._control.value
 
     @property
     def selected(self):
