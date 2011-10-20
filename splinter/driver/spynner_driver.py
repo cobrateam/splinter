@@ -1,7 +1,7 @@
 import spynner
-from splinter.driver import DriverAPI
+from splinter.driver.generic.driver import GenericDriver
 
-class Spynner(DriverAPI):
+class Spynner(GenericDriver):
 
     def __init__(self):
         self._browser = spynner.Browser()
