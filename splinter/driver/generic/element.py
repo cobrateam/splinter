@@ -54,9 +54,6 @@ class GenericLinkElement(GenericElement):
     def __getitem__(self, attr):
         return super(GenericLinkElement, self).__getitem__(attr)
 
-    def click(self):
-        return self._browser.open(self["href"])
-
 
 class GenericControlElement(ElementAPI):
 
