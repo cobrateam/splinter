@@ -1,5 +1,5 @@
 import spynner
-from splinter.driver.generic.driver import GenericDriver
+from splinter.generic.driver import GenericDriver
 
 class Spynner(GenericDriver):
 

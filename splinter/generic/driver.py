@@ -2,7 +2,7 @@ import lxml.html
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI
 from splinter.element_list import ElementList
-from splinter.driver.generic.element import GenericElement, GenericLinkElement, GenericOptionElement
+from splinter.generic.element import GenericElement, GenericLinkElement, GenericOptionElement
 
 
 class GenericDriver(DriverAPI):
