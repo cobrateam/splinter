@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from splinter import __version__
 
 README = open('README.rst').read()
