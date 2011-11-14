@@ -296,7 +296,8 @@ class WebDriverElement(ElementAPI):
             return self._element.text
 
     def _set_value(self, value):
-        self._element.clear()
+        if  self._element.get_attribute('type') != 'file':
+            self._element.clear()
         self._element.send_keys(value)
 
     value = property(_get_value, _set_value)
@@ -432,4 +433,3 @@ class AlertElement(object):
 
     def __exit__(self, type, value, traceback):
         pass
-
