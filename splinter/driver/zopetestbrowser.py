@@ -146,6 +146,22 @@ class ZopeTestBrowser(DriverAPI):
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
+    def fill_form(self, field_values):
+        for name, value in field_values.items():
+            element = self.find_by_name(name)
+            control = element.first._control
+            if control.type == 'text':
+                control.value = value
+            elif control.type == 'checkbox':
+                if value:
+                    control.value = control.options
+                else:
+                    control.value = []
+            elif control.type == 'radio':
+                control.value = [option for option in control.options if option == value]
+            elif control.type == 'select':
+                control.value = [value]
+
     def choose(self, name, value):
         control = self._browser.getControl(name=name)
         control.value = [option for option in control.options if option == value]
