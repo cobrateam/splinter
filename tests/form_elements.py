@@ -70,3 +70,30 @@ class FormElementsTest(object):
         self.browser.uncheck("checked-checkbox")
         self.browser.uncheck("checked-checkbox")
         self.assertFalse(self.browser.find_by_name("checked-checkbox").first.checked)
+
+    def test_can_fill_text_field_in_form(self):
+        "should provide a away to change field value"
+        self.browser.fill_form({'query': 'new query'})
+        value = self.browser.find_by_name('query').first.value
+        self.assertEquals('new query', value)
+
+    def test_can_fill_more_than_one_field_in_form(self):
+        "should provide a away to change field value"
+        self.browser.fill('query', 'my name')
+        self.assertFalse(self.browser.find_by_id("gender-m").first.checked)
+        self.assertFalse(self.browser.find_option_by_value("rj").first.selected)
+        self.assertFalse(self.browser.find_by_name("some-check").first.checked)
+        self.assertTrue(self.browser.find_by_name("checked-checkbox").first.checked)
+        self.browser.fill_form({
+            'query': 'another new query',
+            'gender': 'M',
+            'uf': 'rj',
+            'some-check': True,
+            'checked-checkbox': False
+        })
+        query_value = self.browser.find_by_name('query').first.value
+        self.assertEquals('another new query', query_value)
+        self.assertTrue(self.browser.find_by_id("gender-m").first.checked)
+        self.assertTrue(self.browser.find_option_by_value("rj").first.selected)
+        self.assertTrue(self.browser.find_by_name("some-check").first.checked)
+        self.assertFalse(self.browser.find_by_name("checked-checkbox").first.checked)

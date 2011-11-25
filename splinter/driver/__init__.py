@@ -218,6 +218,12 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
+    def fill_form(self, field_values):
+        """
+        Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
+        """
+        raise NotImplementedError
+
     def choose(self, name, value):
         """
         Chooses a value in a radio buttons group.

@@ -235,6 +235,24 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
+    def fill_form(self, field_values):
+        for name, value in field_values.items():
+            elements = self.find_by_name(name)
+            element = elements.first
+            if element['type'] == 'text':
+                element.value = value
+            elif element['type'] == 'checkbox':
+                if value:
+                    element.check()
+                else:
+                    element.uncheck()
+            elif element['type'] == 'radio':
+                for field in elements:
+                    if field.value == value:
+                        field.click()
+            elif element._element.tag_name == 'select':
+                element.find_by_value(value).first._element.click()
+
     def type(self, name, value, slowly=False):
         element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
         if slowly:
