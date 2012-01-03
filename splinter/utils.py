@@ -11,7 +11,7 @@ def warn_deprecated(method, deprecated_method_name):
 def deprecate_driver_class(cls, message):
     def new_init(self, *args, **kwargs):
         cls.__init__(self, *args, **kwargs)
-        warnings.warn(message, DeprecationWarning)
+        warnings.warn(message, DeprecationWarning, stacklevel=3)
 
     cls_dict = dict(cls.__dict__)
     cls_dict['__init__'] = new_init
