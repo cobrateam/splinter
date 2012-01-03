@@ -14,7 +14,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("webdriver.chrome")
+        cls.browser = Browser("chrome")
 
     @classmethod
     def tearDownClass(cls):
