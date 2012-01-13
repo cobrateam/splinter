@@ -147,6 +147,26 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.assertEquals('You say I should not', alert.text)
         alert.accept()
 
+    def test_access_confirm_and_accept_and_dismiss_them(self):
+        self.browser.visit(EXAMPLE_APP + 'alert')
+
+        self.browser.find_by_tag('h3').first.click()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('Should I continue?', alert.text)
+            alert.accept()
+
+        with self.browser.get_alert() as alert:
+            self.assertEquals('You say I should', alert.text)
+            alert.accept()
+
+        self.browser.find_by_tag('h3').first.click()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('Should I continue?', alert.text)
+            alert.dismiss()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('You say I should not', alert.text)
+            alert.accept()
+
 
     def test_access_alerts_using_with(self):
         "should access alerts using 'with' statement"
