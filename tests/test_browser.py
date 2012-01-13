@@ -32,6 +32,15 @@ class BrowserTest(unittest.TestCase):
         __builtin__.__import__ = self.old_import
         reload(module)
 
+    def browser_can_receive_user_agent(self, webdriver):
+        from splinter.browser import Browser
+        browser = Browser(driver_name=webdriver, user_agent="iphone")
+        browser.visit(EXAMPLE_APP + "useragent")
+        result = browser.is_text_present('iphone')
+        browser.quit()
+
+        return result
+
     def test_should_work_even_without_zope_testbrowser(self):
         self.patch_driver('zope')
         from splinter import browser
@@ -45,18 +54,10 @@ class BrowserTest(unittest.TestCase):
             Browser('unknown-driver')
 
     def test_firefox_should_be_able_to_receive_user_agent(self):
-        from splinter.browser import Browser
-        browser = Browser(driver_name='firefox', user_agent="iphone")
-        browser.visit(EXAMPLE_APP + "useragent")
-        self.assertTrue(browser.is_text_present('iphone'))
-        browser.quit()
+        self.assertTrue(self.browser_can_receive_user_agent('firefox'))
 
     def test_chrome_should_be_able_to_receive_user_agent(self):
-        from splinter.browser import Browser
-        browser = Browser(driver_name='chrome', user_agent="iphone")
-        browser.visit(EXAMPLE_APP + "useragent")
-        self.assertTrue(browser.is_text_present('iphone'))
-        browser.quit()
+        self.assertTrue(self.browser_can_receive_user_agent('chrome'))
 
 class BrowserDeprecationTest(unittest.TestCase):
 
