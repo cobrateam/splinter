@@ -103,3 +103,13 @@ The visited page's url can be accessed by the ``url`` attribute:
 
     browser.url
 
+===============================
+Changing User-Agent of Browser
+===============================
+
+You can pass User-Agent on Browser instantiation.
+
+.. highlight:: python
+
+::
+    b = Browser(user_agent="Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en)")
