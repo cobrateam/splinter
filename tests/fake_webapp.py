@@ -145,12 +145,21 @@ EXAMPLE_ALERT_HTML = """\
         $('.alerta').click(function() { alert('This is an alert example.'); });
 
         $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
+
+        $('.confirmacao').click(function() { 
+            answer = confirm('Should I continue?'); 
+            if (answer)
+                alert("You say I should"); 
+            else
+                alert("You say I should not");
+        });
       })
     </script>
   </head>
   <body>
     <h1 class="alerta">Alert Example Title</h1>
     <h2 class="pergunta">Prompt Example Subtitle</h2>
+    <h3 class="confirmacao">Confirm Example Subtitle</h3>
   </body>
 </html>
 """
