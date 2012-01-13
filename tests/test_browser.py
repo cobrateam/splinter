@@ -32,7 +32,7 @@ class BrowserTest(unittest.TestCase):
         __builtin__.__import__ = self.old_import
         reload(module)
 
-    def browser_can_receive_user_agent(self, webdriver):
+    def browser_can_change_user_agent(self, webdriver):
         from splinter.browser import Browser
         browser = Browser(driver_name=webdriver, user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
@@ -53,14 +53,14 @@ class BrowserTest(unittest.TestCase):
             from splinter.browser import Browser
             Browser('unknown-driver')
 
-    def test_firefox_should_be_able_to_receive_user_agent(self):
-        self.assertTrue(self.browser_can_receive_user_agent('firefox'))
+    def test_firefox_should_be_able_to_change_user_agent(self):
+        self.assertTrue(self.browser_can_change_user_agent('firefox'))
 
-    def test_chrome_should_be_able_to_receive_user_agent(self):
-        self.assertTrue(self.browser_can_receive_user_agent('chrome'))
+    def test_chrome_should_be_able_to_change_user_agent(self):
+        self.assertTrue(self.browser_can_change_user_agent('chrome'))
 
-    def test_zope_testbrowser_should_be_able_to_receive_user_agent(self):
-        self.assertTrue(self.browser_can_receive_user_agent('zope.testbrowser'))
+    def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
+        self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))
 
 class BrowserDeprecationTest(unittest.TestCase):
 
