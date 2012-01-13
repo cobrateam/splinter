@@ -14,6 +14,7 @@ import warnings
 from splinter.exceptions import DriverNotFoundError
 from splinter.utils import deprecate_driver_class
 
+from fake_webapp import EXAMPLE_APP
 
 class BrowserTest(unittest.TestCase):
 
@@ -43,6 +44,11 @@ class BrowserTest(unittest.TestCase):
             from splinter.browser import Browser
             Browser('unknown-driver')
 
+    def test_firefox_should_be_able_to_receive_user_agent(self):
+        from splinter.browser import Browser
+        browser = Browser(driver_name='firefox', user_agent="iphone")
+        browser.visit(EXAMPLE_APP + "useragent")
+        self.assertTrue(browser.is_text_present('iphone'))
 
 class BrowserDeprecationTest(unittest.TestCase):
 
@@ -81,3 +87,4 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
             self.assertEquals("'webdriver.chrome' is deprecated, use just 'chrome'", warning_message)
+
