@@ -147,7 +147,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.assertEquals('You say I should not', alert.text)
         alert.accept()
 
-    def test_access_confirm_and_accept_and_dismiss_them(self):
+    def test_access_confirm_and_accept_and_dismiss_them_using_with(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
 
         self.browser.find_by_tag('h3').first.click()
