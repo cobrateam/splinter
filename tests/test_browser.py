@@ -49,12 +49,14 @@ class BrowserTest(unittest.TestCase):
         browser = Browser(driver_name='firefox', user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
         self.assertTrue(browser.is_text_present('iphone'))
+        browser.quit()
 
     def test_chrome_should_be_able_to_receive_user_agent(self):
         from splinter.browser import Browser
         browser = Browser(driver_name='chrome', user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
         self.assertTrue(browser.is_text_present('iphone'))
+        browser.quit()
 
 class BrowserDeprecationTest(unittest.TestCase):
 
