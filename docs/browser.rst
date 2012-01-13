@@ -103,9 +103,9 @@ The visited page's url can be accessed by the ``url`` attribute:
 
     browser.url
 
-===============================
-Changing User-Agent of Browser
-===============================
+===========================
+Changing Browser User-Agent
+===========================
 
 You can pass User-Agent on Browser instantiation.
 
