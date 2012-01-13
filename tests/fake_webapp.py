@@ -219,6 +219,9 @@ def type():
 def get_name():
     return "My name is: Master Splinter"
 
+@app.route('/useragent', methods=['GET'])
+def get_user_agent():
+    return request.user_agent.string
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

@@ -10,11 +10,14 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 
 class WebDriver(BaseWebDriver):
 
-    def __init__(self, profile=None, extensions=None):
+    def __init__(self, profile=None, extensions=None, user_agent=None):
         self.old_popen = subprocess.Popen
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
         firefox_profile.set_preference('network.dns.disableIPv6', False)
+
+        if user_agent is not None:
+            firefox_profile.set_preference('general.useragent.override', user_agent)
 
         if extensions:
             for extension in extensions:

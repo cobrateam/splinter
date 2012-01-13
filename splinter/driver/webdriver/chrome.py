@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from selenium.webdriver import Chrome
+from selenium.webdriver import Chrome, DesiredCapabilities
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
 from splinter.driver.webdriver.cookie_manager import ChromeCookieManager
 
-
 class WebDriver(BaseWebDriver):
-    def __init__(self):
+    def __init__(self, user_agent=None):
         self._patch_subprocess()
-        self.driver = Chrome()
+        capabilities = DesiredCapabilities.CHROME
+
+        if user_agent is not None:
+            capabilities["chrome.switches"] = ["--user-agent=" + user_agent]
+
+        self.driver = Chrome(desired_capabilities=capabilities)
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
