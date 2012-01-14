@@ -6,7 +6,7 @@ from splinter.cookie_manager import CookieManagerAPI
 
 import mimetypes
 import lxml.html
-
+import mechanize
 
 class CookieManager(CookieManagerAPI):
 
@@ -39,8 +39,10 @@ class ZopeTestBrowser(DriverAPI):
 
     driver_name = "zope.testbrowser"
 
-    def __init__(self):
-        self._browser = Browser()
+    def __init__(self, user_agent=None):
+        mech_browser = self._get_mech_browser(user_agent)
+        self._browser = Browser(mech_browser=mech_browser)
+
         self._cookie_manager = CookieManager(self._browser.cookies)
         self._last_urls = []
 
@@ -192,6 +194,12 @@ class ZopeTestBrowser(DriverAPI):
 
     def _element_is_control(self, element):
         return hasattr(element, 'type')
+
+    def _get_mech_browser(self, user_agent):
+        mech_browser = mechanize.Browser()
+        if user_agent is not None:
+            mech_browser.addheaders = [("User-agent", user_agent),]
+        return mech_browser
 
     @property
     def cookies(self):
