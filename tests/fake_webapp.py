@@ -237,6 +237,12 @@ def upload_file():
 def foo():
     return "BAR!"
 
+@app.route('/query', methods=['GET'])
+def query_string():
+    if request.query_string == "model":
+        return "query string is valid"
+    else:
+        abort(500)
 
 def start_flask_app(host, port):
     """Runs the server."""

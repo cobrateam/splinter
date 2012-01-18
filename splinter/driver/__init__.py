@@ -74,7 +74,7 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    def get_iframe(self, id):
+    def get_iframe(self, name):
         """
         Changes the context for working with iframes.
 

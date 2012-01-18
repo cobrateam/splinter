@@ -65,3 +65,10 @@ class RequestHandlerTestCase(unittest.TestCase):
         request = RequestHandler()
         request.connect(mockfile_path)
         self.assertTrue(request.status_code.is_success())
+        
+    def test_should_connect_to_pages_with_query_string(self):
+        request = RequestHandler()
+        url = EXAMPLE_APP + "query?model"
+        request.connect(url)
+        self.assertTrue(request.status_code.is_success())
+        
