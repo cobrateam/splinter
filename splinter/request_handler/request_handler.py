@@ -38,3 +38,5 @@ class RequestHandler(object):
         self.host = parsed_url.hostname
         self.port = parsed_url.port
         self.path = parsed_url.path
+        if parsed_url.query:
+            self.path = parsed_url.path + "?" + parsed_url.query
