@@ -104,6 +104,8 @@ EXAMPLE_HTML = """\
     <a href="http://example.com/">Link for last Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
+    <div id="simple_text">my test text</div>
+    <div id="text_with_html">another <b>b</b>it of text</div>
     <a href="http://localhost:5000/foo">FOO</a>
     <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
     <a class='add-async-element' href="#">add async element</a>
