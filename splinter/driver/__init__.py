@@ -441,6 +441,13 @@ class ElementAPI(object):
     #: Value of the element, usually a form element
     value = property(_get_value, _set_value)
 
+    @property
+    def text(self):
+        """
+        String of all of the text within the element.  HTML tags are stripped.
+        """
+        raise NotImplementedError
+
     def click(self):
         """
         Clicks in the element.
