@@ -94,6 +94,14 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         "should evaluate script"
         self.assertEquals(8, self.browser.evaluate_script("4+4"))
 
+    def test_can_see_the_text_for_an_element(self):
+        "should provide text for an element"
+        self.assertEquals(self.browser.find_by_id("simple_text").first.text, "my test text")
+
+    def test_the_text_for_an_element_strips_html_tags(self):
+        "should show that the text attribute strips html"
+        self.assertEquals(self.browser.find_by_id("text_with_html").first.text, "another bit of text")
+
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
         self.assertTrue(self.browser.find_by_id("visible").first.visible)
@@ -112,7 +120,6 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         alert = self.browser.get_alert()
         self.assertEquals('This is an alert example.', alert.text)
         alert.accept()
-        
 
     def test_access_prompts_and_be_able_to_fill_then(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
@@ -166,7 +173,6 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         with self.browser.get_alert() as alert:
             self.assertEquals('You say I should not', alert.text)
             alert.accept()
-
 
     def test_access_alerts_using_with(self):
         "should access alerts using 'with' statement"
