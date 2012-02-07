@@ -1,6 +1,6 @@
 .. meta::
     :description: Browser
-    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser 
+    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser
 
 +++++++
 Browser
@@ -12,7 +12,7 @@ To use splinter you need create a Browser instance:
 
 ::
 
-    from splinter.browser import Browser
+    from splinterimport Browser
     browser = Browser()
 
 

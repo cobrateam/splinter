@@ -16,13 +16,13 @@ This tutorial provides a simple example, teaching step by step how to:
 Create a Browser instance
 =========================
 
-First of all, import ``Browser`` class and instantiate it. 
+First of all, import ``Browser`` class and instantiate it.
 
 .. highlight:: python
 
 ::
 
-    from splinter.browser import Browser
+    from splinter import Browser
     browser = Browser()
 
 
@@ -119,7 +119,7 @@ Finally, the source code will be:
 
 ::
 
-    from splinter.browser import Browser
+    from splinter import Browser
 
     browser = Browser()
     browser.visit('http://google.com')

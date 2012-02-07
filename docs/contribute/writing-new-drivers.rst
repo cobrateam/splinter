@@ -16,7 +16,7 @@ file containing some code like this:
 
 ::
 
-    from splinter.browser import Browser
+    from splinter import Browser
     from tests.base import BaseBrowserTests
 
     class ColumbiaTest(BaseBrowserTests):
