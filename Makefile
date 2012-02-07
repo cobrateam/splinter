@@ -1,3 +1,5 @@
+all: dependencies test
+
 clean:
 	@find . -name "*.pyc" -delete
 
