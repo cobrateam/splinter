@@ -6,7 +6,7 @@ try:
 except ImportError:
     import unittest
 
-from splinter.browser import Browser
+from splinter import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 

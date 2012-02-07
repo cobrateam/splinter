@@ -10,7 +10,7 @@ from __future__ import with_statement
 import os
 import unittest
 import time
-from splinter.browser import Browser
+from splinter import Browser
 
 class FacebookEventsTestCase(unittest.TestCase):
 
