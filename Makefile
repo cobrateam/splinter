@@ -34,6 +34,16 @@ sphinx:
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
 
+release:
+	sed -i c -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
+	git add setup.py docs/conf.py VERSION
+	echo $(version) > VERSION
+	git commit -m "bump to $(version)"
+	git tag $(version)
+	git push --tags
+	git push origin master
+	python setup.py sdist upload
+
 which = 'tests'
 
 test: dependencies clean
