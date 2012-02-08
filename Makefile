@@ -36,8 +36,8 @@ zopetestbrowser:
 
 release:
 	sed -i c -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
-	git add setup.py docs/conf.py VERSION
 	echo $(version) > VERSION
+	git add setup.py docs/conf.py VERSION
 	git commit -m "bump to $(version)"
 	git tag $(version)
 	git push --tags
