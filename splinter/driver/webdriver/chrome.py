@@ -23,9 +23,3 @@ class WebDriver(BaseWebDriver):
         self._cookie_manager = ChromeCookieManager(self.driver)
 
         super(WebDriver, self).__init__()
-
-    def attach_file(self, name, value):
-        """
-        Chrome doesn't have support for file uploading.
-        """
-        raise NotImplementedError
