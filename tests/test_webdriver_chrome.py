@@ -22,8 +22,3 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
-
-    def test_attach_file_is_not_implemented(self):
-        "attach file is not implemented for chrome driver"
-        with self.assertRaises(NotImplementedError):
-            self.browser.attach_file('file', 'file_path')
