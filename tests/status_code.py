@@ -11,3 +11,7 @@ class StatusCodeTest(object):
     def test_should_visit_index_of_example_app_and_get_200_status_code(self):
         self.browser.visit(EXAMPLE_APP)
         self.assertEquals(200, self.browser.status_code)
+
+    def test_should_be_able_to_print_status_code_with_reason(self):
+        self.browser.visit(EXAMPLE_APP)
+        self.assertEquals('200 - OK', str(self.browser.status_code))
