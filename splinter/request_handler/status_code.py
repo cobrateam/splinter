@@ -35,6 +35,9 @@ class StatusCode(object):
             return 0
         return 1
 
+    def __str__(self):
+        return "%s - %s" % (self.code, self.reason)
+
     def is_valid_response(self):
         """
         Returns ``True`` if the response is valid (:attr:`code` < 400).
@@ -48,7 +51,7 @@ class StatusCode(object):
 
     def is_success(self):
         """
-        Returns ``True`` if the response was succed, otherwise, returns ``False``.
+        Returns ``True`` if the response was succeed, otherwise, returns ``False``.
         """
         if self.code not in self.http_errors:
             return True
