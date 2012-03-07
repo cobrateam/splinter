@@ -7,6 +7,7 @@ from splinter.driver.webdriver.cookie_manager import ChromeCookieManager
 
 
 class WebDriver(BaseWebDriver):
+
     def __init__(self, user_agent=None):
         self._patch_subprocess()
         options = Options()
@@ -22,9 +23,3 @@ class WebDriver(BaseWebDriver):
         self._cookie_manager = ChromeCookieManager(self.driver)
 
         super(WebDriver, self).__init__()
-
-    def attach_file(self, name, value):
-        """
-        Chrome doesn't have support for file uploading.
-        """
-        raise NotImplementedError

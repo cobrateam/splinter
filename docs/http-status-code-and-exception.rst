@@ -20,9 +20,12 @@ for you or you can compare the status code directly:
     browser.status_code.is_success() # True
     # or
     browser.status_code == 200 # True
+    # or
+    browser.status_code.code # 200
 
 The difference between those methods is that if you get a redirect (or something that is not an HTTP error),
-``status_code.is_success`` will consider your response as successfully.
+``status_code.is_success`` will consider your response as successfully. The numeric status code can be accessed via
+``status_code.code``.
 
 Handling HTTP exceptions
 ------------------------
