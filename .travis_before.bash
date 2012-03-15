@@ -2,7 +2,7 @@
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
 
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb -o google-chrome.deb
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb -O google-chrome.deb
 sudo dpkg -i google-chrome.deb
 
 sudo apt-get unzip
