@@ -8,4 +8,5 @@ sudo dpkg -i google-chrome.deb
 sudo apt-get unzip
 wget http://chromium.googlecode.com/files/chromedriver_linux32_18.0.1022.0.zip -O chromedriver.zip
 unzip chromedriver.zip
-./chromedriver &
+chmod +x chromedriver
+cp chromedriver /usr/local/bin
