@@ -1,3 +1,6 @@
+.. image:: https://secure.travis-ci.org/cobrateam/splinter.png
+
+
 ++++++++++++++++++++++++++++++++++++++++++++++++
 splinter - python tool for test web applications
 ++++++++++++++++++++++++++++++++++++++++++++++++
