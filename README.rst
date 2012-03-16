@@ -1,4 +1,5 @@
 .. image:: https://secure.travis-ci.org/cobrateam/splinter.png
+   :target: http://travis-ci.org/cobrateam/splinter
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
