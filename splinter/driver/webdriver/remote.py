@@ -3,26 +3,18 @@
 import subprocess
 
 from selenium.webdriver import Remote
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
 from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
 
-    def __init__(self, server, port=4443, profile=None, extensions=None):
+    def __init__(self, server='localhost', port=4443):
         self.old_popen = subprocess.Popen
-        firefox_profile = FirefoxProfile(profile)
-        firefox_profile.set_preference('extensions.logging.enabled', False)
-        firefox_profile.set_preference('network.dns.disableIPv6', False)
-
-        if extensions:
-            for extension in extensions:
-                firefox_profile.add_extension(extension)
 
         self._patch_subprocess()
-        dest = 'http://%s:%s/wd/hub'%(server,port)
-        self.driver = Remote(dest, {}, firefox_profile)
+        dest = 'http://%s:%s/wd/hub' % (server, port)
+        self.driver = Remote(dest, {})
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
