@@ -10,6 +10,6 @@ setup(name='splinter',
       author_email='andrewsmedina@gmail.com',
       packages=find_packages(exclude=['docs', 'tests', 'samples']),
       include_package_data=True,
-      install_requires=['selenium==2.18.1', 'lxml>=2.3.1,<2.4.0'],
+      install_requires=['selenium==2.20.0', 'lxml>=2.3.1,<2.4.0'],
       tests_require=['coverage', 'flask'],
       )
