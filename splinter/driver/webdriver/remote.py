@@ -4,12 +4,12 @@ import subprocess
 
 from selenium.webdriver import Remote
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
-from splinter.driver.webdriver.cookie_manager import CookieManager
+from splinter.cookie_manager import CookieManagerAPI
 
 
 class WebDriver(BaseWebDriver):
 
-    def __init__(self, server='localhost', port=4443):
+    def __init__(self, server='localhost', port=4444):
         self.old_popen = subprocess.Popen
 
         self._patch_subprocess()
@@ -19,7 +19,7 @@ class WebDriver(BaseWebDriver):
 
         self.element_class = WebDriverElement
 
-        self._cookie_manager = CookieManager(self.driver)
+        self._cookie_manager = CookieManagerAPI()
 
         super(WebDriver, self).__init__()
 
