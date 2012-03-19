@@ -9,10 +9,14 @@ from splinter import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
-import sys
+import subprocess
+
+def selenium_server_is_running():
+    ps = subprocess.Popen(['ps', '-o', 'command'], stdout=subprocess.PIPE).communicate()[0]
+    return 'selenium-server' in ps
 
 
-@unittest.skipUnless('-remote' in sys.argv, 'Skipping the remote webdriver tests')
+@unittest.skipIf(not selenium_server_is_running(), 'Skipping the remote webdriver tests')
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
