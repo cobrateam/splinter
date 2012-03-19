@@ -4,3 +4,6 @@ python:
 before_script: ". .travis_before.bash"
 install: make dependencies
 script: make test
+branches:
+  only:
+    - master
