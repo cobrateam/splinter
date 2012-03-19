@@ -9,7 +9,10 @@ from splinter import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
+import sys
 
+
+@unittest.skipUnless('-remote' in sys.argv, 'Skipping the remote webdriver tests')
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
