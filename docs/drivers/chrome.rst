@@ -53,7 +53,7 @@ Mac OSX
 ::
 
     $ cd $HOME/Downloads
-    $ wget http://chromium.googlecode.com/files/chromedriver_mac_14.0.836.0.zip
+    $ wget http://chromedriver.googlecode.com/files/chromedriver_mac_19.0.1068.0.zip
     $ unzip chromedriver_mac_14.0.836.0.zip
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
@@ -68,7 +68,7 @@ Linux 32bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget http://chromium.googlecode.com/files/chromedriver_linux32_14.0.836.0.zip
+    $ wget http://chromedriver.googlecode.com/files/chromedriver_linux32_19.0.1068.0.zip
     $ unzip chromedriver_linux32_14.0.836.0.zip
 
 
@@ -80,7 +80,7 @@ Linux 64bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget http://chromium.googlecode.com/files/chromedriver_linux64_14.0.836.0.zip
+    $ wget http://chromedriver.googlecode.com/files/chromedriver_linux64_19.0.1068.0.zip
     $ unzip chromedriver_linux64_14.0.836.0.zip
 
 
