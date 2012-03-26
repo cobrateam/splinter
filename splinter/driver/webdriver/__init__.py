@@ -235,6 +235,24 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
+    def fill_form(self, field_values):
+        for name, value in field_values.items():
+            elements = self.find_by_name(name)
+            element = elements.first
+            if element['type'] == 'text':
+                element.value = value
+            elif element['type'] == 'checkbox':
+                if value:
+                    element.check()
+                else:
+                    element.uncheck()
+            elif element['type'] == 'radio':
+                for field in elements:
+                    if field.value == value:
+                        field.click()
+            elif element._element.tag_name == 'select':
+                element.find_by_value(value).first._element.click()
+
     def type(self, name, value, slowly=False):
         element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
         if slowly:
@@ -249,16 +267,13 @@ class BaseWebDriver(DriverAPI):
                 field.click()
 
     def check(self, name):
-        field = self.find_by_name(name).first
-        field.check()
+        self.find_by_name(name).first.check()
 
     def uncheck(self, name):
-        field = self.find_by_name(name).first
-        field.uncheck()
+        self.find_by_name(name).first.uncheck()
 
     def select(self, name, value):
-        element = self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element
-        element.click()
+        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.click()
 
     def quit(self):
         self.driver.quit()
@@ -296,7 +311,8 @@ class WebDriverElement(ElementAPI):
             return self._element.text
 
     def _set_value(self, value):
-        self._element.clear()
+        if  self._element.get_attribute('type') != 'file':
+            self._element.clear()
         self._element.send_keys(value)
 
     value = property(_get_value, _set_value)
@@ -424,6 +440,9 @@ class AlertElement(object):
     def accept(self):
         self._alert.accept()
 
+    def dismiss(self):
+        self._alert.dismiss()
+
     def fill_with(self, text):
         self._alert.send_keys(text)
 
@@ -432,4 +451,3 @@ class AlertElement(object):
 
     def __exit__(self, type, value, traceback):
         pass
-

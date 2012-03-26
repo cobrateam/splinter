@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
-from splinter.browser import Browser
+from splinter import Browser
 
 
 class TestGoogleSearch(unittest.TestCase):

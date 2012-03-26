@@ -1,10 +1,14 @@
+.. image:: https://secure.travis-ci.org/cobrateam/splinter.png
+   :target: http://travis-ci.org/cobrateam/splinter
+
+
 ++++++++++++++++++++++++++++++++++++++++++++++++
 splinter - python tool for test web applications
 ++++++++++++++++++++++++++++++++++++++++++++++++
 
 splinter is a tool for test web applications with a simple for find elements, form actions, and others browser actions.
 
-`what's new in splinter 0.4? <http://splinter.cobrateam.info/docs/news.html>`_
+`what's new in splinter 0.4.4? <http://splinter.cobrateam.info/docs/news.html>`_
 
 first steps
 ===========
@@ -12,7 +16,7 @@ first steps
 * `Installation <http://splinter.cobrateam.info/docs/install.html>`_
 * `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
 
-splinter opens ource project
+splinter open source project
 ============================
 
 * `Community <http://splinter.cobrateam.info/docs/community.html>`_
@@ -31,3 +35,5 @@ external links
 `Splinter: Python tool for acceptance tests on web applications <http://www.franciscosouza.com/2011/05/splinter-python-tool-for-acceptance-tests-on-web-applications/>`_
 
 `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
+
+`salad <https://github.com/wieden-kennedy/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)

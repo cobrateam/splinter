@@ -104,6 +104,8 @@ EXAMPLE_HTML = """\
     <a href="http://example.com/">Link for last Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
+    <div id="simple_text">my test text</div>
+    <div id="text_with_html">another <b>b</b>it of text</div>
     <a href="http://localhost:5000/foo">FOO</a>
     <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
     <a class='add-async-element' href="#">add async element</a>
@@ -145,12 +147,21 @@ EXAMPLE_ALERT_HTML = """\
         $('.alerta').click(function() { alert('This is an alert example.'); });
 
         $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
+
+        $('.confirmacao').click(function() { 
+            answer = confirm('Should I continue?'); 
+            if (answer)
+                alert("You say I should"); 
+            else
+                alert("You say I should not");
+        });
       })
     </script>
   </head>
   <body>
     <h1 class="alerta">Alert Example Title</h1>
     <h2 class="pergunta">Prompt Example Subtitle</h2>
+    <h3 class="confirmacao">Confirm Example Subtitle</h3>
   </body>
 </html>
 """
@@ -210,6 +221,9 @@ def type():
 def get_name():
     return "My name is: Master Splinter"
 
+@app.route('/useragent', methods=['GET'])
+def get_user_agent():
+    return request.user_agent.string
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -225,6 +239,12 @@ def upload_file():
 def foo():
     return "BAR!"
 
+@app.route('/query', methods=['GET'])
+def query_string():
+    if request.query_string == "model":
+        return "query string is valid"
+    else:
+        abort(500)
 
 def start_flask_app(host, port):
     """Runs the server."""

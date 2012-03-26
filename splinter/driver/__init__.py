@@ -74,7 +74,7 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
-    def get_iframe(self, id):
+    def get_iframe(self, name):
         """
         Changes the context for working with iframes.
 
@@ -215,6 +215,12 @@ class DriverAPI(RequestHandler):
     def fill(self, name, value):
         """
         Fill the field identified by ``name`` with the content specified by ``value``.
+        """
+        raise NotImplementedError
+
+    def fill_form(self, field_values):
+        """
+        Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
         """
         raise NotImplementedError
 
@@ -434,6 +440,13 @@ class ElementAPI(object):
 
     #: Value of the element, usually a form element
     value = property(_get_value, _set_value)
+
+    @property
+    def text(self):
+        """
+        String of all of the text within the element.  HTML tags are stripped.
+        """
+        raise NotImplementedError
 
     def click(self):
         """

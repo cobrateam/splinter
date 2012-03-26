@@ -94,6 +94,14 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         "should evaluate script"
         self.assertEquals(8, self.browser.evaluate_script("4+4"))
 
+    def test_can_see_the_text_for_an_element(self):
+        "should provide text for an element"
+        self.assertEquals(self.browser.find_by_id("simple_text").first.text, "my test text")
+
+    def test_the_text_for_an_element_strips_html_tags(self):
+        "should show that the text attribute strips html"
+        self.assertEquals(self.browser.find_by_id("text_with_html").first.text, "another bit of text")
+
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
         self.assertTrue(self.browser.find_by_id("visible").first.visible)
@@ -125,6 +133,46 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         response = self.browser.get_alert()
         self.assertEquals('Splinter', response.text)
         response.accept()
+
+    def test_access_confirm_and_accept_and_dismiss_them(self):
+        self.browser.visit(EXAMPLE_APP + 'alert')
+
+        self.browser.find_by_tag('h3').first.click()
+        alert = self.browser.get_alert()
+
+        self.assertEquals('Should I continue?', alert.text)
+        alert.accept()
+        alert = self.browser.get_alert()
+        self.assertEquals('You say I should', alert.text)
+        alert.accept()
+
+        self.browser.find_by_tag('h3').first.click()
+        alert = self.browser.get_alert()
+        self.assertEquals('Should I continue?', alert.text)
+        alert.dismiss()
+        alert = self.browser.get_alert()
+        self.assertEquals('You say I should not', alert.text)
+        alert.accept()
+
+    def test_access_confirm_and_accept_and_dismiss_them_using_with(self):
+        self.browser.visit(EXAMPLE_APP + 'alert')
+
+        self.browser.find_by_tag('h3').first.click()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('Should I continue?', alert.text)
+            alert.accept()
+
+        with self.browser.get_alert() as alert:
+            self.assertEquals('You say I should', alert.text)
+            alert.accept()
+
+        self.browser.find_by_tag('h3').first.click()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('Should I continue?', alert.text)
+            alert.dismiss()
+        with self.browser.get_alert() as alert:
+            self.assertEquals('You say I should not', alert.text)
+            alert.accept()
 
     def test_access_alerts_using_with(self):
         "should access alerts using 'with' statement"

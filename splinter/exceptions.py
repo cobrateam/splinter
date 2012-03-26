@@ -6,7 +6,7 @@ class DriverNotFoundError(Exception):
 
     Example:
 
-        >>> from splinter.browser import Browser
+        >>> from splinter import Browser
         >>> b = Browser('unknown driver') # raises DriverNotFoundError
     """
     pass

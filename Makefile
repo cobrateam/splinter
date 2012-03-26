@@ -1,3 +1,5 @@
+all: test
+
 clean:
 	@find . -name "*.pyc" -delete
 
@@ -15,7 +17,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.8.1
+	@python -c 'import selenium' 2>/dev/null || pip install -U selenium==2.20.0
 
 unittest2:
 	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2
@@ -31,6 +33,16 @@ sphinx:
 
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
+
+release:
+	sed -i c -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
+	echo $(version) > VERSION
+	git add setup.py docs/conf.py VERSION
+	git commit -m "bump to $(version)"
+	git tag $(version)
+	git push --tags
+	git push origin master
+	python setup.py sdist upload
 
 which = 'tests'
 

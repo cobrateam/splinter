@@ -1,6 +1,6 @@
 .. meta::
     :description: Browser
-    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser 
+    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser
 
 +++++++
 Browser
@@ -12,7 +12,7 @@ To use splinter you need create a Browser instance:
 
 ::
 
-    from splinter.browser import Browser
+    from splinterimport Browser
     browser = Browser()
 
 
@@ -103,3 +103,13 @@ The visited page's url can be accessed by the ``url`` attribute:
 
     browser.url
 
+===========================
+Changing Browser User-Agent
+===========================
+
+You can pass User-Agent on Browser instantiation.
+
+.. highlight:: python
+
+::
+    b = Browser(user_agent="Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en)")
