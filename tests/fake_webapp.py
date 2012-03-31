@@ -94,6 +94,8 @@ EXAMPLE_HTML = """\
             <option value="mt">Mato Grosso</option>
             <option value="rj">Rio de Janeiro</option>
         </select>
+        <label for="description">Description</label>
+        <textarea rows="3" cols="50" name="description"></textarea>
     </form>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <input type="file" name="file">
