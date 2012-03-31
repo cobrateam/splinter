@@ -86,6 +86,7 @@ class FormElementsTest(object):
         self.assertTrue(self.browser.find_by_name("checked-checkbox").first.checked)
         self.browser.fill_form({
             'query': 'another new query',
+            'description': 'Just another description value in the textarea',
             'gender': 'M',
             'uf': 'rj',
             'some-check': True,
@@ -93,6 +94,8 @@ class FormElementsTest(object):
         })
         query_value = self.browser.find_by_name('query').first.value
         self.assertEquals('another new query', query_value)
+        desc_value = self.browser.find_by_name('description').first.value
+        self.assertEquals('Just another description value in the textarea', desc_value)
         self.assertTrue(self.browser.find_by_id("gender-m").first.checked)
         self.assertTrue(self.browser.find_option_by_value("rj").first.selected)
         self.assertTrue(self.browser.find_by_name("some-check").first.checked)

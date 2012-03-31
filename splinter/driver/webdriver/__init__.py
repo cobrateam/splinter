@@ -239,7 +239,7 @@ class BaseWebDriver(DriverAPI):
         for name, value in field_values.items():
             elements = self.find_by_name(name)
             element = elements.first
-            if element['type'] == 'text':
+            if element['type'] == 'text' or element.tag_name == 'textarea':
                 element.value = value
             elif element['type'] == 'checkbox':
                 if value:
@@ -320,6 +320,10 @@ class WebDriverElement(ElementAPI):
     @property
     def text(self):
         return self._element.text
+
+    @property
+    def tag_name(self):
+        return self._element.tag_name
 
     def fill(self, value):
         self.value = value
