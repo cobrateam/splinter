@@ -6,7 +6,10 @@ import time
 from contextlib import contextmanager
 
 from lxml.cssselect import CSSSelector
-from selenium.common.exceptions import NoSuchElementException
+try:
+    from selenium.common.exceptions import NoSuchElementException
+except ImportError:
+    from selenium.webdriver.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
