@@ -30,6 +30,11 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
 
+    def test_support_with_statement(self):
+        "Remote should support with statement"
+        with Browser('remote') as remote:
+            pass
+
     def test_mouse_over(self):
         "Remote should not support mouseover"
         with self.assertRaises(NotImplementedError):

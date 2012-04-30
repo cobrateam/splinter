@@ -65,8 +65,8 @@ class BrowserTest(unittest.TestCase):
     def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))
 
-    def test_any_browser_should_support_with_statement(self):
-        for browser in ('firefox', 'chrome', 'zope.testbrowser', 'remote'):
+    def test_firefox_chrome_and_zope_testbrowser_should_support_with_statement(self):
+        for browser in ('firefox', 'chrome', 'zope.testbrowser'):
             from splinter import Browser
             with Browser(browser) as internet:
                 pass
