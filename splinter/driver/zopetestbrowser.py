@@ -46,6 +46,12 @@ class ZopeTestBrowser(DriverAPI):
         self._cookie_manager = CookieManager(self._browser.cookies)
         self._last_urls = []
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass
+
     def visit(self, url):
         self._browser.open(url)
 

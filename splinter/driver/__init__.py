@@ -22,6 +22,18 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError
 
+    def __enter__(self):
+        """
+        Context manager to use the browser safely.
+        """
+        raise NotImplementedError
+
+    def __exit__(self):
+        """
+        Context manager to use the browser safely.
+        """
+        raise NotImplementedError
+
     @property
     def html(self):
         """

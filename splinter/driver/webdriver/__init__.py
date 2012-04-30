@@ -50,6 +50,12 @@ class BaseWebDriver(DriverAPI):
         # cleaning up the house
         subprocess.Popen = self.old_popen
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.quit()
+
     @property
     def title(self):
         return self.driver.title
