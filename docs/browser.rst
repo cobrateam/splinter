@@ -12,9 +12,21 @@ To use splinter you need create a Browser instance:
 
 ::
 
-    from splinterimport Browser
+    from splinter import Browser
     browser = Browser()
 
+Or, you can use it by a ``context manager``, through the ``with`` statement:
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    with Browser() as b:
+        # stuff using the browser
+
+This last example will create a new browser window and close it when the cursor
+reach the code outside the ``with`` statement, automatically.
 
 splinter support three drivers: chrome, firefox and zopetestbrowser
 
