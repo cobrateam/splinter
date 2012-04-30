@@ -1,3 +1,5 @@
+from __future__ import with_statement
+
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
 from splinter.element_list import ElementList
