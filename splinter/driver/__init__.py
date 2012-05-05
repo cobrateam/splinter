@@ -321,7 +321,7 @@ class DriverAPI(RequestHandler):
 
         After quit the browser, you can't use it anymore.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support quit" % self.driver_name)
 
     def is_element_present_by_css(self, css_selector, wait_time=None):
         """
@@ -329,7 +329,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by css" % self.driver_name)
 
     def is_element_not_present_by_css(self, css_selector, wait_time=None):
         """
@@ -337,7 +337,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by css" % self.driver_name)
 
     def is_element_present_by_xpath(self, xpath, wait_time=None):
         """
@@ -345,7 +345,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by xpath" % self.driver_name)
 
     def is_element_not_present_by_xpath(self, xpath, wait_time=None):
         """
@@ -353,7 +353,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by xpath" % self.driver_name)
 
     def is_element_present_by_tag(self, tag, wait_time=None):
         """
@@ -361,7 +361,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by tag" % self.driver_name)
 
     def is_element_not_present_by_tag(self, tag, wait_time=None):
         """
@@ -369,7 +369,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by tag" % self.driver_name)
 
     def is_element_present_by_name(self, name, wait_time=None):
         """
@@ -377,7 +377,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by name" % self.driver_name)
 
     def is_element_not_present_by_name(self, name, wait_time=None):
         """
@@ -385,7 +385,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by name" % self.driver_name)
 
     def is_element_present_by_value(self, value, wait_time=None):
         """
@@ -393,7 +393,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by value" % self.driver_name)
 
     def is_element_not_present_by_value(self, value, wait_time=None):
         """
@@ -401,7 +401,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by value" % self.driver_name)
 
     def is_element_present_by_id(self, id, wait_time=None):
         """
@@ -409,7 +409,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is present by id" % self.driver_name)
 
     def is_element_not_present_by_id(self, id, wait_time=None):
         """
@@ -417,7 +417,7 @@ class DriverAPI(RequestHandler):
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is not present by id" % self.driver_name)
 
     @property
     def cookies(self):
@@ -426,7 +426,7 @@ class DriverAPI(RequestHandler):
 
         For more details, check the :doc:`cookies manipulation section </cookies>`.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support cookies manipulation" % self.driver_name)
 
 
 class ElementAPI(object):
@@ -435,7 +435,7 @@ class ElementAPI(object):
 
     Any element in the page can be represented as an instance of ``ElementAPI``.
 
-    Once you have an instance, you can easily access its attributes like a ``dict``:
+    Once you have an instance, you can easily access attributes like a ``dict``:
 
         >>> element = browser.find_by_id("link-logo").first
         >>> assert element['href'] == 'http://splinter.cobrateam.info'
@@ -458,13 +458,13 @@ class ElementAPI(object):
         """
         String of all of the text within the element.  HTML tags are stripped.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support get the element text" % self.driver_name)
 
     def click(self):
         """
         Clicks in the element.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support click element" % self.driver_name)
 
     def check(self):
         """
@@ -473,7 +473,7 @@ class ElementAPI(object):
         If the element is already checked, this method does nothing. For unchecking
         elements, take a loot in the :meth:`uncheck <ElementAPI.uncheck>` method.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support check element" % self.driver_name)
 
     def uncheck(self):
         """
@@ -482,7 +482,7 @@ class ElementAPI(object):
         If the element is already unchecked, this method does nothing. For checking
         elements, take a loot in the :meth:`check <ElementAPI.check>` method.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element isn't checked" % self.driver_name)
 
     @property
     def checked(self):
@@ -496,32 +496,32 @@ class ElementAPI(object):
             >>> element.uncheck()
             >>> assert not element.checked
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is checked" % self.driver_name)
 
     @property
     def visible(self):
         """
         Boolean property that says if the element is visible or hidden in the current page.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support verifying if element is visible" % self.driver_name)
 
     def mouse_over(self):
         """
         Puts the mouse over the element.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support mouse over" % self.driver_name)
 
     def mouse_out(self):
         """
         Moves the mouse away from the element.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support mouse out" % self.driver_name)
 
     def fill(self, value):
         """
         Fill the field with the content specified by ``value``.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support fill" % self.driver_name)
 
     def type(self, value, slowly=False):
         """
@@ -529,7 +529,7 @@ class ElementAPI(object):
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
         """
-        raise NotImplementedError
+        raise NotImplementedError("%s doesn't support type" % self.driver_name)
 
     def __getitem__(self, attribute):
         raise NotImplementedError
