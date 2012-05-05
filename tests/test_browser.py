@@ -83,13 +83,13 @@ class BrowserDeprecationTest(unittest.TestCase):
             cls()
             warning = warnings_list[0]
             assert type(warning.message) is DeprecationWarning
-            self.assertEquals("Foo was deprecated", warning.message.args[0])
+            self.assertEqual("Foo was deprecated", warning.message.args[0])
 
     def test_should_prepend_a_Deprecated_to_class(self):
         with warnings.catch_warnings(record=True):
             warnings.simplefilter('default')
             cls = deprecate_driver_class(self.Foo, message="Foo was deprecated")
-            self.assertEquals("DeprecatedFoo", cls.__name__)
+            self.assertEqual("DeprecatedFoo", cls.__name__)
 
     def test_webdriverfirefox_should_be_deprecated(self):
         with warnings.catch_warnings(record=True) as warnings_list:
@@ -98,7 +98,7 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser = Browser('webdriver.firefox')
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
-            self.assertEquals("'webdriver.firefox' is deprecated, use just 'firefox'", warning_message)
+            self.assertEqual("'webdriver.firefox' is deprecated, use just 'firefox'", warning_message)
 
     def test_webdriverchrome_should_be_deprecated(self):
         with warnings.catch_warnings(record=True) as warnings_list:
@@ -107,5 +107,5 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser = Browser('webdriver.chrome')
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
-            self.assertEquals("'webdriver.chrome' is deprecated, use just 'chrome'", warning_message)
+            self.assertEqual("'webdriver.chrome' is deprecated, use just 'chrome'", warning_message)
 

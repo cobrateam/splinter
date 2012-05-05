@@ -9,12 +9,12 @@ class FormElementsTest(object):
         "should provide a away to change field value"
         self.browser.fill('query', 'new query')
         value = self.browser.find_by_name('query').first.value
-        self.assertEquals('new query', value)
+        self.assertEqual('new query', value)
 
     def test_should_provide_a_method_on_element_to_change_its_value(self):
         self.browser.find_by_name('query').fill('new query')
         value = self.browser.find_by_name('query').first.value
-        self.assertEquals('new query', value)
+        self.assertEqual('new query', value)
 
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill('query', 'my name')
@@ -29,15 +29,15 @@ class FormElementsTest(object):
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
-        self.assertEquals("Rio de Janeiro", self.browser.find_option_by_value("rj").first.text)
+        self.assertEqual("Rio de Janeiro", self.browser.find_option_by_value("rj").first.text)
 
     def test_can_get_value_attribute_for_a_option(self):
         "should option have a value attribute"
-        self.assertEquals("rj", self.browser.find_option_by_value("rj").first["value"])
+        self.assertEqual("rj", self.browser.find_option_by_value("rj").first["value"])
 
     def test_can_find_option_by_text(self):
         "should provide a way to find select option by text"
-        self.assertEquals("rj", self.browser.find_option_by_text("Rio de Janeiro").first.value)
+        self.assertEqual("rj", self.browser.find_option_by_text("Rio de Janeiro").first.value)
 
     def test_can_select_a_option(self):
         "should provide a way to select a option"
@@ -75,7 +75,7 @@ class FormElementsTest(object):
         "should provide a away to change field value"
         self.browser.fill_form({'query': 'new query'})
         value = self.browser.find_by_name('query').first.value
-        self.assertEquals('new query', value)
+        self.assertEqual('new query', value)
 
     def test_can_fill_more_than_one_field_in_form(self):
         "should provide a away to change field value"
@@ -93,9 +93,9 @@ class FormElementsTest(object):
             'checked-checkbox': False
         })
         query_value = self.browser.find_by_name('query').first.value
-        self.assertEquals('another new query', query_value)
+        self.assertEqual('another new query', query_value)
         desc_value = self.browser.find_by_name('description').first.value
-        self.assertEquals('Just another description value in the textarea', desc_value)
+        self.assertEqual('Just another description value in the textarea', desc_value)
         self.assertTrue(self.browser.find_by_id("gender-m").first.checked)
         self.assertTrue(self.browser.find_option_by_value("rj").first.selected)
         self.assertTrue(self.browser.find_by_name("some-check").first.checked)

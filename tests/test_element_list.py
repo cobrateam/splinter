@@ -30,15 +30,15 @@ class ElementListTest(unittest.TestCase):
     def test_property_first_and_last(self):
         "should provide a \"first\" and a \"last\" properties which returns the first and last element"
         the_list = ElementList([1, 2, 3])
-        self.assertEquals(the_list[0], the_list.first)
-        self.assertEquals(the_list[2], the_list.last)
+        self.assertEqual(the_list[0], the_list.first)
+        self.assertEqual(the_list[2], the_list.last)
 
     def test_call_method_on_first_element(self):
         "when some method is missing on ElementList and is present in element, it should be passed"
         the_list = ElementList([Person(), Person(), Person()])
         the_list.walk()
         the_person = the_list.first
-        self.assertEquals("walking", the_person.current_action)
+        self.assertEqual("walking", the_person.current_action)
 
     def test_raise_exception_on_indexerror(self):
         "should raise ElementDoesNotExist exception on IndexError"
@@ -65,7 +65,7 @@ class ElementListTest(unittest.TestCase):
 
         expected_message = "'ElementList' object has no attribute 'talk'"
         e = cm.exception
-        self.assertEquals(expected_message, e.args[0])
+        self.assertEqual(expected_message, e.args[0])
 
     def test_not_found_exception_with_query_and_method(self):
         "should receive the find method and the query and use them in exception"
@@ -75,4 +75,4 @@ class ElementListTest(unittest.TestCase):
 
         expected_message = 'no elements could be find with id "menu"'
         e = cm.exception
-        self.assertEquals(expected_message, e.args[0])
+        self.assertEqual(expected_message, e.args[0])

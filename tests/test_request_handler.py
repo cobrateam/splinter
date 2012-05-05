@@ -22,10 +22,10 @@ class RequestHandlerTestCase(unittest.TestCase):
         self.assertTrue(self.request.status_code.is_success())
 
     def test_should_start_a_request_with_localhost_and_get_localhost_as_hostname(self):
-        self.assertEquals("localhost", self.request.host)
+        self.assertEqual("localhost", self.request.host)
 
     def test_should_start_a_request_with_localhost_in_port_5000_and_get_5000_as_port(self):
-        self.assertEquals(5000, self.request.port)
+        self.assertEqual(5000, self.request.port)
 
     def test_should_visit_alert_page_and_get_a_success_response(self):
         request = RequestHandler()
@@ -53,12 +53,12 @@ class RequestHandlerTestCase(unittest.TestCase):
             request.ensure_success_response()
         except HttpResponseError as e:
             exception = e.msg
-        self.assertEquals("404 - Not Found", exception)
+        self.assertEqual("404 - Not Found", exception)
 
     def test_should_be_able_to_represent_exception_as_string(self):
         "HttpResponseError exception should be representable as string"
         error = HttpResponseError(404, "Not Found")
-        self.assertEquals("404 - Not Found", str(error))
+        self.assertEqual("404 - Not Found", str(error))
 
     def test_should_not_connect_to_non_http_protocols(self):
         mockfile_path = "file://%s" % os.path.join(TESTS_ROOT, "mockfile.txt")

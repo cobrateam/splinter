@@ -21,24 +21,24 @@ class ElementDoestNotExistTest(object):
         "element list contains right information about query and raises nice exception message"
         with self.assertRaises(ElementDoesNotExist) as cm:
             element_list = self.browser.find_by_css('.element-that-dont-exists')
-            self.assertEquals('css', element_list.find_by)
-            self.assertEquals('.element-that-dont-exists', element_list.query)
+            self.assertEqual('css', element_list.find_by)
+            self.assertEqual('.element-that-dont-exists', element_list.query)
             element_list.first
 
         expected_message = 'no elements could be find with css ".element-that-dont-exists"'
 
         e = cm.exception
-        self.assertEquals(expected_message, e.args[0])
+        self.assertEqual(expected_message, e.args[0])
 
     def test_element_list_raises_when_element_first_doesnt_exists_in_element_context(self):
         "element list raises exception with right information in element context"
         with self.assertRaises(ElementDoesNotExist) as cm:
             element_list = self.browser.find_by_css("#inside").first.find_by_css('.inner-element-that-dont-exists')
-            self.assertEquals('css', element_list.find_by)
-            self.assertEquals('.inner-element-that-dont-exists', element_list.query)
+            self.assertEqual('css', element_list.find_by)
+            self.assertEqual('.inner-element-that-dont-exists', element_list.query)
             element_list.first
 
         expected_message = 'no elements could be find with css ".inner-element-that-dont-exists"'
 
         e = cm.exception
-        self.assertEquals(expected_message, e.args[0])
+        self.assertEqual(expected_message, e.args[0])
