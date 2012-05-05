@@ -45,8 +45,8 @@ downloaded file in a directory in the ``PATH`` (e.g. ``/usr/bin``). You can also
 and add that directory to the ``PATH``:
 
 
-Mac OSX
-=======
+Mac OS X
+========
 
 .. highlight:: bash
 
@@ -58,6 +58,16 @@ Mac OSX
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
     $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+
+Or, if you use `Homebrew <http://mxcl.github.com/homebrew/>`_, just do:
+
+.. highlight:: bash
+
+::
+
+    $ brew install chromedriver
+
+This will stall the latest chromedriver and link it to your ``/usr/local/bin``.
 
 
 Linux 32bits
