@@ -49,7 +49,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
             self.fail()
 
         e = cm.exception
-        self.assertEquals("zope.testbrowser does not support frames", e.args[0])
+        self.assertEquals("zope.testbrowser doesn't support frames", e.args[0])
 
     def test_simple_type(self):
         "zope.testbrowser won't support type method because it doesn't interact with JavaScript"
