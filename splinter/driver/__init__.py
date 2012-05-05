@@ -458,13 +458,13 @@ class ElementAPI(object):
         """
         String of all of the text within the element.  HTML tags are stripped.
         """
-        raise NotImplementedError("%s doesn't support get the element text" % self.driver_name)
+        raise NotImplementedError
 
     def click(self):
         """
         Clicks in the element.
         """
-        raise NotImplementedError("%s doesn't support click element" % self.driver_name)
+        raise NotImplementedError
 
     def check(self):
         """
@@ -473,7 +473,7 @@ class ElementAPI(object):
         If the element is already checked, this method does nothing. For unchecking
         elements, take a loot in the :meth:`uncheck <ElementAPI.uncheck>` method.
         """
-        raise NotImplementedError("%s doesn't support check element" % self.driver_name)
+        raise NotImplementedError
 
     def uncheck(self):
         """
@@ -482,7 +482,7 @@ class ElementAPI(object):
         If the element is already unchecked, this method does nothing. For checking
         elements, take a loot in the :meth:`check <ElementAPI.check>` method.
         """
-        raise NotImplementedError("%s doesn't support verifying if element isn't checked" % self.driver_name)
+        raise NotImplementedError
 
     @property
     def checked(self):
@@ -496,32 +496,32 @@ class ElementAPI(object):
             >>> element.uncheck()
             >>> assert not element.checked
         """
-        raise NotImplementedError("%s doesn't support verifying if element is checked" % self.driver_name)
+        raise NotImplementedError
 
     @property
     def visible(self):
         """
         Boolean property that says if the element is visible or hidden in the current page.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is visible" % self.driver_name)
+        raise NotImplementedError
 
     def mouse_over(self):
         """
         Puts the mouse over the element.
         """
-        raise NotImplementedError("%s doesn't support mouse over" % self.driver_name)
+        raise NotImplementedError
 
     def mouse_out(self):
         """
         Moves the mouse away from the element.
         """
-        raise NotImplementedError("%s doesn't support mouse out" % self.driver_name)
+        raise NotImplementedError
 
     def fill(self, value):
         """
         Fill the field with the content specified by ``value``.
         """
-        raise NotImplementedError("%s doesn't support fill" % self.driver_name)
+        raise NotImplementedError
 
     def type(self, value, slowly=False):
         """
@@ -529,7 +529,7 @@ class ElementAPI(object):
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
         """
-        raise NotImplementedError("%s doesn't support type" % self.driver_name)
+        raise NotImplementedError
 
     def __getitem__(self, attribute):
         raise NotImplementedError
