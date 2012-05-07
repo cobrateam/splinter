@@ -1,20 +1,7 @@
-from splinter.element_list import ElementList
-
-
 class WithinElementsTest(object):
 
-    def test_element_should_be_a_elementList(self):
-        "should be element list"
-        element = self.browser.within('body')
-        assert isinstance(element, ElementList)
-
-    def test_find_element_within_should_be_a_elementList(self):
-        "should return a elementList"
-        element = self.browser.within('body').find_by_css('h2')
-        assert isinstance(element, ElementList)
-
     def test_return_a_empty_list(self):
-        "should return a empty list"
+        "should return an empty list"
         elements = self.browser.within('body').find_by_css('h3')
         assert elements.is_empty()
 
@@ -22,3 +9,8 @@ class WithinElementsTest(object):
         "should return a single element in list"
         elements = self.browser.within('body').find_by_css('h1')
         assert not elements.is_empty()
+
+    def test_return_nothing_if_context_is_not_valid(self):
+        "should return nothing if context is not valid"
+        elements = self.browser.within('h1').find_by_css('body')
+        assert elements.is_empty()

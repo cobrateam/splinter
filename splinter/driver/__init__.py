@@ -3,7 +3,7 @@
 This module contains the basic API for splinter drivers and elemnts.
 """
 
-from splinter.element_list import ElementList
+from splinter.within_element_list import WithinElementList
 from splinter.meta import InheritedDocs
 from splinter.request_handler.request_handler import RequestHandler
 
@@ -313,7 +313,7 @@ class DriverAPI(RequestHandler):
         return self.find_link_by_partial_text(partial_text).first.click()
 
     def within(self, context):
-        return ElementList([], context, self)
+        return WithinElementList([], self.find_by_css(context), self)
 
     def quit(self):
         """
