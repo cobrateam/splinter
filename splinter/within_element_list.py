@@ -10,3 +10,11 @@ class WithinElementList(ElementList):
         for context_elements in self.context:
           final_elements = context_elements.find_by_css(element)
         return final_elements
+
+    def find_by_xpath(self, element):
+        """
+        Performs a find in the element context using the provided selector.
+        """
+        for context_elements in self.context:
+          final_elements = context_elements.find_by_xpath(element)
+        return final_elements

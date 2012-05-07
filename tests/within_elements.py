@@ -14,3 +14,9 @@ class WithinElementsTest(object):
         "should return nothing if context is not valid"
         elements = self.browser.within('h1').find_by_css('body')
         assert elements.is_empty()
+
+    def test_find_by_xpath_with_context(self):
+        """should find by xpath using context"""
+        xpath_elements = self.browser.within('body').find_by_xpath('//h1')
+        css_elements = self.browser.within('body').find_by_css('h1')
+        assert css_elements.value == xpath_elements.value
