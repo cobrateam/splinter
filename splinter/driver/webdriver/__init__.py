@@ -190,10 +190,10 @@ class BaseWebDriver(DriverAPI):
         return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href", original_query=partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_partial_link_text(partial_text)], find_by="partial text", query=partial_text)
+        return self.find_by_xpath('//a[contains(text(), "%s")]' % partial_text, original_find="link by partial text", original_query=partial_text)
 
     def find_link_by_text(self, text):
-        return ElementList([self.element_class(element, self) for element in self.driver.find_elements_by_link_text(text)], find_by="link by text", query=text)
+        return self.find_by_xpath('//a[text()="%s"]' % text, original_find="link by text", original_query=text)
 
     def find_by(self, finder, selector, original_find=None, original_query=None):
         elements = None
