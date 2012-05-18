@@ -311,13 +311,10 @@ class WebDriverElement(ElementAPI):
         self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
-        value = self["value"]
-        if value:
-            return value
-        return self._element.text
+        return self["value"] or self._element.text
 
     def _set_value(self, value):
-        if  self._element.get_attribute('type') != 'file':
+        if self._element.get_attribute('type') != 'file':
             self._element.clear()
         self._element.send_keys(value)
 
