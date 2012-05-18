@@ -314,8 +314,7 @@ class WebDriverElement(ElementAPI):
         value = self["value"]
         if value:
             return value
-        else:
-            return self._element.text
+        return self._element.text
 
     def _set_value(self, value):
         if  self._element.get_attribute('type') != 'file':
