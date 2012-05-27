@@ -15,10 +15,9 @@ from is_text_present import IsTextPresentTest
 from mouse_interaction import MouseInteractionTest
 from status_code import StatusCodeTest
 from type import SlowlyTypeTest
-from within_elements import WithinElementsTest
 
 
-class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, WithinElementsTest, CookiesTest, SlowlyTypeTest):
+class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, CookiesTest, SlowlyTypeTest):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")

@@ -1,13 +1,15 @@
-from splinter.element_list import ElementList
 
 
-class WithinElementList(ElementList):
+class Within(object):
+
+    def __init__(self, within_selector):
+        self.within_selector = within_selector
 
     def find_by_css(self, element):
         """
         Performs a find in the element context using the provided selector.
         """
-        for context_elements in self.context:
+        for context_elements in self.within_selector:
           final_elements = context_elements.find_by_css(element)
         return final_elements
 
@@ -15,6 +17,6 @@ class WithinElementList(ElementList):
         """
         Performs a find in the element context using the provided selector.
         """
-        for context_elements in self.context:
+        for context_elements in self.within_selector:
           final_elements = context_elements.find_by_xpath(element)
         return final_elements
