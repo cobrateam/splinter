@@ -53,8 +53,8 @@ Mac OS X
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_mac_19.0.1068.0.zip
-    $ unzip chromedriver_mac_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_mac_20.0.1133.0.zip
+    $ unzip chromedriver_mac_20.0.1133.0.zip
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
     $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
@@ -78,8 +78,8 @@ Linux 32bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux32_19.0.1068.0.zip
-    $ unzip chromedriver_linux32_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux32_20.0.1133.0.zip
+    $ unzip chromedriver_linux32_20.0.1133.0.zip
 
 
 Linux 64bits
@@ -90,8 +90,8 @@ Linux 64bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux64_19.0.1068.0.zip
-    $ unzip chromedriver_linux64_19.0.1068.0.zip
+    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux64_20.0.1133.0.zip
+    $ unzip chromedriver_linux64_20.0.1133.0.zip
 
 
 Linux (common steps for 32 and 64bits)
