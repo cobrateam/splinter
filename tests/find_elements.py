@@ -9,7 +9,7 @@ from splinter.element_list import ElementList
 class FindElementsTest(object):
 
     def test_finding_by_css(self):
-        "should finds by css"
+        "should find by css"
         value = self.browser.find_by_css('h1').first.value
         self.assertEqual('Example Header', value)
 
