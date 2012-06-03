@@ -2,6 +2,7 @@
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
+from splinter.driver.zopetestbrowser import ZopeTestBrowser
 from splinter.exceptions import DriverNotFoundError
 from splinter.utils import deprecate_driver_class
 
@@ -12,6 +13,7 @@ _DRIVERS = {
     'chrome': ChromeWebDriver,
     'webdriver.chrome': deprecate_driver_class(ChromeWebDriver, message="'webdriver.chrome' is deprecated, use just 'chrome'"),
     'webdriver.firefox': deprecate_driver_class(FirefoxWebDriver, message="'webdriver.firefox' is deprecated, use just 'firefox'"),
+    'zope.testbrowser': ZopeTestBrowser,
 }
 
 try:
