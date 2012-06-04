@@ -249,7 +249,7 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def value(self):
-        return self._element.text
+        return self._element.text_content()
 
     @property
     def text(self):
