@@ -1,5 +1,10 @@
-from flask import Flask
-from flask import request
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+from flask import Flask, request
 
 EXAMPLE_APP = "http://localhost:5000/"
 
@@ -150,10 +155,10 @@ EXAMPLE_ALERT_HTML = """\
 
         $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
 
-        $('.confirmacao').click(function() { 
-            answer = confirm('Should I continue?'); 
+        $('.confirmacao').click(function() {
+            answer = confirm('Should I continue?');
             if (answer)
-                alert("You say I should"); 
+                alert("You say I should");
             else
                 alert("You say I should not");
         });
@@ -223,9 +228,11 @@ def type():
 def get_name():
     return "My name is: Master Splinter"
 
+
 @app.route('/useragent', methods=['GET'])
 def get_user_agent():
     return request.user_agent.string
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -237,9 +244,11 @@ def upload_file():
 
         return '|'.join(buffer)
 
+
 @app.route('/foo')
 def foo():
     return "BAR!"
+
 
 @app.route('/query', methods=['GET'])
 def query_string():
@@ -247,6 +256,7 @@ def query_string():
         return "query string is valid"
     else:
         abort(500)
+
 
 def start_flask_app(host, port):
     """Runs the server."""

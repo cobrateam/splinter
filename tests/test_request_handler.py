@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 import os
 
 try:
@@ -65,10 +70,9 @@ class RequestHandlerTestCase(unittest.TestCase):
         request = RequestHandler()
         request.connect(mockfile_path)
         self.assertTrue(request.status_code.is_success())
-        
+
     def test_should_connect_to_pages_with_query_string(self):
         request = RequestHandler()
         url = EXAMPLE_APP + "query?model"
         request.connect(url)
         self.assertTrue(request.status_code.is_success())
-        

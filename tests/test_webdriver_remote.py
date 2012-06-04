@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 try:
     import unittest2 as unittest
 except ImportError:
@@ -10,6 +14,7 @@ from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
 import subprocess
+
 
 def selenium_server_is_running():
     ps = subprocess.Popen(['ps', '-o', 'command'], stdout=subprocess.PIPE).communicate()[0]

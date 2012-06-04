@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
 
 
 class Within(object):
@@ -10,7 +15,7 @@ class Within(object):
         Performs a find in the element context using the provided selector.
         """
         for context_elements in self.within_selector:
-          final_elements = context_elements.find_by_css(element)
+            final_elements = context_elements.find_by_css(element)
         return final_elements
 
     def find_by_xpath(self, element):
@@ -18,5 +23,5 @@ class Within(object):
         Performs a find in the element context using the provided selector.
         """
         for context_elements in self.within_selector:
-          final_elements = context_elements.find_by_xpath(element)
+            final_elements = context_elements.find_by_xpath(element)
         return final_elements

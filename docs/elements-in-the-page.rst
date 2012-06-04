@@ -1,3 +1,7 @@
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 .. meta::
     :description: Dealing with elements in the page.
     :keywords: splinter, python, tutorial, documentation, forms, click links, get value

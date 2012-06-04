@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 active_displays=$(ls /tmp/.X*-lock | sed 's/\/tmp\/\.X\(.*\)-lock/\1/')
 last_active_display=$(echo "$active_displays" | sort -r | head -1)
 new_display=$(echo "$last_active_display + 1" | bc)

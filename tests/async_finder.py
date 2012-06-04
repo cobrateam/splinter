@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2012 splinter authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+
 class AsyncFinderTests(object):
 
     def test_find_by_css_should_found_an_async_element(self):
