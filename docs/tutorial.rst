@@ -64,9 +64,9 @@ In order to find Google's search button, do:
 
 ::
 
-    button = browser.find_by_css('.lsb').first
+    button = browser.find_by_name('btnG')
 
-Note that this ``.lsb`` was found looking at Google's page source code.
+Note that this ``btnG`` was found looking at Google's page source code.
 
 With the button in hands, we can then press it:
 
@@ -83,7 +83,7 @@ Note: Both steps presented above could be joined in a single line, such as:
 
 ::
 
-    browser.find_by_css('.lsb').first.click()
+    browser.find_by_name('btnG').click()
 
 
 Find out that Splinter official website is in the search results
@@ -128,7 +128,7 @@ Finally, the source code will be:
     browser = Browser()
     browser.visit('http://google.com')
     browser.fill('q', 'splinter - python acceptance testing for web applications')
-    browser.find_by_css('.lsb').first.click()
+    browser.find_by_name('btnG').click()
 
     if browser.is_text_present('splinter.cobrateam.info'):
         print "Yes, the official website was found!"
