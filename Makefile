@@ -39,7 +39,7 @@ zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
 
 release:
-	sed -i c -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
+	sed -ic -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
 	echo $(version) > VERSION
 	git add setup.py docs/conf.py VERSION
 	git commit -m "bump to $(version)"
