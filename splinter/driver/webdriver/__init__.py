@@ -220,8 +220,7 @@ class BaseWebDriver(DriverAPI):
         return ElementList([], find_by=find_by, query=query)
 
     def find_by_css(self, css_selector):
-        selector = CSSSelector(css_selector)
-        return self.find_by(self.driver.find_elements_by_xpath, selector.path, original_find='css', original_query=css_selector)
+        return self.find_by(self.driver.find_elements_by_css_selector, css_selector, original_find='css', original_query=css_selector)
 
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         original_find = original_find or "xpath"
