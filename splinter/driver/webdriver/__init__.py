@@ -8,6 +8,7 @@ from __future__ import with_statement
 import logging
 import subprocess
 import time
+import re
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
@@ -387,6 +388,10 @@ class WebDriverElement(ElementAPI):
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
         return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
+
+    def has_class(self, class_name):
+        element_class_name = self._element.get_attribute('class')
+        return bool(re.search(r'(?:^|\s)' + re.escape(class_name) + r'(?:$|\s)', element_class_name))
 
     def mouse_over(self):
         """

@@ -14,6 +14,7 @@ from fake_webapp import EXAMPLE_APP
 from find_elements import FindElementsTest
 from form_elements import FormElementsTest
 from iframes import IFrameElementsTest
+from element import ElementTest
 from is_element_present import IsElementPresentTest
 from is_text_present import IsTextPresentTest
 from mouse_interaction import MouseInteractionTest
@@ -86,7 +87,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Co
         self.assertEqual(self.browser, element.parent)
 
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseInteractionTest):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseInteractionTest):
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"

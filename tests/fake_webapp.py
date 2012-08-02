@@ -115,9 +115,9 @@ EXAMPLE_HTML = """\
     <div id="text_with_html">another <b>b</b>it of text</div>
     <a href="http://localhost:5000/foo">FOO</a>
     <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
-    <a class='add-async-element' href="#">add async element</a>
-    <a class='remove-async-element' href="#">remove async element</a>
-    <a class='add-element-mouseover' href="#">addelement (mouseover)</a>
+    <a class="add-async-element" href="#">add async element</a>
+    <a class="remove-async-element" href="#">remove async element</a>
+    <a class="add-element-mouseover" href="#">addelement (mouseover)</a>
     <iframe id="iframemodal" src="/iframe"></iframe>
     <div id="inside">
         <h2>inside</h2>
@@ -128,9 +128,10 @@ EXAMPLE_HTML = """\
     <a href="#" class="db-button">double click button</a>
     <div class="should-be-visible-after-double-click">should-be-visible-after-double-click</div>
     <div class="right-clicable">no right click</div>
-    <div class='draggable'>draggable</div>
-    <div class='droppable'>droppable</div>
-    <div class='dragged'>no</div>
+    <div class="draggable">draggable</div>
+    <div class="droppable">droppable</div>
+    <div class="dragged">no</div>
+    <div class="has-class-first has-class-middle has-class-end"></div>
   </body>
 </html>"""
 
