@@ -10,7 +10,6 @@ import subprocess
 import time
 from contextlib import contextmanager
 
-from lxml.cssselect import CSSSelector
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 
