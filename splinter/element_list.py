@@ -34,7 +34,7 @@ class ElementList(list):
         try:
             return super(ElementList, self).__getitem__(index)
         except IndexError:
-            raise ElementDoesNotExist('no elements could be find with %s "%s"' % (self.find_by, self.query))
+            raise ElementDoesNotExist('no elements could be found with %s "%s"' % (self.find_by, self.query))
 
     @property
     def first(self):

@@ -77,6 +77,6 @@ class ElementListTest(unittest.TestCase):
             the_list = ElementList([], find_by="id", query="menu")
             the_list.first
 
-        expected_message = 'no elements could be find with id "menu"'
+        expected_message = 'no elements could be found with id "menu"'
         e = cm.exception
         self.assertEqual(expected_message, e.args[0])

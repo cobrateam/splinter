@@ -29,7 +29,7 @@ class ElementDoestNotExistTest(object):
             self.assertEqual('.element-that-dont-exists', element_list.query)
             element_list.first
 
-        expected_message = 'no elements could be find with css ".element-that-dont-exists"'
+        expected_message = 'no elements could be found with css ".element-that-dont-exists"'
 
         e = cm.exception
         self.assertEqual(expected_message, e.args[0])
@@ -42,7 +42,7 @@ class ElementDoestNotExistTest(object):
             self.assertEqual('.inner-element-that-dont-exists', element_list.query)
             element_list.first
 
-        expected_message = 'no elements could be find with css ".inner-element-that-dont-exists"'
+        expected_message = 'no elements could be found with css ".inner-element-that-dont-exists"'
 
         e = cm.exception
         self.assertEqual(expected_message, e.args[0])
