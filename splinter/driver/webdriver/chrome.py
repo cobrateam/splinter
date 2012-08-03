@@ -12,6 +12,8 @@ from splinter.driver.webdriver.cookie_manager import ChromeCookieManager
 
 class WebDriver(BaseWebDriver):
 
+    driver_name = "Chrome"
+
     def __init__(self, user_agent=None):
         self._patch_subprocess()
         options = Options()

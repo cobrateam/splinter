@@ -14,6 +14,8 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 
 class WebDriver(BaseWebDriver):
 
+    driver_name = "Firefox"
+
     def __init__(self, profile=None, extensions=None, user_agent=None):
         self.old_popen = subprocess.Popen
         firefox_profile = FirefoxProfile(profile)

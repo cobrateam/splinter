@@ -13,6 +13,8 @@ from splinter.cookie_manager import CookieManagerAPI
 
 class WebDriver(BaseWebDriver):
 
+    driver_name = "Remote webdriver"
+
     def __init__(self, server='localhost', port=4444):
         self.old_popen = subprocess.Popen
 
