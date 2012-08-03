@@ -16,6 +16,7 @@ import mimetypes
 import lxml.html
 import mechanize
 
+
 class CookieManager(CookieManagerAPI):
 
     def __init__(self, browser_cookies):
@@ -212,7 +213,7 @@ class ZopeTestBrowser(DriverAPI):
     def _get_mech_browser(self, user_agent):
         mech_browser = mechanize.Browser()
         if user_agent is not None:
-            mech_browser.addheaders = [("User-agent", user_agent),]
+            mech_browser.addheaders = [("User-agent", user_agent), ]
         return mech_browser
 
     @property
@@ -275,7 +276,7 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
         return self._browser.open(self["href"])
 
 
-class ZopeTestBrowserControlElement(ElementAPI):
+class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
 
     def __init__(self, control, parent):
         self._control = control
@@ -299,7 +300,7 @@ class ZopeTestBrowserControlElement(ElementAPI):
         self._control.value = value
 
 
-class ZopeTestBrowserOptionElement(ElementAPI):
+class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
 
     def __init__(self, control, parent):
         self._control = control
@@ -319,4 +320,3 @@ class ZopeTestBrowserOptionElement(ElementAPI):
     @property
     def selected(self):
         return self._control.mech_item._selected
-
