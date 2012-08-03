@@ -510,6 +510,12 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
+    def has_class(self, class_name):
+        """
+        Indicates whether the element has the given class.
+        """
+        raise NotImplementedError
+
     def mouse_over(self):
         """
         Puts the mouse over the element.

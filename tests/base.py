@@ -22,7 +22,7 @@ from status_code import StatusCodeTest
 from type import SlowlyTypeTest
 
 
-class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, CookiesTest, SlowlyTypeTest):
+class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickElementsTest, CookiesTest, SlowlyTypeTest):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")
@@ -87,7 +87,7 @@ class BaseBrowserTests(FindElementsTest, FormElementsTest, ClickElementsTest, Co
         self.assertEqual(self.browser, element.parent)
 
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseInteractionTest):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, IsTextPresentTest, StatusCodeTest, MouseInteractionTest):
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
