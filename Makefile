@@ -33,7 +33,7 @@ lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3.1
 
 sphinx:
-	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.0.7
+	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.1.3
 
 zopetestbrowser:
 	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
