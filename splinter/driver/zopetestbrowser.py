@@ -262,6 +262,9 @@ class ZopeTestBrowserElement(ElementAPI):
     def text(self):
         return self.value
 
+    def has_class(self, class_name):
+        return len(self._element.find_class(class_name)) > 0
+
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
 
