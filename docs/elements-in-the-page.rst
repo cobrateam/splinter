@@ -144,6 +144,19 @@ To check if an element is visible or invisible, use the ``visible`` property. Fo
 
 will be True if the element is visible, or False if it is invisible.
 
+
+Verifying if element has a className
+------------------------------------
+
+To check if an element has a className, use the ``has_class`` method. For instance:
+
+.. highlight:: python
+
+::
+
+    browser.find_by_css('.content').first.has_class('content')
+
+
 Interacting with elements through a ElementList object
 ------------------------------------------------------
 
