@@ -390,8 +390,7 @@ class WebDriverElement(ElementAPI):
         return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
 
     def has_class(self, class_name):
-        element_class_name = self._element.get_attribute('class')
-        return bool(re.search(r'(?:^|\s)' + re.escape(class_name) + r'(?:$|\s)', element_class_name))
+        return bool(re.search(r'(?:^|\s)' + re.escape(class_name) + r'(?:$|\s)', self['class']))
 
     def mouse_over(self):
         """
