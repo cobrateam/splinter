@@ -5,6 +5,7 @@
 # license that can be found in the LICENSE file.
 
 from __future__ import with_statement
+import re
 
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
@@ -221,6 +222,9 @@ class ZopeTestBrowser(DriverAPI):
         return self._cookie_manager
 
 
+re_extract_inner_html = re.compile(r'^<[^<>]+>(.*)</[^<>]+>$')
+
+
 class ZopeTestBrowserElement(ElementAPI):
 
     def __init__(self, element, parent):
@@ -265,6 +269,10 @@ class ZopeTestBrowserElement(ElementAPI):
     @property
     def outer_html(self):
         return lxml.html.tostring(self._element, encoding=unicode).strip()
+
+    @property
+    def html(self):
+        return re_extract_inner_html.match(self.outer_html).group(1)
 
     def has_class(self, class_name):
         return len(self._element.find_class(class_name)) > 0

@@ -363,6 +363,10 @@ class WebDriverElement(ElementAPI):
         return self._element.is_displayed()
 
     @property
+    def html(self):
+        return self['innerHTML']
+
+    @property
     def outer_html(self):
         return self['outerHTML']
 

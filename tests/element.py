@@ -20,4 +20,9 @@ class ElementTest(object):
         self.assertFalse(self.browser.find_by_css('.has-class-first').first.has_class('has-class'))
 
     def test_element_outer_html(self):
-        self.assertEqual(self.browser.find_by_id('outer-html').first.outer_html, u'<div id="outer-html" class="outer html classes">outer <div>inner text</div> html test</div>')
+        self.assertEqual(self.browser.find_by_id('html-property').first.outer_html,
+                u'<div id="html-property" class="outer html &gt; classes">inner <div class="inner-html">inner text</div> html test</div>')
+
+    def test_element_html(self):
+        self.assertEqual(self.browser.find_by_id('html-property').first.html,
+                u'inner <div class="inner-html">inner text</div> html test')
