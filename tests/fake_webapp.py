@@ -15,13 +15,9 @@ def read_static(static_name):
     return open(path.join(this_folder, 'static', static_name)).read()
 
 EXAMPLE_APP = "http://localhost:5000/"
-
 EXAMPLE_HTML = read_static('index.html')
-
 EXAMPLE_IFRAME_HTML = read_static('iframe.html')
-
 EXAMPLE_ALERT_HTML = read_static('alert.html')
-
 EXAMPLE_TYPE_HTML = read_static('type.html')
 
 app = Flask(__name__)
