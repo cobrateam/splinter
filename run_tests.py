@@ -21,6 +21,7 @@ from tests.fake_webapp import start_flask_app, EXAMPLE_APP
 
 parser = argparse.ArgumentParser('Run splinter tests')
 parser.add_argument('-w', '--which', action='store')
+parser.add_argument('-f', '--failfast', action='store_true')
 
 
 class Env(object):
@@ -84,13 +85,19 @@ def get_modules(modules_str):
     return modules
 
 
-def run_suite(suite):
+def get_result(args):
     result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
+
+    if args.failfast:
+        result.failfast = True
+
+    return result
+
+
+def run_suite(suite, result):
     suite.run(result)
 
     sys.stdout.write("\n\n")
-
-    return result
 
 
 def get_suite_from_modules(modules):
@@ -139,7 +146,8 @@ if __name__ == '__main__':
     else:
         suite = get_complete_suite()
 
-    result = run_suite(suite)
+    result = get_result(args)
+    run_suite(suite, result)
     print_failures(result)
     print_errors(result)
     sys.stdout.write("%d tests. %d failures. %d errors.\n\n" % (result.testsRun, len(result.failures), len(result.errors)))
