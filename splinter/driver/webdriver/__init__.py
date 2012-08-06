@@ -314,7 +314,7 @@ class WebDriverElement(ElementAPI):
         self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
-        return self["value"] or self._element.text
+        return self['value'] or self._element.text
 
     def _set_value(self, value):
         if self._element.get_attribute('type') != 'file':
@@ -361,6 +361,10 @@ class WebDriverElement(ElementAPI):
     @property
     def visible(self):
         return self._element.is_displayed()
+
+    @property
+    def outer_html(self):
+        return self['outerHTML']
 
     def find_by_css(self, selector, original_find=None, original_query=None):
         find_by = original_find or 'css'

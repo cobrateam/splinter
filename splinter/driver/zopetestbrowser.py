@@ -262,6 +262,10 @@ class ZopeTestBrowserElement(ElementAPI):
     def text(self):
         return self.value
 
+    @property
+    def outer_html(self):
+        return lxml.html.tostring(self._element, encoding=unicode).strip()
+
     def has_class(self, class_name):
         return len(self._element.find_class(class_name)) > 0
 
