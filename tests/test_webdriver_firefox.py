@@ -90,3 +90,24 @@ class FirefoxWithExtensionTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
+
+
+class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        preferences = {
+            'dom.max_script_run_time': 360,
+            'devtools.inspector.enabled': True,
+        }
+        cls.browser = Browser("firefox", profile_preferences=preferences)
+
+    def test_preference_set(self):
+        preferences = self.browser.driver.profile.default_preferences
+        self.assertIn('dom.max_script_run_time', preferences)
+        value = preferences.get('dom.max_script_run_time')
+        self.assertEqual(int(value), 360)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
