@@ -16,7 +16,7 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Firefox"
 
-    def __init__(self, profile=None, extensions=None, user_agent=None):
+    def __init__(self, profile=None, extensions=None, user_agent=None, profile_preferences=None):
         self.old_popen = subprocess.Popen
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -24,6 +24,10 @@ class WebDriver(BaseWebDriver):
 
         if user_agent is not None:
             firefox_profile.set_preference('general.useragent.override', user_agent)
+
+        if profile_preferences:
+            for key, value in profile_preferences.iteritems():
+                firefox_profile.set_preference(key, value)
 
         if extensions:
             for extension in extensions:
