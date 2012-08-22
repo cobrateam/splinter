@@ -292,6 +292,25 @@ class BaseWebDriver(DriverAPI):
     def cookies(self):
         return self._cookie_manager
 
+    @property
+    def current_window(self):
+        """
+        Returns the handle of the current window.
+        """
+        return self.driver.current_window_handle
+
+    @property
+    def windows(self):
+        """
+        Returns the handles of all windows within the current session.
+        """
+        return self.driver.window_handles
+
+    def switch_to_window(self, window_name):
+        """
+        Switches focus to the specified window.
+        """
+        return self.driver.switch_to_window(window_name)
 
 class TypeIterator(object):
 
