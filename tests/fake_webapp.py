@@ -19,6 +19,7 @@ EXAMPLE_HTML = read_static('index.html')
 EXAMPLE_IFRAME_HTML = read_static('iframe.html')
 EXAMPLE_ALERT_HTML = read_static('alert.html')
 EXAMPLE_TYPE_HTML = read_static('type.html')
+EXAMPLE_POPUP_HTML = read_static('popup.html')
 
 app = Flask(__name__)
 
@@ -75,6 +76,11 @@ def query_string():
         return "query string is valid"
     else:
         abort(500)
+
+
+@app.route('/popup')
+def popup():
+    return EXAMPLE_POPUP_HTML
 
 
 def start_flask_app(host, port):
