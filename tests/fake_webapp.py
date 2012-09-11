@@ -20,6 +20,7 @@ EXAMPLE_IFRAME_HTML = read_static('iframe.html')
 EXAMPLE_ALERT_HTML = read_static('alert.html')
 EXAMPLE_TYPE_HTML = read_static('type.html')
 EXAMPLE_POPUP_HTML = read_static('popup.html')
+EXAMPLE_NO_BODY_HTML = read_static('no-body.html')
 
 app = Flask(__name__)
 
@@ -42,6 +43,11 @@ def alertd():
 @app.route('/type')
 def type():
     return EXAMPLE_TYPE_HTML
+
+
+@app.route('/no-body')
+def no_body():
+    return EXAMPLE_NO_BODY_HTML
 
 
 @app.route('/name', methods=['GET'])
