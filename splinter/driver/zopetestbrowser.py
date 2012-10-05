@@ -193,9 +193,10 @@ class ZopeTestBrowser(DriverAPI):
         control.value = []
 
     def attach_file(self, name, file_path):
+        filename = file_path.split('/')[-1]
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
-        control.add_file(open(file_path), content_type, None)
+        control.add_file(open(file_path), content_type, filename)
 
     def _find_links_by_xpath(self, xpath):
         html = lxml.html.fromstring(self.html)
