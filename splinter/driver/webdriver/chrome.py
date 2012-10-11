@@ -15,14 +15,12 @@ class WebDriver(BaseWebDriver):
     driver_name = "Chrome"
 
     def __init__(self, user_agent=None):
-        self._patch_subprocess()
         options = Options()
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 
         self.driver = Chrome(chrome_options=options)
-        self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
 

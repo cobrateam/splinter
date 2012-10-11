@@ -5,8 +5,6 @@
 # license that can be found in the LICENSE file.
 
 from __future__ import with_statement
-import logging
-import subprocess
 import time
 import re
 from contextlib import contextmanager
@@ -17,43 +15,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from splinter.utils import warn_deprecated
-from tempfile import TemporaryFile
 
 
 class BaseWebDriver(DriverAPI):
-    old_popen = subprocess.Popen
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
-
-    def _patch_subprocess(self):
-        loggers_to_silence = [
-            'selenium.webdriver.firefox.extension_connection',
-            'selenium.webdriver.remote.remote_connection',
-            'selenium.webdriver.remote.utils',
-        ]
-
-        class MutedHandler(logging.Handler):
-            pass
-
-        for name in loggers_to_silence:
-            logger = logging.getLogger(name)
-            logger.addHandler(MutedHandler())
-            logger.setLevel(99999)
-
-        # selenium is such a verbose guy let's make it open the
-        # browser without showing all the meaningless output
-        def MyPopen(*args, **kw):
-            kw['stdout'] = TemporaryFile()
-            kw['stderr'] = TemporaryFile()
-            kw['close_fds'] = True
-            return self.old_popen(*args, **kw)
-
-        subprocess.Popen = MyPopen
-
-    def _unpatch_subprocess(self):
-        # cleaning up the house
-        subprocess.Popen = self.old_popen
 
     def __enter__(self):
         return self

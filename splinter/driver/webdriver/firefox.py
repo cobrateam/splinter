@@ -4,8 +4,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import subprocess
-
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
@@ -17,7 +15,6 @@ class WebDriver(BaseWebDriver):
     driver_name = "Firefox"
 
     def __init__(self, profile=None, extensions=None, user_agent=None, profile_preferences=None):
-        self.old_popen = subprocess.Popen
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
         firefox_profile.set_preference('network.dns.disableIPv6', False)
@@ -33,9 +30,7 @@ class WebDriver(BaseWebDriver):
             for extension in extensions:
                 firefox_profile.add_extension(extension)
 
-        self._patch_subprocess()
         self.driver = Firefox(firefox_profile)
-        self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
 
