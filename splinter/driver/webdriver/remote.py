@@ -7,6 +7,7 @@
 import subprocess
 
 from selenium.webdriver import Remote
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
 from splinter.cookie_manager import CookieManagerAPI
 
@@ -15,12 +16,13 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Remote webdriver"
 
-    def __init__(self, server='localhost', port=4444):
+    def __init__(self, server='localhost', port=4444, browser=''):
         self.old_popen = subprocess.Popen
 
         self._patch_subprocess()
         dest = 'http://%s:%s/wd/hub' % (server, port)
-        self.driver = Remote(dest, {})
+        capabilities = getattr(DesiredCapabilities, browser.upper(), None)
+        self.driver = Remote(dest, capabilities)
         self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
