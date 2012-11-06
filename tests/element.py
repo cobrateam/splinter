@@ -21,7 +21,7 @@ class ElementTest(object):
 
     def test_element_outer_html(self):
         self.assertEqual(self.browser.find_by_id('html-property').first.outer_html,
-                u'<div id="html-property" class="outer html &gt; classes">inner <div class="inner-html">inner text</div> html test</div>')
+                u'<div id="html-property" class="outer html classes">inner <div class="inner-html">inner text</div> html test</div>')
 
     def test_element_html(self):
         self.assertEqual(self.browser.find_by_id('html-property').first.html,
