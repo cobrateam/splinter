@@ -15,11 +15,13 @@ from splinter.cookie_manager import CookieManagerAPI
 class WebDriver(BaseWebDriver):
 
     driver_name = "Remote webdriver"
+    # TODO: This constant belongs in selenium.webdriver.Remote
+    DEFAULT_SERVER = 'http://127.0.0.1:4444/wd/hub'
 
-    def __init__(self, server='localhost', port=4444, browser='firefox'):
+    def __init__(self, location=DEFAULT_SERVER, browser='firefox'):
         dest = 'http://%s:%s/wd/hub' % (server, port)
         capabilities = getattr(DesiredCapabilities, browser.upper(), {})
-        self.driver = Remote(dest, capabilities)
+        self.driver = Remote(location, capabilities)
 
         self.element_class = WebDriverElement
 
