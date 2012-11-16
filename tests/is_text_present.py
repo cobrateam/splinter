@@ -43,4 +43,3 @@ class IsTextPresentTest(object):
         "returns true if there's no body"
         self.browser.visit(EXAMPLE_APP + "/no-body")
         self.assertTrue(self.browser.is_text_not_present('No such text'))
-

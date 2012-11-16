@@ -17,6 +17,7 @@ import unittest
 import time
 from splinter import Browser
 
+
 class FacebookEventsTestCase(unittest.TestCase):
 
     @classmethod

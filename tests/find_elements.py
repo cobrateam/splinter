@@ -31,7 +31,7 @@ class FindElementsTest(object):
         "should find elements by value"
         value = self.browser.find_by_value('M').first.value
         id = self.browser.find_by_id('gender-m')
-        self.assertEqual(id.first.value ,value)
+        self.assertEqual(id.first.value, value)
 
     def test_finding_by_id(self):
         "should find elements by id"

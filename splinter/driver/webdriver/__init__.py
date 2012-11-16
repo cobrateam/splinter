@@ -289,8 +289,8 @@ class BaseWebDriver(DriverAPI):
         """
         return self.driver.switch_to_window(window_name)
 
-class TypeIterator(object):
 
+class TypeIterator(object):
 
     def __init__(self, element, keys):
         self._element = element

@@ -21,15 +21,16 @@ from splinter.utils import deprecate_driver_class
 
 from fake_webapp import EXAMPLE_APP
 
+
 class BrowserTest(unittest.TestCase):
 
     def patch_driver(self, pattern):
         self.old_import = __builtin__.__import__
 
         def custom_import(name, *args, **kwargs):
-              if pattern in name:
-                  return None
-              return self.old_import(name, *args, **kwargs)
+            if pattern in name:
+                return None
+            return self.old_import(name, *args, **kwargs)
 
         __builtin__.__import__ = custom_import
 
@@ -76,6 +77,7 @@ class BrowserTest(unittest.TestCase):
             with Browser(browser) as internet:
                 pass
 
+
 class BrowserDeprecationTest(unittest.TestCase):
 
     class Foo(object):
@@ -113,4 +115,3 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
             self.assertEqual("'webdriver.chrome' is deprecated, use just 'chrome'", warning_message)
-
