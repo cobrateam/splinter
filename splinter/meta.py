@@ -8,8 +8,6 @@
 class InheritedDocs(type):
 
     def __new__(mcs, class_name, bases, dict):
-        docstring = dict.get('__doc__', None)
-
         items_to_patch = [(k, v) for k, v in dict.items() if not k.startswith('__') and not v.__doc__]
         for name, obj in items_to_patch:
             doc = None
