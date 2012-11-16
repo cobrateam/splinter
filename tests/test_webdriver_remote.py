@@ -3,6 +3,7 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import urllib
 
 try:
     import unittest2 as unittest
@@ -17,8 +18,12 @@ import subprocess
 
 
 def selenium_server_is_running():
-    ps = subprocess.Popen(['ps', '-o', 'command'], stdout=subprocess.PIPE).communicate()[0]
-    return 'selenium-server' in ps
+    DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
+    try:
+        page_contents = urllib.urlopen(DEFAULT_URL).read()
+    except IOError:
+        return False
+    return 'WebDriver Hub' in page_contents
 
 
 @unittest.skipIf(not selenium_server_is_running(), 'Skipping the remote webdriver tests')

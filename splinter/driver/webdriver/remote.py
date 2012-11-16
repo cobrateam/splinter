@@ -16,14 +16,10 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Remote webdriver"
 
-    def __init__(self, server='localhost', port=4444, browser=''):
-        self.old_popen = subprocess.Popen
-
-        self._patch_subprocess()
+    def __init__(self, server='localhost', port=4444, browser='firefox'):
         dest = 'http://%s:%s/wd/hub' % (server, port)
-        capabilities = getattr(DesiredCapabilities, browser.upper(), None)
+        capabilities = getattr(DesiredCapabilities, browser.upper(), {})
         self.driver = Remote(dest, capabilities)
-        self._unpatch_subprocess()
 
         self.element_class = WebDriverElement
 

@@ -15,28 +15,28 @@ doc: doc_dependencies
 	@cd docs && make clean && make html
 
 argparse:
-	@python -c 'import argparse' 2>/dev/null || pip install argparse
+	@python -c 'import argparse' 2>/dev/null || pip install argparse --use-mirrors
 
 coverage:
-	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1
+	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1 --use-mirrors
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.26.0
+	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.26.0 --use-mirrors
 
 unittest2:
-	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2
+	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2 --use-mirrors
 
 flask:
-	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2
+	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2 --use-mirrors
 
 lxml:
-	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3.1
+	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3.1 --use-mirrors
 
 sphinx:
-	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.1.3
+	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.1.3 --use-mirrors
 
 zopetestbrowser:
-	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2
+	@python -c 'import zope.testbrowser' 2>/dev/null || pip install zope.testbrowser==4.0.2 --use-mirrors
 
 release:
 	@sed -ic -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
