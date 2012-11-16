@@ -16,9 +16,9 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Remote webdriver"
 
-    def __init__(self, server='localhost', port=4444, browser=''):
+    def __init__(self, server='localhost', port=4444, browser='firefox'):
         dest = 'http://%s:%s/wd/hub' % (server, port)
-        capabilities = getattr(DesiredCapabilities, browser.upper(), None)
+        capabilities = getattr(DesiredCapabilities, browser.upper(), {})
         self.driver = Remote(dest, capabilities)
 
         self.element_class = WebDriverElement
