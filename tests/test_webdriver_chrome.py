@@ -31,7 +31,10 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     def test_attach_file(self):
         "should provide a way to change file field value"
-        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
+        file_path = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            'mockfile.txt'
+        )
         self.browser.attach_file('file', file_path)
         self.browser.find_by_name('upload').first.click()
 
