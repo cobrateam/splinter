@@ -39,7 +39,9 @@ class SlowlyTypeTest(object):
         self.browser.visit(EXAMPLE_APP + 'type')
         num = 0
         num_max = 6
-        for key in self.browser.find_by_name('type-input').type('typing', slowly=True):
+        text_input = self.browser.find_by_name('type-input')
+        typing = text_input.type('typing', slowly=True)
+        for key in typing:
             self.assertEqual(self.browser.is_text_present("#%d" % num), True)
             num += 1
         self.assertEqual(num, num_max)
