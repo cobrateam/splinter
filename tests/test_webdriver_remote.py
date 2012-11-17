@@ -26,7 +26,10 @@ def selenium_server_is_running():
     return 'WebDriver Hub' in page_contents
 
 
-@unittest.skipIf(not selenium_server_is_running(), 'Skipping the remote webdriver tests')
+@unittest.skipIf(
+    not selenium_server_is_running(),
+    'Skipping the remote webdriver tests'
+)
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -71,7 +74,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
             droppable = self.browser.find_by_css('.droppable')
             self.browser.find_by_css('.draggable').drag_and_drop(droppable)
 
-    def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
+    def test_mouseover_should_be_an_alias_to_mouseover(self):
         "Remote should not support mouseover"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').mouseover()
