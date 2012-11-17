@@ -16,6 +16,6 @@ unzip chromedriver.zip
 sudo cp chromedriver /usr/local/bin
 sudo chmod 755 /usr/local/bin/chromedriver
 
-wget http://selenium.googlecode.com/files/selenium-server-standalone-2.25.0.jar -O selenium-server.jar
+wget http://selenium.googlecode.com/files/selenium-server-standalone-2.26.0.jar -O selenium-server.jar
 java -jar selenium-server.jar &
 sleep 5
