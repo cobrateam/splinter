@@ -13,19 +13,24 @@ class PopupWindowsTest(object):
         self.browser.find_by_id("open-popup").first.click()
 
         for window in self.browser.windows:
-            self.browser.switch_to_window(window)  # Switch to a different window (the pop-up)
+            # Switch to a different window (the pop-up)
+            self.browser.switch_to_window(window)
             # Check if this is the one we want by comparing the title
             if self.browser.title == "Pop-up Window":
                 break
-            # Most of the times there are only two windows - the parent and the pop-up
+            # Most of the times there are only two windows
+            # the parent and the pop-up.
             # In this case the following condition also does the trick
             # if window != browser.parent_window:
             #     break
 
         value = self.browser.find_by_tag('h1').first.value
-        self.assertEqual(value, 'Pop-up Example Header')  # Proves we can interact with the popup
+        # Proves we can interact with the popup
+        self.assertEqual(value, 'Pop-up Example Header')
         self.browser.find_by_id("close-popup").first.click()
 
-        self.browser.switch_to_window(parent_window)  # Switch to the main window again
+        self.browser.switch_to_window(parent_window)
+        # Switch to the main window again
         value = self.browser.find_by_tag('h1').first.value
-        self.assertEqual(value, 'Example Header')  # Proves we can interact with the parent
+        # Proves we can interact with the parent
+        self.assertEqual(value, 'Example Header')
