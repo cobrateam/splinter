@@ -33,7 +33,10 @@ class MouseInteractionTest(object):
         self.browser.visit(EXAMPLE_APP)
         button = self.browser.find_by_css(".db-button").first
         button.double_click()
-        assert self.browser.find_by_css(".should-be-visible-after-double-click").visible
+        element = self.browser.find_by_css(
+            ".should-be-visible-after-double-click"
+        )
+        assert element.visible
         assert self.browser.is_element_not_present_by_id('what-is-your-name')
 
     def test_right_click(self):
@@ -41,21 +44,27 @@ class MouseInteractionTest(object):
         self.browser.visit(EXAMPLE_APP)
         element = self.browser.find_by_css(".right-clicable")
         element.right_click()
-        assert self.browser.find_by_css('.right-clicable').text == 'right clicked'
+        self.assertEqual(
+            self.browser.find_by_css('.right-clicable').text,
+            'right clicked'
+        )
 
     def test_drag_and_drop(self):
-        "should be able to perform a drag an element and drop in another element"
+        """
+        should be able to perform a drag an element and drop in another element
+        """
         droppable = self.browser.find_by_css('.droppable')
         draggable = self.browser.find_by_css('.draggable')
         draggable.drag_and_drop(droppable)
         assert self.browser.find_by_css('.dragged').text == 'yes'
 
-    def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
+    def test_mouseover_should_be_an_alias_to_mouse_over(self):
         "mouseover should be an alias to mouse_over and be deprecated"
         with warnings.catch_warnings(record=True) as warnings_list:
             self.browser.visit(EXAMPLE_APP)
             warnings.simplefilter("always")
-            self.browser.find_by_css(".add-element-mouseover").first.mouseover()
+            element = self.browser.find_by_css(".add-element-mouseover")
+            element.first.mouseover()
             warn_message = warnings_list[-1].message
             assert type(warn_message) is DeprecationWarning
             assert 'mouse_over' in warn_message.args[0]
