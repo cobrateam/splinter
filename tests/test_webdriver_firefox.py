@@ -31,7 +31,10 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     def test_attach_file(self):
         "should provide a way to change file field value"
-        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'mockfile.txt')
+        file_path = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            'mockfile.txt'
+        )
         self.browser.attach_file('file', file_path)
         self.browser.find_by_name('upload').first.click()
 
@@ -65,7 +68,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
             droppable = self.browser.find_by_css('.droppable')
             self.browser.find_by_css('.draggable').drag_and_drop(droppable)
 
-    def test_mouseover_should_be_an_alias_to_mouse_over_and_be_deprecated(self):
+    def test_mouseover_should_be_an_alias_to_mouse_over(self):
         "Firefox should not support mouseover"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').mouseover()
@@ -80,12 +83,18 @@ class FirefoxWithExtensionTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        extension_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'firebug.xpi')
+        extension_path = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            'firebug.xpi'
+        )
         cls.browser = Browser('firefox', extensions=[extension_path])
 
     def test_create_a_firefox_instance_with_extension(self):
         "should be able to load an extension"
-        self.assertIn('firebug@software.joehewitt.com', os.listdir(self.browser.driver.profile.extensionsDir))
+        self.assertIn(
+            'firebug@software.joehewitt.com',
+            os.listdir(self.browser.driver.profile.extensionsDir)
+        )
 
     @classmethod
     def tearDownClass(cls):
