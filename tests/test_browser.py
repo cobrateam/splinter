@@ -54,7 +54,7 @@ class BrowserTest(unittest.TestCase):
         self.patch_driver('zope')
         from splinter import browser
         reload(browser)
-        assert 'zope.testbrowser' not in browser._DRIVERS, 'zope.testbrowser driver should not be registered when zope.testbrowser is not installed'
+        self.assertNotIn('zope.testbrowser', browser._DRIVERS)
         self.unpatch_driver(browser)
 
     def test_should_raise_an_exception_when_browser_driver_is_not_found(self):
@@ -71,7 +71,7 @@ class BrowserTest(unittest.TestCase):
     def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))
 
-    def test_firefox_chrome_and_zope_testbrowser_should_support_with_statement(self):
+    def test_should_support_with_statement(self):
         for browser in ('firefox', 'chrome', 'zope.testbrowser'):
             from splinter import Browser
             with Browser(browser) as internet:
@@ -86,7 +86,10 @@ class BrowserDeprecationTest(unittest.TestCase):
     def test_should_deprecate_with_the_given_message(self):
         with warnings.catch_warnings(record=True) as warnings_list:
             warnings.simplefilter('default')
-            cls = deprecate_driver_class(self.Foo, message="Foo was deprecated")
+            cls = deprecate_driver_class(
+                self.Foo,
+                message="Foo was deprecated"
+            )
             cls()
             warning = warnings_list[0]
             assert type(warning.message) is DeprecationWarning
@@ -95,7 +98,10 @@ class BrowserDeprecationTest(unittest.TestCase):
     def test_should_prepend_a_Deprecated_to_class(self):
         with warnings.catch_warnings(record=True):
             warnings.simplefilter('default')
-            cls = deprecate_driver_class(self.Foo, message="Foo was deprecated")
+            cls = deprecate_driver_class(
+                self.Foo,
+                message="Foo was deprecated"
+            )
             self.assertEqual("DeprecatedFoo", cls.__name__)
 
     def test_webdriverfirefox_should_be_deprecated(self):
@@ -105,7 +111,10 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser = Browser('webdriver.firefox')
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
-            self.assertEqual("'webdriver.firefox' is deprecated, use just 'firefox'", warning_message)
+            self.assertEqual(
+                "'webdriver.firefox' is deprecated, use just 'firefox'",
+                warning_message
+            )
 
     def test_webdriverchrome_should_be_deprecated(self):
         with warnings.catch_warnings(record=True) as warnings_list:
@@ -114,4 +123,7 @@ class BrowserDeprecationTest(unittest.TestCase):
             browser = Browser('webdriver.chrome')
             browser.quit()
             warning_message = warnings_list[0].message.args[0]
-            self.assertEqual("'webdriver.chrome' is deprecated, use just 'chrome'", warning_message)
+            self.assertEqual(
+                "'webdriver.chrome' is deprecated, use just 'chrome'",
+                warning_message
+            )
