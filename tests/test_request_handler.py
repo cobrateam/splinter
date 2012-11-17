@@ -26,10 +26,10 @@ class RequestHandlerTestCase(unittest.TestCase):
     def test_should_receive_an_url_and_get_a_success_response(self):
         self.assertTrue(self.request.status_code.is_success())
 
-    def test_should_start_a_request_with_localhost_and_get_localhost_as_hostname(self):
+    def test_should_start_a_request_with_localhost(self):
         self.assertEqual("localhost", self.request.host)
 
-    def test_should_start_a_request_with_localhost_in_port_5000_and_get_5000_as_port(self):
+    def test_should_start_a_request_with_port_5000(self):
         self.assertEqual(5000, self.request.port)
 
     def test_should_visit_alert_page_and_get_a_success_response(self):
@@ -40,7 +40,7 @@ class RequestHandlerTestCase(unittest.TestCase):
     def test_should_compare_app_index_with_404_and_get_false(self):
         self.assertFalse(self.request.status_code == 404)
 
-    def test_should_get_an_absent_url_and_get_false_when_call_to_is_success(self):
+    def test_is_success_should_be_false_when_url_does_not_exists(self):
         request = RequestHandler()
         request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
         self.assertFalse(request.status_code.is_success())
@@ -51,7 +51,7 @@ class RequestHandlerTestCase(unittest.TestCase):
             request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
             request.ensure_success_response()
 
-    def test_should_get_an_exception_and_format_it_using_the_exception_attrs(self):
+    def test_should_get_an_exception_and_format_it(self):
         request = RequestHandler()
         request.connect(EXAMPLE_APP + "page-that-doesnt-exists")
         try:
