@@ -36,7 +36,9 @@ env.host, env.port = 'localhost', 5000
 def wait_until_start():
     while True:
         try:
-            urlopen(EXAMPLE_APP)
+            results = urlopen(EXAMPLE_APP)
+            if results.code == 404:
+                raise Exception('%s returned unexpected 404' % EXAMPLE_APP)
             break
         except IOError:
             pass
@@ -135,7 +137,11 @@ def print_failures(result):
             sys.stdout.write("\n\n")
 
 if __name__ == '__main__':
-    start_server()
+    try:
+        start_server()
+    except Exception as e:
+        sys.stdout.write("Failed to start test server: %s\n\n" % e)
+        sys.exit(1)
 
     args = parser.parse_args()
 
