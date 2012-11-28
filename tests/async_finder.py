@@ -6,6 +6,8 @@
 
 
 class AsyncFinderTests(object):
+    import selenium
+    selenium_version = [int(part) for part in selenium.__version__.split('.')]
 
     def test_find_by_css_should_found_an_async_element(self):
         "should find element by css found an async element"
@@ -25,6 +27,9 @@ class AsyncFinderTests(object):
     def test_find_by_id_should_found_an_async_element(self):
         "should find by id found an async element"
         self.browser.find_by_css('.add-async-element').first.click()
+        if AsyncFinderTests.selenium_version < [2, 27, 0]:
+            from time import sleep
+            sleep(5)
         assert 1 == len(self.browser.find_by_id('async-header'))
 
     def test_find_by_name_should_found_an_async_element(self):

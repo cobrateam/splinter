@@ -150,12 +150,18 @@ class IsElementPresentTest(object):
         "should is element present by id verify if element is present"
         self.browser.reload()
         self.browser.find_by_css('.add-async-element').first.click()
+        if IsElementPresentTest.selenium_version < [2, 27, 0]:
+            from time import sleep
+            sleep(5)
         self.assertTrue(self.browser.is_element_present_by_id('async-header'))
 
     def test_is_element_present_by_id_using_a_custom_wait_time(self):
         "should is element present by id verify if element is present using a custom wait time"
         self.browser.reload()
         self.browser.find_by_css('.add-async-element').first.click()
+        if IsElementPresentTest.selenium_version < [2, 27, 0]:
+            from time import sleep
+            sleep(5)
         self.assertTrue(self.browser.is_element_present_by_id('async-header', wait_time=3))
 
     @unittest.skipIf(selenium_version < [2, 27, 0], need_4814_fix)
@@ -180,6 +186,9 @@ class IsElementPresentTest(object):
         "should is element not present by id returns False if element is present"
         self.browser.reload()
         self.browser.find_by_css('.add-async-element').first.click()
+        if IsElementPresentTest.selenium_version < [2, 27, 0]:
+            from time import sleep
+            sleep(5)
         self.assertFalse(self.browser.is_element_not_present_by_id('async-header'))
 
     def test_is_element_present_by_name(self):
