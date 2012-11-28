@@ -8,6 +8,13 @@ from __future__ import with_statement
 
 
 class IsElementPresentTest(object):
+    try:
+        import unittest2 as unittest
+    except ImportError:
+        import unittest
+    import selenium
+    selenium_version = [int(part) for part in selenium.__version__.split('.')]
+    need_4814_fix = "Need fix for http://code.google.com/p/selenium/issues/detail?id=4814"
 
     def test_is_element_present_by_css(self):
         "should is element present by css verify if element is present"
@@ -151,16 +158,19 @@ class IsElementPresentTest(object):
         self.browser.find_by_css('.add-async-element').first.click()
         self.assertTrue(self.browser.is_element_present_by_id('async-header', wait_time=3))
 
+    @unittest.skipIf(selenium_version < [2, 27, 0], need_4814_fix)
     def test_is_element_present_by_id_returns_false_if_element_is_not_present(self):
         "should is element present by id returns False if element is not present"
         self.browser.reload()
         self.assertFalse(self.browser.is_element_present_by_id('async-header'))
 
+    @unittest.skipIf(selenium_version < [2, 27, 0], need_4814_fix)
     def test_is_element_not_present_by_id(self):
         "should is element not present by id verify if element is not present"
         self.browser.reload()
         self.assertTrue(self.browser.is_element_not_present_by_id('async-header'))
 
+    @unittest.skipIf(selenium_version < [2, 27, 0], need_4814_fix)
     def test_is_element_not_present_by_id_using_a_custom_wait_time(self):
         "should is element not present by id verify if element is not present using a custom wait time"
         self.browser.reload()
