@@ -87,19 +87,13 @@ def get_modules(modules_str):
     return modules
 
 
-def get_result(args):
-    result = unittest.TextTestResult(sys.stdout, descriptions=True, verbosity=1)
+def run_suite(suite, args):
+    runner = unittest.TextTestRunner(stream=sys.stdout, descriptions=True, verbosity=2)
 
     if args.failfast:
-        result.failfast = True
+        pass
 
-    return result
-
-
-def run_suite(suite, result):
-    suite.run(result)
-
-    sys.stdout.write("\n\n")
+    result = runner.run(suite)
 
 
 def get_suite_from_modules(modules):
@@ -117,25 +111,6 @@ def get_complete_suite():
     return loader.discover(TESTS_ROOT)
 
 
-def print_errors(result):
-    if result.errors:
-        sys.stdout.write("\nERRORS\n\n")
-        for method, trace in result.errors:
-            sys.stdout.write("Test method: %s\n" % method)
-            sys.stdout.write("%s" % trace)
-            sys.stdout.write("=" * 120)
-            sys.stdout.write("\n\n")
-
-
-def print_failures(result):
-    if result.failures:
-        sys.stdout.write("\nFAILURES\n\n")
-        for method, trace in result.failures:
-            sys.stdout.write("Test method: %s\n" % method)
-            sys.stdout.write("%s" % trace)
-            sys.stdout.write("=" * 120)
-            sys.stdout.write("\n\n")
-
 if __name__ == '__main__':
     try:
         start_server()
@@ -152,11 +127,5 @@ if __name__ == '__main__':
     else:
         suite = get_complete_suite()
 
-    result = get_result(args)
-    run_suite(suite, result)
-    print_failures(result)
-    print_errors(result)
-    sys.stdout.write("%d tests. %d failures. %d errors.\n\n" % (result.testsRun, len(result.failures), len(result.errors)))
-
+    run_suite(suite, args)
     stop_server()
-    sys.exit(not result.wasSuccessful())
