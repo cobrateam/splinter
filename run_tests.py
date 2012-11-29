@@ -89,13 +89,9 @@ def get_modules(modules_str):
 
 
 def run_suite(suite, args):
-    runner = unittest.TextTestRunner(stream=sys.stdout, descriptions=True,
-                                     verbosity=args.verbosity)
-
-    if args.failfast:
-        pass
-
-    result = runner.run(suite)
+    runner = unittest.TextTestRunner(sys.stdout, True, args.verbosity,
+                                     args.failfast)
+    runner.run(suite)
 
 
 def get_suite_from_modules(modules):
