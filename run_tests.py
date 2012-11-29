@@ -22,6 +22,7 @@ from tests.fake_webapp import start_flask_app, EXAMPLE_APP
 parser = argparse.ArgumentParser('Run splinter tests')
 parser.add_argument('-w', '--which', action='store')
 parser.add_argument('-f', '--failfast', action='store_true')
+parser.add_argument('-v', '--verbosity', type=int, default=1)
 
 
 class Env(object):
@@ -88,7 +89,8 @@ def get_modules(modules_str):
 
 
 def run_suite(suite, args):
-    runner = unittest.TextTestRunner(stream=sys.stdout, descriptions=True, verbosity=2)
+    runner = unittest.TextTestRunner(stream=sys.stdout, descriptions=True,
+                                     verbosity=args.verbosity)
 
     if args.failfast:
         pass
