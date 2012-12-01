@@ -1,0 +1,26 @@
+
+
+.. Copyright 2012 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.4.9.
+    :keywords: splinter 0.4.9, python, news, documentation, tutorial, web application
+
+whats's new in splinter 0.4.9?
+==============================
+
+This version does not works with firefox 17.
+
+Features
+--------
+
+* support for selenium remote web driver.
+
+Bugfix
+------
+
+* is_text_present and is_text_not_present works with html without body.
+* fixed zopetestdriver attach_file behaviour.
+
