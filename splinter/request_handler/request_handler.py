@@ -24,7 +24,7 @@ class RequestHandler(object):
         """
         Guarantee the success on response.
 
-        If the response is not successed, raises an
+        If response is not success, raises an
         :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
         exception.
         """
