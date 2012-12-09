@@ -18,7 +18,7 @@ class WebDriver(BaseWebDriver):
     # TODO: This constant belongs in selenium.webdriver.Remote
     DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
 
-    def __init__(self, url=DEFAULT_URL, browser='firefox', **ability_args):
+    def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, **ability_args):
         abilities = getattr(DesiredCapabilities, browser.upper(), {})
         for arg in ability_args:
             ability_args[arg] = ability_args[arg]
@@ -28,7 +28,7 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManagerAPI()
 
-        super(WebDriver, self).__init__()
+        super(WebDriver, self).__init__(wait_time)
 
 
 class WebDriverElement(BaseWebDriverElement):

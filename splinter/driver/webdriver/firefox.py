@@ -14,7 +14,7 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Firefox"
 
-    def __init__(self, profile=None, extensions=None, user_agent=None, profile_preferences=None):
+    def __init__(self, profile=None, extensions=None, user_agent=None, profile_preferences=None, wait_time=2):
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
         firefox_profile.set_preference('network.dns.disableIPv6', False)
@@ -36,7 +36,7 @@ class WebDriver(BaseWebDriver):
 
         self._cookie_manager = CookieManager(self.driver)
 
-        super(WebDriver, self).__init__()
+        super(WebDriver, self).__init__(wait_time)
 
 
 class WebDriverElement(BaseWebDriverElement):
