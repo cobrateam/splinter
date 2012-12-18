@@ -21,7 +21,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1 --use-mirrors
 
 selenium:
-	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.26.0 --use-mirrors
+	@python -c 'import selenium' 2>/dev/null || pip install selenium==2.28.0 --use-mirrors
 
 unittest2:
 	@python -c 'from unittest import skip' 2>/dev/null || pip install unittest2 --use-mirrors

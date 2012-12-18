@@ -22,6 +22,6 @@ wget http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/16.0/linux
 tar -xjf firefox-16.0.tar.bz2
 export PATH=./firefox:$PATH
 
-wget http://selenium.googlecode.com/files/selenium-server-standalone-2.26.0.jar -O selenium-server.jar
+wget http://selenium.googlecode.com/files/selenium-server-standalone-2.28.0.jar -O selenium-server.jar
 java -jar selenium-server.jar > /dev/null &
 sleep 20
