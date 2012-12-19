@@ -20,8 +20,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, **ability_args):
         abilities = getattr(DesiredCapabilities, browser.upper(), {})
-        for arg in ability_args:
-            ability_args[arg] = ability_args[arg]
+        abilities.update(ability_args)
         self.driver = Remote(url, abilities)
 
         self.element_class = WebDriverElement
