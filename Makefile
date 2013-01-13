@@ -17,6 +17,9 @@ doc: doc_dependencies
 argparse:
 	@python -c 'import argparse' 2>/dev/null || pip install argparse --use-mirrors
 
+cssselect:
+	@python -c 'import cssselect' 2>/dev/null || pip install cssselect>=0.7.1 --use-mirrors
+
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage==3.5.1 --use-mirrors
 
@@ -30,7 +33,7 @@ flask:
 	@python -c 'import flask' 2>/dev/null || pip install flask==0.7.2 --use-mirrors
 
 lxml:
-	@python -c 'import lxml' 2>/dev/null || pip install lxml==2.3.1 --use-mirrors
+	@python -c 'import lxml' 2>/dev/null || pip install lxml>=3.1beta1 --use-mirrors
 
 sphinx:
 	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.1.3 --use-mirrors
