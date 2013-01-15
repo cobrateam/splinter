@@ -17,7 +17,6 @@ except ImportError:
 import warnings
 
 from splinter.exceptions import DriverNotFoundError
-from splinter.utils import deprecate_driver_class
 
 from fake_webapp import EXAMPLE_APP
 
@@ -76,54 +75,3 @@ class BrowserTest(unittest.TestCase):
             from splinter import Browser
             with Browser(browser) as internet:
                 pass
-
-
-class BrowserDeprecationTest(unittest.TestCase):
-
-    class Foo(object):
-        pass
-
-    def test_should_deprecate_with_the_given_message(self):
-        with warnings.catch_warnings(record=True) as warnings_list:
-            warnings.simplefilter('default')
-            cls = deprecate_driver_class(
-                self.Foo,
-                message="Foo was deprecated"
-            )
-            cls()
-            warning = warnings_list[0]
-            assert type(warning.message) is DeprecationWarning
-            self.assertEqual("Foo was deprecated", warning.message.args[0])
-
-    def test_should_prepend_a_Deprecated_to_class(self):
-        with warnings.catch_warnings(record=True):
-            warnings.simplefilter('default')
-            cls = deprecate_driver_class(
-                self.Foo,
-                message="Foo was deprecated"
-            )
-            self.assertEqual("DeprecatedFoo", cls.__name__)
-
-    def test_webdriverfirefox_should_be_deprecated(self):
-        with warnings.catch_warnings(record=True) as warnings_list:
-            warnings.simplefilter('default')
-            from splinter import Browser
-            browser = Browser('webdriver.firefox')
-            browser.quit()
-            warning_message = warnings_list[0].message.args[0]
-            self.assertEqual(
-                "'webdriver.firefox' is deprecated, use just 'firefox'",
-                warning_message
-            )
-
-    def test_webdriverchrome_should_be_deprecated(self):
-        with warnings.catch_warnings(record=True) as warnings_list:
-            warnings.simplefilter('default')
-            from splinter import Browser
-            browser = Browser('webdriver.chrome')
-            browser.quit()
-            warning_message = warnings_list[0].message.args[0]
-            self.assertEqual(
-                "'webdriver.chrome' is deprecated, use just 'chrome'",
-                warning_message
-            )
