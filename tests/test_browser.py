@@ -14,8 +14,6 @@ try:
 except ImportError:
     import unittest
 
-import warnings
-
 from splinter.exceptions import DriverNotFoundError
 
 from fake_webapp import EXAMPLE_APP
