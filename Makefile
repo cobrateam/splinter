@@ -9,7 +9,7 @@ clean:
 
 doc_dependencies: sphinx
 
-dependencies: unittest2 argparse coverage selenium flask lxml zopetestbrowser
+dependencies: unittest2 argparse coverage selenium flask lxml cssselect zopetestbrowser
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
