@@ -8,7 +8,6 @@
 This module contains the basic API for splinter drivers and elemnts.
 """
 
-from splinter.within import Within
 from splinter.meta import InheritedDocs
 from splinter.request_handler.request_handler import RequestHandler
 
@@ -316,9 +315,6 @@ class DriverAPI(RequestHandler):
         Clicks in a link by partial content of its text.
         """
         return self.find_link_by_partial_text(partial_text).first.click()
-
-    def within(self, context):
-        return Within(self.find_by_css(context))
 
     def quit(self):
         """
