@@ -12,7 +12,7 @@ from status_code import StatusCode
 class RequestHandler(object):
 
     def connect(self, url):
-        if url.startswith("http://"):
+        if not url.startswith("file://"):
             self.request_url = url
             self._create_connection()
             self._store_response()
