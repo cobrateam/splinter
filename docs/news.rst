@@ -12,6 +12,7 @@ splinter news
 
 See below the changes for each splinter release.
 
+- :doc:`what's new in splinter 0.4.10 </news/0.4.10>`
 - :doc:`what's new in splinter 0.4.9 </news/0.4.9>`
 - :doc:`what's new in splinter 0.4.8 </news/0.4.8>`
 - :doc:`what's new in splinter 0.4.7 </news/0.4.7>`
