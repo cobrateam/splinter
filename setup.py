@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 README = open('README.rst').read()
 
 setup(name='splinter',
-      version='0.4.9',
+      version='0.4.10',
       description='browser abstraction for web acceptance testing',
       long_description=README,
       author='CobraTeam',
