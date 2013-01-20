@@ -37,7 +37,9 @@ class RequestHandler(object):
     def _create_connection(self):
         self._parse_url()
         self.conn = httplib.HTTPConnection(self.host, self.port)
-        self.conn.request('GET', self.path)
+        self.conn.putrequest('GET', self.path)
+        self.conn.putheader('User-agent', 'python/splinter')
+        self.conn.endheaders()
 
     def _parse_url(self):
         parsed_url = urlparse(self.request_url)

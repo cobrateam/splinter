@@ -76,3 +76,9 @@ class RequestHandlerTestCase(unittest.TestCase):
         url = EXAMPLE_APP + "query?model"
         request.connect(url)
         self.assertTrue(request.status_code.is_success())
+
+    def test_should_set_user_agent(self):
+        request = RequestHandler()
+        url = EXAMPLE_APP + 'useragent'
+        request.connect(url)
+        self.assertEqual('python/splinter', request.response.read())
