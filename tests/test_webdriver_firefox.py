@@ -52,22 +52,6 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').first.mouse_out()
 
-    def test_double_click(self):
-        "Firefox should not support double_click"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').double_click()
-
-    def test_right_click(self):
-        "Firefox should not support right_click"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').right_click()
-
-    def test_drag_and_drop(self):
-        "Firefox should not support drag_and_drop"
-        with self.assertRaises(NotImplementedError):
-            droppable = self.browser.find_by_css('.droppable')
-            self.browser.find_by_css('.draggable').drag_and_drop(droppable)
-
     def test_mouseover_should_be_an_alias_to_mouse_over(self):
         "Firefox should not support mouseover"
         with self.assertRaises(NotImplementedError):

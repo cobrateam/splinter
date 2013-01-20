@@ -10,7 +10,7 @@
 Mouse interactions
 ++++++++++++++++++
 
-    **Note:** Mouse interaction currently works only on Chrome driver.
+    **Note:** Most mouse interaction currently works only on Chrome driver.
 
 Splinter provides some methods for mouse interactions with elements in the page.
 This feature is useful to test if an element appears on mouse over and

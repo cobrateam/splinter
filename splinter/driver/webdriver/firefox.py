@@ -53,23 +53,5 @@ class WebDriverElement(BaseWebDriverElement):
         """
         raise NotImplementedError("Firefox doesn't support mouseout")
 
-    def double_click(self):
-        """
-        Firefox doesn't support doubleclick.
-        """
-        raise NotImplementedError("Firefox doesn't support doubleclick")
-
-    def right_click(self):
-        """
-        Firefox doesn't support right click'
-        """
-        raise NotImplementedError("Firefox doesn't support right click")
-
-    def drag_and_drop(self, droppable):
-        """
-        Firefox doesn't support drag and drop
-        """
-        raise NotImplementedError("Firefox doesn't support drag an drop")
-
     mouseover = mouse_over
     mouseout = mouse_out
