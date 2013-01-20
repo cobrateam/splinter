@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2012 splinter authors. All rights reserved.
+# Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -12,7 +12,7 @@ from status_code import StatusCode
 class RequestHandler(object):
 
     def connect(self, url):
-        if not url.startswith("file://"):
+        if not url.startswith("file:"):
             self.request_url = url
             self._create_connection()
             self._store_response()
