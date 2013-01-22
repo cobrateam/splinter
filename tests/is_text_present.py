@@ -40,10 +40,10 @@ class IsTextPresentTest(object):
 
     def test_is_text_present_no_body(self):
         "should work properly (return false) even if there's no body"
-        self.browser.visit(EXAMPLE_APP + "/no-body")
+        self.browser.visit(EXAMPLE_APP + "no-body")
         self.assertFalse(self.browser.is_text_present('No such text'))
 
     def test_is_text_not_present_no_body(self):
         "returns true if there's no body"
-        self.browser.visit(EXAMPLE_APP + "/no-body")
+        self.browser.visit(EXAMPLE_APP + "no-body")
         self.assertTrue(self.browser.is_text_not_present('No such text'))

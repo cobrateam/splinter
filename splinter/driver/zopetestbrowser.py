@@ -9,8 +9,8 @@ import re
 
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser
-from selenium.common.exceptions import NoSuchElementException
 from splinter.element_list import ElementList
+from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.cookie_manager import CookieManagerAPI
 
@@ -220,16 +220,12 @@ class ZopeTestBrowser(DriverAPI):
     def _is_text_present(self, text):
         try:
             body = self.find_by_tag('body').first
-            body.text.index(text)
-            return True
-        except ValueError:
-            pass
-        except NoSuchElementException:
+            return text in body.text
+        except ElementDoesNotExist:
             # This exception will be thrown if the body tag isn't present
             # This has occasionally been observed. Assume that the
             # page isn't fully loaded yet
-            pass
-        return False
+            return False
 
     def is_text_not_present(self, text, wait_time=None):
         wait_time = wait_time or 2
