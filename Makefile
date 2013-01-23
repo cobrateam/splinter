@@ -1,4 +1,4 @@
-# Copyright 2012 splinter authors. All rights reserved.
+# Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -7,16 +7,14 @@ all: test
 clean:
 	@find . -name "*.pyc" -delete
 
-doc_dependencies: sphinx
+doc_dependencies:
+	@pip install -r doc-requirements.txt --use-mirrors
 
 dependencies:
 	@pip install -r test-requirements.txt --use-mirrors
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
-
-sphinx:
-	@python -c 'import sphinx' 2>/dev/null || pip install sphinx==1.1.3 --use-mirrors
 
 release:
 	@sed -ic -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
