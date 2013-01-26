@@ -30,4 +30,8 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
+	./run_tests.py -w $(which)
+
+coverage: dependencies clean
+	@echo "Running all tests with coverage..."
 	@coverage run run_tests.py -w $(which) && coverage report
