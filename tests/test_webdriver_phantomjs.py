@@ -61,6 +61,6 @@ class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
             self.browser.get_alert()
 
     def test_can_work_on_popups(self):
-        # raise this as a reminder to check if this issue is fixed
-        raise NotImplementedError('https://github.com/detro/ghostdriver/'
-                                  'issues/180')
+        # FIXME: Check https://github.com/detro/ghostdriver/issues/180 to see if
+        # we can implement this test
+        pass
