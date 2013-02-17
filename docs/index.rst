@@ -54,7 +54,6 @@ The following drivers open a browser to run your actions:
 
 * :doc:`Chrome WebDriver </drivers/chrome>`
 * :doc:`Firefox WebDriver </drivers/firefox>`
-* :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 
 Headless drivers
 ++++++++++++++++
@@ -62,6 +61,7 @@ Headless drivers
 The following drivers don't open a browser to run your actions (but has its own dependencies, check the
 specific docs for each driver):
 
+* :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
 Get in touch and contribute
