@@ -36,7 +36,7 @@ the ``Browser`` instance:
     from splinter import Browser
     browser = Browser('phantomjs')
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``phantomjs`` will be used.
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 API docs
 --------
