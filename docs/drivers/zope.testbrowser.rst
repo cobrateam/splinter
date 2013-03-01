@@ -12,14 +12,13 @@ zope.testbrowser
 
 .. module:: splinter.driver.zopetestbrowser
 
-In ``zope.testbrowser`` driver, we use `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_ for ``find_by_css`` works. You can install it via pip:
+To use the ``zope.testbrowser`` driver, you need to install `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_, `lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_. You can install all of them in one step by running:
 
 .. highlight:: bash
 
 ::
 
-    $ [sudo] pip install zope.testbrowser
-    $ [sudo] pip install cssselect
+    $ pip install splinter[zope.testbrowser]
 
 Using zope.testbrowser
 ----------------------

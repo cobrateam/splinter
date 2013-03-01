@@ -61,6 +61,7 @@ Headless drivers
 The following drivers don't open a browser to run your actions (but has its own dependencies, check the
 specific docs for each driver):
 
+* :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 
 Get in touch and contribute
