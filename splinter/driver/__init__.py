@@ -538,5 +538,15 @@ class ElementAPI(object):
         """
         raise NotImplementedError
 
+    def select(self, value, slowly=False):
+        """
+        Selects an ``<option>`` element in the element using the ``value`` of the ``<option>``.
+
+        Example:
+
+            >>> element..select("NY")
+        """
+        raise NotImplementedError
+
     def __getitem__(self, attribute):
         raise NotImplementedError

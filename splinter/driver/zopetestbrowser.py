@@ -345,6 +345,8 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
     def fill(self, value):
         self._control.value = value
 
+    def select(self, value):
+        self._control.value = [value]
 
 class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
 
