@@ -91,7 +91,7 @@ def get_modules(modules_str):
 def run_suite(suite, args):
     runner = unittest.TextTestRunner(sys.stdout, True, args.verbosity,
                                      args.failfast)
-    runner.run(suite)
+    return runner.run(suite)
 
 
 def get_suite_from_modules(modules):
@@ -125,5 +125,6 @@ if __name__ == '__main__':
     else:
         suite = get_complete_suite()
 
-    run_suite(suite, args)
+    result = run_suite(suite, args)
     stop_server()
+    sys.exit(len(result.errors) + len(result.failures))
