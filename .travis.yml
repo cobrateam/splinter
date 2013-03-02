@@ -5,6 +5,6 @@
 language: python
 python:
   - "2.7"
-before_script: ". .travis_before.bash"
+before_script: "./travis_before.bash"
 install: make dependencies
 script: make test
