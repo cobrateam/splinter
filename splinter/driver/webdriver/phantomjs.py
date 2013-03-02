@@ -11,12 +11,6 @@ class WebDriverElement(BaseWebDriverElement):
     def double_click(self):
         raise NotImplementedError('Not supported by webdriver.')
 
-    def mouse_over(self):
-        raise NotImplementedError('Not supported by webdriver.')
-
-    def mouse_out(self):
-        raise NotImplementedError('Not supported by webdriver.')
-
 
 class WebDriver(BaseWebDriver):
     driver_name = "PhantomJS"

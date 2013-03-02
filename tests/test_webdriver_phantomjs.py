@@ -32,14 +32,6 @@ class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').double_click()
 
-    def test_mouse_over(self):
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').first.mouse_over()
-
-    def test_mouse_out(self):
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').first.mouse_out()
-
     def test_access_prompts_and_be_able_to_fill_then(self):
         with self.assertRaises(NotImplementedError):
             self.browser.get_alert()
