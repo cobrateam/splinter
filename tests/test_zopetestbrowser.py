@@ -101,3 +101,10 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         "zope.testbrowser should not be able to mouse out of an element"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_css('#visible').first.mouse_out()
+
+    def test_links_with_nested_tags_xpath(self):
+        links = self.browser.find_by_xpath('//a/span[text()="first bar"]/..')
+        self.assertEqual(
+            len(links), 1,
+            'Found not exactly one link with a span with text "BAR ONE". %s' % (
+                map(lambda item: item.outer_html, links)))
