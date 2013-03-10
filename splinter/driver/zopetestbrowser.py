@@ -118,7 +118,7 @@ class ZopeTestBrowser(DriverAPI):
 
         for xpath_element in html.xpath(xpath):
             if self._element_is_link(xpath_element):
-                return self.find_link_by_text(xpath_element.text)
+                return self._find_links_by_xpath(xpath)
             elif self._element_is_control(xpath_element):
                 return self.find_by_name(xpath_element.name)
             else:
