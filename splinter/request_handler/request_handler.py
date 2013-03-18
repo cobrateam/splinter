@@ -36,7 +36,10 @@ class RequestHandler(object):
 
     def _create_connection(self):
         self._parse_url()
-        self.conn = httplib.HTTPConnection(self.host, self.port)
+        if self.scheme == 'https':
+            self.conn = httplib.HTTPSConnection(self.host, self.port)
+        else:
+            self.conn = httplib.HTTPConnection(self.host, self.port)
         self.conn.putrequest('GET', self.path)
         self.conn.putheader('User-agent', 'python/splinter')
         self.conn.endheaders()
@@ -46,5 +49,6 @@ class RequestHandler(object):
         self.host = parsed_url.hostname
         self.port = parsed_url.port
         self.path = parsed_url.path
+        self.scheme = parsed_url.scheme
         if parsed_url.query:
             self.path = parsed_url.path + "?" + parsed_url.query
