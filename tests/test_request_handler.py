@@ -11,6 +11,8 @@ try:
 except ImportError:
     import unittest
 
+from ssl import SSLError
+
 from fake_webapp import EXAMPLE_APP
 from splinter.request_handler.request_handler import RequestHandler
 from splinter.request_handler.status_code import HttpResponseError
@@ -76,6 +78,15 @@ class RequestHandlerTestCase(unittest.TestCase):
         url = EXAMPLE_APP + "query?model"
         request.connect(url)
         self.assertTrue(request.status_code.is_success())
+
+    def test_should_connect_to_https_protocols(self):
+        # We do not run an HTTPS server, but we know we handle https
+        # if we get an SSLError accessing a non-HTTPS site.
+        with self.assertRaises(SSLError):
+            request = RequestHandler()
+            url = EXAMPLE_APP.replace('http', 'https')
+            request.connect(url)
+            self.assertEqual(request.scheme, 'https')
 
     def test_should_set_user_agent(self):
         request = RequestHandler()
