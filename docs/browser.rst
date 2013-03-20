@@ -56,6 +56,13 @@ You can use the ``visit`` method to navigate to other pages:
 
 The ``visit`` method takes only a single parameter - the ``url`` to be visited.
 
+You can visit a site protected with basic HTTP authentication by providing the
+username and password in the url.
+
+::
+
+    browser.visit('http://username:password@cobrateam.info/protected')
+
 =============
 Reload a page
 =============

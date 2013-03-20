@@ -82,3 +82,9 @@ class RequestHandlerTestCase(unittest.TestCase):
         url = EXAMPLE_APP + 'useragent'
         request.connect(url)
         self.assertEqual('python/splinter', request.response.read())
+
+    def test_should_be_able_to_connect_with_basic_auth(self):
+        request = RequestHandler()
+        url = 'http://admin:secret@localhost:5000/authenticate'
+        request.connect(url)
+        self.assertEqual('Success!', request.response.read())
