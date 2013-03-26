@@ -18,7 +18,7 @@ Using splinter
 
 Getting started
 ---------------
-
+* :doc:`Why use Splinter </why>`
 * :doc:`Installation </install>`
 * :doc:`Quick tutorial </tutorial>`
 
