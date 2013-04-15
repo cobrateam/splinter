@@ -2,5 +2,5 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-__version__ = ''
+__version__ = '0.5.1'
 from splinter.browser import Browser
