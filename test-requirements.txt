@@ -2,7 +2,7 @@ zope.testbrowser==4.0.2
 lxml>=3.1beta1
 flask==0.7.2
 unittest2
-selenium==2.31.0
+selenium==2.32.0
 coverage==3.5.1
 cssselect>=0.7.1
 argparse
