@@ -226,7 +226,7 @@ class BaseWebDriver(DriverAPI):
         for name, value in field_values.items():
             elements = self.find_by_name(name)
             element = elements.first
-            if element['type'] == 'text' or element.tag_name == 'textarea':
+            if element['type'] in ['text', 'password'] or element.tag_name == 'textarea':
                 element.value = value
             elif element['type'] == 'checkbox':
                 if value:
