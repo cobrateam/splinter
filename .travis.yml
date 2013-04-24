@@ -19,5 +19,8 @@ before_script:
   - sudo chmod 755 /usr/local/bin/chromedriver
   - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.32.0.jar -O selenium-server.jar
   - java -jar selenium-server.jar > /dev/null &
+  - wget http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/19.0/linux-i686/en-US/firefox-19.0.tar.bz2
+  - tar -xjf firefox-19.0.tar.bz2
+  - export PATH=./firefox:$PATH
 install: make dependencies
 script: make test
