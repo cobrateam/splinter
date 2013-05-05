@@ -21,8 +21,8 @@ class ElementDoesNotExist(Exception):
     """
     Exception raised when an element is not found in the page.
 
-    The exception is raised only when someone tries to access the element, not when
-    the driver is finding it.
+    The exception is raised only when someone tries to access the element,
+    not when the driver is finding it.
 
     Example:
 
