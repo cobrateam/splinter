@@ -29,13 +29,14 @@ def Browser(driver_name='firefox', *args, **kwargs):
     """
     Returns a driver instance for the given name.
 
-    When working with ``firefox``, it's possible to provide a profile name and a
-    list of extensions.
+    When working with ``firefox``, it's possible to provide a profile name
+    and a list of extensions.
 
     If you don't provide any driver_name, then ``firefox`` will be used.
 
-    If there is no driver registered with the provided ``driver_name``, this function
-    will raise a :class:`splinter.exceptions.DriverNotFoundError` exception.
+    If there is no driver registered with the provided ``driver_name``, this
+    function will raise a :class:`splinter.exceptions.DriverNotFoundError`
+    exception.
     """
 
     try:
