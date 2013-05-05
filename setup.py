@@ -22,6 +22,6 @@ setup(
     include_package_data=True,
     install_requires=['selenium>=2.32.0'],
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.2',
-                                        'lxml>=2.3.6', 'cssselect']},
+                                         'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
 )
