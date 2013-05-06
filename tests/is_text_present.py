@@ -24,8 +24,7 @@ class IsTextPresentTest(object):
     def test_is_text_not_present(self):
         "should verify if text is not present"
         self.assertTrue(
-            self.browser.is_text_not_present('Text that not exist')
-        )
+            self.browser.is_text_not_present('Text that not exist'))
 
     def test_is_text_not_present_and_should_return_false(self):
         "should verify if text is not prasent and return false"

@@ -16,7 +16,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('zope.testbrowser')
+        cls.browser = Browser('zope.testbrowser', wait_time=0.1)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
