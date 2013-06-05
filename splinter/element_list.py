@@ -9,12 +9,15 @@ from splinter.exceptions import ElementDoesNotExist
 
 class ElementList(list):
     """
-    List of elements. Each member of the list is (usually) an instance of :class:`ElementAPI <splinter.driver.ElementAPI>`.
+    List of elements. Each member of the list is (usually) an instance
+    of :class:`ElementAPI <splinter.driver.ElementAPI>`.
 
-    Beyond the traditional list methods, the ``ElementList`` provides some other methods, listed below.
+    Beyond the traditional list methods, the ``ElementList`` provides some
+    other methods, listed below.
 
-    There is a peculiar behavior on ElementList: you never get an ``IndexError``. Instead, you can an
-    :class:`ElementDoesNotExist <splinter.exceptions.ElementDoesNotExist>` exception when trying to
+    There is a peculiar behavior on ElementList: you never get an
+    ``IndexError``. Instead, you can an :class:`ElementDoesNotExist
+    <splinter.exceptions.ElementDoesNotExist>` exception when trying to
     access an inexistent item in the list:
 
         >>> element_list = ElementList([])
@@ -34,7 +37,9 @@ class ElementList(list):
         try:
             return super(ElementList, self).__getitem__(index)
         except IndexError:
-            raise ElementDoesNotExist('no elements could be found with %s "%s"' % (self.find_by, self.query))
+            raise ElementDoesNotExist(
+                'no elements could be found with {0} "{1}"'.format(
+                    self.find_by, self.query))
 
     @property
     def first(self):
@@ -64,4 +69,5 @@ class ElementList(list):
         try:
             return getattr(self.first, name)
         except (ElementDoesNotExist, AttributeError):
-            raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
+            raise AttributeError("'{0}' object has no attribute '{1}'".format(
+                self.__class__.__name__, name))

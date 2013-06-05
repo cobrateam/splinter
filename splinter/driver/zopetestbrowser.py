@@ -51,7 +51,8 @@ class ZopeTestBrowser(DriverAPI):
 
     driver_name = "zope.testbrowser"
 
-    def __init__(self, user_agent=None):
+    def __init__(self, user_agent=None, wait_time=2):
+        self.wait_time = wait_time
         mech_browser = self._get_mech_browser(user_agent)
         self._browser = Browser(mech_browser=mech_browser)
 
@@ -209,7 +210,7 @@ class ZopeTestBrowser(DriverAPI):
         self.find_by_name(name).first._control.value = [value]
 
     def is_text_present(self, text, wait_time=None):
-        wait_time = wait_time or 2
+        wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
@@ -228,7 +229,7 @@ class ZopeTestBrowser(DriverAPI):
             return False
 
     def is_text_not_present(self, text, wait_time=None):
-        wait_time = wait_time or 2
+        wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:

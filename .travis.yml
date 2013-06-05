@@ -5,17 +5,24 @@
 language: python
 python:
   - "2.7"
+env:
+  - PATH=./firefox:${PATH}
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "sudo apt-get install libxss1 xdg-utils -y"
-  - "wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb -O google-chrome.deb"
-  - "sudo dpkg -i google-chrome.deb"
-  - "wget https://chromedriver.googlecode.com/files/chromedriver_linux32_26.0.1383.0.zip -O chromedriver.zip"
-  - "unzip chromedriver.zip"
-  - "sudo cp chromedriver /usr/local/bin"
-  - "sudo chmod 755 /usr/local/bin/chromedriver"
-  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar -O selenium-server.jar"
-  - "java -jar selenium-server.jar > /dev/null &"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  # - sudo apt-get install libxss1 xdg-utils -y
+  # - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  # - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  # - sudo apt-get update
+  # - sudo apt-get install google-chrome-stable
+  # - wget https://chromedriver.googlecode.com/files/chromedriver_linux32_26.0.1383.0.zip -O chromedriver.zip
+  # - unzip chromedriver.zip
+  # - sudo cp chromedriver /usr/local/bin
+  # - sudo chmod 755 /usr/local/bin/chromedriver
+  # - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.32.0.jar -O selenium-server.jar
+  # - java -jar selenium-server.jar > /dev/null &
+  - wget http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/20.0/linux-i686/en-US/firefox-20.0.tar.bz2
+  - tar -xjf firefox-20.0.tar.bz2
+  # - export PATH=./firefox:$PATH
 install: make dependencies
 script: make test

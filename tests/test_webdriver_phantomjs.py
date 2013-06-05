@@ -1,7 +1,4 @@
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
+import unittest
 
 from splinter import Browser
 from fake_webapp import EXAMPLE_APP
