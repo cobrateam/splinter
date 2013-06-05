@@ -14,13 +14,13 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Chrome"
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(self, user_agent=None, wait_time=2, **kwargs):
         options = Options()
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 
-        self.driver = Chrome(chrome_options=options)
+        self.driver = Chrome(chrome_options=options, **kwargs)
 
         self.element_class = WebDriverElement
 
