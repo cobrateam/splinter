@@ -1,0 +1,21 @@
+.. Copyright 2013 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.5.3.
+    :keywords: splinter 0.5.3, python, news, documentation, tutorial, web application
+
+whats's new in splinter 0.5.3?
+==============================
+
+Improvement
+-----------
+
+* added kwargs to the Chrome driver constructor
+* updated selenium to 2.33.0.
+
+Bugfix
+------
+
+* fixed about:blank behaviour #233.
