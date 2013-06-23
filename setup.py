@@ -20,7 +20,7 @@ setup(
     author_email='andrewsmedina@gmail.com',
     packages=find_packages(exclude=['docs', 'tests', 'samples']),
     include_package_data=True,
-    install_requires=['selenium>=2.32.0'],
+    install_requires=['selenium>=2.33.0'],
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.2',
                                          'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
