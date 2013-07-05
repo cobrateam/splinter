@@ -7,17 +7,14 @@
             var number = 0;
             var name_input = document.getElementById('type-input-id');
             var textarea_input = document.getElementById('type-textarea-id');
-            name_input.onkeyup = function(e) {
-                showSuggest();
-            };
-            textarea_input.onkeyup = function(e) {
-                showSuggest();
-            };
-            function showSuggest() {
+            function showSuggest(e) {
                 var hidden_suggest = document.getElementById('suggest');
                 hidden_suggest.innerHTML += 'Hi, I am here #' + number + '! ';
                 number++;
             };
+            name_input.onkeyup = showSuggest;
+            textarea_input.onkeyup = showSuggest;
+            
         };
         </script>
     </head>
