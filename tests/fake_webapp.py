@@ -15,7 +15,7 @@ this_folder = path.abspath(path.dirname(__file__))
 def read_static(static_name):
     return open(path.join(this_folder, 'static', static_name)).read()
 
-EXAMPLE_APP = "http://localhost:5000/"
+EXAMPLE_APP = "http://127.0.0.1:5000/"
 EXAMPLE_HTML = read_static('index.html')
 EXAMPLE_IFRAME_HTML = read_static('iframe.html')
 EXAMPLE_ALERT_HTML = read_static('alert.html')
