@@ -6,20 +6,22 @@
         window.onload = function(f) {
             var number = 0;
             var name_input = document.getElementById('type-input-id');
-            name_input.onkeyup = function(e) {
-                showSuggest();
-            };
-            function showSuggest() {
+            var textarea_input = document.getElementById('type-textarea-id');
+            function showSuggest(e) {
                 var hidden_suggest = document.getElementById('suggest');
                 hidden_suggest.innerHTML += 'Hi, I am here #' + number + '! ';
                 number++;
             };
+            name_input.onkeyup = showSuggest;
+            textarea_input.onkeyup = showSuggest;
+            
         };
         </script>
     </head>
     <body>
         <form method="GET" action="">
             <input name="type-input" value="" id="type-input-id"/>
+            <textarea name="type-textarea" id="type-textarea-id" rows="3" cols="50"></textarea>
         </form>
 
         <span id="suggest"></span>

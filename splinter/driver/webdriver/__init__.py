@@ -241,7 +241,7 @@ class BaseWebDriver(DriverAPI):
                 element.find_by_value(value).first._element.click()
 
     def type(self, name, value, slowly=False):
-        element = self.driver.find_element_by_css_selector('input[name="%s"]' % name)
+        element = self.driver.find_element_by_css_selector('[name="%s"]' % name)
         if slowly:
             return TypeIterator(element, value)
         element.send_keys(value)
