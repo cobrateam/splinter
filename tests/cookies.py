@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from fake_webapp import EXAMPLE_APP
 
 class CookiesTest(object):
 
@@ -40,3 +41,12 @@ class CookiesTest(object):
         self.browser.cookies.add({'foo': 'bar'})
         self.browser.cookies.delete('mwahahahaha')
         self.assertEqual(self.browser.cookies, {'foo': 'bar'})
+
+    def test_create_and_get_all_cookies(self):
+        "should be able to create some cookies and retrieve them all"
+        self.browser.cookies.delete()
+        self.browser.cookies.add({'taco': 'shrimp'})
+        self.browser.cookies.add({'lavar': 'burton'})
+        self.assertEqual(len(self.browser.cookies.all()), 2)
+        self.browser.cookies.delete()
+        self.assertEqual(self.browser.cookies.all(), [])
