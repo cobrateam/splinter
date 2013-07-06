@@ -52,6 +52,12 @@ class CookieManagerAPI(object):
         """
         raise NotImplementedError
 
+    def all(self):
+        """
+        Returns all of the cookies.
+        """
+        raise NotImplementedError
+
     def __getitem__(self, item):
         raise NotImplementedError
 

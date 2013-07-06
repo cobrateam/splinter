@@ -7,7 +7,7 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
-from splinter.driver.webdriver.cookie_manager import ChromeCookieManager
+from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
@@ -24,6 +24,6 @@ class WebDriver(BaseWebDriver):
 
         self.element_class = WebDriverElement
 
-        self._cookie_manager = ChromeCookieManager(self.driver)
+        self._cookie_manager = CookieManager(self.driver)
 
         super(WebDriver, self).__init__(wait_time)
