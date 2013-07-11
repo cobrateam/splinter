@@ -1,0 +1,20 @@
+.. Copyright 2013 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.5.4.
+    :keywords: splinter 0.5.4, python, news, documentation, tutorial, web application
+
+whats's new in splinter 0.5.4?
+==============================
+
+Improvement
+-----------
+
+* implemented `browser.cookies.all()` - #240.
+
+Bugfix
+------
+
+* `browser.type()` works with textarea - #216.
