@@ -32,7 +32,7 @@ class CookieManagerAPI(object):
 
         Example of use:
 
-            >>> cookie.add({'name': 'Tony'})
+            >>> cookie_manager.add({'name': 'Tony'})
         """
         raise NotImplementedError
 
@@ -45,10 +45,10 @@ class CookieManagerAPI(object):
 
         Examples:
 
-            >>> cookie.delete() # deletes all cookies
-            >>> cookie.delete('name', 'birthday',
-                              'favorite_color') # deletes these three cookies
-            >>> cookie.delete('name') # deletes one cookie
+            >>> cookie_manager.delete() # deletes all cookies
+            >>> cookie_manager.delete('name', 'birthday',
+                                      'favorite_color') # deletes these three cookies
+            >>> cookie_manager.delete('name') # deletes one cookie
         """
         raise NotImplementedError
 
