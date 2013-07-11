@@ -23,6 +23,17 @@ For add a cookie use the add method:
 
     browser.cookies.add({'whatever': 'and ever'})
 
+Retrieve all cookies
+--------------------
+
+For retrieve all cookies use the `all` method:
+
+.. highlight:: python
+
+::
+
+    browser.cookies.all()
+
 Delete a cookie
 ---------------
 
