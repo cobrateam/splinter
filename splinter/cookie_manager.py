@@ -55,6 +55,12 @@ class CookieManagerAPI(object):
     def all(self):
         """
         Returns all of the cookies.
+
+        Examples:
+
+            >>> cookie_manager.add({'name': 'Tony'})
+            >>> cookie_manager.all()
+            [{'name': 'Tony'}]
         """
         raise NotImplementedError
 
