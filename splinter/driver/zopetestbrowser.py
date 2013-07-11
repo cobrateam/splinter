@@ -39,6 +39,9 @@ class CookieManager(CookieManagerAPI):
         else:
             self._cookies.clearAll()
 
+    def all(self):
+        return self._cookies.items()
+
     def __getitem__(self, item):
         return self._cookies[item]
 
