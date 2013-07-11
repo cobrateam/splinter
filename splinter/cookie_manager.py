@@ -18,7 +18,7 @@ class CookieManagerAPI(object):
     A CookieManager acts like a ``dict``, so you can access the value of a
     cookie through the [] operator, passing the cookie identifier:
 
-        >>> cookie_manager.add({ 'name' : 'Tony' })
+        >>> cookie_manager.add({'name': 'Tony'})
         >>> assert cookie_manager['name'] == 'Tony'
     """
     __metaclass__ = InheritedDocs
@@ -32,7 +32,7 @@ class CookieManagerAPI(object):
 
         Example of use:
 
-            >>> cookie.add({ 'name' : 'Tony' })
+            >>> cookie.add({'name': 'Tony'})
         """
         raise NotImplementedError
 
