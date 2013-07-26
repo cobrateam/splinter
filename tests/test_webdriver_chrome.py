@@ -10,8 +10,21 @@ import unittest
 from splinter import Browser
 from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
+from selenium.common.exceptions import WebDriverException
 
 
+def chrome_installed():
+    try:
+        Browser("chrome")
+    except WebDriverException:
+        return False
+    return True
+
+
+@unittest.skipIf(
+    not chrome_installed(),
+    'Skipping the chrome webdriver tests'
+)
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
