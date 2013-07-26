@@ -25,7 +25,7 @@ class RequestHandlerTestCase(unittest.TestCase):
         self.assertTrue(self.request.status_code.is_success())
 
     def test_should_start_a_request_with_localhost(self):
-        self.assertEqual("localhost", self.request.host)
+        self.assertEqual("127.0.0.1", self.request.host)
 
     def test_should_start_a_request_with_port_5000(self):
         self.assertEqual(5000, self.request.port)
