@@ -12,6 +12,18 @@ from fake_webapp import EXAMPLE_APP
 from base import WebDriverTests
 
 
+def firefox_installed():
+    try:
+        Browser("firefox")
+    except OSError:
+        return False
+    return True
+
+
+@unittest.skipIf(
+    not firefox_installed(),
+    'Skipping the firefox webdriver tests'
+)
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
