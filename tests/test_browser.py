@@ -58,10 +58,7 @@ class BrowserTest(unittest.TestCase):
     def test_firefox_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('firefox'))
 
-    @unittest.skipIf(
-        not chrome_installed(),
-        'Skipping the chrome webdriver tests'
-    )
+    @unittest.skipIf(not chrome_installed(), 'chrome is not installed')
     def test_chrome_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('chrome'))
 
