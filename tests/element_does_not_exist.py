@@ -37,7 +37,7 @@ class ElementDoestNotExistTest(object):
     def test_element_list_raises_when_element_first_doesnt_exists_in_element_context(self):
         "element list raises exception with right information in element context"
         with self.assertRaises(ElementDoesNotExist) as cm:
-            element_list = self.browser.find_by_css("#inside").first.find_by_css('.inner-element-that-dont-exists')
+            element_list = self.browser.find_by_css("#inside").find_by_css('.inner-element-that-dont-exists')
             self.assertEqual('css', element_list.find_by)
             self.assertEqual('.inner-element-that-dont-exists', element_list.query)
             element_list.first

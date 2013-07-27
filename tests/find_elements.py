@@ -14,33 +14,33 @@ class FindElementsTest(object):
 
     def test_finding_by_css(self):
         "should find by css"
-        value = self.browser.find_by_css('h1').first.value
+        value = self.browser.find_by_css('h1').value
         self.assertEqual('Example Header', value)
 
     def test_finding_by_xpath(self):
         "should find elements by xpath"
-        value = self.browser.find_by_xpath('//h1').first.value
+        value = self.browser.find_by_xpath('//h1').value
         self.assertEqual('Example Header', value)
 
     def test_finding_by_tag(self):
         "should find elements by tag"
-        value = self.browser.find_by_tag('h1').first.value
+        value = self.browser.find_by_tag('h1').value
         self.assertEqual('Example Header', value)
 
     def test_finding_by_value(self):
         "should find elements by value"
-        value = self.browser.find_by_value('M').first.value
+        value = self.browser.find_by_value('M').value
         id = self.browser.find_by_id('gender-m')
-        self.assertEqual(id.first.value, value)
+        self.assertEqual(id.value, value)
 
     def test_finding_by_id(self):
         "should find elements by id"
-        value = self.browser.find_by_id("firstheader").first.value
+        value = self.browser.find_by_id("firstheader").value
         self.assertEqual('Example Header', value)
 
     def test_finding_by_name(self):
         "should find elements by name"
-        value = self.browser.find_by_name('query').first.value
+        value = self.browser.find_by_name('query').value
         self.assertEqual('default value', value)
 
     def test_finding_all_elements_by_css(self):
@@ -111,7 +111,7 @@ class FindElementsTest(object):
     def test_last_element_is_same_than_first_element_in_find_by_id(self):
         "should first element is same than last element in find by id"
         #a html page have contain one element by id
-        first = self.browser.find_by_id("firstheader").first.value
+        first = self.browser.find_by_id("firstheader").value
         last = self.browser.find_by_id("firstheader").last.value
         self.assertEqual(first, last)
 
@@ -163,7 +163,7 @@ class FindElementsTest(object):
     def test_all_elements_is_same_than_first_element_in_find_by_id(self):
         "should all elements is same than first element in find by id"
         #a html page have contain one element by id
-        first = self.browser.find_by_id("firstheader").first.value
+        first = self.browser.find_by_id("firstheader").value
         some = self.browser.find_by_id("firstheader")[-1].value
         self.assertEqual(first, some)
 
@@ -184,19 +184,19 @@ class FindElementsTest(object):
 
     def test_finding_links_by_text(self):
         "should find links by text"
-        link = self.browser.find_link_by_text('Link for Example.com').first
+        link = self.browser.find_link_by_text('Link for Example.com')
         self.assertEqual('http://example.com/', link['href'])
 
     def test_finding_links_by_href(self):
         "should find links by href"
-        link = self.browser.find_link_by_href('http://example.com/').first
+        link = self.browser.find_link_by_href('http://example.com/')
         self.assertEqual('http://example.com/', link['href'])
 
     def test_find_by_css_in_element_context(self):
         "should find elements by css in element context and should return splinter driver element"
         elements = self.browser.find_by_css("#inside")
         decendent = elements[0].find_by_css('h2')
-        self.assertEqual(decendent.first.text.strip(), 'inside')
+        self.assertEqual(decendent.text.strip(), 'inside')
         assert isinstance(decendent, ElementList)
         assert isinstance(decendent[0], ElementAPI)
 
@@ -204,7 +204,7 @@ class FindElementsTest(object):
         "should find elements by xpath in element context"
         elements = self.browser.find_by_css("#inside")
         decendent = elements[0].find_by_xpath("//h2")
-        self.assertEqual(decendent.first.text.strip(), 'inside')
+        self.assertEqual(decendent.text.strip(), 'inside')
         assert isinstance(decendent, ElementList)
         assert isinstance(decendent[0], ElementAPI)
 

@@ -36,7 +36,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
             'mockfile.txt'
         )
         self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').first.click()
+        self.browser.find_by_name('upload').click()
 
         html = self.browser.html
         assert 'text/plain' in html
@@ -95,12 +95,12 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
     def test_cant_mouseover(self):
         "zope.testbrowser should not be able to put the mouse over the element"
         with self.assertRaises(NotImplementedError):
-            self.browser.find_by_css('#visible').first.mouse_over()
+            self.browser.find_by_css('#visible').mouse_over()
 
     def test_cant_mouseout(self):
         "zope.testbrowser should not be able to mouse out of an element"
         with self.assertRaises(NotImplementedError):
-            self.browser.find_by_css('#visible').first.mouse_out()
+            self.browser.find_by_css('#visible').mouse_out()
 
     def test_links_with_nested_tags_xpath(self):
         links = self.browser.find_by_xpath('//a/span[text()="first bar"]/..')

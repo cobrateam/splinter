@@ -34,6 +34,8 @@ class ElementList(list):
         self.query = query
 
     def __getitem__(self, index):
+        if not isinstance(index, int):
+            return self.first[index]
         try:
             return super(ElementList, self).__getitem__(index)
         except IndexError:

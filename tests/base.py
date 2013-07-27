@@ -65,26 +65,26 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
 
     def test_accessing_attributes_of_links(self):
         "should allow link's attributes retrieval"
-        foo = self.browser.find_link_by_text('FOO').first
+        foo = self.browser.find_link_by_text('FOO')
         self.assertEqual('http://localhost:5000/foo', foo['href'])
 
     def test_accessing_attributes_of_inputs(self):
         "should allow input's attributes retrieval"
-        button = self.browser.find_by_css('input[name="send"]').first
+        button = self.browser.find_by_css('input[name="send"]')
         self.assertEqual('send', button['name'])
 
     def test_accessing_attributes_of_simple_elements(self):
         "should allow simple element's attributes retrieval"
-        header = self.browser.find_by_css('h1').first
+        header = self.browser.find_by_css('h1')
         self.assertEqual('firstheader', header['id'])
 
     def test_links_should_have_value_attribute(self):
-        foo = self.browser.find_link_by_href('http://localhost:5000/foo').first
+        foo = self.browser.find_link_by_href('http://localhost:5000/foo')
         self.assertEqual('FOO', foo.value)
 
     def test_should_receive_browser_on_parent(self):
         "element should contains the browser on \"parent\" attribute"
-        element = self.browser.find_by_id("firstheader").first
+        element = self.browser.find_by_id("firstheader")
         self.assertEqual(self.browser, element.parent)
 
 
@@ -93,7 +93,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
         self.browser.execute_script("$('body').empty()")
-        self.assertEqual("", self.browser.find_by_tag("body").first.value)
+        self.assertEqual("", self.browser.find_by_tag("body").value)
 
     def test_can_evaluate_script(self):
         "should evaluate script"
@@ -101,19 +101,19 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
 
     def test_can_see_the_text_for_an_element(self):
         "should provide text for an element"
-        self.assertEqual(self.browser.find_by_id("simple_text").first.text, "my test text")
+        self.assertEqual(self.browser.find_by_id("simple_text").text, "my test text")
 
     def test_the_text_for_an_element_strips_html_tags(self):
         "should show that the text attribute strips html"
-        self.assertEqual(self.browser.find_by_id("text_with_html").first.text, "another bit of text")
+        self.assertEqual(self.browser.find_by_id("text_with_html").text, "another bit of text")
 
     def test_can_verify_if_a_element_is_visible(self):
         "should provide verify if element is visible"
-        self.assertTrue(self.browser.find_by_id("visible").first.visible)
+        self.assertTrue(self.browser.find_by_id("visible").visible)
 
     def test_can_verify_if_a_element_is_invisible(self):
         "should provide verify if element is invisible"
-        self.assertFalse(self.browser.find_by_id("invisible").first.visible)
+        self.assertFalse(self.browser.find_by_id("invisible").visible)
 
     def test_default_wait_time_should_be_2(self):
         "should driver default wait time 2"
@@ -121,14 +121,14 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
 
     def test_access_alerts_and_accept_them(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
-        self.browser.find_by_tag('h1').first.click()
+        self.browser.find_by_tag('h1').click()
         alert = self.browser.get_alert()
         self.assertEqual('This is an alert example.', alert.text)
         alert.accept()
 
     def test_access_prompts_and_be_able_to_fill_then(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
-        self.browser.find_by_tag('h2').first.click()
+        self.browser.find_by_tag('h2').click()
 
         alert = self.browser.get_alert()
         self.assertEqual('What is your name?', alert.text)
@@ -142,7 +142,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_access_confirm_and_accept_and_dismiss_them(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
 
-        self.browser.find_by_tag('h3').first.click()
+        self.browser.find_by_tag('h3').click()
         alert = self.browser.get_alert()
 
         self.assertEqual('Should I continue?', alert.text)
@@ -151,7 +151,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.assertEqual('You say I should', alert.text)
         alert.accept()
 
-        self.browser.find_by_tag('h3').first.click()
+        self.browser.find_by_tag('h3').click()
         alert = self.browser.get_alert()
         self.assertEqual('Should I continue?', alert.text)
         alert.dismiss()
@@ -162,7 +162,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_access_confirm_and_accept_and_dismiss_them_using_with(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
 
-        self.browser.find_by_tag('h3').first.click()
+        self.browser.find_by_tag('h3').click()
         with self.browser.get_alert() as alert:
             self.assertEqual('Should I continue?', alert.text)
             alert.accept()
@@ -171,7 +171,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
             self.assertEqual('You say I should', alert.text)
             alert.accept()
 
-        self.browser.find_by_tag('h3').first.click()
+        self.browser.find_by_tag('h3').click()
         with self.browser.get_alert() as alert:
             self.assertEqual('Should I continue?', alert.text)
             alert.dismiss()
@@ -182,7 +182,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_access_alerts_using_with(self):
         "should access alerts using 'with' statement"
         self.browser.visit(EXAMPLE_APP + 'alert')
-        self.browser.find_by_tag('h1').first.click()
+        self.browser.find_by_tag('h1').click()
         with self.browser.get_alert() as alert:
             self.assertEqual('This is an alert example.', alert.text)
             alert.accept()

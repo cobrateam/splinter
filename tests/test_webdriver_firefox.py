@@ -40,7 +40,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
             'mockfile.txt'
         )
         self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').first.click()
+        self.browser.find_by_name('upload').click()
 
         html = self.browser.html
         assert 'text/plain' in html
@@ -53,12 +53,12 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     def test_mouse_over(self):
         "Firefox should not support mouseover"
         with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').first.mouse_over()
+            self.browser.find_by_id('visible').mouse_over()
 
     def test_mouse_out(self):
         "Firefox should not support mouseout"
         with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').first.mouse_out()
+            self.browser.find_by_id('visible').mouse_out()
 
     def test_mouseover_should_be_an_alias_to_mouse_over(self):
         "Firefox should not support mouseover"

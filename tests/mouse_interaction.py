@@ -16,14 +16,14 @@ class MouseInteractionTest(object):
     def test_mouse_over(self):
         "Should be able to perform a mouse over on an element"
         self.browser.visit(EXAMPLE_APP)
-        self.browser.find_by_css(".add-element-mouseover").first.mouse_over()
+        self.browser.find_by_css(".add-element-mouseover").mouse_over()
         assert self.browser.is_element_present_by_id('what-is-your-name')
-        self.browser.find_by_css(".add-element-mouseover").first.mouse_out()
+        self.browser.find_by_css(".add-element-mouseover").mouse_out()
 
     def test_mouse_out(self):
         "Should be able to perform a mouse out on an element"
         self.browser.visit(EXAMPLE_APP)
-        element = self.browser.find_by_css(".add-element-mouseover").first
+        element = self.browser.find_by_css(".add-element-mouseover")
         element.mouse_over()
         element.mouse_out()
         assert not self.browser.is_element_present_by_id('what-is-your-name')
@@ -31,7 +31,7 @@ class MouseInteractionTest(object):
     def test_double_click(self):
         "double click should shows a hidden element"
         self.browser.visit(EXAMPLE_APP)
-        button = self.browser.find_by_css(".db-button").first
+        button = self.browser.find_by_css(".db-button")
         button.double_click()
         element = self.browser.find_by_css(
             ".should-be-visible-after-double-click"
@@ -64,7 +64,7 @@ class MouseInteractionTest(object):
             self.browser.visit(EXAMPLE_APP)
             warnings.simplefilter("always")
             element = self.browser.find_by_css(".add-element-mouseover")
-            element.first.mouseover()
+            element.mouseover()
             warn_message = warnings_list[-1].message
             assert type(warn_message) is DeprecationWarning
             assert 'mouse_over' in warn_message.args[0]
@@ -74,7 +74,7 @@ class MouseInteractionTest(object):
         with warnings.catch_warnings(record=True) as warnings_list:
             self.browser.visit(EXAMPLE_APP)
             warnings.simplefilter("always")
-            self.browser.find_by_css(".add-element-mouseover").first.mouseout()
+            self.browser.find_by_css(".add-element-mouseover").mouseout()
             warn_message = warnings_list[-1].message
             assert type(warn_message) is DeprecationWarning
             assert 'mouse_out' in warn_message.args[0]

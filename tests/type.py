@@ -13,21 +13,21 @@ class SlowlyTypeTest(object):
         "should provide a away to change field value using type method"
         self.browser.visit(EXAMPLE_APP)
         self.browser.type('query', ' with type method')
-        value = self.browser.find_by_name('query').first.value
+        value = self.browser.find_by_name('query').value
         self.assertEqual('default value with type method', value)
 
         self.browser.type('description', 'type into textarea')
-        value = self.browser.find_by_name('description').first.value
+        value = self.browser.find_by_name('description').value
         self.assertEqual('type into textarea', value)
 
     def test_simple_type_on_element(self):
         self.browser.visit(EXAMPLE_APP)
         self.browser.find_by_name('query').type(' with type method')
-        value = self.browser.find_by_name('query').first.value
+        value = self.browser.find_by_name('query').value
         self.assertEqual('default value with type method', value)
 
         self.browser.find_by_name('description').type('type into textarea')
-        value = self.browser.find_by_name('description').first.value
+        value = self.browser.find_by_name('description').value
         self.assertEqual('type into textarea', value)
 
     def test_slowly_typing(self):
@@ -41,7 +41,7 @@ class SlowlyTypeTest(object):
                 num += 1
             self.assertEqual(num, num_max)
 
-            element = self.browser.find_by_name(name).first
+            element = self.browser.find_by_name(name)
             self.assertEqual(element.value, 'typing')
 
     def test_slowly_typing_on_element(self):
@@ -56,5 +56,5 @@ class SlowlyTypeTest(object):
                 num += 1
             self.assertEqual(num, num_max)
 
-            element = self.browser.find_by_name(name).first
+            element = self.browser.find_by_name(name)
             self.assertEqual(element.value, 'typing')
