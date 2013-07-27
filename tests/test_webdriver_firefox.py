@@ -20,12 +20,8 @@ def firefox_installed():
     return True
 
 
-@unittest.skipIf(
-    not firefox_installed(),
-    'Skipping the firefox webdriver tests'
-)
+@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("firefox")
@@ -71,8 +67,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
             self.browser.find_by_id('visible').mouseout()
 
 
+@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxWithExtensionTest(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         extension_path = os.path.join(
@@ -93,8 +89,8 @@ class FirefoxWithExtensionTest(unittest.TestCase):
         cls.browser.quit()
 
 
+@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         preferences = {
