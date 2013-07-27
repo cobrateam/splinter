@@ -25,6 +25,10 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
     def tearDownClass(self):
         self.browser.quit()
 
+    def test_should_support_with_statement(self):
+        with Browser('zope.testbrowser') as internet:
+            pass
+
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(

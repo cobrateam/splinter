@@ -46,6 +46,10 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         assert 'text/plain' in html
         assert open(file_path).read() in html
 
+    def test_should_support_with_statement(self):
+        with Browser('firefox') as internet:
+            pass
+
     def test_mouse_over(self):
         "Firefox should not support mouseover"
         with self.assertRaises(NotImplementedError):

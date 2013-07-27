@@ -21,10 +21,7 @@ def chrome_installed():
     return True
 
 
-@unittest.skipIf(
-    not chrome_installed(),
-    'Skipping the chrome webdriver tests'
-)
+@unittest.skipIf(not chrome_installed(), 'chrome is not installed')
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -50,3 +47,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         html = self.browser.html
         assert 'text/plain' in html
         assert open(file_path).read() in html
+
+    def test_should_support_with_statement(self):
+        with Browser('chrome') as internet:
+            pass
