@@ -56,11 +56,11 @@ class BrowserTest(unittest.TestCase):
             from splinter import Browser
             Browser('unknown-driver')
 
-    @unittest.skipif(not firefox_installed(), 'firefox is not installed')
+    @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
     def test_firefox_should_be_able_to_change_user_agent(self):
         self.asserttrue(self.browser_can_change_user_agent('firefox'))
 
-    @unittest.skipif(not chrome_installed(), 'chrome is not installed')
+    @unittest.skipIf(not chrome_installed(), 'chrome is not installed')
     def test_chrome_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('chrome'))
 
