@@ -13,6 +13,7 @@ from splinter.exceptions import DriverNotFoundError
 
 from fake_webapp import EXAMPLE_APP
 from test_webdriver_chrome import chrome_installed
+from test_webdriver_firefox import firefox_installed
 
 
 class BrowserTest(unittest.TestCase):
@@ -55,6 +56,7 @@ class BrowserTest(unittest.TestCase):
             from splinter import Browser
             Browser('unknown-driver')
 
+    @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
     def test_firefox_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('firefox'))
 
