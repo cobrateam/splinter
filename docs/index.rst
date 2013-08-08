@@ -63,6 +63,15 @@ specific docs for each driver):
 
 * :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
+*
+Remote driver
+++++++++++++++
+
+The remote driver uses Selenium Remote to control a web browser on a remote
+machine.
+
+* :doc:`Remote WebDriver </drivers/remote>`
+
 
 Get in touch and contribute
 ===========================
