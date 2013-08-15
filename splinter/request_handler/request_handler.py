@@ -12,7 +12,7 @@ else:
     import httplib as http_client  # NOQA
     from urlparse import urlparse  # NOQA
 import base64
-from status_code import StatusCode
+from .status_code import StatusCode
 
 
 class RequestHandler(object):
