@@ -7,10 +7,11 @@ import sys
 
 if sys.version_info[0] > 2:
     from http import client as http_client
+    from urllib import parse as urlparse
 else:
     import httplib as http_client  # NOQA
+    from urlparse import urlparse  # NOQA
 import base64
-from urlparse import urlparse
 from status_code import StatusCode
 
 
