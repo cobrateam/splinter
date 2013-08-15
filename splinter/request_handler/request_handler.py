@@ -3,8 +3,12 @@
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import sys
 
-import httplib
+if sys.version_info[0] > 2:
+    from http import client as http_client
+else:
+    import httplib as http_client  # NOQA
 import base64
 from urlparse import urlparse
 from status_code import StatusCode
@@ -38,9 +42,9 @@ class RequestHandler(object):
     def _create_connection(self):
         self._parse_url()
         if self.scheme == 'https':
-            self.conn = httplib.HTTPSConnection(self.host, self.port)
+            self.conn = http_client.HTTPSConnection(self.host, self.port)
         else:
-            self.conn = httplib.HTTPConnection(self.host, self.port)
+            self.conn = http_client.HTTPConnection(self.host, self.port)
         self.conn.putrequest('GET', self.path)
         self.conn.putheader('User-agent', 'python/splinter')
         if self.auth:
