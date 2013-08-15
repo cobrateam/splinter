@@ -12,16 +12,15 @@ Phantomjs WebDriver
 
 .. module:: splinter.driver.webdriver.phantomjs
 
-Phantomjs WebDriver is provided by Selenium 2.0. To use it, you need to install Selenium 2.0 via pip:
+PhantomJS is a headless WebKit scriptable with a JavaScript API, to use the driver first you must
+`install <http://phantomjs.org/download.html>`_ it in your machine.
+The Phantomjs WebDriver is provided by Selenium 2.0, thus you need to install Selenium 2.0 via pip:
 
 .. highlight:: bash
 
 ::
 
     $ [sudo] pip install selenium
-
-It's important to note that you also need to have `Phantomjs <http://phantomjs.org/>`_ `installed <http://phantomjs.org/download.html>`_ in your machine.
-Once you have it installed, there is nothing you have to do, just use it :)
 
 Using Phantomjs WebDriver
 -------------------------
