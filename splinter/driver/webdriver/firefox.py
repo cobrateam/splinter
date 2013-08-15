@@ -23,7 +23,7 @@ class WebDriver(BaseWebDriver):
             firefox_profile.set_preference('general.useragent.override', user_agent)
 
         if profile_preferences:
-            for key, value in profile_preferences.iteritems():
+            for key, value in profile_preferences.items():
                 firefox_profile.set_preference(key, value)
 
         if extensions:

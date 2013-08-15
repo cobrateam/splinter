@@ -3,13 +3,15 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
+import sys
 from setuptools import setup, find_packages
 import codecs
 
 
 README = codecs.open('README.rst', encoding='utf-8').read()
-
+if sys.version_info < (2, 6):
+    # workaround for python2.5 setuptools
+    README = README.encode('ascii', 'ignore')
 
 setup(
     name='splinter',
