@@ -11,7 +11,7 @@ import codecs
 README = codecs.open('README.rst', encoding='utf-8').read()
 if sys.version_info < (2, 6):
     # workaround for python2.5 setuptools
-    README = README.encode('ascii', errors='ignore')
+    README = README.encode('ascii', 'ignore')
 
 setup(
     name='splinter',
