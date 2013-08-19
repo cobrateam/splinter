@@ -5,6 +5,7 @@
 language: python
 python:
   - "2.7"
+  - "3.3"
 env:
   - PATH=./firefox:${PATH}
 before_script:
