@@ -75,7 +75,7 @@ def get_modules(modules_str):
             module = __import__(name, fromlist='tests')
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
-            print 'Error importing module %s:' % name
+            print('Error importing module {}:'.format(name))
             import traceback
             traceback.print_exception(exc_type, exc_value, exc_traceback,
                                       file=sys.stdout)
