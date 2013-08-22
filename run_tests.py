@@ -5,12 +5,16 @@
 # license that can be found in the LICENSE file.
 
 # -*- coding: utf-8 -*-
+
 import argparse
 import sys
 import unittest
 
 from multiprocessing import Process
-from urllib import urlopen
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 
 from tests import TESTS_ROOT
 from tests.fake_webapp import start_flask_app, EXAMPLE_APP
