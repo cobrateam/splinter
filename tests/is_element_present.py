@@ -4,9 +4,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from __future__ import with_statement
-
-
 class IsElementPresentTest(object):
 
     def test_is_element_present_by_css(self):
