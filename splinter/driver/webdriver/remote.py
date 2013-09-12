@@ -17,7 +17,11 @@ class WebDriver(BaseWebDriver):
     DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
 
     def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, **ability_args):
-        abilities = getattr(DesiredCapabilities, browser.upper(), {})
+        browsername = browser.upper()
+        # Handle case where user specifies IE with a space in it
+        if browsername == 'INTERNET EXPLORER':
+            browsername = 'INTERNETEXPLORER'
+        abilities = getattr(DesiredCapabilities, browsername, {})
         abilities.update(ability_args)
         self.driver = Remote(url, abilities)
 
