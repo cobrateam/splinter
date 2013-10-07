@@ -420,6 +420,12 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError("%s doesn't support verifying if element is not present by id" % self.driver_name)
 
+    def screenshot(self, name=None, suffix=None):
+        """
+        Takes a screenshot of the current page and saves it locally.
+        """
+        raise NotImplementedError("%s doesn't support taking screenshots." % self.driver_name)
+
     @property
     def cookies(self):
         """
