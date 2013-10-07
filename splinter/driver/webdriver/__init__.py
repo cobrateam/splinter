@@ -117,12 +117,6 @@ class BaseWebDriver(DriverAPI):
     def get_alert(self):
         return AlertElement(self.driver.switch_to_alert())
 
-    def get_screenshot_as_file(self, name=None, suffix='.png'):
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-
-        self.driver.get_screenshot_as_file(filename)
-        return filename
-
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
@@ -264,6 +258,15 @@ class BaseWebDriver(DriverAPI):
 
     def uncheck(self, name):
         self.find_by_name(name).first.uncheck()
+
+    def screenshot(self, name=None, suffix='.png'):
+
+        name = name or ''
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+
+        self.driver.get_screenshot_as_file(filename)
+        return filename
 
     def select(self, name, value):
         self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.click()

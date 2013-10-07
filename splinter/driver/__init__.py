@@ -98,12 +98,6 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError("%s doesn't support frames." % self.driver_name)
 
-    def get_screenshot_as_file(self, name=None, suffix=None):
-        """
-        Takes a screenshot of the current page and saves it locally.
-        """
-        raise NotImplementedError("%s doesn't support taking screenshots." % self.driver_name)
-
     def execute_script(self, script):
         """
         Executes a given JavaScript in the browser.
@@ -425,6 +419,12 @@ class DriverAPI(RequestHandler):
         Returns True if the element is not present and False if is present.
         """
         raise NotImplementedError("%s doesn't support verifying if element is not present by id" % self.driver_name)
+
+    def screenshot(self, name=None, suffix=None):
+        """
+        Takes a screenshot of the current page and saves it locally.
+        """
+        raise NotImplementedError("%s doesn't support taking screenshots." % self.driver_name)
 
     @property
     def cookies(self):
