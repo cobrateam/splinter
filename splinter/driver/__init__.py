@@ -98,6 +98,12 @@ class DriverAPI(RequestHandler):
         """
         raise NotImplementedError("%s doesn't support frames." % self.driver_name)
 
+    def get_screenshot_as_file(self, name=None, suffix=None):
+        """
+        Takes a screenshot of the current page and saves it locally.
+        """
+        raise NotImplementedError("%s doesn't support taking screenshots." % self.driver_name)
+
     def execute_script(self, script):
         """
         Executes a given JavaScript in the browser.

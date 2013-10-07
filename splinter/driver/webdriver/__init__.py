@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import tempfile
 import time
 import re
 from contextlib import contextmanager
@@ -115,6 +116,12 @@ class BaseWebDriver(DriverAPI):
 
     def get_alert(self):
         return AlertElement(self.driver.switch_to_alert())
+
+    def get_screenshot_as_file(self, name=None, suffix='.png'):
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+
+        self.driver.get_screenshot_as_file(filename)
+        return filename
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
