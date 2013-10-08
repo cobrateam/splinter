@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import tempfile
 import time
 import re
 from contextlib import contextmanager
@@ -257,6 +258,15 @@ class BaseWebDriver(DriverAPI):
 
     def uncheck(self, name):
         self.find_by_name(name).first.uncheck()
+
+    def screenshot(self, name=None, suffix='.png'):
+
+        name = name or ''
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+
+        self.driver.get_screenshot_as_file(filename)
+        return filename
 
     def select(self, name, value):
         self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (name, value)).first._element.click()
