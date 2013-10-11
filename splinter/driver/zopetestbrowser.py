@@ -152,6 +152,8 @@ class ZopeTestBrowser(DriverAPI):
                 index += 1
             except IndexError:
                 break
+            except LookupError:
+                break
         return ElementList([ZopeTestBrowserControlElement(element, self) for element in elements], find_by="name", query=name)
 
     def find_link_by_text(self, text):
