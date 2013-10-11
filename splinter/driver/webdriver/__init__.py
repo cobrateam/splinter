@@ -7,6 +7,7 @@
 import tempfile
 import time
 import re
+import sys
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
@@ -15,6 +16,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from splinter.utils import warn_deprecated
+
+
+if sys.version_info[0] > 2:
+    _meth_func = '__func__'
+    _func_name = '__name__'
+else:
+    _meth_func = 'im_func'
+    _func_name = 'func_name'
 
 
 class BaseWebDriver(DriverAPI):
@@ -180,7 +189,7 @@ class BaseWebDriver(DriverAPI):
         elements = None
         end_time = time.time() + self.wait_time
 
-        func_name = finder.im_func.func_name
+        func_name = getattr(getattr(finder, _meth_func), _func_name)
         find_by = original_find or func_name[func_name.rfind('_by_') + 4:]
         query = original_query or selector
 
