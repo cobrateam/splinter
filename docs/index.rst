@@ -54,6 +54,7 @@ The following drivers open a browser to run your actions:
 
 * :doc:`Chrome WebDriver </drivers/chrome>`
 * :doc:`Firefox WebDriver </drivers/firefox>`
+* :doc:`Remote WebDriver </drivers/remote>`
 
 Headless drivers
 ++++++++++++++++
