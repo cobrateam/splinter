@@ -22,7 +22,7 @@ setup(
     ] + [('Programming Language :: Python :: %s' % x) for x in '2.6 2.7 3.0 3.1 3.2 3.3'.split()],
     packages=find_packages(exclude=['docs', 'tests', 'samples']),
     include_package_data=True,
-    install_requires=['selenium>=2.33.0'],
+    install_requires=['selenium>=2.38.4'],
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.2',
                                          'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
