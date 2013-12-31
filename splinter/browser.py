@@ -41,6 +41,6 @@ def Browser(driver_name='firefox', *args, **kwargs):
 
     try:
         driver = _DRIVERS[driver_name]
-        return driver(*args, **kwargs)
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
+    return driver(*args, **kwargs)
