@@ -237,6 +237,10 @@ class DriverAPI(RequestHandler):
     def fill_form(self, field_values):
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
+        
+        Currently, fill_form supports the following fields: text, password, textarea, checkbox, radio and select.
+        
+        Checkboxes should be specified as a boolean in the dict.
         """
         raise NotImplementedError("%s doesn't support filling forms with a dict." % self.driver_name)
 
