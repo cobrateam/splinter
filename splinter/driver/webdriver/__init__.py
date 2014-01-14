@@ -248,6 +248,8 @@ class BaseWebDriver(DriverAPI):
                         field.click()
             elif element._element.tag_name == 'select':
                 element.find_by_value(value).first._element.click()
+            else:
+                element.value = value
 
     def type(self, name, value, slowly=False):
         element = self.driver.find_element_by_css_selector('[name="%s"]' % name)
