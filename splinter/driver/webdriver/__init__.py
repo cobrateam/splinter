@@ -235,7 +235,7 @@ class BaseWebDriver(DriverAPI):
         for name, value in field_values.items():
             elements = self.find_by_name(name)
             element = elements.first
-            if element['type'] in ['text', 'password'] or element.tag_name == 'textarea':
+            if element['type'] in ['text', 'password', 'tel'] or element.tag_name == 'textarea':
                 element.value = value
             elif element['type'] == 'checkbox':
                 if value:
@@ -248,6 +248,8 @@ class BaseWebDriver(DriverAPI):
                         field.click()
             elif element._element.tag_name == 'select':
                 element.find_by_value(value).first._element.click()
+            else:
+                element.value = value
 
     def type(self, name, value, slowly=False):
         element = self.driver.find_element_by_css_selector('[name="%s"]' % name)

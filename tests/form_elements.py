@@ -114,3 +114,17 @@ class FormElementsTest(object):
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
         self.assertTrue(self.browser.find_by_name("some-check").checked)
         self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+
+    def test_can_fill_tel_text_field(self):
+        "should provide a way to change a tel field value"
+        new_telephone = '555-0042'
+        self.browser.fill_form({'telephone': new_telephone})
+        value = self.browser.find_by_name('telephone').value
+        self.assertEqual(new_telephone, value)
+
+    def test_can_fill_unknown_text_field(self):
+        "should provide a way to change a unknown text field type that isn't specifically defined"
+        new_search_keyword = 'foobar'
+        self.browser.fill_form({'search_keyword': new_search_keyword})
+        value = self.browser.find_by_name('search_keyword').value
+        self.assertEqual(new_search_keyword, value)

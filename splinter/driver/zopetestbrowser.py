@@ -173,7 +173,7 @@ class ZopeTestBrowser(DriverAPI):
         for name, value in field_values.items():
             element = self.find_by_name(name)
             control = element.first._control
-            if control.type in ['text', 'textarea', 'password']:
+            if control.type in ['text', 'textarea', 'password', 'tel']:
                 control.value = value
             elif control.type == 'checkbox':
                 if value:
@@ -183,6 +183,8 @@ class ZopeTestBrowser(DriverAPI):
             elif control.type == 'radio':
                 control.value = [option for option in control.options if option == value]
             elif control.type == 'select':
+                control.value = [value]
+            else:
                 control.value = [value]
 
     def choose(self, name, value):
