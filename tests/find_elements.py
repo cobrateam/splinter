@@ -86,6 +86,10 @@ class FindElementsTest(object):
         link = self.browser.find_link_by_partial_text('FOO')[0]
         self.assertEqual('http://localhost:5000/foo', link['href'])
 
+    def test_finding_all_links_by_partial_text_complex_contents(self):
+        link = self.browser.find_link_by_partial_text('Complex Link')[0]
+        self.assertEqual('http://localhost:5000/foo', link['href'])
+
     def test_finding_last_element_by_css(self):
         "should find last element by css"
         value = self.browser.find_by_css('h1').last.value

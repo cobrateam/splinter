@@ -164,7 +164,7 @@ class ZopeTestBrowser(DriverAPI):
         return self._find_links_by_xpath("//a[contains(@href, '%s')]" % partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return self._find_links_by_xpath("//a[contains(text(), '%s')]" % partial_text)
+        return self._find_links_by_xpath("//a[contains(normalize-space(.), '%s')]" % partial_text)
 
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
