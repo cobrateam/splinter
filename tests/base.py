@@ -14,6 +14,7 @@ from form_elements import FormElementsTest
 from iframes import IFrameElementsTest
 from element import ElementTest
 from is_element_present import IsElementPresentTest
+from is_element_visible import IsElementVisibleTest
 from is_text_present import IsTextPresentTest
 from mouse_interaction import MouseInteractionTest
 from status_code import StatusCodeTest
@@ -87,7 +88,7 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         self.assertEqual(self.browser, element.parent)
 
 
-class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, AsyncFinderTests, StatusCodeTest, MouseInteractionTest, PopupWindowsTest, ScreenshotTest):
+class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest, IsElementVisibleTest, AsyncFinderTests, StatusCodeTest, MouseInteractionTest, PopupWindowsTest, ScreenshotTest):
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
