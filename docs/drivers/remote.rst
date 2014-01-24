@@ -28,8 +28,8 @@ webdriver server. Setting up one of these servers is beyond the scope of this
 document. However, some companies provide access to a `Selenium Grid`_ as a service.
 
 
-Useing the Remote WebDriver
----------------------------
+Using the Remote WebDriver
+--------------------------
 
 To use the Remote WebDriver, you need to pass ``driver_name="remote"``
 and ``url=<remote server url>`` when you create the ``Browser`` instance.
