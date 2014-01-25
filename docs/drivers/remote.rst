@@ -34,7 +34,7 @@ Using the Remote WebDriver
 To use the Remote WebDriver, you need to pass ``driver_name="remote"``
 and ``url=<remote server url>`` when you create the ``Browser`` instance.
 
-You can also pass additional arguments to the additional arguments that
+You can also pass additional arguments that
 correspond to Selenium `DesiredCapabilities`_ arguments.
 
 Here is an example that uses `Sauce Labs`_ (a company that provides Selenium
