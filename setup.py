@@ -23,7 +23,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests', 'samples']),
     include_package_data=True,
     install_requires=['selenium>=2.39.0'],
-    extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.2',
+    extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.4',
                                          'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
 )

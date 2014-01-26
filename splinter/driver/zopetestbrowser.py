@@ -150,7 +150,7 @@ class ZopeTestBrowser(DriverAPI):
                 control = self._browser.getControl(name=name, index=index)
                 elements.append(control)
                 index += 1
-            except IndexError:
+            except LookupError:
                 break
         return ElementList([ZopeTestBrowserControlElement(element, self) for element in elements], find_by="name", query=name)
 
