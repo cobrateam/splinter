@@ -19,4 +19,4 @@ class ScreenshotTest(object):
     def test_take_screenshot_with_suffix(self):
         "should add the suffix to the screenshot file name"
         filename = self.browser.screenshot(suffix='jpeg')
-        self.assertEqual('jpg', filename[-3:])
+        self.assertEqual('jpeg', filename[-4:])
