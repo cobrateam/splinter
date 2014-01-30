@@ -11,7 +11,7 @@ README = codecs.open('README.rst', encoding='utf-8').read()
 
 setup(
     name='splinter',
-    version='0.5.4',
+    version='0.5.5',
     description='browser abstraction for web acceptance testing',
     long_description=README,
     author='CobraTeam',
