@@ -5,3 +5,4 @@ selenium==2.39.0
 coverage==3.7.1
 cssselect>=0.7.1
 argparse
+Django==1.6.1
