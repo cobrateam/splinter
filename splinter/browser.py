@@ -24,6 +24,13 @@ try:
 except ImportError:
     pass
 
+try:
+    import django  # noqa
+    from splinter.driver.djangoclient import DjangoClient
+    _DRIVERS['djangoclient'] = DjangoClient
+except ImportError:
+    pass
+
 
 def Browser(driver_name='firefox', *args, **kwargs):
     """
