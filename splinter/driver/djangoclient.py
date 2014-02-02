@@ -52,7 +52,7 @@ class CookieManager(CookieManagerAPI):
 
 class DjangoClient(DriverAPI):
 
-    driver_name = "djangoclient"
+    driver_name = "django"
 
     def __init__(self, user_agent=None, wait_time=2):
         from django.test.client import Client

@@ -27,7 +27,7 @@ except ImportError:
 try:
     import django  # noqa
     from splinter.driver.djangoclient import DjangoClient
-    _DRIVERS['djangoclient'] = DjangoClient
+    _DRIVERS['django'] = DjangoClient
 except ImportError:
     pass
 

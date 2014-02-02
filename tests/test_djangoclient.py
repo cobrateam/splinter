@@ -20,7 +20,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('djangoclient', wait_time=0.1)
+        cls.browser = Browser('django', wait_time=0.1)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
@@ -30,7 +30,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.quit()
 
     def test_should_support_with_statement(self):
-        with Browser('djangoclient') as internet:
+        with Browser('django') as internet:
             self.assertIsNotNone(internet)
 
     def test_attach_file(self):
@@ -48,7 +48,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
-        browser = Browser('djangoclient')
+        browser = Browser('django')
         browser.visit(EXAMPLE_APP)
         browser.forward()
         self.assertEqual(EXAMPLE_APP, browser.url)
@@ -61,7 +61,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
             self.fail()
 
         e = cm.exception
-        self.assertEqual("djangoclient doesn't support frames.", e.args[0])
+        self.assertEqual("django doesn't support frames.", e.args[0])
 
     def test_simple_type(self):
         """
@@ -73,7 +73,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_simple_type_on_element(self):
         """
-        djangoclient won't support type method
+        django won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -81,7 +81,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_slowly_typing(self):
         """
-        djangoclient won't support type method
+        django won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -89,7 +89,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_slowly_typing_on_element(self):
         """
-        djangoclient won't support type method
+        django won't support type method
         on element because it doesn't interac with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -97,12 +97,12 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
             query.type('with type method', slowly=True)
 
     def test_cant_mouseover(self):
-        "djangoclient should not be able to put the mouse over the element"
+        "django should not be able to put the mouse over the element"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_css('#visible').mouse_over()
 
     def test_cant_mouseout(self):
-        "djangoclient should not be able to mouse out of an element"
+        "django should not be able to mouse out of an element"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_css('#visible').mouse_out()
 
