@@ -5,6 +5,8 @@
 language: python
 python:
   - "2.7"
+env:
+  - DRIVER=tests/test_djangoclient.py
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -21,4 +23,4 @@ before_script:
   # - java -jar selenium-server.jar > /dev/null &
   # - export PATH=./firefox:$PATH
 install: make dependencies
-script: make test
+script: ./run_tests.py -w ${DRIVER}
