@@ -1,0 +1,15 @@
+.. Copyright 2014 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.6.0.
+    :keywords: splinter 0.6.0, python, django, news, documentation, tutorial, web application
+
+whats's new in splinter 0.6.0?
+==============================
+
+Features
+--------
+
+* support for django test client.
