@@ -64,7 +64,8 @@ specific docs for each driver):
 
 * :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
-*
+* :doc:`django client </drivers/django>`
+
 Remote driver
 ++++++++++++++
 
