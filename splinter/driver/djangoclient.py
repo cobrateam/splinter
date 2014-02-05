@@ -245,7 +245,7 @@ class DjangoClient(DriverAPI):
         control.value = file_path
 
     def _find_links_by_xpath(self, xpath):
-        html = lxml.html.fromstring(self.html)
+        html = self.htmltree
         links = html.xpath(xpath)
         return ElementList([DjangoClientLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
 

@@ -108,3 +108,15 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
             len(links), 1,
             'Found not exactly one link with a span with text "BAR ONE". %s' % (
                 map(lambda item: item.outer_html, links)))
+
+    def test_finding_all_links_by_non_ascii_text(self):
+        "should find links by non ascii text"
+        non_ascii_encodings = {
+            'pangram_pl': u'Jeżu klątw, spłódź Finom część gry hańb!',
+            'pangram_ja': u'天 地 星 空',
+            'pangram_ru': u'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!',
+            'pangram_eo': u'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.',
+        }
+        for key, text in non_ascii_encodings.iteritems():
+            link = self.browser.find_link_by_text(text)
+            self.assertEqual(key, link['id'])

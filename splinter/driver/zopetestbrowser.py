@@ -87,6 +87,10 @@ class ZopeTestBrowser(DriverAPI):
         pass
 
     @property
+    def htmltree(self):
+        return lxml.html.fromstring(self.html.decode('utf-8'))
+
+    @property
     def title(self):
         return self._browser.title
 
@@ -99,13 +103,13 @@ class ZopeTestBrowser(DriverAPI):
         return self._browser.url
 
     def find_option_by_value(self, value):
-        html = lxml.html.fromstring(self.html)
+        html = self.htmltree
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
         return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="value", query=value)
 
     def find_option_by_text(self, text):
-        html = lxml.html.fromstring(self.html)
+        html = self.htmltree
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
         return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="text", query=text)
@@ -115,7 +119,7 @@ class ZopeTestBrowser(DriverAPI):
         return self.find_by_xpath(xpath, original_find="css", original_selector=selector)
 
     def find_by_xpath(self, xpath, original_find=None, original_selector=None):
-        html = lxml.html.fromstring(self.html)
+        html = self.htmltree
 
         elements = []
 
@@ -205,7 +209,7 @@ class ZopeTestBrowser(DriverAPI):
         control.add_file(open(file_path), content_type, filename)
 
     def _find_links_by_xpath(self, xpath):
-        html = lxml.html.fromstring(self.html)
+        html = self.htmltree
         links = html.xpath(xpath)
         return ElementList([ZopeTestBrowserLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
 
