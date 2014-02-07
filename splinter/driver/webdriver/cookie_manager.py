@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from urlparse import urlparse
 from splinter.cookie_manager import CookieManagerAPI
 
 
@@ -23,7 +24,16 @@ class CookieManager(CookieManagerAPI):
         else:
             self.driver.delete_all_cookies()
 
-    def all(self):
+    def all(self, info=False):
+        if not info:
+            cleaned_cookies = []
+            cookies = self.driver.get_cookies()
+            for cookie in cookies:
+                cookie_domain = cookie['domain'] if not cookie['domain'].startswith('.') else cookie['domain'][1:]
+                if cookie_domain in urlparse(self.driver.current_url).netloc:
+                    cookie = {cookie['name']: cookie['value']}
+                    cleaned_cookies.append(cookie)
+            return cleaned_cookies
         return self.driver.get_cookies()
 
     def __getitem__(self, item):

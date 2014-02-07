@@ -52,9 +52,11 @@ class CookieManagerAPI(object):
         """
         raise NotImplementedError
 
-    def all(self):
+    def all(self, info=False):
         """
         Returns all of the cookies.
+
+            **Note:** If you're using any webdriver and want more info about the cookie, set the `info` parameter to `True` (in other drivers, it won't make any difference). In this case, this method will return a list of dicts, each with one cookie's info.
 
         Examples:
 

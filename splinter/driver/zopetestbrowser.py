@@ -38,8 +38,12 @@ class CookieManager(CookieManagerAPI):
         else:
             self._cookies.clearAll()
 
-    def all(self):
-        return self._cookies.items()
+    def all(self, info=False):
+        cookies = []
+        for key, value in self._cookies.items():
+            item = {key: value}
+            cookies.append(item)
+        return cookies
 
     def __getitem__(self, item):
         return self._cookies[item]

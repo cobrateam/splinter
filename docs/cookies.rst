@@ -23,6 +23,7 @@ For add a cookie use the add method:
 
     browser.cookies.add({'whatever': 'and ever'})
 
+
 Retrieve all cookies
 --------------------
 
