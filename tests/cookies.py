@@ -13,6 +13,20 @@ class CookiesTest(object):
         self.browser.cookies.add({'sha': 'zam'})
         self.assertEqual(self.browser.cookies['sha'], 'zam')
 
+    def test_create_many_cookies_at_once_as_dict(self):
+        "should be able to create many cookies at once as dict"
+        cookies = {'sha': 'zam', 'foo': 'bar'}
+        self.browser.cookies.add(cookies)
+        self.assertEqual(self.browser.cookies['sha'], 'zam')
+        self.assertEqual(self.browser.cookies['foo'], 'bar')
+
+    def test_create_many_cookies_at_once_as_list(self):
+        "should be able to create many cookies at once as list"
+        cookies = [{'sha': 'zam'}, {'foo': 'bar'}]
+        self.browser.cookies.add(cookies)
+        self.assertEqual(self.browser.cookies['sha'], 'zam')
+        self.assertEqual(self.browser.cookies['foo'], 'bar')
+
     def test_create_some_cookies_and_delete_them_all(self):
         "should be able to delete all cookies"
         self.browser.cookies.add({'whatever': 'and ever'})
@@ -49,4 +63,4 @@ class CookiesTest(object):
         self.browser.cookies.add({'lavar': 'burton'})
         self.assertEqual(len(self.browser.cookies.all()), 2)
         self.browser.cookies.delete()
-        self.assertEqual(self.browser.cookies.all(), [])
+        self.assertEqual(self.browser.cookies.all(), {})

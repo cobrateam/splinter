@@ -14,6 +14,11 @@ class CookieManager(CookieManagerAPI):
         self.driver = driver
 
     def add(self, cookies):
+        if isinstance(cookies, list):
+            for cookie in cookies:
+                for key, value in cookie.items():
+                    self.driver.add_cookie({'name': key, 'value': value})
+                return
         for key, value in cookies.items():
             self.driver.add_cookie({'name': key, 'value': value})
 
@@ -24,15 +29,14 @@ class CookieManager(CookieManagerAPI):
         else:
             self.driver.delete_all_cookies()
 
-    def all(self, info=False):
-        if not info:
-            cleaned_cookies = []
+    def all(self, verbose=False):
+        if not verbose:
+            cleaned_cookies = {}
             cookies = self.driver.get_cookies()
             for cookie in cookies:
                 cookie_domain = cookie['domain'] if not cookie['domain'].startswith('.') else cookie['domain'][1:]
                 if cookie_domain in urlparse(self.driver.current_url).netloc:
-                    cookie = {cookie['name']: cookie['value']}
-                    cleaned_cookies.append(cookie)
+                    cleaned_cookies[cookie['name']] = cookie['value']
             return cleaned_cookies
         return self.driver.get_cookies()
 

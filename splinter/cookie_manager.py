@@ -52,11 +52,11 @@ class CookieManagerAPI(object):
         """
         raise NotImplementedError
 
-    def all(self, info=False):
+    def all(self, verbose=False):
         """
         Returns all of the cookies.
 
-            **Note:** If you're using any webdriver and want more info about the cookie, set the `info` parameter to `True` (in other drivers, it won't make any difference). In this case, this method will return a list of dicts, each with one cookie's info.
+            **Note:** If you're using any webdriver and want more info about the cookie, set the `verbose` parameter to `True` (in other drivers, it won't make any difference). In this case, this method will return a list of dicts, each with one cookie's info.
 
         Examples:
 

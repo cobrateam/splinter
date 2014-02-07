@@ -24,6 +24,11 @@ class CookieManager(CookieManagerAPI):
         self._cookies = browser_cookies
 
     def add(self, cookies):
+        if isinstance(cookies, list):
+            for cookie in cookies:
+                for key, value in cookie.items():
+                    self._cookies[key] = value
+                return
         for key, value in cookies.items():
             self._cookies[key] = value
 
@@ -37,11 +42,10 @@ class CookieManager(CookieManagerAPI):
         else:
             self._cookies.clear()
 
-    def all(self, info=False):
-        cookies = []
+    def all(self, verbose=False):
+        cookies = {}
         for key, value in self._cookies.items():
-            item = {key: value}
-            cookies.append(item)
+            cookies[key] = value
         return cookies
 
     def __getitem__(self, item):
