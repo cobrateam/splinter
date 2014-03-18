@@ -50,26 +50,6 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         with Browser('firefox') as internet:
             pass
 
-    def test_mouse_over(self):
-        "Firefox should not support mouseover"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').mouse_over()
-
-    def test_mouse_out(self):
-        "Firefox should not support mouseout"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').mouse_out()
-
-    def test_mouseover_should_be_an_alias_to_mouse_over(self):
-        "Firefox should not support mouseover"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').mouseover()
-
-    def test_mouseout_should_be_an_alias_to_mouse_out_and_be_deprecated(self):
-        "Firefox should not support mouseout"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').mouseout()
-
 
 @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxWithExtensionTest(unittest.TestCase):
