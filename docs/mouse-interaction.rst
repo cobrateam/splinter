@@ -4,13 +4,13 @@
 
 .. meta::
     :description: Mouse interatcion.
-    :keywords: splinter, python, tutorial, documentation, mouse interaction, mouseover, mouseout, doube click, mouse events
+    :keywords: splinter, python, tutorial, documentation, mouse interaction, mouseover, mouseout, double click, mouse events
 
 ++++++++++++++++++
 Mouse interactions
 ++++++++++++++++++
 
-    **Note:** Most mouse interaction currently works only on Chrome driver.
+    **Note:** Most mouse interaction currently works only on Chrome driver and Firefox 27.0.1.
 
 Splinter provides some methods for mouse interactions with elements in the page.
 This feature is useful to test if an element appears on mouse over and
