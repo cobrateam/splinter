@@ -63,7 +63,7 @@ class FlaskClient(DriverAPI):
 
     driver_name = "flask"
 
-    def __init__(self, app=None, user_agent=None, wait_time=2):
+    def __init__(self, app, user_agent=None, wait_time=2):
         self.wait_time = wait_time
         app.config['TESTING'] = True
         self._browser = app.test_client()
