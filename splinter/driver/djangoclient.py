@@ -8,6 +8,7 @@ from __future__ import with_statement
 import os.path
 import re
 import time
+import sys
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -54,7 +55,7 @@ class CookieManager(CookieManagerAPI):
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             cookies_dict = dict([(key, morsel.value)
-                                 for key, morsel in self._cookies.iteritems()])
+                                 for key, morsel in self._cookies.items()])
             return cookies_dict == other_object
 
 
@@ -105,7 +106,7 @@ class DjangoClient(DriverAPI):
         for key in form.inputs.keys():
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
-                data[key] = open(data[key])
+                data[key] = open(data[key], 'rb')
         self._response = func_method(url, data, follow=True)
         self._post_load()
         return self._response
@@ -345,7 +346,7 @@ class DjangoClientElement(ElementAPI):
 
     @property
     def outer_html(self):
-        return lxml.html.tostring(self._element, encoding=unicode).strip()
+        return lxml.html.tostring(self._element, encoding='unicode').strip()
 
     @property
     def html(self):
@@ -391,13 +392,16 @@ class DjangoClientControlElement(DjangoClientElement):
 
     def fill(self, value):
         parent_form = self._get_parent_form()
-        parent_form.fields[self['name']] = value.decode('utf-8')
+        if sys.version_info[0] > 2:
+            parent_form.fields[self['name']] = value
+        else:
+            parent_form.fields[self['name']] = value.decode('utf-8')
 
     def select(self, value):
         self._control.value = value
 
     def _get_parent_form(self):
-        parent_form = self._control.iterancestors('form').next()
+        parent_form = next(self._control.iterancestors('form'))
         return self.parent._forms.setdefault(parent_form._name(), parent_form)
 
 

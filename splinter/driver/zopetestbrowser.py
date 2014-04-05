@@ -315,7 +315,7 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def outer_html(self):
-        return lxml.html.tostring(self._element, encoding=unicode).strip()
+        return lxml.html.tostring(self._element, encoding='unicode').strip()
 
     @property
     def html(self):
