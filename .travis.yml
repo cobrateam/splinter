@@ -5,6 +5,7 @@
 language: python
 python:
   - "2.7"
+  - "3.3"
 env:
   - DRIVER=tests/test_djangoclient.py
   - DRIVER=tests/test_flaskclient.py
@@ -13,6 +14,10 @@ env:
   - DRIVER=tests/test_zopetestbrowser.py
   - DRIVER=tests/test_webdriver_phantomjs.py
   - DRIVER=tests/test_webdriver_chrome.py
+matrix:
+  exclude:
+    - python: "3.3"
+      env: DRIVER=tests/test_zopetestbrowser.py
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start

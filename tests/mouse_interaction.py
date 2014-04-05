@@ -6,7 +6,7 @@
 
 import warnings
 
-from fake_webapp import EXAMPLE_APP
+from .fake_webapp import EXAMPLE_APP
 
 
 class MouseInteractionTest(object):

@@ -4,22 +4,22 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from async_finder import AsyncFinderTests
-from click_elements import ClickElementsTest
-from cookies import CookiesTest
-from element_does_not_exist import ElementDoestNotExistTest
-from fake_webapp import EXAMPLE_APP
-from find_elements import FindElementsTest
-from form_elements import FormElementsTest
-from iframes import IFrameElementsTest
-from element import ElementTest
-from is_element_present import IsElementPresentTest
-from is_text_present import IsTextPresentTest
-from mouse_interaction import MouseInteractionTest
-from status_code import StatusCodeTest
-from screenshot import ScreenshotTest
-from type import SlowlyTypeTest
-from popups import PopupWindowsTest
+from .async_finder import AsyncFinderTests
+from .click_elements import ClickElementsTest
+from .cookies import CookiesTest
+from .element_does_not_exist import ElementDoestNotExistTest
+from .fake_webapp import EXAMPLE_APP
+from .find_elements import FindElementsTest
+from .form_elements import FormElementsTest
+from .iframes import IFrameElementsTest
+from .element import ElementTest
+from .is_element_present import IsElementPresentTest
+from .is_text_present import IsTextPresentTest
+from .mouse_interaction import MouseInteractionTest
+from .status_code import StatusCodeTest
+from .screenshot import ScreenshotTest
+from .type import SlowlyTypeTest
+from .popups import PopupWindowsTest
 
 
 class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickElementsTest, CookiesTest, SlowlyTypeTest, IsTextPresentTest):
@@ -30,7 +30,7 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
     def test_can_open_page(self):
         "should be able to visit, get title and quit"
         title = self.browser.title
-        self.assertEqual('Example Title', title)
+        self.assertEqual(b'Example Title', title)
 
     def test_can_back_on_history(self):
         "should be able to back on history"
@@ -49,14 +49,14 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
     def test_should_have_html(self):
         "should have access to the html"
         html = self.browser.html
-        assert '<title>Example Title</title>' in html
-        assert '<h1 id="firstheader">Example Header</h1>' in html
+        assert b'<title>Example Title</title>' in html
+        assert b'<h1 id="firstheader">Example Header</h1>' in html
 
     def test_should_reload_a_page(self):
         "should reload a page"
         title = self.browser.title
         self.browser.reload()
-        self.assertEqual('Example Title', title)
+        self.assertEqual(b'Example Title', title)
 
     def test_should_have_url(self):
         "should have access to the url"

@@ -4,30 +4,33 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import __builtin__
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
 import unittest
 
 from splinter.exceptions import DriverNotFoundError
 
-from fake_webapp import EXAMPLE_APP
-from test_webdriver_chrome import chrome_installed
-from test_webdriver_firefox import firefox_installed
+from .fake_webapp import EXAMPLE_APP
+from .test_webdriver_chrome import chrome_installed
+from .test_webdriver_firefox import firefox_installed
 
 
 class BrowserTest(unittest.TestCase):
 
     def patch_driver(self, pattern):
-        self.old_import = __builtin__.__import__
+        self.old_import = builtins.__import__
 
         def custom_import(name, *args, **kwargs):
             if pattern in name:
                 return None
             return self.old_import(name, *args, **kwargs)
 
-        __builtin__.__import__ = custom_import
+        builtins.__import__ = custom_import
 
     def unpatch_driver(self, module):
-        __builtin__.__import__ = self.old_import
+        builtins.__import__ = self.old_import
         reload(module)
 
     def browser_can_change_user_agent(self, webdriver):
