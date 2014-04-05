@@ -40,7 +40,7 @@ class BaseWebDriver(DriverAPI):
     @property
     def title(self):
         if sys.version_info[0] > 2:
-            return self.driver.title.encode('u8')
+            return self.driver.title.encode('utf-8')
         else:
             return self.driver.title
 
