@@ -9,8 +9,8 @@ import sys
 import unittest
 
 from splinter import Browser
-from base import BaseBrowserTests
-from fake_webapp import app, EXAMPLE_APP
+from .base import BaseBrowserTests
+from .fake_webapp import app, EXAMPLE_APP
 
 
 class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
@@ -40,8 +40,8 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read() in html
+        assert b'text/plain' in html
+        assert open(file_path).read().encode('utf-8') in html
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -118,6 +118,6 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
             'pangram_ru': u'В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!',
             'pangram_eo': u'Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.',
         }
-        for key, text in non_ascii_encodings.iteritems():
+        for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
