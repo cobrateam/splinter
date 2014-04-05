@@ -1,8 +1,8 @@
 import unittest
 
 from splinter import Browser
-from fake_webapp import EXAMPLE_APP
-from base import WebDriverTests
+from .fake_webapp import EXAMPLE_APP
+from .base import WebDriverTests
 
 
 class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
