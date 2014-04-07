@@ -9,8 +9,7 @@ import unittest
 from splinter.meta import InheritedDocs
 
 
-class SuperClass(object):
-    __metaclass__ = InheritedDocs
+class SuperClass(InheritedDocs('_SuperClass', (object,), {})):
 
     def say_hello(self):
         """

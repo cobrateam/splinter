@@ -6,12 +6,15 @@
 
 import os
 import unittest
+import sys
 
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
 
 
+@unittest.skipIf(sys.version_info[0] > 2,
+                 'zope.testbrowser is not currently compatible with Python 3')
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod

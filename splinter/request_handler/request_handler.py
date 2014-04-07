@@ -56,7 +56,10 @@ class RequestHandler(object):
         parsed_url = urlparse(self.request_url)
         if parsed_url.username and parsed_url.password:
             login = '%s:%s' % (parsed_url.username, parsed_url.password)
-            self.auth = base64.standard_b64encode(login)
+            if sys.version_info[0] > 2:
+                self.auth = base64.standard_b64encode(login.encode('utf-8')).decode("utf-8")
+            else:
+                self.auth = base64.standard_b64encode(login)
         else:
             self.auth = None
         self.host = parsed_url.hostname
