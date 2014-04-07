@@ -45,13 +45,13 @@ class Window(object):
     @property
     def title(self):
         """ The title of this window """
-        with switch_window(self._browser, self.name):
+        with self.activate_temporarily():
             return self._browser.title
 
     @property
     def url(self):
         """ The url of this window """
-        with switch_window(self._browser, self.name):
+        with self.activate_temporarily():
             return self._browser.url
 
     @property
@@ -73,7 +73,7 @@ class Window(object):
         next_handle = self._browser.driver.window_handles[next_index]
         return Window(self._browser, next_handle)
 
-    def is_current():
+    def is_active():
         doc = "Whether this window is currently the browser's active window."
         def fget(self):
             return self._browser.driver.current_window_handle == self.name
@@ -83,20 +83,37 @@ class Window(object):
             else:
                 raise TypeError("can only set to True")
         return locals()
-    is_current = property(**is_current())
+    is_active = property(**is_active())
+
+    def activate(self):
+        self.is_active = True
+
+    @contextmanager
+    def activate_temporarily(self):
+        """
+        Switch to this window, yield the browser, 
+        then switch back to the original active window.
+        """
+        original_window = self._browser.windows.active
+        self.activate()
+        try:
+            yield self._browser
+        finally:
+            if original_window in self._browser.windows:
+                self._browser.switch_to_window(original_window)
 
     def close(self):
         """ Close this window. If this window is active, switch to previous window """
-        target = self.prev if (self.is_current and self.prev != self) else None
+        target = self.prev if (self.is_active and self.prev != self) else None
 
-        with switch_window(self._browser, self.name):
+        with self.activate_temporarily():
             self._browser.driver.close()
 
         if target is not None:
-            target.is_current = True
+            target.is_active = True
 
     def close_others(self):
-        self.is_current = True
+        self.is_active = True
         for window in self._browser.windows:
             if window != self:
                 window.close()
@@ -127,7 +144,7 @@ class Windows(object):
                 raise KeyError(key)
             return Window(self._browser, key)
 
-    def current():
+    def active():
         doc = "The currently active window"
         def fget(self):
             current_handle = self._browser.driver.current_window_handle
@@ -135,7 +152,7 @@ class Windows(object):
         def fset(self, value):
             self._browser.driver.switch_to_window(value.name)
         return locals()
-    current = property(**current())
+    active = property(**active())
 
     def __repr__(self):
         return str([Window(self._browser, handle) for handle in self._browser.driver.window_handles])
@@ -407,6 +424,9 @@ class BaseWebDriver(DriverAPI):
     @property
     def windows(self):
         return Windows(self)
+
+    def switch_to_window(self, window):
+        window.activate()
 
 class TypeIterator(object):
 

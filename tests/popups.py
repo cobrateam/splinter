@@ -12,30 +12,30 @@ class PopupWindowsTest(object):
             self.assertEqual(window.name, handle)
 
     def test_current_is_a_window_instance_pointing_to_current_window(self):
-        self.assertEqual(self.browser.windows.current.name, self.browser.driver.current_window_handle)
+        self.assertEqual(self.browser.windows.active.name, self.browser.driver.current_window_handle)
 
     def test_set_current_to_window_instance_sets_current_window(self):
-        last_current_window = self.browser.windows.current
-        self.browser.windows.current = self.browser.windows.current.next
-        self.assertNotEqual(self.browser.windows.current, last_current_window)
+        last_current_window = self.browser.windows.active
+        self.browser.switch_to_window(self.browser.windows.active.next)
+        self.assertNotEqual(self.browser.windows.active, last_current_window)
 
     def test_next_prev_return_next_prev_windows(self):
         self.browser.find_by_id("open-popup").click()
-        self.assertEqual(self.browser.windows.current.next, self.browser.windows.current.prev)
-        self.assertNotEqual(self.browser.windows.current, self.browser.windows.current.next)
+        self.assertEqual(self.browser.windows.active.next, self.browser.windows.active.prev)
+        self.assertNotEqual(self.browser.windows.active, self.browser.windows.active.next)
 
     def test_is_current_returns_true_if_current_window_else_false(self):
         self.browser.find_by_id("open-popup").click()
-        self.assertTrue(self.browser.windows.current.is_current)
-        self.assertFalse(self.browser.windows.current.next.is_current)
+        self.assertTrue(self.browser.windows.active.is_active)
+        self.assertFalse(self.browser.windows.active.next.is_active)
 
     def test_set_is_current_to_True_sets_window_to_current(self):
         self.browser.find_by_id("open-popup").click()
-        next_window = self.browser.windows.current.next
-        self.assertFalse(next_window.is_current)
-        next_window.is_current = True
-        self.assertEqual(self.browser.windows.current, next_window)
-        self.assertTrue(next_window.is_current)
+        next_window = self.browser.windows.active.next
+        self.assertFalse(next_window.is_active)
+        next_window.activate()
+        self.assertEqual(self.browser.windows.active, next_window)
+        self.assertTrue(next_window.is_active)
 
     def test_get_window_by_index(self):
         self.browser.find_by_id("open-popup").click()
@@ -48,22 +48,22 @@ class PopupWindowsTest(object):
 
     def test_close_closes_window(self):
         self.browser.find_by_id("open-popup").click()
-        current = self.browser.windows.current
+        current = self.browser.windows.active
         current.next.close()
         self.assertEqual(len(self.browser.windows), 1)
-        self.assertEqual(self.browser.windows.current, current)
+        self.assertEqual(self.browser.windows.active, current)
 
     def test_close_current_window_expect_previous_window_becomes_current(self):
         self.browser.find_by_id("open-popup").click()
-        prev = self.browser.windows.current
+        prev = self.browser.windows.active
         current = prev.next
-        prev.next.is_current = True
+        prev.next.activate()
         current.close()
         self.assertEqual(len(self.browser.windows), 1)
-        self.assertEqual(self.browser.windows.current, prev)
+        self.assertEqual(self.browser.windows.active, prev)
 
     def test_close_others_expect_close_all_other_open_windows(self):
-        current = self.browser.windows.current
+        current = self.browser.windows.active
         self.browser.find_by_id("open-popup").click()
         current.close_others()
         self.assertEqual(self.browser.windows[0], current)
