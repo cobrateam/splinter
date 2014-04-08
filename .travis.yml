@@ -8,6 +8,7 @@ python:
   - "3.3"
 env:
   - DRIVER=tests/test_djangoclient.py
+  - DRIVER=tests/test_flaskclient.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER=tests/test_webdriver_firefox.py
   - DRIVER=tests/test_zopetestbrowser.py

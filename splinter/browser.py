@@ -34,6 +34,13 @@ try:
 except ImportError:
     pass
 
+try:
+    import flask  # noqa
+    from splinter.driver.flaskclient import FlaskClient
+    _DRIVERS['flask'] = FlaskClient
+except ImportError:
+    pass
+
 
 def Browser(driver_name='firefox', *args, **kwargs):
     """
