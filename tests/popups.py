@@ -11,10 +11,10 @@ class PopupWindowsTest(object):
         for window, handle in zip(self.browser.windows, self.browser.driver.window_handles):
             self.assertEqual(window.name, handle)
 
-    def test_current_is_a_window_instance_pointing_to_current_window(self):
+    def test_active_is_a_window_instance_pointing_to_active_window(self):
         self.assertEqual(self.browser.windows.active.name, self.browser.driver.current_window_handle)
 
-    def test_set_current_to_window_instance_sets_current_window(self):
+    def test_switch_to_window_expect_sets_current_window(self):
         last_current_window = self.browser.windows.active
         self.browser.switch_to_window(self.browser.windows.active.next)
         self.assertNotEqual(self.browser.windows.active, last_current_window)
@@ -24,12 +24,12 @@ class PopupWindowsTest(object):
         self.assertEqual(self.browser.windows.active.next, self.browser.windows.active.prev)
         self.assertNotEqual(self.browser.windows.active, self.browser.windows.active.next)
 
-    def test_is_current_returns_true_if_current_window_else_false(self):
+    def test_is_active_returns_true_if_active_window_else_false(self):
         self.browser.find_by_id("open-popup").click()
         self.assertTrue(self.browser.windows.active.is_active)
         self.assertFalse(self.browser.windows.active.next.is_active)
 
-    def test_set_is_current_to_True_sets_window_to_current(self):
+    def test_window_activate_sets_window_to_active(self):
         self.browser.find_by_id("open-popup").click()
         next_window = self.browser.windows.active.next
         self.assertFalse(next_window.is_active)
@@ -53,7 +53,7 @@ class PopupWindowsTest(object):
         self.assertEqual(len(self.browser.windows), 1)
         self.assertEqual(self.browser.windows.active, current)
 
-    def test_close_current_window_expect_previous_window_becomes_current(self):
+    def test_close_active_window_expect_previous_window_becomes_current(self):
         self.browser.find_by_id("open-popup").click()
         prev = self.browser.windows.active
         current = prev.next
