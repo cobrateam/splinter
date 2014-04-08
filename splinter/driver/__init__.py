@@ -12,11 +12,10 @@ from splinter.meta import InheritedDocs
 from splinter.request_handler.request_handler import RequestHandler
 
 
-class DriverAPI(RequestHandler):
+class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
     """
     Basic driver API class.
     """
-    __metaclass__ = InheritedDocs
     driver_name = None
 
     @property
@@ -440,7 +439,7 @@ class DriverAPI(RequestHandler):
         raise NotImplementedError("%s doesn't support cookies manipulation" % self.driver_name)
 
 
-class ElementAPI(object):
+class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
     """
     Basic element API class.
 
@@ -453,7 +452,6 @@ class ElementAPI(object):
 
     You can also interact with the instance using the methods and properties listed below.
     """
-    __metaclass__ = InheritedDocs
 
     def _get_value(self):
         raise NotImplementedError

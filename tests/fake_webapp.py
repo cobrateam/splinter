@@ -103,7 +103,7 @@ def foo():
 
 @app.route('/query', methods=['GET'])
 def query_string():
-    if request.query_string == "model":
+    if request.query_string == b"model":
         return "query string is valid"
     else:
         abort(500)

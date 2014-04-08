@@ -9,6 +9,8 @@ try:
 except ImportError:
     import builtins
 import unittest
+from imp import reload
+import sys
 
 from splinter.exceptions import DriverNotFoundError
 
@@ -37,7 +39,7 @@ class BrowserTest(unittest.TestCase):
         from splinter import Browser
         browser = Browser(driver_name=webdriver, user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
-        result = 'iphone' in browser.html
+        result = b'iphone' in browser.html
         browser.quit()
 
         return result
@@ -65,5 +67,7 @@ class BrowserTest(unittest.TestCase):
     def test_chrome_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('chrome'))
 
+    @unittest.skipIf(sys.version_info[0] > 2,
+                     'zope.testbrowser is not currently compatible with Python 3')
     def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))
