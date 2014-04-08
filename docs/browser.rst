@@ -63,6 +63,29 @@ username and password in the url.
 
     browser.visit('http://username:password@cobrateam.info/protected')
 
+================
+Managing Windows
+================
+
+You can manage multiple windows (such as popups) through the windows object:
+
+.. highlight:: python
+
+::
+    browser.windows              # all open windows
+    browser.windows[0]           # the first window
+    browser.windows[window_name] # the window_name window
+    browser.windows.active       # the active window
+    browser.switch_to_window(browser.windows[3])  # set active window to window 3
+
+    window = browser.windows[0]
+    window.is_active             # boolean - whether window is active window
+    window.activate()            # set this window to be active window
+    window.next                  # the next window
+    window.prev                  # the previous window
+    window.close()               # close this window
+    window.close_others()        # close all windows except this one
+
 =============
 Reload a page
 =============
