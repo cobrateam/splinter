@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2013 splinter authors. All rights reserved.
+# Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -8,19 +8,16 @@ import os
 import sys
 import unittest
 
-sys.path.append('tests/fake_django')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-
 from splinter import Browser
 from .base import BaseBrowserTests
-from .fake_webapp import EXAMPLE_APP
+from .fake_webapp import app, EXAMPLE_APP
 
 
-class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('django', wait_time=0.1)
+        cls.browser = Browser('flask', app=app, wait_time=0.1)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
@@ -30,7 +27,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.quit()
 
     def test_should_support_with_statement(self):
-        with Browser('django') as internet:
+        with Browser('flask', app=app) as internet:
             self.assertIsNotNone(internet)
 
     def test_attach_file(self):
@@ -48,7 +45,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
-        browser = Browser('django')
+        browser = Browser('flask', app=app)
         browser.visit(EXAMPLE_APP)
         browser.forward()
         self.assertEqual(EXAMPLE_APP, browser.url)
@@ -61,7 +58,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
             self.fail()
 
         e = cm.exception
-        self.assertEqual("django doesn't support frames.", e.args[0])
+        self.assertEqual("flask doesn't support frames.", e.args[0])
 
     def test_simple_type(self):
         """
@@ -73,7 +70,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_simple_type_on_element(self):
         """
-        django won't support type method
+        flask won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -81,7 +78,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_slowly_typing(self):
         """
-        django won't support type method
+        flask won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -89,7 +86,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_slowly_typing_on_element(self):
         """
-        django won't support type method
+        flask won't support type method
         on element because it doesn't interac with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -97,12 +94,12 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
             query.type('with type method', slowly=True)
 
     def test_cant_mouseover(self):
-        "django should not be able to put the mouse over the element"
+        "flask should not be able to put the mouse over the element"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_css('#visible').mouse_over()
 
     def test_cant_mouseout(self):
-        "django should not be able to mouse out of an element"
+        "flask should not be able to mouse out of an element"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_css('#visible').mouse_out()
 

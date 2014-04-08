@@ -8,8 +8,8 @@ import os
 import unittest
 
 from splinter import Browser
-from fake_webapp import EXAMPLE_APP
-from base import WebDriverTests
+from .fake_webapp import EXAMPLE_APP
+from .base import WebDriverTests
 
 
 def firefox_installed():
@@ -43,8 +43,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read() in html
+        assert b'text/plain' in html
+        assert open(file_path).read().encode('utf-8') in html
 
     def test_should_support_with_statement(self):
         with Browser('firefox') as internet:

@@ -4,6 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import sys
+
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
@@ -18,16 +20,24 @@ _DRIVERS = {
     'phantomjs': PhantomJSWebDriver,
 }
 
-try:
-    from splinter.driver.zopetestbrowser import ZopeTestBrowser
-    _DRIVERS['zope.testbrowser'] = ZopeTestBrowser
-except ImportError:
-    pass
+if sys.version_info[0] <= 2:
+    try:
+        from splinter.driver.zopetestbrowser import ZopeTestBrowser
+        _DRIVERS['zope.testbrowser'] = ZopeTestBrowser
+    except ImportError:
+        pass
 
 try:
     import django  # noqa
     from splinter.driver.djangoclient import DjangoClient
     _DRIVERS['django'] = DjangoClient
+except ImportError:
+    pass
+
+try:
+    import flask  # noqa
+    from splinter.driver.flaskclient import FlaskClient
+    _DRIVERS['flask'] = FlaskClient
 except ImportError:
     pass
 

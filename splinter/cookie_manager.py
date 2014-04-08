@@ -7,7 +7,7 @@
 from splinter.meta import InheritedDocs
 
 
-class CookieManagerAPI(object):
+class CookieManagerAPI(InheritedDocs('_CookieManagerAPI', (object,), {})):
     """
     An API that specifies how a splinter driver deals with cookies.
 
@@ -21,7 +21,6 @@ class CookieManagerAPI(object):
         >>> cookie_manager.add({'name': 'Tony'})
         >>> assert cookie_manager['name'] == 'Tony'
     """
-    __metaclass__ = InheritedDocs
 
     def add(self, cookies):
         """

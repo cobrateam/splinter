@@ -171,11 +171,17 @@ class BaseWebDriver(DriverAPI):
 
     @property
     def title(self):
-        return self.driver.title
+        if sys.version_info[0] > 2:
+            return self.driver.title.encode('utf-8')
+        else:
+            return self.driver.title
 
     @property
     def html(self):
-        return self.driver.page_source
+        if sys.version_info[0] > 2:
+            return self.driver.page_source.encode('utf-8')
+        else:
+            return self.driver.page_source
 
     @property
     def url(self):

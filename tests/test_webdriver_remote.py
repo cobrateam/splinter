@@ -4,12 +4,15 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import urllib
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 import unittest
 
 from splinter import Browser
-from fake_webapp import EXAMPLE_APP
-from base import WebDriverTests
+from .fake_webapp import EXAMPLE_APP
+from .base import WebDriverTests
 
 import subprocess
 
@@ -17,7 +20,7 @@ import subprocess
 def selenium_server_is_running():
     try:
         from splinter.driver.webdriver.remote import WebDriver
-        page_contents = urllib.urlopen(WebDriver.DEFAULT_URL).read()
+        page_contents = urlopen(WebDriver.DEFAULT_URL).read()
     except IOError:
         return False
     return 'WebDriver Hub' in page_contents

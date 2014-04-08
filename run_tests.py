@@ -9,6 +9,7 @@
 import argparse
 import sys
 import unittest
+import os
 
 from multiprocessing import Process
 try:
@@ -106,7 +107,10 @@ def get_suite_from_modules(modules):
 
 def get_complete_suite():
     loader = unittest.TestLoader()
-    return loader.discover(TESTS_ROOT)
+    return loader.discover(
+        start_dir=TESTS_ROOT,
+        top_level_dir=os.path.join(TESTS_ROOT, os.path.pardir)
+    )
 
 
 if __name__ == '__main__':
