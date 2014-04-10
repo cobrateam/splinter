@@ -35,10 +35,8 @@ class StatusCode(object):
         #: Code of the response (example: 200)
         self.code = status_code
 
-    def __cmp__(self, other):
-        if self.code == other:
-            return 0
-        return 1
+    def __eq__(self, other):
+        return self.code == other
 
     def __str__(self):
         return "%s - %s" % (self.code, self.reason)

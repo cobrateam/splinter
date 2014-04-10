@@ -9,8 +9,7 @@ import unittest
 from splinter.meta import InheritedDocs
 
 
-class SuperClass(object):
-    __metaclass__ = InheritedDocs
+class SuperClass(InheritedDocs('_SuperClass', (object,), {})):
 
     def say_hello(self):
         """
@@ -22,7 +21,7 @@ class SuperClass(object):
 class SubClass(SuperClass):
 
     def say_hello(self):
-        print "hello"
+        print("hello")
 
     @property
     def name(self):
@@ -35,7 +34,7 @@ class SubClass(SuperClass):
 class SubSubClass(SubClass):
 
     def say_hello(self):
-        print "I can't say hello"
+        print("I can't say hello")
 
     say_hi = say_hello
 

@@ -9,7 +9,7 @@ import unittest
 
 from ssl import SSLError
 
-from fake_webapp import EXAMPLE_APP
+from .fake_webapp import EXAMPLE_APP
 from splinter.request_handler.request_handler import RequestHandler
 from splinter.request_handler.status_code import HttpResponseError
 from tests import TESTS_ROOT
@@ -88,10 +88,10 @@ class RequestHandlerTestCase(unittest.TestCase):
         request = RequestHandler()
         url = EXAMPLE_APP + 'useragent'
         request.connect(url)
-        self.assertEqual('python/splinter', request.response.read())
+        self.assertEqual(b'python/splinter', request.response.read())
 
     def test_should_be_able_to_connect_with_basic_auth(self):
         request = RequestHandler()
         url = 'http://admin:secret@localhost:5000/authenticate'
         request.connect(url)
-        self.assertEqual('Success!', request.response.read())
+        self.assertEqual(b'Success!', request.response.read())

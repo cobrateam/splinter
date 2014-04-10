@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2012 splinter authors. All rights reserved.
+# Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from __future__ import with_statement
+import os.path
 import re
+import time
+import sys
 
+import lxml.html
 from lxml.cssselect import CSSSelector
-from zope.testbrowser.browser import Browser
+from splinter.cookie_manager import CookieManagerAPI
+from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
-from splinter.driver import DriverAPI, ElementAPI
-from splinter.cookie_manager import CookieManagerAPI
-
-import mimetypes
-import lxml.html
-import mechanize
-import time
+from splinter.request_handler.status_code import StatusCode
 
 
 class CookieManager(CookieManagerAPI):
@@ -28,46 +28,50 @@ class CookieManager(CookieManagerAPI):
         if isinstance(cookies, list):
             for cookie in cookies:
                 for key, value in cookie.items():
-                    self._cookies[key] = value
+                    self._cookies.set_cookie('localhost', key, value)
                 return
         for key, value in cookies.items():
-            self._cookies[key] = value
+            self._cookies.set_cookie('localhost', key, value)
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    del self._cookies[cookie]
+                    self._cookies.delete_cookie('localhost', cookie)
                 except KeyError:
                     pass
         else:
-            self._cookies.clearAll()
+            self._cookies.cookie_jar.clear()
 
     def all(self, verbose=False):
         cookies = {}
-        for key, value in self._cookies.items():
-            cookies[key] = value
+        for cookie in self._cookies.cookie_jar:
+            cookies[cookie.name] = cookie.value
         return cookies
 
     def __getitem__(self, item):
-        return self._cookies[item]
+        cookies = dict([(c.name, c) for c in self._cookies.cookie_jar])
+        return cookies[item].value
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            return dict(self._cookies) == other_object
+            cookies_dict = dict([(c.name, c.value)
+                                 for c in self._cookies.cookie_jar])
+            return cookies_dict == other_object
 
 
-class ZopeTestBrowser(DriverAPI):
+class FlaskClient(DriverAPI):
 
-    driver_name = "zope.testbrowser"
+    driver_name = "flask"
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(self, app, user_agent=None, wait_time=2):
         self.wait_time = wait_time
-        mech_browser = self._get_mech_browser(user_agent)
-        self._browser = Browser(mech_browser=mech_browser)
-
-        self._cookie_manager = CookieManager(self._browser.cookies)
+        app.config['TESTING'] = True
+        self._browser = app.test_client()
+        self._history = []
+        self._cookie_manager = CookieManager(self._browser)
         self._last_urls = []
+        self._forms = {}
 
     def __enter__(self):
         return self
@@ -75,12 +79,41 @@ class ZopeTestBrowser(DriverAPI):
     def __exit__(self, exc_type, exc_value, traceback):
         pass
 
+    def _post_load(self):
+        self._forms = {}
+        try:
+            del self._html
+        except AttributeError:
+            pass
+        self.status_code = StatusCode(self._response.status_code, '')
+
     def visit(self, url):
-        self._browser.open(url)
+        self._url = url
+        self._response = self._browser.get(url, follow_redirects=True)
+        self._last_urls.append(url)
+        self._post_load()
+
+    def submit(self, form):
+        method = form.attrib['method']
+        func_method = getattr(self._browser, method.lower())
+        action = form.attrib['action']
+        if action.strip() != '.':
+            url = os.path.join(self._url, form.attrib['action'])
+        else:
+            url = self._url
+        self._url = url
+        data = dict(((k, v) for k, v in form.fields.items() if v is not None))
+        for key in form.inputs.keys():
+            input = form.inputs[key]
+            if getattr(input, 'type', '') == 'file' and key in data:
+                data[key] = open(data[key], 'rb')
+        self._response = func_method(url, data=data, follow_redirects=True)
+        self._post_load()
+        return self._response
 
     def back(self):
         self._last_urls.insert(0, self.url)
-        self._browser.goBack()
+        self.visit(self._last_urls[1])
 
     def forward(self):
         try:
@@ -89,38 +122,43 @@ class ZopeTestBrowser(DriverAPI):
             pass
 
     def reload(self):
-        self._browser.reload()
+        self.visit(self._url)
 
     def quit(self):
         pass
 
     @property
     def htmltree(self):
-        return lxml.html.fromstring(self.html.decode('utf-8'))
+        try:
+            return self._html
+        except AttributeError:
+            self._html = lxml.html.fromstring(self.html.decode('utf-8'))
+            return self._html
 
     @property
     def title(self):
-        return self._browser.title
+        html = self.htmltree
+        return html.xpath('//title')[0].text_content().strip().encode('utf-8')
 
     @property
     def html(self):
-        return self._browser.contents
+        return self._response.data
 
     @property
     def url(self):
-        return self._browser.url
+        return self._url
 
     def find_option_by_value(self, value):
         html = self.htmltree
         element = html.xpath('//option[@value="%s"]' % value)[0]
-        control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="value", query=value)
+        control = FlaskClientControlElement(element.getparent(), self)
+        return ElementList([FlaskClientOptionElement(element, control)], find_by="value", query=value)
 
     def find_option_by_text(self, text):
         html = self.htmltree
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
-        control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="text", query=text)
+        control = FlaskClientControlElement(element.getparent(), self)
+        return ElementList([FlaskClientOptionElement(element, control)], find_by="text", query=text)
 
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
@@ -135,14 +173,14 @@ class ZopeTestBrowser(DriverAPI):
             if self._element_is_link(xpath_element):
                 return self._find_links_by_xpath(xpath)
             elif self._element_is_control(xpath_element):
-                return self.find_by_name(xpath_element.name)
+                elements.append((FlaskClientControlElement, xpath_element))
             else:
-                elements.append(xpath_element)
+                elements.append((FlaskClientElement, xpath_element))
 
         find_by = original_find or "xpath"
         query = original_selector or xpath
 
-        return ElementList([ZopeTestBrowserElement(element, self) for element in elements], find_by=find_by, query=query)
+        return ElementList([element_class(element, self) for element_class, element in elements], find_by=find_by, query=query)
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag, original_find="tag", original_selector=tag)
@@ -154,17 +192,18 @@ class ZopeTestBrowser(DriverAPI):
         return self.find_by_xpath('//*[@id="%s"][1]' % id_value, original_find="id", original_selector=id_value)
 
     def find_by_name(self, name):
-        elements = []
-        index = 0
+        html = self.htmltree
 
-        while True:
-            try:
-                control = self._browser.getControl(name=name, index=index)
-                elements.append(control)
-                index += 1
-            except LookupError:
-                break
-        return ElementList([ZopeTestBrowserControlElement(element, self) for element in elements], find_by="name", query=name)
+        xpath = '//*[@name="%s"]' % name
+        elements = []
+
+        for xpath_element in html.xpath(xpath):
+            elements.append(xpath_element)
+
+        find_by = "name"
+        query = xpath
+
+        return ElementList([FlaskClientControlElement(element, self) for element in elements], find_by=find_by, query=query)
 
     def find_link_by_text(self, text):
         return self._find_links_by_xpath("//a[text()='%s']" % text)
@@ -179,50 +218,48 @@ class ZopeTestBrowser(DriverAPI):
         return self._find_links_by_xpath("//a[contains(normalize-space(.), '%s')]" % partial_text)
 
     def fill(self, name, value):
-        self.find_by_name(name=name).first._control.value = value
+        self.find_by_name(name=name).first.fill(value)
 
     def fill_form(self, field_values):
         for name, value in field_values.items():
             element = self.find_by_name(name)
             control = element.first._control
-            if control.type == 'checkbox':
+            control_type = control.get('type')
+            if control_type == 'checkbox':
                 if value:
-                    control.value = control.options
+                    control.value = value  # control.options
                 else:
                     control.value = []
-            elif control.type == 'radio':
-                control.value = [option for option in control.options if option == value]
-            elif control.type == 'select':
+            elif control_type == 'radio':
+                control.value = value  # [option for option in control.options if option == value]
+            elif control_type == 'select':
                 control.value = [value]
             else:
                 # text, textarea, password, tel
                 control.value = value
 
     def choose(self, name, value):
-        control = self._browser.getControl(name=name)
-        control.value = [option for option in control.options if option == value]
+        self.find_by_name(name).first._control.value = value
 
     def check(self, name):
-        control = self._browser.getControl(name=name)
-        control.value = control.options
+        control = self.find_by_name(name).first._control
+        control.value = ['checked']
 
     def uncheck(self, name):
-        control = self._browser.getControl(name=name)
+        control = self.find_by_name(name).first._control
         control.value = []
 
     def attach_file(self, name, file_path):
-        filename = file_path.split('/')[-1]
-        control = self._browser.getControl(name=name)
-        content_type, _ = mimetypes.guess_type(file_path)
-        control.add_file(open(file_path), content_type, filename)
+        control = self.find_by_name(name).first._control
+        control.value = file_path
 
     def _find_links_by_xpath(self, xpath):
         html = self.htmltree
         links = html.xpath(xpath)
-        return ElementList([ZopeTestBrowserLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
+        return ElementList([FlaskClientLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
 
     def select(self, name, value):
-        self.find_by_name(name).first._control.value = [value]
+        self.find_by_name(name).first._control.value = value
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -258,12 +295,6 @@ class ZopeTestBrowser(DriverAPI):
     def _element_is_control(self, element):
         return hasattr(element, 'type')
 
-    def _get_mech_browser(self, user_agent):
-        mech_browser = mechanize.Browser()
-        if user_agent is not None:
-            mech_browser.addheaders = [("User-agent", user_agent), ]
-        return mech_browser
-
     @property
     def cookies(self):
         return self._cookie_manager
@@ -272,7 +303,7 @@ class ZopeTestBrowser(DriverAPI):
 re_extract_inner_html = re.compile(r'^<[^<>]+>(.*)</[^<>]+>$')
 
 
-class ZopeTestBrowserElement(ElementAPI):
+class FlaskClientElement(ElementAPI):
 
     def __init__(self, element, parent):
         self._element = element
@@ -325,27 +356,27 @@ class ZopeTestBrowserElement(ElementAPI):
         return len(self._element.find_class(class_name)) > 0
 
 
-class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
+class FlaskClientLinkElement(FlaskClientElement):
 
     def __init__(self, element, parent):
-        super(ZopeTestBrowserLinkElement, self).__init__(element, parent)
-        self._browser = parent._browser
+        super(FlaskClientLinkElement, self).__init__(element, parent)
+        self._browser = parent
 
     def __getitem__(self, attr):
-        return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
+        return super(FlaskClientLinkElement, self).__getitem__(attr)
 
     def click(self):
-        return self._browser.open(self["href"])
+        return self._browser.visit(self["href"])
 
 
-class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
+class FlaskClientControlElement(FlaskClientElement):
 
     def __init__(self, control, parent):
         self._control = control
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_control.attrs[attr]
+        return self._control.attrib[attr]
 
     @property
     def value(self):
@@ -356,31 +387,41 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
         return bool(self._control.value)
 
     def click(self):
-        return self._control.click()
+        parent_form = self._get_parent_form()
+        return self.parent.submit(parent_form).data
 
     def fill(self, value):
-        self._control.value = value
+        parent_form = self._get_parent_form()
+        if sys.version_info[0] > 2:
+            parent_form.fields[self['name']] = value
+        else:
+            parent_form.fields[self['name']] = value.decode('utf-8')
 
     def select(self, value):
-        self._control.value = [value]
+        self._control.value = value
 
-class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
+    def _get_parent_form(self):
+        parent_form = next(self._control.iterancestors('form'))
+        return self.parent._forms.setdefault(parent_form._name(), parent_form)
+
+
+class FlaskClientOptionElement(FlaskClientElement):
 
     def __init__(self, control, parent):
         self._control = control
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_item.attrs[attr]
+        return self._control.attrib[attr]
 
     @property
     def text(self):
-        return self._control.mech_item.get_labels()[0]._text
+        return self._control.text
 
     @property
     def value(self):
-        return self._control.optionValue
+        return self._control.attrib['value']
 
     @property
     def selected(self):
-        return self._control.mech_item._selected
+        return self.parent.value == self.value

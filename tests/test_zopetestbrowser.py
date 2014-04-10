@@ -6,12 +6,15 @@
 
 import os
 import unittest
+import sys
 
 from splinter import Browser
-from base import BaseBrowserTests
-from fake_webapp import EXAMPLE_APP
+from .base import BaseBrowserTests
+from .fake_webapp import EXAMPLE_APP
 
 
+@unittest.skipIf(sys.version_info[0] > 2,
+                 'zope.testbrowser is not currently compatible with Python 3')
 class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
@@ -39,8 +42,8 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read() in html
+        assert b'text/plain' in html
+        assert open(file_path).read().encode('utf-8') in html
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
