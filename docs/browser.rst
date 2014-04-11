@@ -86,6 +86,9 @@ You can manage multiple windows (such as popups) through the windows object:
     window.close()               # close this window
     window.close_others()        # close all windows except this one
 
+This window management interface is not compatible with the undocumented interface
+exposed in v0.6.0 and earlier.
+
 =============
 Reload a page
 =============
