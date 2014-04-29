@@ -21,6 +21,10 @@ class ElementDoestNotExistTest(object):
         with self.assertRaises(ElementDoesNotExist):
             self.browser.find_by_css('.element-that-dont-exists')[2]
 
+    def test_element_list_raises_with_unicode_query(self):
+        with self.assertRaises(ElementDoesNotExist):
+            self.browser.find_by_css(u'.element[title=título]').last
+
     def test_element_list_contains_right_information_and_raises_right_exception(self):
         "element list contains right information about query and raises nice exception message"
         with self.assertRaises(ElementDoesNotExist) as cm:
