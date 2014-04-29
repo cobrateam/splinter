@@ -25,6 +25,121 @@ else:
     _meth_func = 'im_func'
     _func_name = 'func_name'
 
+class switch_window:
+    def __init__(self, browser, window_handle):
+        self.browser = browser
+        self.window_handle = window_handle
+    def __enter__(self):
+        self.current_window_handle = self.browser.driver.current_window_handle
+        self.browser.driver.switch_to_window(self.window_handle)
+    def __exit__(self, type, value, traceback):
+        if self.current_window_handle in self.browser.driver.window_handles:
+            self.browser.driver.switch_to_window(self.current_window_handle)
+
+class Window(object):
+    """ A class representing a browser window """
+    def __init__(self, browser, name):
+        self._browser = browser
+        self.name = name
+
+    @property
+    def title(self):
+        """ The title of this window """
+        with switch_window(self._browser, self.name):
+            return self._browser.title
+
+    @property
+    def url(self):
+        """ The url of this window """
+        with switch_window(self._browser, self.name):
+            return self._browser.url
+
+    @property
+    def index(self):
+        """ The index of this window in browser.windows """
+        return self._browser.driver.window_handles.index(self.name)
+
+    @property
+    def prev(self):
+        """ Return the previous window """
+        prev_index = self.index - 1
+        prev_handle = self._browser.driver.window_handles[prev_index]
+        return Window(self._browser, prev_handle)
+
+    @property
+    def next(self):
+        """ Return the next window """
+        next_index = (self.index + 1) % len(self._browser.driver.window_handles)
+        next_handle = self._browser.driver.window_handles[next_index]
+        return Window(self._browser, next_handle)
+
+    def is_current():
+        doc = "Whether this window is currently the browser's active window."
+        def fget(self):
+            return self._browser.driver.current_window_handle == self.name
+        def fset(self, value):
+            if value is True:
+                self._browser.driver.switch_to_window(self.name)
+            else:
+                raise TypeError("can only set to True")
+        return locals()
+    is_current = property(**is_current())
+
+    def close(self):
+        """ Close this window. If this window is active, switch to previous window """
+        target = self.prev if (self.is_current and self.prev != self) else None
+
+        with switch_window(self._browser, self.name):
+            self._browser.driver.close()
+
+        if target is not None:
+            target.is_current = True
+
+    def close_others(self):
+        self.is_current = True
+        for window in self._browser.windows:
+            if window != self:
+                window.close()
+
+    def __eq__(self, other):
+        return self._browser == other._browser and self.name == other.name
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "<Window %s: %s>" % (self.name, self.url)
+
+class Windows(object):
+    """ A class representing all open browser windows """
+    def __init__(self, browser):
+        self._browser = browser
+
+    def __len__(self):
+        return len(self._browser.driver.window_handles)
+
+    def __getitem__(self, key):
+        window_handles = self._browser.driver.window_handles
+        try:
+            return Window(self._browser, window_handles[key])
+        except TypeError:
+            if key not in window_handles:
+                raise KeyError(key)
+            return Window(self._browser, key)
+
+    def current():
+        doc = "The currently active window"
+        def fget(self):
+            current_handle = self._browser.driver.current_window_handle
+            return Window(self._browser, current_handle) if current_handle else None
+        def fset(self, value):
+            self._browser.driver.switch_to_window(value.name)
+        return locals()
+    current = property(**current())
+
+    def __repr__(self):
+        return str([Window(self._browser, handle) for handle in self._browser.driver.window_handles])
+
 
 class BaseWebDriver(DriverAPI):
 
@@ -296,25 +411,8 @@ class BaseWebDriver(DriverAPI):
         return self._cookie_manager
 
     @property
-    def current_window(self):
-        """
-        Returns the handle of the current window.
-        """
-        return self.driver.current_window_handle
-
-    @property
     def windows(self):
-        """
-        Returns the handles of all windows within the current session.
-        """
-        return self.driver.window_handles
-
-    def switch_to_window(self, window_name):
-        """
-        Switches focus to the specified window.
-        """
-        return self.driver.switch_to_window(window_name)
-
+        return Windows(self)
 
 class TypeIterator(object):
 
