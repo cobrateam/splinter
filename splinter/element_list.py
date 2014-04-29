@@ -40,7 +40,7 @@ class ElementList(list):
             return super(ElementList, self).__getitem__(index)
         except IndexError:
             raise ElementDoesNotExist(
-                'no elements could be found with {0} "{1}"'.format(
+                u'no elements could be found with {0} "{1}"'.format(
                     self.find_by, self.query))
 
     @property
@@ -71,5 +71,5 @@ class ElementList(list):
         try:
             return getattr(self.first, name)
         except (ElementDoesNotExist, AttributeError):
-            raise AttributeError("'{0}' object has no attribute '{1}'".format(
+            raise AttributeError(u"'{0}' object has no attribute '{1}'".format(
                 self.__class__.__name__, name))
