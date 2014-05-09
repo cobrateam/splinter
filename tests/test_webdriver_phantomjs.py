@@ -53,3 +53,23 @@ class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
         # FIXME: Check https://github.com/detro/ghostdriver/issues/180 to see if
         # we can implement this test
         pass
+
+
+class PhantomJSBrowserTestWithCustomHeaders(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        custom_headers = {'X-Splinter-Customheaders-1': 'Hello',
+                          'X-Splinter-Customheaders-2': 'Bye'}
+        cls.browser = Browser("phantomjs", custom_headers=custom_headers)
+
+    def test_create_a_phantomjs_with_custom_headers(self):
+        self.browser.visit(EXAMPLE_APP + 'headers')
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-1: Hello'))
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-2: Bye'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
