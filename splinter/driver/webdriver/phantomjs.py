@@ -17,11 +17,15 @@ class WebDriver(BaseWebDriver):
     element_class = WebDriverElement
 
     def __init__(self, user_agent=None, load_images=True,
-                 desired_capabilities=None, wait_time=2, **kwargs):
+                 desired_capabilities=None, wait_time=2,
+                 custom_headers={}, **kwargs):
         capabilities = DesiredCapabilities.PHANTOMJS.copy()
         if user_agent is not None:
             capabilities['phantomjs.page.settings.userAgent'] = user_agent
         capabilities['phantomjs.page.settings.loadImages'] = load_images
+        if isinstance(custom_headers, dict):
+            for name, value in custom_headers.items():
+                capabilities['phantomjs.page.customHeaders.%s' % name] = value
         if desired_capabilities:
             capabilities.update(desired_capabilities)
 

@@ -96,6 +96,11 @@ def upload_file():
         return '|'.join(buffer)
 
 
+@app.route('/headers', methods=['GET'])
+def request_headers():
+    return str(request.headers)
+
+
 @app.route('/foo')
 def foo():
     return "BAR!"
