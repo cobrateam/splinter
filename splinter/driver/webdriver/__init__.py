@@ -457,6 +457,9 @@ class WebDriverElement(ElementAPI):
     def select(self, value):
         self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (self["name"], value))._element.click()
 
+    def select_option_by_text(self, value):
+        self.find_by_xpath('.//option[normalize-space(.) = %s]' % value)._element.click()
+ 
     def type(self, value, slowly=False):
         if slowly:
             return TypeIterator(self._element, value)

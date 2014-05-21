@@ -556,5 +556,15 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
         """
         raise NotImplementedError
 
+    def select_option_by_text(self, value):
+          """
+          Selects an ``<option>`` element in the element using the ``text`` of the ``<option>``.
+
+          Example:
+
+              >>>element..select_option_by_text("New York")
+          """
+          raise NotImplementedError
+
     def __getitem__(self, attribute):
         raise NotImplementedError
