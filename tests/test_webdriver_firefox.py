@@ -22,6 +22,7 @@ def firefox_installed():
 
 @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("firefox")
@@ -53,6 +54,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
 @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxWithExtensionTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         extension_path = os.path.join(
@@ -75,6 +77,7 @@ class FirefoxWithExtensionTest(unittest.TestCase):
 
 @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         preferences = {
@@ -88,6 +91,18 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
         self.assertIn('dom.max_script_run_time', preferences)
         value = preferences.get('dom.max_script_run_time')
         self.assertEqual(int(value), 360)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+
+@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
+class FirefoxBrowserFullScreenTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser("firefox", fullscreen=True)
 
     @classmethod
     def tearDownClass(cls):
