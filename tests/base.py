@@ -189,3 +189,9 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         with self.browser.get_alert() as alert:
             self.assertEqual('This is an alert example.', alert.text)
             alert.accept()
+
+    def test_can_select_a_option_via_element_text(self):
+        "should provide a way to select a option via element"
+        self.assertFalse(self.browser.find_option_by_value("rj").selected)
+        self.browser.find_by_name("uf").select_by_text("Rio de Janeiro")
+        self.assertTrue(self.browser.find_option_by_value("rj").selected)
