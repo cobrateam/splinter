@@ -13,7 +13,7 @@ Install guide
 Install Python
 ==============
 
-In order to install Splinter, make sure Python is installed. Note: only Python between 2.5 - 2.7 are supported. Version 3.0 is not supported yet.
+In order to install Splinter, make sure Python is installed. Note: only Python 2.7+ is supported.
 
 Download Python from http://www.python.org. If you’re using Linux or Mac OS X, it is probably already installed.
 
