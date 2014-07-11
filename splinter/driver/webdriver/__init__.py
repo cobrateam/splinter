@@ -282,11 +282,11 @@ class BaseWebDriver(DriverAPI):
 
     @contextmanager
     def get_iframe(self, id):
-        self.driver.switch_to_frame(id)
+        self.driver.switch_to.frame(id)
         try:
             yield self
         finally:
-            self.driver.switch_to_frame(None)
+            self.driver.switch_to.frame(None)
 
     def find_option_by_value(self, value):
         return self.find_by_xpath('//option[@value="%s"]' % value, original_find="option by value", original_query=value)
