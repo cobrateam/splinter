@@ -7,13 +7,20 @@ python:
   - "2.7"
   - "3.3"
 env:
-  - DRIVER=tests/test_djangoclient.py
-  - DRIVER=tests/test_flaskclient.py
-  - DRIVER=tests/test_webdriver_remote.py
-  - DRIVER=tests/test_webdriver_firefox.py
-  - DRIVER=tests/test_zopetestbrowser.py
-  - DRIVER=tests/test_webdriver_phantomjs.py
-  - DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_chrome.py
 matrix:
   exclude:
     - python: "3.3"
@@ -33,5 +40,7 @@ before_script:
   # - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.32.0.jar -O selenium-server.jar
   # - java -jar selenium-server.jar > /dev/null &
   # - export PATH=./firefox:$PATH
-install: make dependencies
+install:
+  - pip install -q Django==$DJANGO_VERSION
+  - make dependencies
 script: ./run_tests.py -w ${DRIVER}
