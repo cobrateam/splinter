@@ -542,7 +542,6 @@ class WebDriverElement(ElementAPI):
         self.action_chains.perform()
 
     mouseover = warn_deprecated(mouse_over, 'mouseover')
-    mouseout = warn_deprecated(mouse_out, 'mouseout')
 
     def double_click(self):
         """
