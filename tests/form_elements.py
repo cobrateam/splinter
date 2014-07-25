@@ -46,6 +46,12 @@ class FormElementsTest(object):
         self.browser.select("uf", "rj")
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
 
+    def test_can_select_an_option_in_an_optgroup(self):
+        "should provide a way to select an option that is in an optgroup"
+        self.assertEqual(self.browser.find_by_name("food").value, "apples")
+        self.browser.select("food", "grapes")
+        self.assertEqual(self.browser.find_by_name("food").value, "grapes")
+
     def test_can_select_a_option_via_element(self):
         "should provide a way to select a option via element"
         self.assertFalse(self.browser.find_option_by_value("rj").selected)
