@@ -13,8 +13,8 @@ class FormElementsTest(object):
         self.assertEqual('new query', value)
 
     def test_should_provide_a_method_on_element_to_change_its_value(self):
-        self.browser.find_by_name('query').fill('new query')
-        value = self.browser.find_by_name('query').value
+        self.browser.find_by_name('q').fill('new query')
+        value = self.browser.find_by_name('q').value
         self.assertEqual('new query', value)
 
     def test_submiting_a_form_and_verifying_page_content(self):
