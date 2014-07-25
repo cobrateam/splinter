@@ -79,11 +79,6 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').mouseover()
 
-    def test_mouseout_should_be_an_alias_to_mouse_out_and_be_deprecated(self):
-        "Remote should not support mouseout"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id('visible').mouseout()
-
     def test_create_and_access_a_cookie(self):
         "Remote should not support cookies"
         with self.assertRaises(NotImplementedError):

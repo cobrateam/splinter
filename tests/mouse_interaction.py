@@ -66,13 +66,3 @@ class MouseInteractionTest(object):
             warn_message = warnings_list[-1].message
             assert type(warn_message) is DeprecationWarning
             assert 'mouse_over' in warn_message.args[0]
-
-    def test_mouseout_should_be_an_alias_to_mouse_out_and_be_deprecated(self):
-        "mouseout should be an alias do mouse_out and be deprecated"
-        with warnings.catch_warnings(record=True) as warnings_list:
-            self.browser.visit(EXAMPLE_APP)
-            warnings.simplefilter("always")
-            self.browser.find_by_css(".add-element-mouseover").mouseout()
-            warn_message = warnings_list[-1].message
-            assert type(warn_message) is DeprecationWarning
-            assert 'mouse_out' in warn_message.args[0]
