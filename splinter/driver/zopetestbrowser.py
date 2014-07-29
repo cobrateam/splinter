@@ -7,7 +7,7 @@
 import re
 
 from lxml.cssselect import CSSSelector
-from zope.testbrowser.browser import Browser
+from zope.testbrowser.browser import Browser, ListControl
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI
@@ -349,7 +349,10 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
 
     @property
     def value(self):
-        return self._control.value
+        value = self._control.value
+        if isinstance(self._control, ListControl) and len(value) == 1:
+            return value[0]
+        return value
 
     @property
     def checked(self):
