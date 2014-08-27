@@ -257,6 +257,9 @@ class BaseWebDriver(DriverAPI):
                 return True
             except ValueError:
                 pass
+            except StaleElementReferenceException:
+                self.reload()
+                pass
             except NoSuchElementException:
                 # This exception will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
