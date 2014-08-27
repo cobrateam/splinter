@@ -10,7 +10,7 @@ import re
 import sys
 from contextlib import contextmanager
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
