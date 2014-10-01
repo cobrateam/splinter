@@ -204,7 +204,8 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if not finder(selector) and not finder(selector).visible:
+            element = finder(selector)
+            if not element or (element and not element.visible):
                 return True
         return False
 

@@ -61,6 +61,10 @@
                 }, 2400 );
            });
 
+           $(".show-invisible-element").click(function() {
+               $('#invisible').show();
+           });
+
            $(".add-element-mouseover").mouseover(function () {
                 $('body').append('<label for="what-is-your-name" class="over-label">What is your name?</label>');
                 $('body').append('<input type="text" id="what-is-your-name" class="over-input" name="whatsname" />');
@@ -116,6 +120,7 @@
     <a href="http://example.com/">Link for last Example.com</a>
     <div id="visible">visible</div>
     <div id="invisible" style="display:none">invisible</div>
+    <a class="show-invisible-element" href="#">Show invisible element</a>
     <div id="simple_text">my test text</div>
     <div id="text_with_html">another <b>b</b>it of text</div>
     <a href="http://localhost:5000/foo">FOO</a>
