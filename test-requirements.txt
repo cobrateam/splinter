@@ -1,8 +1,8 @@
 zope.testbrowser==4.0.4
 lxml==3.3.0
 Flask==0.10.1
-selenium==2.41.0
+selenium==2.42.1
 coverage==3.7.1
 cssselect>=0.7.1
 argparse
-Django==1.6.1
+Django>=1.5.8,<1.7

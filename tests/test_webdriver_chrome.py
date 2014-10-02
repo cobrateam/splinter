@@ -51,3 +51,22 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
     def test_should_support_with_statement(self):
         with Browser('chrome') as internet:
             pass
+
+
+@unittest.skipIf(not chrome_installed(), 'chrome is not installed')
+class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser("chrome", fullscreen=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    def test_should_support_with_statement(self):
+        with Browser('chrome', fullscreen=True) as internet:
+            pass

@@ -78,6 +78,7 @@
     <h1 id="firstheader">Example Last Header</h1>
     <form action="name" method="GET">
         <label for="query">Query</label>
+        <input type="text" name="q" />
         <input type="text" name="query" value="default value" />
         <input type="text" name="query" value="default last value" />
         <input type="password" name="password" />
@@ -92,6 +93,16 @@
         <select name="uf">
             <option value="mt">Mato Grosso</option>
             <option value="rj">Rio de Janeiro</option>
+        </select>
+        <select name="food">
+            <optgroup label="Fruit">
+                <option value="apples" selected>Apples</option>
+                <option value="grapes">Grapes</option>
+            </optgroup>
+            <optgroup label="Vegetables">
+                <option value="carrots">Carrots</option>
+                <option value="celery">Celery</option>
+            </optgroup>
         </select>
         <label for="description">Description</label>
         <textarea rows="3" cols="50" name="description"></textarea>

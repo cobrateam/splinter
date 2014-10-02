@@ -13,8 +13,8 @@ class FormElementsTest(object):
         self.assertEqual('new query', value)
 
     def test_should_provide_a_method_on_element_to_change_its_value(self):
-        self.browser.find_by_name('query').fill('new query')
-        value = self.browser.find_by_name('query').value
+        self.browser.find_by_name('q').fill('new query')
+        value = self.browser.find_by_name('q').value
         self.assertEqual('new query', value)
 
     def test_submiting_a_form_and_verifying_page_content(self):
@@ -45,6 +45,12 @@ class FormElementsTest(object):
         self.assertFalse(self.browser.find_option_by_value("rj").selected)
         self.browser.select("uf", "rj")
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
+
+    def test_can_select_an_option_in_an_optgroup(self):
+        "should provide a way to select an option that is in an optgroup"
+        self.assertEqual(self.browser.find_by_name("food").value, "apples")
+        self.browser.select("food", "grapes")
+        self.assertEqual(self.browser.find_by_name("food").value, "grapes")
 
     def test_can_select_a_option_via_element(self):
         "should provide a way to select a option via element"
