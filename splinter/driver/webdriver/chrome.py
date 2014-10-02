@@ -14,10 +14,13 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Chrome"
 
-    def __init__(self, user_agent=None, wait_time=2, fullscreen=False,
+    def __init__(self, user_agent=None, wait_time=2, fullscreen=False, chrome_options=None,
                  **kwargs):
 
-        options = Options()
+        if chrome_options:
+            options = chrome_options
+        else:
+            options = Options()
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
