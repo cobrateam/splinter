@@ -190,6 +190,37 @@ class BaseWebDriver(DriverAPI):
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
 
+    def is_element_visible(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            if finder(selector) and finder(selector).visible:
+                return True
+        return False
+
+    def is_element_not_visible(self, finder, selector, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            element = finder(selector)
+            if not element or (element and not element.visible):
+                return True
+        return False
+
+    def is_element_visible_by_css(self, css_selector, wait_time=None):
+        return self.is_element_visible(self.find_by_css, css_selector, wait_time)
+
+    def is_element_not_visible_by_css(self, css_selector, wait_time=None):
+        return self.is_element_not_visible(self.find_by_css, css_selector, wait_time)
+
+    def is_element_visible_by_xpath(self, xpath, wait_time=None):
+        return self.is_element_visible(self.find_by_xpath, xpath, wait_time)
+
+    def is_element_not_visible_by_xpath(self, xpath, wait_time=None):
+        return self.is_element_not_visible(self.find_by_xpath, xpath, wait_time)
+
     def is_element_present(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
