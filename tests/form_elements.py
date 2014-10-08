@@ -40,6 +40,13 @@ class FormElementsTest(object):
         "should provide a way to find select option by text"
         self.assertEqual("rj", self.browser.find_option_by_text("Rio de Janeiro").value)
 
+    def test_can_select_option_by_text(self):
+        "should provide a way to select option by text within an element"
+        self.assertFalse(self.browser.find_option_by_value("rj").selected)
+        element = self.browser.find_by_name('uf')[0]
+        element.select_option_by_text("Rio de Janeiro")
+        self.assertTrue(self.browser.find_option_by_value("rj").selected)
+
     def test_can_select_a_option(self):
         "should provide a way to select a option"
         self.assertFalse(self.browser.find_option_by_value("rj").selected)
