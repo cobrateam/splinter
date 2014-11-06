@@ -1,4 +1,4 @@
-.. Copyright 2012 splinter authors. All rights reserved.
+.. Copyright 2014 splinter authors. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 
@@ -12,6 +12,7 @@ splinter news
 
 See below the changes for each splinter release.
 
+- :doc:`what's new in splinter 0.7.0 </news/0.7.0>`
 - :doc:`what's new in splinter 0.6.0 </news/0.6.0>`
 - :doc:`what's new in splinter 0.5.5 </news/0.5.5>`
 - :doc:`what's new in splinter 0.5.4 </news/0.5.4>`

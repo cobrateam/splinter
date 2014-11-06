@@ -1,0 +1,26 @@
+.. Copyright 2014 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.0.
+    :keywords: splinter 0.7.0, python, django, news, documentation, tutorial, web application
+
+whats's new in splinter 0.7.0?
+==============================
+
+Features
+--------
+
+* Support for mouse_over, mouse_out in Firefox driver.
+* New flask test client driver.
+* Better support for browser windows.
+* Support for custom headers in PhantomJS driver.
+* Added webdriver fullscreen support.
+* Added a way to wait until element is visible.
+
+Bugfix
+------
+
+* Support encoding in django client and zopetestbrowser drivers.
+* Browser.cookies.all() are more consistent and added a verbose mode.
