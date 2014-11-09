@@ -6,15 +6,46 @@
     :description: Documentation for splinter, an open source tool for testing web applications
     :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
 
+Splinter
+==============
 
-+++++++++++++++++++++++++++++++++++++++++++++
-automate web application actions using python
-+++++++++++++++++++++++++++++++++++++++++++++
+Splinter is an open source tool for testing web applications using Python.
+It lets you automate browser actions, such as visiting URLs and interacting with their items.
+
+Sample code
+-----------
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+
+    with Browser() as browser:
+        # Visit URL
+        url = "http://www.google.com"
+        browser.visit(url)
+        browser.fill('q', 'splinter - python acceptance testing for web applications')
+        # Find and click the 'search' button
+        button = browser.find_by_name('btnG')
+        # Interact with elements
+        button.click()
+        if browser.is_text_present('splinter.cobrateam.info'):
+            print "Yes, the official website was found!"
+        else:
+            print "No, it wasn't found... We need to improve our SEO techniques"
+
+Features
+--------
+
+* simple api
+* multi webdrivers (chrome webdriver, firefox webdriver, phantomjs webdriver, zopetestbrowser, remote webdriver)
+* css and xpath selectors
+* support to iframe and alert
+* execute javascript
+* works with ajax and async javascript
 
 :doc:`what's new in splinter? </news>`
-
-Using splinter
-==============
 
 Getting started
 ---------------
