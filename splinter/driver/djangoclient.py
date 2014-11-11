@@ -63,10 +63,11 @@ class DjangoClient(DriverAPI):
 
     driver_name = "django"
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
-        self._browser = Client()
+        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in kwargs.iteritems() if key.startswith('client_'))
+        self._browser = Client(**client_kwargs)
         self._history = []
 
         self._cookie_manager = CookieManager(self._browser.cookies)
