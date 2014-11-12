@@ -63,10 +63,11 @@ class DjangoClient(DriverAPI):
 
     driver_name = "django"
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
-        self._browser = Client()
+        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in kwargs.iteritems() if key.startswith('client_'))
+        self._browser = Client(**client_kwargs)
         self._history = []
 
         self._cookie_manager = CookieManager(self._browser.cookies)
@@ -87,10 +88,17 @@ class DjangoClient(DriverAPI):
             pass
         self.status_code = StatusCode(self._response.status_code, '')
 
+    def _handle_redirect_chain(self):
+        if self._response.redirect_chain:
+            for redirect_url, redirect_code in self._response.redirect_chain:
+                self._last_urls.append(redirect_url)
+            self._url = self._last_urls[-1]
+
     def visit(self, url):
         self._url = url
         self._response = self._browser.get(url, follow=True)
         self._last_urls.append(url)
+        self._handle_redirect_chain()
         self._post_load()
 
     def submit(self, form):
@@ -108,6 +116,7 @@ class DjangoClient(DriverAPI):
             if getattr(input, 'type', '') == 'file' and key in data:
                 data[key] = open(data[key], 'rb')
         self._response = func_method(url, data, follow=True)
+        self._handle_redirect_chain()
         self._post_load()
         return self._response
 

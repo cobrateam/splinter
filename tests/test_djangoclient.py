@@ -7,6 +7,7 @@
 import os
 import sys
 import unittest
+import urlparse
 
 sys.path.append('tests/fake_django')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
@@ -20,7 +21,9 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser('django', wait_time=0.1)
+        components = urlparse.urlparse(EXAMPLE_APP)
+        cls.browser = Browser('django', wait_time=0.1, client_SERVER_NAME=components.hostname,
+                              client_SERVER_PORT=components.port)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
@@ -124,3 +127,12 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
+
+    def test_redirection(self):
+        """
+        when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
+        browser.url should be updated
+        """
+        self.browser.visit('{}redirected'.format(EXAMPLE_APP))
+        assert 'I just been redirected to this location.' in self.browser.html
+        self.assertEqual('{}redirect-location?come=get&some=true'.format(EXAMPLE_APP), self.browser.url)

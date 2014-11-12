@@ -1,14 +1,24 @@
 import sys
 
 from django.conf.urls import patterns, include, url
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 
+from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 admin.autodiscover()
 
 sys.path.append('tests')
-from fake_webapp import EXAMPLE_HTML, EXAMPLE_IFRAME_HTML, EXAMPLE_ALERT_HTML, EXAMPLE_TYPE_HTML, EXAMPLE_NO_BODY_HTML, EXAMPLE_POPUP_HTML
+from fake_webapp import (
+    EXAMPLE_HTML,
+    EXAMPLE_IFRAME_HTML,
+    EXAMPLE_ALERT_HTML,
+    EXAMPLE_TYPE_HTML,
+    EXAMPLE_NO_BODY_HTML,
+    EXAMPLE_POPUP_HTML,
+    EXAMPLE_REDIRECT_LOCATION_HTML
+)
 
 
 def index(request):
@@ -69,6 +79,15 @@ def auth_required(request):
     return HttpResponse("Success!")
 
 
+def redirected(request):
+    location = '{}?{}'.format(reverse('redirect_location'), 'come=get&some=true')
+    return redirect(location)
+
+
+def redirect_location(request):
+    return HttpResponse(EXAMPLE_REDIRECT_LOCATION_HTML)
+
+
 urlpatterns = patterns(
     '',
     url(r'^$', index),
@@ -83,5 +102,7 @@ urlpatterns = patterns(
     url(r'^query$', query_string),
     url(r'^popup$', popup),
     url(r'^authenticate$', auth_required),
+    url(r'^redirected', redirected),
+    url(r'^redirect-location', redirect_location, name='redirect_location'),
     url(r'^admin/', include(admin.site.urls)),
 )

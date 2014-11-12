@@ -22,6 +22,7 @@ EXAMPLE_ALERT_HTML = read_static('alert.html')
 EXAMPLE_TYPE_HTML = read_static('type.html')
 EXAMPLE_POPUP_HTML = read_static('popup.html')
 EXAMPLE_NO_BODY_HTML = read_static('no-body.html')
+EXAMPLE_REDIRECT_LOCATION_HTML = read_static('redirect-location.html')
 
 # Functions for http basic auth. 
 # Taken verbatim from http://flask.pocoo.org/snippets/8/
