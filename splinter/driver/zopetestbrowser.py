@@ -61,9 +61,9 @@ class ZopeTestBrowser(DriverAPI):
 
     driver_name = "zope.testbrowser"
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(self, user_agent=None, wait_time=2, ignore_robots=False):
         self.wait_time = wait_time
-        mech_browser = self._get_mech_browser(user_agent)
+        mech_browser = self._get_mech_browser(user_agent, ignore_robots)
         self._browser = Browser(mech_browser=mech_browser)
 
         self._cookie_manager = CookieManager(self._browser.cookies)
@@ -258,10 +258,15 @@ class ZopeTestBrowser(DriverAPI):
     def _element_is_control(self, element):
         return hasattr(element, 'type')
 
-    def _get_mech_browser(self, user_agent):
+    def _get_mech_browser(self, user_agent, ignore_robots):
         mech_browser = mechanize.Browser()
+
         if user_agent is not None:
             mech_browser.addheaders = [("User-agent", user_agent), ]
+
+        if ignore_robots:
+            mech_browser.set_handle_robots(False)
+
         return mech_browser
 
     @property
