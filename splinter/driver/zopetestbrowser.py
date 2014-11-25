@@ -343,6 +343,7 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
     def __init__(self, control, parent):
         self._control = control
         self.parent = parent
+        self._element = control
 
     def __getitem__(self, attr):
         return self._control.mech_control.attrs[attr]
@@ -366,6 +367,10 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
 
     def select(self, value):
         self._control.value = [value]
+
+    def select_option_by_text(self, value):
+        display_value = filter(lambda option: option == value, [option for option in self._control.displayOptions])
+        self._control.displayValue = display_value
 
 class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
 

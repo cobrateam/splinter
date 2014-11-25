@@ -400,6 +400,9 @@ class DjangoClientControlElement(DjangoClientElement):
     def select(self, value):
         self._control.value = value
 
+    def select_option_by_text(self, value):
+        self._control.value = self._control.xpath('.//option[normalize-space(.) = "%s"]' % value)[0].values()[0]
+
     def _get_parent_form(self):
         parent_form = next(self._control.iterancestors('form'))
         return self.parent._forms.setdefault(parent_form._name(), parent_form)
