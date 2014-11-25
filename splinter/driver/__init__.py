@@ -562,7 +562,7 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
 
           Example:
 
-              >>>element..select_option_by_text("New York")
+              >>> element.select_option_by_text("New York")
           """
           raise NotImplementedError
 
