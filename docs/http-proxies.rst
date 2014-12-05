@@ -16,21 +16,19 @@ the browser with the hostname and port.
 Authenticated proxies are rather more complicated, (see
 `RFC2617 <http://www.ietf.org/rfc/rfc2617.txt>`_)
 
-
 Using an unauthenticated HTTP proxy with FireFox
 ------------------------------------------------
 
 ::
 
-profile = {
-    'network.proxy.http': YOUR_PROXY_SERVER_HOST,
-    'network.proxy.http_port': YOUR_PROXY_SERVER_PORT,
-    'network.proxy.ssl': YOUR_PROXY_SERVER_HOST,
-    'network.proxy.ssl_port': YOUR_PROXY_SERVER_PORT,
-    'network.proxy.type': 1
-}
-self.browser = Browser(self.browser_type, profile_preferences=profile)
-
+    profile = {
+        'network.proxy.http': YOUR_PROXY_SERVER_HOST,
+        'network.proxy.http_port': YOUR_PROXY_SERVER_PORT,
+        'network.proxy.ssl': YOUR_PROXY_SERVER_HOST,
+        'network.proxy.ssl_port': YOUR_PROXY_SERVER_PORT,
+        'network.proxy.type': 1
+    }
+    self.browser = Browser(self.browser_type, profile_preferences=profile)
 
 Authenticated HTTP proxy with Firefox
 -------------------------------------
