@@ -27,7 +27,7 @@ For add a cookie use the add method:
 Retrieve all cookies
 --------------------
 
-For retrieve all cookies use the `all` method:
+To retrieve all cookies use the `all` method:
 
 .. highlight:: python
 
