@@ -15,7 +15,7 @@ It's possible manipulate cookies using `cookies` attribute from a `Browser` inst
 Create cookie
 -------------
 
-For add a cookie use the add method:
+To add a cookie use the add method:
 
 .. highlight:: python
 
