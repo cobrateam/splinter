@@ -13,19 +13,19 @@ splinter is a tool for test web applications with a simple for find elements, fo
 first steps
 ===========
 
-* `Installation <http://splinter.cobrateam.info/docs/install.html>`_
-* `Quick tutorial <http://splinter.cobrateam.info/docs/tutorial.html>`_
+* `Installation <http://splinter.cobrateam.info/en/latest/install.html>`_
+* `Quick tutorial <http://splinter.cobrateam.info/en/latest/tutorial.html>`_
 
 splinter open source project
 ============================
 
-* `Community <http://splinter.cobrateam.info/docs/community.html>`_
-* `Contribute <http://splinter.cobrateam.info/docs/contribute.html>`_
+* `Community <http://splinter.cobrateam.info/en/latest/community.html>`_
+* `Contribute <http://splinter.cobrateam.info/en/latest/contribute.html>`_
 
 documentation
 =============
 
-`splinter documentation <http://splinter.cobrateam.info/docs/>`_
+`splinter documentation <http://splinter.cobrateam.info>`_
 
 external links
 ==============
@@ -42,4 +42,3 @@ external links
 .. image:: https://d2weczhvl823v0.cloudfront.net/cobrateam/splinter/trend.png
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
-
