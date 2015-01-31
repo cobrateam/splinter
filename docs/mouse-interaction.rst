@@ -14,7 +14,7 @@ Mouse interactions
 
 Splinter provides some methods for mouse interactions with elements in the page.
 This feature is useful to test if an element appears on mouse over and
-disappears on mouse out (eg.: submitems of a menu).
+disappears on mouse out (eg.: subitems of a menu).
 
 It's also possible to send a click, double click or right click to the element.
 
