@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from fake_webapp import (
+from tests.fake_webapp import (
     EXAMPLE_HTML,
     EXAMPLE_IFRAME_HTML,
     EXAMPLE_ALERT_HTML,
@@ -19,7 +19,6 @@ from fake_webapp import (
 
 
 admin.autodiscover()
-sys.path.append('tests')
 
 
 def index(request):
