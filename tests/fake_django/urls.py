@@ -3,13 +3,10 @@ import sys
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-admin.autodiscover()
 
-sys.path.append('tests')
 from fake_webapp import (
     EXAMPLE_HTML,
     EXAMPLE_IFRAME_HTML,
@@ -19,6 +16,10 @@ from fake_webapp import (
     EXAMPLE_POPUP_HTML,
     EXAMPLE_REDIRECT_LOCATION_HTML
 )
+
+
+admin.autodiscover()
+sys.path.append('tests')
 
 
 def index(request):

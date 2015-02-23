@@ -14,8 +14,6 @@ from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
-import subprocess
-
 
 def selenium_server_is_running():
     try:

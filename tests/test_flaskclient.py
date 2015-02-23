@@ -5,7 +5,6 @@
 # license that can be found in the LICENSE file.
 
 import os
-import sys
 import unittest
 
 from splinter import Browser

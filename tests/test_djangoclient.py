@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2013 splinter authors. All rights reserved.
+# Copyright 2015 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -9,12 +9,13 @@ import sys
 import unittest
 import urlparse
 
-sys.path.append('tests/fake_django')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
+
+
+sys.path.append('tests/fake_django')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 
 class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
