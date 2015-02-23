@@ -32,6 +32,9 @@ test: dependencies clean
 	@echo "Running all tests..."
 	./run_tests.py -w $(which)
 
+format: clean dependencies
+	@flake8 --max-line-length 110 .
+
 coverage: dependencies clean
 	@echo "Running all tests with coverage..."
 	@coverage run run_tests.py -w $(which) && coverage report
