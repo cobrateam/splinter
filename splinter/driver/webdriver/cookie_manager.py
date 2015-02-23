@@ -5,11 +5,12 @@
 # license that can be found in the LICENSE file.
 import sys
 
+from splinter.cookie_manager import CookieManagerAPI
+
 if sys.version_info[0] > 2:
     from urllib.parse import urlparse
 else:
     from urlparse import urlparse  # NOQA
-from splinter.cookie_manager import CookieManagerAPI
 
 
 class CookieManager(CookieManagerAPI):

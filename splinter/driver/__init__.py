@@ -119,15 +119,15 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
 
     def find_by_css(self, css_selector):
         """
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`, using a CSS selector to query the
-        current page content.
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`,
+        using a CSS selector to query the current page content.
         """
         raise NotImplementedError("%s doesn't support finding elements by css selector." % self.driver_name)
 
     def find_by_xpath(self, xpath):
         """
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`, using a xpath selector to query the
-        current page content.
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`,
+        using a xpath selector to query the urrent page content.
         """
         raise NotImplementedError("%s doesn't support finding elements by xpath selector." % self.driver_name)
 
@@ -143,7 +143,8 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
         """
         Finds an element in current page by its id.
 
-        Even when only one element is find, this method returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        Even when only one element is find, this method returns an instance of
+        :class:`ElementList <splinter.element_list.ElementList>`
         """
         raise NotImplementedError("%s doesn't support finding elements by id." % self.driver_name)
 
@@ -217,7 +218,8 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
 
         Returns True if finds a match for the ``text`` and False if not.
         """
-        raise NotImplementedError("%s doesn't support checking if some text is present in the html. " % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support checking if some text is present in the html. " % self.driver_name)
 
     def type(self, name, value, slowly=False):
         """
@@ -236,9 +238,10 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
     def fill_form(self, field_values):
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
-        
-        Currently, fill_form supports the following fields: text, password, textarea, checkbox, radio and select.
-        
+
+        Currently, fill_form supports the following fields: text, password, textarea, checkbox,
+        radio and select.
+
         Checkboxes should be specified as a boolean in the dict.
         """
         raise NotImplementedError("%s doesn't support filling forms with a dict." % self.driver_name)
@@ -293,7 +296,8 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
 
             >>> browser.select("state", "NY")
         """
-        raise NotImplementedError("%s doesn't support selecting options in 'select' element." % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support selecting options in 'select' element." % self.driver_name)
 
     def click_link_by_href(self, href):
         """
@@ -329,99 +333,123 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
 
     def is_element_present_by_css(self, css_selector, wait_time=None):
         """
-        Verify if the element is present in the current page by css, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by css, and wait the specified
+        time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by css" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by css" % self.driver_name)
 
     def is_element_not_present_by_css(self, css_selector, wait_time=None):
         """
-        Verify if the element is not present in the current page by css, and wait the specified time in ``wait_time``.
+        Verify if the element is not present in the current page by css, and wait the specified time
+        in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by css" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by css" % self.driver_name)
 
     def is_element_present_by_xpath(self, xpath, wait_time=None):
         """
-        Verify if the element is present in the current page by xpath, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by xpath, and wait the specified
+        time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by xpath" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by xpath" % self.driver_name)
 
     def is_element_not_present_by_xpath(self, xpath, wait_time=None):
         """
-        Verify if the element is not present in the current page by xpath, and wait the specified time in ``wait_time``.
+        Verify if the element is not present in the current page by xpath,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by xpath" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by xpath" % self.driver_name)
 
     def is_element_present_by_tag(self, tag, wait_time=None):
         """
-        Verify if the element is present in the current page by tag, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by tag,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by tag" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by tag" % self.driver_name)
 
     def is_element_not_present_by_tag(self, tag, wait_time=None):
         """
-        Verify if the element is not present in the current page by tag, and wait the specified time in ``wait_time``.
+        Verify if the element is not present in the current page by tag,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by tag" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by tag" % self.driver_name)
 
     def is_element_present_by_name(self, name, wait_time=None):
         """
-        Verify if the element is present in the current page by name, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by name,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by name" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by name" % self.driver_name)
 
     def is_element_not_present_by_name(self, name, wait_time=None):
         """
-        Verify if the element is not present in the current page by name, and wait the specified time in ``wait_time``.
+        Verify if the element is not present in the current page by name,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by name" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by name" % self.driver_name)
 
     def is_element_present_by_value(self, value, wait_time=None):
         """
-        Verify if the element is present in the current page by value, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by value,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by value" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by value" % self.driver_name)
 
     def is_element_not_present_by_value(self, value, wait_time=None):
         """
-        Verify if the element is not present in the current page by value, and wait the specified time in ``wait_time``.
+        Verify if the element is not present in the current page by value,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by value" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by value" % self.driver_name)
 
     def is_element_present_by_id(self, id, wait_time=None):
         """
-        Verify if the element is present in the current page by id, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by id,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is present and False if is not present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is present by id" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by id" % self.driver_name)
 
     def is_element_not_present_by_id(self, id, wait_time=None):
         """
-        Verify if the element is present in the current page by id, and wait the specified time in ``wait_time``.
+        Verify if the element is present in the current page by id,
+        and wait the specified time in ``wait_time``.
 
         Returns True if the element is not present and False if is present.
         """
-        raise NotImplementedError("%s doesn't support verifying if element is not present by id" % self.driver_name)
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by id" % self.driver_name)
 
     def screenshot(self, name=None, suffix=None):
         """

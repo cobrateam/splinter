@@ -55,7 +55,10 @@ class CookieManagerAPI(InheritedDocs('_CookieManagerAPI', (object,), {})):
         """
         Returns all of the cookies.
 
-            **Note:** If you're using any webdriver and want more info about the cookie, set the `verbose` parameter to `True` (in other drivers, it won't make any difference). In this case, this method will return a list of dicts, each with one cookie's info.
+            **Note:** If you're using any webdriver and want more info about
+            the cookie, set the `verbose` parameter to `True` (in other
+            drivers, it won't make any difference). In this case, this method
+            will return a list of dicts, each with one cookie's info.
 
         Examples:
 

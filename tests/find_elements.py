@@ -112,7 +112,7 @@ class FindElementsTest(object):
 
     def test_last_element_is_same_than_first_element_in_find_by_id(self):
         "should first element is same than last element in find by id"
-        #a html page have contain one element by id
+        # a html page have contain one element by id
         first = self.browser.find_by_id("firstheader").value
         last = self.browser.find_by_id("firstheader").last.value
         self.assertEqual(first, last)
@@ -164,7 +164,7 @@ class FindElementsTest(object):
 
     def test_all_elements_is_same_than_first_element_in_find_by_id(self):
         "should all elements is same than first element in find by id"
-        #a html page have contain one element by id
+        # a html page have contain one element by id
         first = self.browser.find_by_id("firstheader").value
         some = self.browser.find_by_id("firstheader")[-1].value
         self.assertEqual(first, some)

@@ -189,7 +189,9 @@ class DjangoClient(DriverAPI):
         find_by = original_find or "xpath"
         query = original_selector or xpath
 
-        return ElementList([element_class(element, self) for element_class, element in elements], find_by=find_by, query=query)
+        return ElementList(
+            [element_class(element, self) for element_class, element in elements],
+            find_by=find_by, query=query)
 
     def find_by_tag(self, tag):
         return self.find_by_xpath('//%s' % tag, original_find="tag", original_selector=tag)
@@ -198,7 +200,8 @@ class DjangoClient(DriverAPI):
         return self.find_by_xpath('//*[@value="%s"]' % value, original_find="value", original_selector=value)
 
     def find_by_id(self, id_value):
-        return self.find_by_xpath('//*[@id="%s"][1]' % id_value, original_find="id", original_selector=id_value)
+        return self.find_by_xpath(
+            '//*[@id="%s"][1]' % id_value, original_find="id", original_selector=id_value)
 
     def find_by_name(self, name):
         html = self.htmltree
@@ -212,7 +215,8 @@ class DjangoClient(DriverAPI):
         find_by = "name"
         query = xpath
 
-        return ElementList([DjangoClientControlElement(element, self) for element in elements], find_by=find_by, query=query)
+        return ElementList(
+            [DjangoClientControlElement(element, self) for element in elements], find_by=find_by, query=query)
 
     def find_link_by_text(self, text):
         return self._find_links_by_xpath("//a[text()='%s']" % text)
@@ -265,7 +269,8 @@ class DjangoClient(DriverAPI):
     def _find_links_by_xpath(self, xpath):
         html = self.htmltree
         links = html.xpath(xpath)
-        return ElementList([DjangoClientLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
+        return ElementList(
+            [DjangoClientLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
 
     def select(self, name, value):
         self.find_by_name(name).first._control.value = value

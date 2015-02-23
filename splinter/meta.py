@@ -17,7 +17,7 @@ class InheritedDocs(type):
                     doc = getattr(base, name).__doc__
 
                     if doc:
-                        if type(obj) == type(property()) and not obj.fset:
+                        if isinstance(obj, property) and not obj.fset:
                             obj.fget.__doc__ = doc
                             dict[name] = property(fget=obj.fget)
                         else:

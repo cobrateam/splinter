@@ -25,16 +25,21 @@ else:
     _meth_func = 'im_func'
     _func_name = 'func_name'
 
+
 class switch_window:
+
     def __init__(self, browser, window_handle):
         self.browser = browser
         self.window_handle = window_handle
+
     def __enter__(self):
         self.current_window_handle = self.browser.driver.current_window_handle
         self.browser.driver.switch_to_window(self.window_handle)
+
     def __exit__(self, type, value, traceback):
         if self.current_window_handle in self.browser.driver.window_handles:
             self.browser.driver.switch_to_window(self.current_window_handle)
+
 
 class Window(object):
     """ A class representing a browser window """
@@ -75,8 +80,10 @@ class Window(object):
 
     def is_current():
         doc = "Whether this window is currently the browser's active window."
+
         def fget(self):
             return self._browser.driver.current_window_handle == self.name
+
         def fset(self, value):
             if value is True:
                 self._browser.driver.switch_to_window(self.name)
@@ -110,8 +117,11 @@ class Window(object):
     def __repr__(self):
         return "<Window %s: %s>" % (self.name, self.url)
 
+
 class Windows(object):
+
     """ A class representing all open browser windows """
+
     def __init__(self, browser):
         self._browser = browser
 
@@ -129,9 +139,11 @@ class Windows(object):
 
     def current():
         doc = "The currently active window"
+
         def fget(self):
             current_handle = self._browser.driver.current_window_handle
             return Window(self._browser, current_handle) if current_handle else None
+
         def fset(self, value):
             self._browser.driver.switch_to_window(value.name)
         return locals()
@@ -320,22 +332,30 @@ class BaseWebDriver(DriverAPI):
             self.driver.switch_to.frame(None)
 
     def find_option_by_value(self, value):
-        return self.find_by_xpath('//option[@value="%s"]' % value, original_find="option by value", original_query=value)
+        return self.find_by_xpath(
+            '//option[@value="%s"]' % value, original_find="option by value", original_query=value)
 
     def find_option_by_text(self, text):
-        return self.find_by_xpath('//option[normalize-space(text())="%s"]' % text, original_find="option by text", original_query=text)
+        return self.find_by_xpath(
+            '//option[normalize-space(text())="%s"]' % text, original_find="option by text",
+            original_query=text)
 
     def find_link_by_href(self, href):
         return self.find_by_xpath('//a[@href="%s"]' % href, original_find="link by href", original_query=href)
 
     def find_link_by_partial_href(self, partial_href):
-        return self.find_by_xpath('//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href", original_query=partial_href)
+        return self.find_by_xpath(
+            '//a[contains(@href, "%s")]' % partial_href, original_find="link by partial href",
+            original_query=partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return self.find_by_xpath('//a[contains(normalize-space(.), "%s")]' % partial_text, original_find="link by partial text", original_query=partial_text)
+        return self.find_by_xpath(
+            '//a[contains(normalize-space(.), "%s")]' % partial_text,
+            original_find="link by partial text", original_query=partial_text)
 
     def find_link_by_text(self, text):
-        return self.find_by_xpath('//a[text()="%s"]' % text, original_find="link by text", original_query=text)
+        return self.find_by_xpath(
+            '//a[text()="%s"]' % text, original_find="link by text", original_query=text)
 
     def find_by(self, finder, selector, original_find=None, original_query=None):
         elements = None
@@ -354,16 +374,22 @@ class BaseWebDriver(DriverAPI):
                 pass
 
             if elements:
-                return ElementList([self.element_class(element, self) for element in elements], find_by=find_by, query=query)
+                return ElementList(
+                    [self.element_class(element, self) for element in elements],
+                    find_by=find_by, query=query)
         return ElementList([], find_by=find_by, query=query)
 
     def find_by_css(self, css_selector):
-        return self.find_by(self.driver.find_elements_by_css_selector, css_selector, original_find='css', original_query=css_selector)
+        return self.find_by(
+            self.driver.find_elements_by_css_selector, css_selector, original_find='css',
+            original_query=css_selector)
 
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         original_find = original_find or "xpath"
         original_query = original_query or xpath
-        return self.find_by(self.driver.find_elements_by_xpath, xpath, original_find=original_find, original_query=original_query)
+        return self.find_by(
+            self.driver.find_elements_by_xpath, xpath, original_find=original_find,
+            original_query=original_query)
 
     def find_by_name(self, name):
         return self.find_by(self.driver.find_elements_by_name, name)
@@ -445,6 +471,7 @@ class BaseWebDriver(DriverAPI):
     def windows(self):
         return Windows(self)
 
+
 class TypeIterator(object):
 
     def __init__(self, element, keys):
@@ -486,7 +513,8 @@ class WebDriverElement(ElementAPI):
         self.value = value
 
     def select(self, value):
-        self.find_by_xpath('//select[@name="%s"]/option[@value="%s"]' % (self["name"], value))._element.click()
+        self.find_by_xpath(
+            '//select[@name="%s"]/option[@value="%s"]' % (self["name"], value))._element.click()
 
     def type(self, value, slowly=False):
         if slowly:
@@ -529,19 +557,23 @@ class WebDriverElement(ElementAPI):
         query = original_query or selector
 
         elements = self._element.find_elements_by_css_selector(selector)
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
+        return ElementList(
+            [self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
 
     def find_by_xpath(self, selector):
         elements = ElementList(self._element.find_elements_by_xpath(selector))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
+        return ElementList(
+            [self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
 
     def find_by_name(self, name):
         elements = ElementList(self._element.find_elements_by_name(name))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='name', query=name)
+        return ElementList(
+            [self.__class__(element, self.parent) for element in elements], find_by='name', query=name)
 
     def find_by_tag(self, tag):
         elements = ElementList(self._element.find_elements_by_tag_name(tag))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='tag', query=tag)
+        return ElementList(
+            [self.__class__(element, self.parent) for element in elements], find_by='tag', query=tag)
 
     def find_by_value(self, value):
         selector = '[value="%s"]' % value
@@ -549,7 +581,8 @@ class WebDriverElement(ElementAPI):
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
-        return ElementList([self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
+        return ElementList(
+            [self.__class__(element, self.parent) for element in elements], find_by='id', query=id)
 
     def has_class(self, class_name):
         return bool(re.search(r'(?:^|\s)' + re.escape(class_name) + r'(?:$|\s)', self['class']))

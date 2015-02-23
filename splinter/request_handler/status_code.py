@@ -45,7 +45,8 @@ class StatusCode(object):
         """
         Returns ``True`` if the response is valid (:attr:`code` < 400).
 
-        Otherwise, raises an :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
+        Otherwise, raises an
+        :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
         exception.
         """
         if self.code in self.http_errors:
