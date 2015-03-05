@@ -112,7 +112,7 @@ You can back and forward on your browsing history using ``back`` and ``forward``
 ::
 
     browser.visit('http://cobrateam.info')
-    browser.visit('http://splinter.cobrateam.info')
+    browser.visit('http://splinter.readthedocs.org')
     browser.back()
     browser.forward()
 

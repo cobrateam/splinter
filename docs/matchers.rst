@@ -34,7 +34,7 @@ in the page content. It returns ``True`` or ``False``.
 ::
 
     browser = Browser()
-    browser.visit('http://splinter.cobrateam.info/')
+    browser.visit('http://splinter.readthedocs.org/')
     browser.is_text_present('splinter') # True
     browser.is_text_present('splinter', wait_time=10) # True, using wait_time
     browser.is_text_present('text not present') # False

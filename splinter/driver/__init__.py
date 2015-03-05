@@ -476,7 +476,7 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
     Once you have an instance, you can easily access attributes like a ``dict``:
 
         >>> element = browser.find_by_id("link-logo").first
-        >>> assert element['href'] == 'http://splinter.cobrateam.info'
+        >>> assert element['href'] == 'http://splinter.readthedocs.org'
 
     You can also interact with the instance using the methods and properties listed below.
     """
