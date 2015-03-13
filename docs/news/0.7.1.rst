@@ -1,0 +1,15 @@
+.. Copyright 2015 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.1.
+    :keywords: splinter 0.7.1, python, django, news, documentation, tutorial, web application
+
+whats's new in splinter 0.7.1?
+==============================
+
+* support Selenium 2.45.0.
+* Django Client supports `**kwargs` parameters on constructor.
+* Django Client handle redirects.
+* ZopeTestBrowser has the `ignore_robots` parameter.
