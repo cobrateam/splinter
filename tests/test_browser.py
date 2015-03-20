@@ -39,7 +39,7 @@ class BrowserTest(unittest.TestCase):
         from splinter import Browser
         browser = Browser(driver_name=webdriver, user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
-        result = b'iphone' in browser.html
+        result = 'iphone' in browser.html
         browser.quit()
 
         return result

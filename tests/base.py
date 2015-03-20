@@ -32,7 +32,7 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
     def test_can_open_page(self):
         "should be able to visit, get title and quit"
         title = self.browser.title
-        self.assertEqual(b'Example Title', title)
+        self.assertEqual('Example Title', title)
 
     def test_can_back_on_history(self):
         "should be able to back on history"
@@ -51,14 +51,14 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
     def test_should_have_html(self):
         "should have access to the html"
         html = self.browser.html
-        assert b'<title>Example Title</title>' in html
-        assert b'<h1 id="firstheader">Example Header</h1>' in html
+        assert '<title>Example Title</title>' in html
+        assert '<h1 id="firstheader">Example Header</h1>' in html
 
     def test_should_reload_a_page(self):
         "should reload a page"
         title = self.browser.title
         self.browser.reload()
-        self.assertEqual(b'Example Title', title)
+        self.assertEqual('Example Title', title)
 
     def test_should_have_url(self):
         "should have access to the url"
