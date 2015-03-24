@@ -132,17 +132,17 @@ class FlaskClient(DriverAPI):
         try:
             return self._html
         except AttributeError:
-            self._html = lxml.html.fromstring(self.html.decode('utf-8'))
+            self._html = lxml.html.fromstring(self.html)
             return self._html
 
     @property
     def title(self):
         html = self.htmltree
-        return html.xpath('//title')[0].text_content().strip().encode('utf-8')
+        return html.xpath('//title')[0].text_content().strip()
 
     @property
     def html(self):
-        return self._response.data
+        return self._response.get_data(as_text=True)
 
     @property
     def url(self):

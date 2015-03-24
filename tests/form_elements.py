@@ -21,7 +21,7 @@ class FormElementsTest(object):
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill('query', 'my name')
         self.browser.find_by_name('send').click()
-        assert b'My name is: Master Splinter' in self.browser.html
+        assert 'My name is: Master Splinter' in self.browser.html
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"

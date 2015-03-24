@@ -47,7 +47,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert b'text/plain' in html
+        assert 'text/plain' in html
         assert open(file_path).read().encode('utf-8') in html
 
     def test_forward_to_none_page(self):
