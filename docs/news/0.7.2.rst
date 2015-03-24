@@ -1,0 +1,12 @@
+.. Copyright 2015 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.2.
+    :keywords: splinter 0.7.2, news
+
+whats's new in splinter 0.7.2?
+==============================
+
+* fix Python 3 compatibility, improving enconding/decoding in `browser.title` and `browser.html` - `#380 <https://github.com/cobrateam/splinter/pull/380>`_
