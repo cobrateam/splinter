@@ -627,6 +627,27 @@ class WebDriverElement(ElementAPI):
         """
         self.action_chains.drag_and_drop(self._element, droppable._element)
         self.action_chains.perform()
+    
+    def screenshot(self, name=None, suffix='.png'):
+        from PIL import Image
+        
+        name = name or ''
+        
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        self.driver.get_screenshot_as_file(filename)
+
+        location = self._element.location
+        size = self._element.size
+
+        im = Image.open(filename)
+        left = location['x']
+        top = location['y']
+        right = location['x'] + size['width']
+        bottom = location['y'] + size['height']
+        im = im.crop((left, top, right, bottom))  # defines crop points
+        im.save(filename)
+
+        return filename
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
