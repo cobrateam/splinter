@@ -103,9 +103,9 @@ class DjangoClient(DriverAPI):
     def submit(self, form):
         method = form.attrib['method']
         func_method = getattr(self._browser, method.lower())
-        action = form.attrib['action']
+        action = form.attrib.get('action', '')
         if action.strip() != '.':
-            url = os.path.join(self._url, form.attrib['action'])
+            url = os.path.join(self._url, form.attrib.get('action', ''))
         else:
             url = self._url
         self._url = url
