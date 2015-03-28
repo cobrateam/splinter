@@ -17,6 +17,13 @@ from .fake_webapp import EXAMPLE_APP
 sys.path.append('tests/fake_django')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
+import django
+try:
+    # Django >= 1.7 needs setup
+    django.setup()
+except AttributeError:
+    pass
+
 
 class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 

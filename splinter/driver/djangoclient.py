@@ -8,6 +8,7 @@ from __future__ import with_statement
 import os.path
 import re
 import sys
+import urlparse
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -95,7 +96,13 @@ class DjangoClient(DriverAPI):
 
     def visit(self, url):
         self._url = url
-        self._response = self._browser.get(url, follow=True)
+        # workaround for error in django's on test client not setting port
+        # correctly
+        components = urlparse.urlparse(url)
+        extra = {}
+        if components.port:
+            extra = {'SERVER_PORT': components.port}
+        self._response = self._browser.get(url, follow=True, **extra)
         self._last_urls.append(url)
         self._handle_redirect_chain()
         self._post_load()
@@ -114,7 +121,13 @@ class DjangoClient(DriverAPI):
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
                 data[key] = open(data[key], 'rb')
-        self._response = func_method(url, data, follow=True)
+        # workaround for error in django's on test client not setting port
+        # correctly
+        components = urlparse.urlparse(url)
+        extra = {}
+        if components.port:
+            extra = {'SERVER_PORT': components.port}
+        self._response = func_method(url, data, follow=True, **extra)
         self._handle_redirect_chain()
         self._post_load()
         return self._response
