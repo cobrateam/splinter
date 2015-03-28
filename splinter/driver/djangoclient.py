@@ -7,7 +7,6 @@
 from __future__ import with_statement
 import os.path
 import re
-import time
 import sys
 
 import lxml.html
@@ -276,32 +275,18 @@ class DjangoClient(DriverAPI):
         self.find_by_name(name).first._control.value = value
 
     def is_text_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if self._is_text_present(text):
-                return True
-        return False
+        return self._is_text_present(text)
 
     def _is_text_present(self, text):
         try:
             body = self.find_by_tag('body').first
             return text in body.text
         except ElementDoesNotExist:
-            # This exception will be thrown if the body tag isn't present
-            # This has occasionally been observed. Assume that the
-            # page isn't fully loaded yet
-            return False
+            # In case of non html input check text directly:
+            return text in self.html
 
     def is_text_not_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if not self._is_text_present(text):
-                return True
-        return False
+        return not self._is_text_present(text)
 
     def _element_is_link(self, element):
         return element.tag == 'a'
