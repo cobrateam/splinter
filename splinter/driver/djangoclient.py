@@ -151,7 +151,7 @@ class DjangoClient(DriverAPI):
 
     @property
     def html(self):
-        return self._response.content.decode(self._response.charset)
+        return self._response.content.decode(self._response._charset)
 
     @property
     def url(self):
