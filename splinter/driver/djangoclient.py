@@ -7,8 +7,8 @@
 from __future__ import with_statement
 import os.path
 import re
-import time
 import sys
+import urlparse
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -96,7 +96,13 @@ class DjangoClient(DriverAPI):
 
     def visit(self, url):
         self._url = url
-        self._response = self._browser.get(url, follow=True)
+        # workaround for error in django's on test client not setting port
+        # correctly
+        components = urlparse.urlparse(url)
+        extra = {}
+        if components.port:
+            extra = {'SERVER_PORT': components.port}
+        self._response = self._browser.get(url, follow=True, **extra)
         self._last_urls.append(url)
         self._handle_redirect_chain()
         self._post_load()
@@ -104,9 +110,9 @@ class DjangoClient(DriverAPI):
     def submit(self, form):
         method = form.attrib['method']
         func_method = getattr(self._browser, method.lower())
-        action = form.attrib['action']
+        action = form.attrib.get('action', '')
         if action.strip() != '.':
-            url = os.path.join(self._url, form.attrib['action'])
+            url = os.path.join(self._url, form.attrib.get('action', ''))
         else:
             url = self._url
         self._url = url
@@ -115,7 +121,13 @@ class DjangoClient(DriverAPI):
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
                 data[key] = open(data[key], 'rb')
-        self._response = func_method(url, data, follow=True)
+        # workaround for error in django's on test client not setting port
+        # correctly
+        components = urlparse.urlparse(url)
+        extra = {}
+        if components.port:
+            extra = {'SERVER_PORT': components.port}
+        self._response = func_method(url, data, follow=True, **extra)
         self._handle_redirect_chain()
         self._post_load()
         return self._response
@@ -151,7 +163,7 @@ class DjangoClient(DriverAPI):
 
     @property
     def html(self):
-        return self._response.content.decode(self._response.charset)
+        return self._response.content.decode(self._response._charset)
 
     @property
     def url(self):
@@ -276,32 +288,18 @@ class DjangoClient(DriverAPI):
         self.find_by_name(name).first._control.value = value
 
     def is_text_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if self._is_text_present(text):
-                return True
-        return False
+        return self._is_text_present(text)
 
     def _is_text_present(self, text):
         try:
             body = self.find_by_tag('body').first
             return text in body.text
         except ElementDoesNotExist:
-            # This exception will be thrown if the body tag isn't present
-            # This has occasionally been observed. Assume that the
-            # page isn't fully loaded yet
-            return False
+            # In case of non html input check text directly:
+            return text in self.html
 
     def is_text_not_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if not self._is_text_present(text):
-                return True
-        return False
+        return not self._is_text_present(text)
 
     def _element_is_link(self, element):
         return element.tag == 'a'
