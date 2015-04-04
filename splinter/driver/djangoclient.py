@@ -8,6 +8,7 @@ from __future__ import with_statement
 import os.path
 import re
 import sys
+import six
 from six.moves.urllib import parse
 
 import lxml.html
@@ -66,7 +67,7 @@ class DjangoClient(DriverAPI):
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
-        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in kwargs.iteritems() if key.startswith('client_'))
+        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in six.iteritems(kwargs) if key.startswith('client_'))
         self._browser = Client(**client_kwargs)
         self._history = []
 
