@@ -8,7 +8,7 @@ from __future__ import with_statement
 import os.path
 import re
 import sys
-import urlparse
+from six.moves.urllib import parse
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -98,7 +98,7 @@ class DjangoClient(DriverAPI):
         self._url = url
         # workaround for error in django's on test client not setting port
         # correctly
-        components = urlparse.urlparse(url)
+        components = parse.urlparse(url)
         extra = {}
         if components.port:
             extra = {'SERVER_PORT': components.port}
@@ -123,7 +123,7 @@ class DjangoClient(DriverAPI):
                 data[key] = open(data[key], 'rb')
         # workaround for error in django's on test client not setting port
         # correctly
-        components = urlparse.urlparse(url)
+        components = parse.urlparse(url)
         extra = {}
         if components.port:
             extra = {'SERVER_PORT': components.port}
@@ -163,7 +163,7 @@ class DjangoClient(DriverAPI):
 
     @property
     def html(self):
-        return self._response.content.decode(self._response._charset)
+        return self._response.content.decode(self._response._charset or 'utf-8')
 
     @property
     def url(self):

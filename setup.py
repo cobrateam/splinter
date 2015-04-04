@@ -25,7 +25,7 @@ setup(
     install_requires=['selenium>=2.44.0'],
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.4',
                                          'lxml>=2.3.6', 'cssselect'],
-                    'django': ['Django>=1.5.8,<1.7', 'lxml>=2.3.6', 'cssselect'],
+                    'django': ['Django>=1.5.8,<1.9', 'lxml>=2.3.6', 'cssselect'],
                     'flask': ['Flask>=0.10', 'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
 )

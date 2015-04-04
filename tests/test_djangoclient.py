@@ -7,7 +7,7 @@
 import os
 import sys
 import unittest
-import urlparse
+from six.moves.urllib import parse
 
 from splinter import Browser
 from .base import BaseBrowserTests
@@ -29,7 +29,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        components = urlparse.urlparse(EXAMPLE_APP)
+        components = parse.urlparse(EXAMPLE_APP)
         cls.browser = Browser('django', wait_time=0.1, client_SERVER_NAME=components.hostname,
                               client_SERVER_PORT=components.port)
 
