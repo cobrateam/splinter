@@ -454,6 +454,9 @@ class BaseWebDriver(DriverAPI):
     def select(self, name, value):
         self.find_by_xpath('//select[@name="%s"]//option[@value="%s"]' % (name, value)).first._element.click()
 
+    def select_by_text(self, name, text):
+        self.find_by_xpath('//select[@name="%s"]/option[text()="%s"]' % (name, text)).first._element.click()
+
     def quit(self):
         self.driver.quit()
 
@@ -509,6 +512,9 @@ class WebDriverElement(ElementAPI):
     def select(self, value):
         self.find_by_xpath(
             '//select[@name="%s"]/option[@value="%s"]' % (self["name"], value))._element.click()
+
+    def select_by_text(self, text):
+        self.find_by_xpath('//select[@name="%s"]/option[text()="%s"]' % (self["name"], text))._element.click()
 
     def type(self, value, slowly=False):
         if slowly:
