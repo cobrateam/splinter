@@ -8,7 +8,8 @@ from __future__ import with_statement
 import os.path
 import re
 import sys
-import urlparse
+import six
+from six.moves.urllib import parse
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -66,7 +67,7 @@ class DjangoClient(DriverAPI):
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
-        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in kwargs.iteritems() if key.startswith('client_'))
+        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in six.iteritems(kwargs) if key.startswith('client_'))
         self._browser = Client(**client_kwargs)
         self._history = []
 
@@ -98,7 +99,7 @@ class DjangoClient(DriverAPI):
         self._url = url
         # workaround for error in django's on test client not setting port
         # correctly
-        components = urlparse.urlparse(url)
+        components = parse.urlparse(url)
         extra = {}
         if components.port:
             extra = {'SERVER_PORT': components.port}
@@ -123,7 +124,7 @@ class DjangoClient(DriverAPI):
                 data[key] = open(data[key], 'rb')
         # workaround for error in django's on test client not setting port
         # correctly
-        components = urlparse.urlparse(url)
+        components = parse.urlparse(url)
         extra = {}
         if components.port:
             extra = {'SERVER_PORT': components.port}
@@ -163,7 +164,7 @@ class DjangoClient(DriverAPI):
 
     @property
     def html(self):
-        return self._response.content.decode(self._response._charset)
+        return self._response.content.decode(self._response._charset or 'utf-8')
 
     @property
     def url(self):

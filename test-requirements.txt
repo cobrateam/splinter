@@ -5,5 +5,6 @@ selenium==2.45.0
 coverage==3.7.1
 cssselect>=0.7.1
 argparse
-Django>=1.5.8,<1.7
+Django>=1.5.8,<1.9
 flake8==2.3.0
+six==1.9.0
