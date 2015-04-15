@@ -10,7 +10,9 @@
 Cookies manipulation
 ++++++++++++++++++++
 
-It's possible manipulate cookies using `cookies` attribute from a `Browser` instance. The `cookies` attribute is a instance of a `CookieManager` class that manipulate cookies, like, add and delete cookies.
+It is possible to manipulate cookies using the `cookies` attribute from a
+`Browser` instance. The `cookies` attribute is a instance of a `CookieManager`
+class that manipulates cookies, like adding and deleting them.
 
 Create cookie
 -------------
@@ -22,7 +24,6 @@ To add a cookie use the add method:
 ::
 
     browser.cookies.add({'whatever': 'and ever'})
-
 
 Retrieve all cookies
 --------------------
@@ -44,20 +45,20 @@ You can delete one or more cookies with the ``delete`` method:
 
 ::
 
-    browser.cookies.delete('mwahahahaha') #deletes the cookie 'mwahahahaha'
-    browser.cookies.delete('whatever', 'wherever') #deletes two cookies
+    browser.cookies.delete('mwahahahaha')  # deletes the cookie 'mwahahahaha'
+    browser.cookies.delete('whatever', 'wherever')  # deletes two cookies
 
 Delete all cookies
 ------------------
 
-You also can delete all cookies: just call the ``delete`` method without any
+You can also delete all cookies: just call the ``delete`` method without any
 parameters:
 
 .. highlight:: python
 
 ::
 
-    browser.cookies.delete() #deletes all cookies
+    browser.cookies.delete()  # deletes all cookies
 
-For more details, check the API reference for the
+For more details check the API reference of the
 :class:`CookieManager <splinter.cookie_manager.CookieManagerAPI>` class.
