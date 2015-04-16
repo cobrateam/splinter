@@ -25,6 +25,15 @@ except AttributeError:
     pass
 
 
+def django_installed():
+    try:
+        import django  # noqa
+        Browser("django")
+    except ImportError:
+        return False
+    return True
+
+
 class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     @classmethod
@@ -144,3 +153,23 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.visit('{}redirected'.format(EXAMPLE_APP))
         assert 'I just been redirected to this location.' in self.browser.html
         self.assertEqual('{}redirect-location?come=get&some=true'.format(EXAMPLE_APP), self.browser.url)
+
+
+class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        custom_headers = {'X-Splinter-Customheaders-1': 'Hello',
+                          'X-Splinter-Customheaders-2': 'Bye'}
+        cls.browser = Browser("django", custom_headers=custom_headers)
+
+    def test_create_a_phantomjs_with_custom_headers(self):
+        self.browser.visit(EXAMPLE_APP + 'headers')
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-1: Hello'))
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-2: Bye'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()

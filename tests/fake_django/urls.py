@@ -1,5 +1,3 @@
-import sys
-
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -46,7 +44,12 @@ def get_name(request):
 
 
 def get_user_agent(request):
-    return HttpResponse(request.user_agent.string)
+    return HttpResponse(request.META['User-Agent'])
+
+
+def request_headers(request):
+    body = '\n'.join('%s: %s' % (key, value) for key, value in request.META.iteritems())
+    return HttpResponse(body)
 
 
 def upload_file(request):
@@ -96,7 +99,8 @@ urlpatterns = patterns(
     url(r'^type$', type),
     url(r'^no_body$', no_body),
     url(r'^name$', get_name),
-    url(r'^user_agent$', get_user_agent),
+    url(r'^useragent$', get_user_agent),
+    url(r'^headers$', request_headers),
     url(r'^upload$', upload_file),
     url(r'^foo$', foo),
     url(r'^query$', query_string),

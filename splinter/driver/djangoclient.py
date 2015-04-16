@@ -67,7 +67,7 @@ class DjangoClient(DriverAPI):
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
-        self._default_headers = kwargs.pop('default_headers', {})
+        self._custom_headers = kwargs.pop('custom_headers', {})
         client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in six.iteritems(kwargs) if key.startswith('client_'))
         self._browser = Client(**client_kwargs)
         self._history = []
@@ -106,8 +106,8 @@ class DjangoClient(DriverAPI):
             extra.update({'SERVER_PORT': components.port})
         if self._user_agent:
             extra.update({'User-Agent': self._user_agent})
-        if self._default_headers is not None:
-            extra.update(self._default_headers)
+        if self._custom_headers:
+            extra.update(self._custom_headers)
         return extra
 
     def visit(self, url):
