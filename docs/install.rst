@@ -55,3 +55,4 @@ Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid
     * - make sure you have already :doc:`set up your development environment </contribute/setting-up-your-development-environment>`.
     * - in this second case, make sure `Git <http://git-scm.com/>`_  is installed.
     * - in order to use Chrome webdriver, you need to :doc:`setup Google Chrome properly </drivers/chrome>`.
+    * - in order to use the Android webdriver, you need to :doc:`setup Solendroid </drivers/android`.

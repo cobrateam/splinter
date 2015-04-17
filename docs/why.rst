@@ -23,7 +23,8 @@ zope.testbrowser as the backend.
 Splinter has drivers for :doc:`Chrome </drivers/chrome>` and :doc:`Firefox
 </drivers/firefox>` for  browser-based testing, and :doc:`zope.testbrowser
 </drivers/zope.testbrowser>` and :doc:`PhantomJS </drivers/phantomjs>` for
-headless testing.
+headless testing and :doc: `Android </drivers/android>` for testing using
+Android simulator and Solendroid.
 
 
 .. _Selenium: http://seleniumhq.org

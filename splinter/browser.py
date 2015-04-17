@@ -10,6 +10,7 @@ from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.driver.webdriver.phantomjs import WebDriver as PhantomJSWebDriver
+from splinter.driver.webdriver.android import WebDriver as AndroidWebDriver
 from splinter.exceptions import DriverNotFoundError
 
 
@@ -18,6 +19,7 @@ _DRIVERS = {
     'remote': RemoteWebDriver,
     'chrome': ChromeWebDriver,
     'phantomjs': PhantomJSWebDriver,
+    'android': AndroidWebDriver,
 }
 
 if sys.version_info[0] <= 2:
