@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
+import six
 
 from tests.fake_webapp import (
     EXAMPLE_HTML,
@@ -48,7 +49,7 @@ def get_user_agent(request):
 
 
 def request_headers(request):
-    body = '\n'.join('%s: %s' % (key, value) for key, value in request.META.iteritems())
+    body = '\n'.join('%s: %s' % (key, value) for key, value in six.iteritems(request.META))
     return HttpResponse(body)
 
 
