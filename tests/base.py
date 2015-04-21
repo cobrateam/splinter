@@ -118,7 +118,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         "should provide verify if element is invisible"
         self.assertFalse(self.browser.find_by_id("invisible").visible)
 
-    def test_default_wait_time_should_be_2(self):
+    def test_default_wait_time(self):
         "should driver default wait time 2"
         self.assertEqual(2, self.browser.wait_time)
 
