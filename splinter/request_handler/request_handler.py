@@ -52,6 +52,9 @@ class RequestHandler(object):
         self.conn.putheader('User-agent', 'python/splinter')
         if self.auth:
             self.conn.putheader("Authorization", "Basic %s" % self.auth)
+        if hasattr(self, 'driver') and hasattr(self.driver, 'get_cookies'):
+            cookies = '; '.join(['%s=%s' % (c['name'], c['value']) for c in self.driver.get_cookies()])
+            self.conn.putheader('Cookie', cookies)
         self.conn.endheaders()
 
     def _parse_url(self):
