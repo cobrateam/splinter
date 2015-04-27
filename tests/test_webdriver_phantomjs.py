@@ -8,14 +8,21 @@ from .base import WebDriverTests
 class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("phantomjs")
+        cls.browser = Browser("phantomjs", wait_time=1.5)
 
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
 
     def setUp(self):
-        self.browser.visit(EXAMPLE_APP)
+        if self.browser.url == EXAMPLE_APP:
+            self.browser.reload()
+        else:
+            self.browser.visit(EXAMPLE_APP)
+
+    def test_default_wait_time(self):
+        "should driver default wait time 1.5"
+        self.assertEqual(1.5, self.browser.wait_time)
 
     def test_get_alert(self):
         with self.assertRaises(NotImplementedError):
