@@ -67,9 +67,11 @@ class DjangoClient(DriverAPI):
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self.wait_time = wait_time
+        self._custom_headers = kwargs.pop('custom_headers', {})
         client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in six.iteritems(kwargs) if key.startswith('client_'))
         self._browser = Client(**client_kwargs)
         self._history = []
+        self._user_agent = user_agent
 
         self._cookie_manager = CookieManager(self._browser.cookies)
         self._last_urls = []
@@ -95,14 +97,22 @@ class DjangoClient(DriverAPI):
                 self._last_urls.append(redirect_url)
             self._url = self._last_urls[-1]
 
+    def _set_extra_params(self, url):
+        extra = {}
+        components = parse.urlparse(url)
+        if components.hostname:
+            extra.update({'SERVER_NAME': components.hostname})
+        if components.port:
+            extra.update({'SERVER_PORT': components.port})
+        if self._user_agent:
+            extra.update({'User-Agent': self._user_agent})
+        if self._custom_headers:
+            extra.update(self._custom_headers)
+        return extra
+
     def visit(self, url):
         self._url = url
-        # workaround for error in django's on test client not setting port
-        # correctly
-        components = parse.urlparse(url)
-        extra = {}
-        if components.port:
-            extra = {'SERVER_PORT': components.port}
+        extra = self._set_extra_params(url)
         self._response = self._browser.get(url, follow=True, **extra)
         self._last_urls.append(url)
         self._handle_redirect_chain()
@@ -122,12 +132,7 @@ class DjangoClient(DriverAPI):
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
                 data[key] = open(data[key], 'rb')
-        # workaround for error in django's on test client not setting port
-        # correctly
-        components = parse.urlparse(url)
-        extra = {}
-        if components.port:
-            extra = {'SERVER_PORT': components.port}
+        extra = self._set_extra_params(url)
         self._response = func_method(url, data, follow=True, **extra)
         self._handle_redirect_chain()
         self._post_load()

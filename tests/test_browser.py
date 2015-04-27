@@ -15,6 +15,7 @@ import sys
 from splinter.exceptions import DriverNotFoundError
 
 from .fake_webapp import EXAMPLE_APP
+from .test_djangoclient import django_installed
 from .test_webdriver_chrome import chrome_installed
 from .test_webdriver_firefox import firefox_installed
 
@@ -71,3 +72,7 @@ class BrowserTest(unittest.TestCase):
                      'zope.testbrowser is not currently compatible with Python 3')
     def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
         self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))
+
+    @unittest.skipIf(not django_installed(), 'django is not installed')
+    def test_djangoclient_should_be_able_to_change_user_agent(self):
+        self.assertTrue(self.browser_can_change_user_agent('django'))

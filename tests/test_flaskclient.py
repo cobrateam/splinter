@@ -40,7 +40,7 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
         html = self.browser.html
         assert 'text/plain' in html
-        assert open(file_path).read().encode('utf-8') in html
+        assert open(file_path, 'rb').read().decode('utf-8') in html
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"

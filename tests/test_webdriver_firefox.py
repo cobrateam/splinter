@@ -45,10 +45,10 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
         html = self.browser.html
         assert 'text/plain' in html
-        assert open(file_path).read().encode('utf-8') in html
+        assert open(file_path, 'rb').read().decode('utf-8') in html
 
     def test_should_support_with_statement(self):
-        with Browser('firefox') as internet:
+        with Browser('firefox'):
             pass
 
 
