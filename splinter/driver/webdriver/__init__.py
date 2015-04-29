@@ -11,6 +11,7 @@ import sys
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
@@ -299,6 +300,10 @@ class BaseWebDriver(DriverAPI):
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
                 pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
+                pass
         return False
 
     def is_text_not_present(self, text, wait_time=None):
@@ -314,6 +319,10 @@ class BaseWebDriver(DriverAPI):
                 # This exception will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
+                pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
                 pass
         return False
 
