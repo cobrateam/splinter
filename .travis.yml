@@ -1,4 +1,4 @@
-# Copyright 2012 splinter authors. All rights reserved.
+# Copyright 2012-2015 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -8,6 +8,7 @@ language: python
 python:
   - "2.7"
   - "3.3"
+  - "3.4"
 env:
   - DJANGO_VERSION=1.5.8 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.6.5 DRIVER=tests/test_djangoclient.py
@@ -20,6 +21,9 @@ env:
 matrix:
   exclude:
     - python: "3.3"
+      env: DRIVER=tests/test_zopetestbrowser.py
+  exclude:
+    - python: "3.4"
       env: DRIVER=tests/test_zopetestbrowser.py
 before_script:
   - export DISPLAY=:99.0
