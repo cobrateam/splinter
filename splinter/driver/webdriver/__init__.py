@@ -275,6 +275,12 @@ class BaseWebDriver(DriverAPI):
     def is_element_not_present_by_value(self, value, wait_time=None):
         return self.is_element_not_present(self.find_by_value, value, wait_time)
 
+    def is_element_present_by_text(self, text, wait_time=None):
+        return self.is_element_present(self.find_by_text, text, wait_time)
+
+    def is_element_not_present_by_text(self, text, wait_time=None):
+        return self.is_element_not_present(self.find_by_text, text, wait_time)
+
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
 
@@ -393,6 +399,10 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_value(self, value):
         return self.find_by_xpath('//*[@value="%s"]' % value, original_find='value', original_query=value)
+
+    def find_by_text(self, text):
+        return self.find_by_xpath('//*[text()="%s"]' % text,
+                                  original_find='text', original_query=text)
 
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
@@ -578,6 +588,11 @@ class WebDriverElement(ElementAPI):
     def find_by_value(self, value):
         selector = '[value="%s"]' % value
         return self.find_by_css(selector, original_find='value', original_query=value)
+
+    def find_by_test(self, text):
+        selector = '//*[text()="%s"]' % text
+        return self.find_by_xpath(selector, original_find='text',
+                                  original_query=text)
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))

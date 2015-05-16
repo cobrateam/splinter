@@ -156,6 +156,14 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
         """
         raise NotImplementedError("%s doesn't support finding elements by value." % self.driver_name)
 
+    def find_by_text(self, text):
+        """
+        Finds elements in current page by their text.
+
+        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
+        """
+        raise NotImplementedError("%s doesn't support finding elements by text." % self.driver_name)
+
     def find_by_tag(self, tag):
         """
         Find all elements of a given tag in current page.
@@ -430,6 +438,26 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
         """
         raise NotImplementedError(
             "%s doesn't support verifying if element is not present by value" % self.driver_name)
+
+    def is_element_present_by_text(self, text, wait_time=None):
+        """
+        Verify if the element is present in the current page by text,
+        and wait the specified time in ``wait_time``.
+
+        Returns True if the element is present and False if is not present.
+        """
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is present by text" % self.driver_name)
+
+    def is_element_not_present_by_text(self, text, wait_time=None):
+        """
+        Verify if the element is not present in the current page by text,
+        and wait the specified time in ``wait_time``.
+
+        Returns True if the element is not present and False if is present.
+        """
+        raise NotImplementedError(
+            "%s doesn't support verifying if element is not present by text" % self.driver_name)
 
     def is_element_present_by_id(self, id, wait_time=None):
         """
