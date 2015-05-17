@@ -190,6 +190,10 @@ class FlaskClient(DriverAPI):
     def find_by_value(self, value):
         return self.find_by_xpath('//*[@value="%s"]' % value, original_find="value", original_selector=value)
 
+    def find_by_text(self, text):
+        return self.find_by_xpath('//*[text()="%s"]' % text,
+                                  original_find="text", original_selector=text)
+
     def find_by_id(self, id_value):
         return self.find_by_xpath(
             '//*[@id="%s"][1]' % id_value, original_find="id", original_selector=id_value)
@@ -337,6 +341,9 @@ class FlaskClientElement(ElementAPI):
     def find_by_value(self, value):
         elements = self._element.cssselect('[value="%s"]' % value)
         return ElementList([self.__class__(element, self) for element in elements])
+
+    def find_by_text(self, text):
+        return self.find_by_xpath('//*[text()="%s"]' % text)
 
     def find_by_id(self, id):
         elements = self._element.cssselect('#%s' % id)

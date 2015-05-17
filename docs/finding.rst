@@ -11,7 +11,8 @@ Finding elements
 ++++++++++++++++
 
 Splinter provides 6 methods for finding elements in the page, one for each
-selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``.
+selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``,
+``text``.
 Examples:
 
 .. highlight:: python
@@ -22,6 +23,7 @@ Examples:
     browser.find_by_xpath('//h1')
     browser.find_by_tag('h1')
     browser.find_by_name('name')
+    browser.find_by_text('Hello World!')
     browser.find_by_id('firstheader')
     browser.find_by_value('query')
 
@@ -82,7 +84,7 @@ If you need to find the links in a page, you can use the methods
 
 As the other ``find_*`` methods, these returns a list of all found elements.
 
-You also can search for links using other selector types with the methods 
+You also can search for links using other selector types with the methods
 ``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``,
 ``find_by_value`` and ``find_by_id``.
 

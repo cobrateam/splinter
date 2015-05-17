@@ -83,6 +83,22 @@ class IsElementPresentTest(object):
         self.browser.find_by_css('.add-async-element').click()
         self.assertFalse(self.browser.is_element_not_present_by_tag('h4'))
 
+    def test_is_element_present_by_text(self):
+        "should is element present by text verify if element is present"
+        self.assertTrue(self.browser.is_element_present_by_text('Complex'))
+
+    def test_is_element_present_by_text_returns_false_if_element_is_not_present(self):
+        "should is element present by text verify if element is present"
+        self.assertFalse(self.browser.is_element_present_by_text('Not present'))
+
+    def test_is_element_not_present_by_text(self):
+        "should is element not present by text verify if element is not present"
+        self.assertTrue(self.browser.is_element_not_present_by_text('Not present'))
+
+    def test_is_element_not_present_by_text_returns_false_if_element_is_present(self):
+        "should is element not present by text returns False if element is present"
+        self.assertFalse(self.browser.is_element_not_present_by_text('Complex'))
+
     def test_is_element_present_by_value(self):
         "should is element present by value verify if element is present"
         self.browser.find_by_css('.add-async-element').click()
