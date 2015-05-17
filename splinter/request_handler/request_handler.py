@@ -23,24 +23,15 @@ class RequestHandler(object):
         if not (url.startswith("file:") or url.startswith("about:")):
             self.request_url = url
             self._create_connection()
-            self._store_response()
+            status_code = self._store_response()
             self.conn.close()
         else:
-            self.status_code = StatusCode(200, 'Ok')
-
-    def ensure_success_response(self):
-        """
-        Guarantee the success on response.
-
-        If response is not success, raises an
-        :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
-        exception.
-        """
-        self.status_code.is_valid_response()
+            status_code = StatusCode(200, 'Ok')
+        return status_code
 
     def _store_response(self):
         self.response = self.conn.getresponse()
-        self.status_code = StatusCode(self.response.status, self.response.reason)
+        return StatusCode(self.response.status, self.response.reason)
 
     def _create_connection(self):
         self._parse_url()

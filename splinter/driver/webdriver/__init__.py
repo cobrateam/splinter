@@ -176,9 +176,11 @@ class BaseWebDriver(DriverAPI):
     def url(self):
         return self.driver.current_url
 
+    @property
+    def status_code(self):
+        return self.connect(self.url)
+
     def visit(self, url):
-        self.connect(url)
-        self.ensure_success_response()
         self.driver.get(url)
 
     def back(self):

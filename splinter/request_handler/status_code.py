@@ -41,18 +41,6 @@ class StatusCode(object):
     def __str__(self):
         return "%s - %s" % (self.code, self.reason)
 
-    def is_valid_response(self):
-        """
-        Returns ``True`` if the response is valid (:attr:`code` < 400).
-
-        Otherwise, raises an
-        :class:`HttpResponseError <splinter.request_handler.status_code.HttpResponseError>`
-        exception.
-        """
-        if self.code in self.http_errors:
-            raise HttpResponseError(self.code, self.reason)
-        return True
-
     def is_success(self):
         """
         Returns ``True`` if the response was succeed, otherwise, returns ``False``.
