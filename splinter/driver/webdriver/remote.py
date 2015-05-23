@@ -23,6 +23,11 @@ class WebDriver(BaseWebDriver):
             browsername = 'INTERNETEXPLORER'
         abilities = getattr(DesiredCapabilities, browsername, {})
         abilities.update(ability_args)
+
+        # supporting browserstack.com
+        if 'browserstack.com' in url:
+            abilities['browser'] = browser
+
         self.driver = Remote(url, abilities)
 
         self.element_class = WebDriverElement
