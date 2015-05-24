@@ -8,6 +8,7 @@ import sys
 
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
+from splinter.driver.webdriver.browserstack import WebDriver as BrowserstackWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.driver.webdriver.phantomjs import WebDriver as PhantomJSWebDriver
 from splinter.exceptions import DriverNotFoundError
@@ -16,6 +17,7 @@ from splinter.exceptions import DriverNotFoundError
 _DRIVERS = {
     'firefox': FirefoxWebDriver,
     'remote': RemoteWebDriver,
+    'browserstack': BrowserstackWebDriver,
     'chrome': ChromeWebDriver,
     'phantomjs': PhantomJSWebDriver,
 }
