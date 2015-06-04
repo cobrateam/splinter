@@ -1,4 +1,4 @@
-.. image:: https://secure.travis-ci.org/cobrateam/splinter.png
+.. image:: https://secure.travis-ci.org/cobrateam/splinter.svg?branch=master
    :target: http://travis-ci.org/cobrateam/splinter
 
 
