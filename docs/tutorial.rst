@@ -10,7 +10,7 @@
 Splinter Tutorial
 +++++++++++++++++
 
-Before starting, make sure Splinter is `installed <http://splinter.readthedocs.org/docs/install.html>`_.
+Before starting, make sure Splinter is :doc:`installed </install>`
 
 This tutorial provides a simple example, teaching step by step how to:
 
