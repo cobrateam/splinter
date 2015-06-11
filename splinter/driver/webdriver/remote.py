@@ -7,7 +7,7 @@
 from selenium.webdriver import Remote
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
-from splinter.cookie_manager import CookieManagerAPI
+from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
@@ -27,7 +27,7 @@ class WebDriver(BaseWebDriver):
 
         self.element_class = WebDriverElement
 
-        self._cookie_manager = CookieManagerAPI()
+        self._cookie_manager = CookieManager(self.driver)
 
         super(WebDriver, self).__init__(wait_time)
 
