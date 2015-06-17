@@ -36,7 +36,7 @@ external links
 
 `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
 
-`salad <https://github.com/wieden-kennedy/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
+`salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
 
 .. image:: https://d2weczhvl823v0.cloudfront.net/cobrateam/splinter/trend.png
