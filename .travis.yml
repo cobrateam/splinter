@@ -10,14 +10,28 @@ python:
   - "3.3"
   - "3.4"
 env:
-  - DJANGO_VERSION=1.5.8 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_remote.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_firefox.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_zopetestbrowser.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_phantomjs.py
-  - DJANGO_VERSION=1.6.5 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.5.12 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_chrome.py
 matrix:
   exclude:
     - python: "3.3"
