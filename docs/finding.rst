@@ -104,6 +104,6 @@ found element.
 ``ElementDoesNotExist`` exception
 =================================
 
-If an element is not found, the ``find_*`` methods returns an empty list. But
-if you try to access an element in this list, it will raise the
+If an element is not found, the ``find_*`` methods return an empty list. But
+if you try to access an element in this list, the method will raise the
 :class:`splinter.exceptions.ElementDoesNotExist` exception.
