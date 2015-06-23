@@ -98,6 +98,29 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
 
 
 @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
+class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        capabilities = {
+            'acceptSslCerts': False,
+            'javascriptEnabled': True
+        }
+        cls.browser = Browser("firefox", capabilities=capabilities)
+
+    def test_capabilities_set(self):
+        capabilities = self.browser.driver.capabilities
+        self.assertIn('acceptSslCerts', capabilities)
+        self.assertEqual(False, capabilities.get('acceptSslCerts'))
+        self.assertIn('javascriptEnabled', capabilities)
+        self.assertEqual(True, capabilities.get('javascriptEnabled'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+
+@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserFullScreenTest(unittest.TestCase):
 
     @classmethod

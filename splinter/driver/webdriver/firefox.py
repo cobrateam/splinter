@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from selenium.webdriver import Firefox
+from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from splinter.driver.webdriver import (
     BaseWebDriver, WebDriverElement as WebDriverElement)
@@ -18,11 +18,18 @@ class WebDriver(BaseWebDriver):
     driver_name = "Firefox"
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
-                 profile_preferences=None, fullscreen=False, wait_time=2):
+                 profile_preferences=None, fullscreen=False, wait_time=2,
+                 capabilities=None):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
         firefox_profile.set_preference('network.dns.disableIPv6', False)
+
+        firefox_capabilities = DesiredCapabilities().FIREFOX
+
+        if capabilities:
+            for key, value in capabilities.items():
+                firefox_capabilities[key] = value
 
         if user_agent is not None:
             firefox_profile.set_preference(
@@ -36,7 +43,8 @@ class WebDriver(BaseWebDriver):
             for extension in extensions:
                 firefox_profile.add_extension(extension)
 
-        self.driver = Firefox(firefox_profile)
+        self.driver = Firefox(firefox_profile,
+                              capabilities=firefox_capabilities)
 
         if fullscreen:
             ActionChains(self.driver).send_keys(Keys.F11).perform()
