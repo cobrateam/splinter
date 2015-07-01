@@ -218,7 +218,7 @@ class DjangoClient(DriverAPI):
         return self.find_by_xpath('//*[@value="%s"]' % value, original_find="value", original_selector=value)
 
     def find_by_text(self, text):
-        return self.find_by_xpath('//*[text()="%s"]' % text, original_find="text", original_selector=text)
+        return self.find_by_xpath('//*[text()="%s"]' % text.replace('"', '\"'), original_find="text", original_selector=text)
 
     def find_by_id(self, id_value):
         return self.find_by_xpath(
