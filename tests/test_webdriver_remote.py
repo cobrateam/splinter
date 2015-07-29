@@ -78,26 +78,21 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
             self.browser.find_by_id('visible').mouseover()
 
     def test_create_and_access_a_cookie(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.add({'sha': 'zam'})
+        "Remote should support cookies"
+        self.browser.cookies.add({'sha': 'zam'})
 
     def test_create_some_cookies_and_delete_them_all(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete()
+        "Remote should support cookies"
+        self.browser.cookies.delete()
 
     def test_create_and_delete_a_cookie(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('cookie')
+        "Remote should support cookies"
+        self.browser.cookies.delete('cookie')
 
     def test_create_and_delete_many_cookies(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('cookie', 'notacookie')
+        "Remote should support cookies"
+        self.browser.cookies.delete('cookie', 'notacookie')
 
     def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('mwahahahaha')
+        "Remote should support cookies"
+        self.browser.cookies.delete('mwahahahaha')
