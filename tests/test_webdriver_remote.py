@@ -28,7 +28,7 @@ def selenium_server_is_running():
     not selenium_server_is_running(),
     'Skipping the remote webdriver tests'
 )
-class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
+class RemoteBrowserDefaultTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -95,4 +95,72 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
         "Remote should support cookies"
+        self.browser.cookies.delete('mwahahahaha')
+
+
+@unittest.skipIf(
+    not selenium_server_is_running(),
+    'Skipping the remote webdriver tests'
+)
+class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.browser = Browser("remote", browser="chrome")
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    def test_support_with_statement(self):
+        "Remote should support with statement"
+        with Browser('remote', browser="chrome") as remote:
+            pass
+
+    def test_mouse_over(self):
+        "Remote chrome should support mouseover"
+        self.browser.find_by_id('visible').mouse_over()
+
+    def test_mouse_out(self):
+        "Remote chrome should support mouseout"
+        self.browser.find_by_id('visible').mouse_out()
+
+    def test_double_click(self):
+        "Remote chrome should support double_click"
+        self.browser.find_by_id('visible').double_click()
+
+    def test_right_click(self):
+        "Remote chrome should support right_click"
+        self.browser.find_by_id('visible').right_click()
+
+    def test_drag_and_drop(self):
+        "Remote chrome should support drag_and_drop"
+        droppable = self.browser.find_by_css('.droppable')
+        self.browser.find_by_css('.draggable').drag_and_drop(droppable)
+
+    def test_mouseover_should_be_an_alias_to_mouse_over(self):
+        "Remote chrome should support mouseover"
+        self.browser.find_by_id('visible').mouseover()
+
+    def test_create_and_access_a_cookie(self):
+        "Remote chrome should support cookies"
+        self.browser.cookies.add({'sha': 'zam'})
+
+    def test_create_some_cookies_and_delete_them_all(self):
+        "Remote chrome should support cookies"
+        self.browser.cookies.delete()
+
+    def test_create_and_delete_a_cookie(self):
+        "Remote chrome should support cookies"
+        self.browser.cookies.delete('cookie')
+
+    def test_create_and_delete_many_cookies(self):
+        "Remote chrome should support cookies"
+        self.browser.cookies.delete('cookie', 'notacookie')
+
+    def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
+        "Remote chrome should support cookies"
         self.browser.cookies.delete('mwahahahaha')

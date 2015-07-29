@@ -25,7 +25,10 @@ class WebDriver(BaseWebDriver):
         abilities.update(ability_args)
         self.driver = Remote(url, abilities)
 
-        self.element_class = WebDriverElement
+        if browsername == 'CHROME':
+            self.element_class = BaseWebDriverElement
+        else:
+            self.element_class = WebDriverElement
 
         self._cookie_manager = CookieManager(self.driver)
 
