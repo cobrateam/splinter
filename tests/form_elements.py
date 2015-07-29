@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import time
 
 class FormElementsTest(object):
 
@@ -21,6 +22,7 @@ class FormElementsTest(object):
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill('query', 'my name')
         self.browser.find_by_name('send').click()
+        time.sleep(0.1)
         assert 'My name is: Master Splinter' in self.browser.html
 
     def test_can_choose_a_radio_button(self):

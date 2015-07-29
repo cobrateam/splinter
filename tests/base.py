@@ -21,6 +21,7 @@ from .status_code import StatusCodeTest
 from .screenshot import ScreenshotTest
 from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest
+import time
 
 
 class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickElementsTest,
@@ -125,6 +126,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_access_alerts_and_accept_them(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h1').click()
+        time.sleep(0.1)
         alert = self.browser.get_alert()
         self.assertEqual('This is an alert example.', alert.text)
         alert.accept()
@@ -132,12 +134,14 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
     def test_access_prompts_and_be_able_to_fill_then(self):
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h2').click()
+        time.sleep(0.1)
 
         alert = self.browser.get_alert()
         self.assertEqual('What is your name?', alert.text)
         alert.fill_with('Splinter')
         alert.accept()
 
+        time.sleep(0.1)
         response = self.browser.get_alert()
         self.assertEqual('Splinter', response.text)
         response.accept()
@@ -146,18 +150,22 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.browser.visit(EXAMPLE_APP + 'alert')
 
         self.browser.find_by_tag('h3').click()
+        time.sleep(0.1)
         alert = self.browser.get_alert()
 
         self.assertEqual('Should I continue?', alert.text)
         alert.accept()
+        time.sleep(0.1)
         alert = self.browser.get_alert()
         self.assertEqual('You say I should', alert.text)
         alert.accept()
 
         self.browser.find_by_tag('h3').click()
+        time.sleep(0.1)
         alert = self.browser.get_alert()
         self.assertEqual('Should I continue?', alert.text)
         alert.dismiss()
+        time.sleep(0.1)
         alert = self.browser.get_alert()
         self.assertEqual('You say I should not', alert.text)
         alert.accept()
@@ -166,18 +174,22 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.browser.visit(EXAMPLE_APP + 'alert')
 
         self.browser.find_by_tag('h3').click()
+        time.sleep(0.1)
         with self.browser.get_alert() as alert:
             self.assertEqual('Should I continue?', alert.text)
             alert.accept()
 
+        time.sleep(0.1)
         with self.browser.get_alert() as alert:
             self.assertEqual('You say I should', alert.text)
             alert.accept()
 
         self.browser.find_by_tag('h3').click()
+        time.sleep(0.1)
         with self.browser.get_alert() as alert:
             self.assertEqual('Should I continue?', alert.text)
             alert.dismiss()
+        time.sleep(0.1)
         with self.browser.get_alert() as alert:
             self.assertEqual('You say I should not', alert.text)
             alert.accept()
@@ -186,6 +198,7 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         "should access alerts using 'with' statement"
         self.browser.visit(EXAMPLE_APP + 'alert')
         self.browser.find_by_tag('h1').click()
+        time.sleep(0.1)
         with self.browser.get_alert() as alert:
             self.assertEqual('This is an alert example.', alert.text)
             alert.accept()
