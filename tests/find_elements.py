@@ -246,3 +246,9 @@ class FindElementsTest(object):
         self.assertEqual(len(decendent), 1)
         assert isinstance(decendent, ElementList)
         assert isinstance(decendent[0], ElementAPI)
+
+    def test_finding_by_text_in_element_context(self):
+        "should find elements by text in element context"
+        body = self.browser.find_by_tag('body')
+        element = body.find_by_text('Complex')
+        self.assertEqual(element.value, 'Complex')

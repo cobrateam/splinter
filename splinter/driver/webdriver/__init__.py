@@ -572,7 +572,7 @@ class WebDriverElement(ElementAPI):
         return ElementList(
             [self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
 
-    def find_by_xpath(self, selector):
+    def find_by_xpath(self, selector, original_find=None, original_query=None):
         elements = ElementList(self._element.find_elements_by_xpath(selector))
         return ElementList(
             [self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
@@ -593,8 +593,7 @@ class WebDriverElement(ElementAPI):
 
     def find_by_text(self, text):
         selector = '//*[text()="%s"]' % text
-        return self.find_by_xpath(selector, original_find='text',
-                                  original_query=text)
+        return self.find_by_xpath(selector, original_find='text', original_query=text)
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
