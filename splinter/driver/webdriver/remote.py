@@ -23,7 +23,7 @@ class WebDriver(BaseWebDriver):
             browsername = 'INTERNETEXPLORER'
         abilities = getattr(DesiredCapabilities, browsername, {})
         abilities.update(ability_args)
-        self.driver = Remote(url, abilities)
+        self.driver = Remote(url, abilities, keep_alive=True)
 
         self.element_class = WebDriverElement
 
