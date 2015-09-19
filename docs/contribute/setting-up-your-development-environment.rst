@@ -56,7 +56,7 @@ Once you had all development libraries installed for you OS, just install all sp
 
 ::
 
-    $ [sudo] make dependencies
+    $ [sudo] make dependencies   (this makes no sense in a context without a Makefile! where did it come from? what are you assuming?)
 
 **Note:** You will need ``sudo`` only if you aren't using virtualenv (which means you're a really bad guy - *no donuts for you*).
 
