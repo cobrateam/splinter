@@ -67,6 +67,18 @@ An extension for firefox is a .xpi archive. To use an extension in Firefox webdr
 
 If you give an extension, after you close the browser, the extension will be deleted from the profile, even if is not a temporary one.
 
+How to use selenium capabilities for Firefox
+--------------------------------------------
+
+.. highlight:: python
+
+::
+    from splinter import Browser
+    browser = Browser('firefox', capabilities={'acceptSslCerts': True})
+
+You can pass any selenium `read-write DesiredCapabilities parameters <https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities>`_ for Firefox.
+
+
 API docs
 --------
 
