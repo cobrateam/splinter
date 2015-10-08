@@ -19,7 +19,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 capabilities=None):
+                 capabilities=None, firefox_binary_path=None):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -42,9 +42,15 @@ class WebDriver(BaseWebDriver):
         if extensions:
             for extension in extensions:
                 firefox_profile.add_extension(extension)
-
+        
+        firefox_binary = None
+        if firefox_binary_path is not None:
+            from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+            firefox_binary = FirefoxBinary(firefox_path=firefox_binary_path)
+        
         self.driver = Firefox(firefox_profile,
-                              capabilities=firefox_capabilities)
+                              capabilities=firefox_capabilities,
+                              firefox_binary=firefox_binary)
 
         if fullscreen:
             ActionChains(self.driver).send_keys(Keys.F11).perform()

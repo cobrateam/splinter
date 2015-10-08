@@ -130,3 +130,30 @@ class FirefoxBrowserFullScreenTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
+
+from contextlib import contextmanager
+@contextmanager
+def spy_on(an_object, slot_name, spy):
+    original_value = getattr(an_object, slot_name)
+    setattr(an_object, slot_name, spy)
+    try:
+        yield spy
+    finally:
+        setattr(an_object, slot_name, original_value)
+
+class FirefoxCustomPathTest(unittest.TestCase):
+    
+    def test_custom_path_is_set_correctly(self):
+        from splinter.driver.webdriver import firefox
+        arguments = {}
+        class FakeFox(object):
+            def __init__(self, *args, **kwargs):
+                arguments['args'] = args
+                arguments['kwargs'] = kwargs
+        
+        sensor = '/some/custom/path'
+        
+        with spy_on(firefox, 'Firefox', FakeFox):
+            browser = Browser('firefox', firefox_binary_path=sensor)
+            self.assertEquals(arguments['kwargs']['firefox_binary']._start_cmd, sensor)
+    
