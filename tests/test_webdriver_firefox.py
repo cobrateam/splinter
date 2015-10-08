@@ -144,16 +144,15 @@ def spy_on(an_object, slot_name, spy):
 class FirefoxCustomPathTest(unittest.TestCase):
     
     def test_custom_path_is_set_correctly(self):
-        from splinter.driver.webdriver import firefox
         arguments = {}
         class FakeFox(object):
             def __init__(self, *args, **kwargs):
                 arguments['args'] = args
                 arguments['kwargs'] = kwargs
         
-        sensor = '/some/custom/path'
-        
+        from splinter.driver.webdriver import firefox
         with spy_on(firefox, 'Firefox', FakeFox):
+            sensor = '/some/custom/path'
             browser = Browser('firefox', firefox_binary_path=sensor)
             self.assertEquals(arguments['kwargs']['firefox_binary']._start_cmd, sensor)
     
