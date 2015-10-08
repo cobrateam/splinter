@@ -14,7 +14,7 @@ from .base import WebDriverTests
 
 def firefox_installed():
     try:
-        Browser("firefox")
+        Browser("firefox").quit()
     except OSError:
         return False
     return True
