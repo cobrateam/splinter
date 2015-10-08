@@ -15,7 +15,7 @@ from selenium.common.exceptions import WebDriverException
 
 def chrome_installed():
     try:
-        Browser("chrome")
+        Browser("chrome").quit()
     except WebDriverException:
         return False
     return True
