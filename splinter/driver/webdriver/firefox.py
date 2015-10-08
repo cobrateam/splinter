@@ -4,6 +4,9 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import os, sys
+from subprocess import check_output
+
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from splinter.driver.webdriver import (
@@ -12,14 +15,13 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-
 class WebDriver(BaseWebDriver):
 
     driver_name = "Firefox"
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 capabilities=None):
+                 capabilities=None, firefox_binary_path=None):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -42,9 +44,29 @@ class WebDriver(BaseWebDriver):
         if extensions:
             for extension in extensions:
                 firefox_profile.add_extension(extension)
-
+        
+        firefox_binary = None
+        from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+        if firefox_binary_path is not None:
+            firefox_binary = FirefoxBinary(firefox_path=firefox_binary_path)
+        
+        # Selenium guesses really badly for firefox on os x, so let's guess better
+        standard_firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+        if firefox_binary_path is None \
+                and sys.platform.startswith('darwin') \
+                and not os.path.isfile(standard_firefox_path):
+            path = check_output(["mdfind", "kMDItemFSName = Firefox.app"]).decode('utf-8').strip()
+            if path != '':
+                if len(path.split()) > 1: # found multiple foxes, just take the first one
+                    # if you need more control, specify manually
+                    # TODO consider some logging?
+                    path = path.split()[0]
+                firefox_binary_path = os.path.join(path, "Contents/MacOS/firefox-bin")
+                firefox_binary = FirefoxBinary(firefox_path=firefox_binary_path)
+        
         self.driver = Firefox(firefox_profile,
-                              capabilities=firefox_capabilities)
+                              capabilities=firefox_capabilities,
+                              firefox_binary=firefox_binary)
 
         if fullscreen:
             ActionChains(self.driver).send_keys(Keys.F11).perform()

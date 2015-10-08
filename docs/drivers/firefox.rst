@@ -79,6 +79,15 @@ How to use selenium capabilities for Firefox
 You can pass any selenium `read-write DesiredCapabilities parameters <https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities>`_ for Firefox.
 
 
+How to use specific binary for Firefox
+--------------------------------------
+
+.. highlight:: python
+
+::
+    from splinter import Browser
+    browser = Browser('firefox', firefox_binary_path="/Your/Sekrit/Firefox/Path")
+
 API docs
 --------
 
