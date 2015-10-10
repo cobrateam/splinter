@@ -9,6 +9,7 @@ from subprocess import check_output
 
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from splinter.driver.webdriver import (
     BaseWebDriver, WebDriverElement as WebDriverElement)
 from splinter.driver.webdriver.cookie_manager import CookieManager
@@ -46,23 +47,10 @@ class WebDriver(BaseWebDriver):
                 firefox_profile.add_extension(extension)
         
         firefox_binary = None
-        from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
         if firefox_binary_path is not None:
             firefox_binary = FirefoxBinary(firefox_path=firefox_binary_path)
-        
-        # Selenium guesses really badly for firefox on os x, so let's guess better
-        standard_firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-        if firefox_binary_path is None \
-                and sys.platform.startswith('darwin') \
-                and not os.path.isfile(standard_firefox_path):
-            path = check_output(["mdfind", "kMDItemFSName = Firefox.app"]).decode('utf-8').strip()
-            if path != '':
-                if len(path.split()) > 1: # found multiple foxes, just take the first one
-                    # if you need more control, specify manually
-                    # TODO consider some logging?
-                    path = path.split()[0]
-                firefox_binary_path = os.path.join(path, "Contents/MacOS/firefox-bin")
-                firefox_binary = FirefoxBinary(firefox_path=firefox_binary_path)
+        else:
+            firefox_binary = self._guess_firefox_path_if_sensible()
         
         self.driver = Firefox(firefox_profile,
                               capabilities=firefox_capabilities,
@@ -76,3 +64,23 @@ class WebDriver(BaseWebDriver):
         self._cookie_manager = CookieManager(self.driver)
 
         super(WebDriver, self).__init__(wait_time)
+
+    def _guess_firefox_path_if_sensible(self):
+        # Selenium guesses really badly (i.e. not at all) where Firefox on os x is installed.
+        # So let's ask the system instead
+        standard_firefox_path = "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+        if not sys.platform.startswith('darwin') \
+            or os.path.isfile(standard_firefox_path):
+            return None
+        
+        path = check_output(["mdfind", "kMDItemFSName = Firefox.app"]).decode('utf-8').strip()
+        if path == '': return None
+        
+        if len(path.split()) > 1: # found multiple foxes, just take the first one
+            # if you need more control, specify manually
+            # TODO consider some logging?
+            path = path.split()[0]
+        
+        firefox_binary_path = os.path.join(path, "Contents/MacOS/firefox-bin")
+        return FirefoxBinary(firefox_path=firefox_binary_path)
+    

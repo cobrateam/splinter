@@ -8,13 +8,14 @@ import os
 import unittest
 
 from splinter import Browser
+from splinter.driver.webdriver import firefox
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
 
 def firefox_installed():
     try:
-        Browser("firefox")
+        Browser("firefox").quit()
     except OSError:
         return False
     return True
@@ -144,81 +145,61 @@ def spy_on(an_object, slot_name, spy):
 class FirefoxCustomPathTest(unittest.TestCase):
     # Would probably benefet hugely by using https://pypi.python.org/pypi/pyfakefs/
     
+    def setUp(self):
+        super(FirefoxCustomPathTest, self).setUp()
+        self.fake_fox_args = []
+    
+    def _fake_fox(self, *args, **kwargs):
+        self.fake_fox_args.append(dict(args=args, kwargs=kwargs))
+    
+    def _gen_fake_check_output(self, return_value):
+        def fake(some_command):
+            assert some_command[0] == 'mdfind'
+            return return_value
+        return fake
+    
+    def _fake_is_file(self, a_path):
+        assert a_path == "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+        return False
+    
+    ## Tests
+    
     def test_custom_path_is_set_correctly(self):
-        arguments = {}
-        class FakeFox(object):
-            def __init__(self, *args, **kwargs):
-                arguments['args'] = args
-                arguments['kwargs'] = kwargs
-        
-        from splinter.driver.webdriver import firefox
-        with spy_on(firefox, 'Firefox', FakeFox):
+        with spy_on(firefox, 'Firefox', self._fake_fox):
             sensor = '/some/custom/path'
             browser = Browser('firefox', firefox_binary_path=sensor)
-            self.assertEquals(arguments['kwargs']['firefox_binary']._start_cmd, sensor)
+            self.assertEquals(len(self.fake_fox_args), 1)
+            self.assertEquals(self.fake_fox_args[0]['kwargs']['firefox_binary']._start_cmd, sensor)
     
     def test_can_guess_custom_firefox_path_on_os_x(self):
         sensor = '/Users/me/Applications/Network/Browser/Firefox.app/Contents/MacOS/firefox-bin'
-        
-        def fake_check_output(some_command):
-            assert some_command[0] == 'mdfind'
-            return "/Users/me/Applications/Network/Browser/Firefox.app"
-        
-        def fake_is_file(a_path):
-            assert a_path == "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-            return False
-        
-        arguments = {}
-        class FakeFox(object):
-            def __init__(self, *args, **kwargs):
-                arguments['args'] = args
-                arguments['kwargs'] = kwargs
-        
-        from splinter.driver.webdriver import firefox
-        with spy_on(firefox.os.path, 'isfile', fake_is_file):
-            with spy_on(firefox.sys, 'platform', 'darwin'):
-                with spy_on(firefox, 'check_output', fake_check_output):
-                    with spy_on(firefox, 'Firefox', FakeFox):
-                        browser = Browser('firefox')
-                        self.assertEquals(arguments['kwargs']['firefox_binary']._start_cmd, sensor)
+        fake_check_output = self._gen_fake_check_output("/Users/me/Applications/Network/Browser/Firefox.app")
+        with spy_on(firefox.os.path, 'isfile', self._fake_is_file), \
+            spy_on(firefox.sys, 'platform', 'darwin'), \
+            spy_on(firefox, 'check_output', fake_check_output), \
+            spy_on(firefox, 'Firefox', self._fake_fox):
+            
+            browser = Browser('firefox')
+            self.assertEquals(len(self.fake_fox_args), 1)
+            self.assertEquals(self.fake_fox_args[0]['kwargs']['firefox_binary']._start_cmd, sensor)
     
     def test_still_fails_correctly_if_firefox_is_not_installed(self):
-        def fake_check_output(some_command):
-            assert some_command[0] == 'mdfind'
-            return ''
-        
-        def fake_is_file(a_path):
-            assert a_path == "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-            return False
-        
-        from splinter.driver.webdriver import firefox
-        with spy_on(firefox.os.path, 'isfile', fake_is_file):
-            with spy_on(firefox.sys, 'platform', 'darwin'):
-                with spy_on(firefox, 'check_output', fake_check_output):
-                    self.assertRaises(OSError, lambda: Browser('firefox'))
+        fake_check_output = self._gen_fake_check_output('')
+        with spy_on(firefox.os.path, 'isfile', self._fake_is_file), \
+            spy_on(firefox.sys, 'platform', 'darwin'), \
+            spy_on(firefox, 'check_output', fake_check_output):
+            
+            self.assertRaises(OSError, lambda: Browser('firefox'))
     
     def test_just_uses_first_fox_if_multiple_are_found(self):
         sensor = '/first/fox/Contents/MacOS/firefox-bin'
-        
-        def fake_check_output(some_command):
-            assert some_command[0] == 'mdfind'
-            return '/first/fox\n/second/fox\n'
-        
-        def fake_is_file(a_path):
-            assert a_path == "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-            return False
-        
-        arguments = {}
-        class FakeFox(object):
-            def __init__(self, *args, **kwargs):
-                arguments['args'] = args
-                arguments['kwargs'] = kwargs
-        
-        from splinter.driver.webdriver import firefox
-        with spy_on(firefox.os.path, 'isfile', fake_is_file):
-            with spy_on(firefox.sys, 'platform', 'darwin'):
-                with spy_on(firefox, 'check_output', fake_check_output):
-                    with spy_on(firefox, 'Firefox', FakeFox):
-                        Browser('firefox')
-                        self.assertEquals(arguments['kwargs']['firefox_binary']._start_cmd, sensor)
+        fake_check_output = self._gen_fake_check_output('/first/fox\n/second/fox\n')
+        with spy_on(firefox.os.path, 'isfile', self._fake_is_file), \
+            spy_on(firefox.sys, 'platform', 'darwin'), \
+            spy_on(firefox, 'check_output', fake_check_output), \
+            spy_on(firefox, 'Firefox', self._fake_fox):
+            
+            Browser('firefox')
+            self.assertEquals(len(self.fake_fox_args), 1)
+            self.assertEquals(self.fake_fox_args[0]['kwargs']['firefox_binary']._start_cmd, sensor)
     
