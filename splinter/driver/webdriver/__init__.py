@@ -11,6 +11,7 @@ import sys
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
@@ -306,6 +307,10 @@ class BaseWebDriver(DriverAPI):
                 # This exception will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
+                pass
+            except StaleElementReferenceException:
+                # This is thrown when trying to get the body text after
+                # navigating away from the page
                 pass
         return False
 
