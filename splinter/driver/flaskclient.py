@@ -57,10 +57,11 @@ class FlaskClient(LxmlDriver):
 
     driver_name = "flask"
 
-    def __init__(self, app, user_agent=None, wait_time=2):
+    def __init__(self, app, user_agent=None, wait_time=2, custom_headers=None):
         app.config['TESTING'] = True
         self._browser = app.test_client()
         self._cookie_manager = CookieManager(self._browser)
+        self._custom_headers = custom_headers if custom_headers else {}
         super(FlaskClient, self).__init__(wait_time=wait_time)
 
     def __enter__(self):
@@ -80,7 +81,7 @@ class FlaskClient(LxmlDriver):
     def _do_method(self, method, url, data=None):
         self._url = url
         func_method = getattr(self._browser, method.lower())
-        self._response = func_method(url, data=data, follow_redirects=True)
+        self._response = func_method(url, headers=self._custom_headers, data=data, follow_redirects=True)
         self._last_urls.append(url)
         self._post_load()
 
