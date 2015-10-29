@@ -48,6 +48,9 @@ class CookieManager(CookieManagerAPI):
     def __getitem__(self, item):
         return self.driver.get_cookie(item)['value']
 
+    def __contains__(self, key):
+        return self.driver.is_cookie_present(key)
+
     def __eq__(self, other_object):
         cookies = {}
         for cookie in self.driver.get_cookies():
