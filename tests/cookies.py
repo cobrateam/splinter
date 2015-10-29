@@ -63,3 +63,10 @@ class CookiesTest(object):
         self.assertEqual(len(self.browser.cookies.all()), 2)
         self.browser.cookies.delete()
         self.assertEqual(self.browser.cookies.all(), {})
+
+    def test_create_and_use_contains(self):
+        "should be able to create many cookies at once as dict"
+        cookies = {'sha': 'zam'}
+        self.browser.cookies.add(cookies)
+        self.assertIn('sha', self.browser.cookies)
+        self.assertNotIn('foo', self.browser.cookies)

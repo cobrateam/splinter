@@ -49,6 +49,9 @@ class CookieManager(CookieManagerAPI):
     def __getitem__(self, item):
         return self._cookies[item].value
 
+    def __contains__(self, key):
+        return key in self._cookies
+
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             cookies_dict = dict([(key, morsel.value)
