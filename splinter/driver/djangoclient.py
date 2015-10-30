@@ -316,7 +316,15 @@ class DjangoClient(DriverAPI):
         return element.tag == 'a'
 
     def _element_is_control(self, element):
-        return hasattr(element, 'type')
+        return self._element_is_input(element) or \
+            self._element_is_submit_button(element)
+
+    def _element_is_input(self, element):
+        return element.tag == 'input'
+
+    def _element_is_submit_button(self, element):
+        return element.tag == 'button' and \
+            element.get('type', 'submit') == 'submit'
 
     @property
     def cookies(self):
@@ -406,7 +414,10 @@ class DjangoClientControlElement(DjangoClientElement):
 
     @property
     def value(self):
-        return self._control.value
+        # LXML treats the value attribute of input tags as a special-case that
+        # can only be accessed via InputElement.value
+        return getattr(self._control, 'value', None) or \
+            self._control.get('value', None)
 
     @property
     def checked(self):
