@@ -10,7 +10,7 @@ class FormSubmitTest(object):
                 self.browser.visit("/echo")
                 self.browser.find_by_value(input_value).first.click()
                 j = json.loads(self.browser.html)
-                self.assertEqual(j["the-input-submit"], input_value)
+                self.assertEqual(input_value, j["the-input-submit"])
 
     def test_can_submit_a_form_with_multiple_buttons(self):
         "should be able to submit a form with multiple buttons"
@@ -21,4 +21,4 @@ class FormSubmitTest(object):
                 self.browser.visit("/echo")
                 self.browser.find_by_value(button_value).first.click()
                 j = json.loads(self.browser.html)
-                self.assertEqual(j["the-button"], button_value)
+                self.assertEqual(button_value, j["the-button"])
