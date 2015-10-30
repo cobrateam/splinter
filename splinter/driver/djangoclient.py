@@ -118,7 +118,7 @@ class DjangoClient(DriverAPI):
         self._handle_redirect_chain()
         self._post_load()
 
-    def submit(self, form):
+    def submit(self, form, extra_data=None):
         method = form.attrib['method']
         func_method = getattr(self._browser, method.lower())
         action = form.attrib.get('action', '')
@@ -128,6 +128,8 @@ class DjangoClient(DriverAPI):
             url = self._url
         self._url = url
         data = dict(((k, v) for k, v in form.fields.items() if v is not None))
+        if extra_data:
+            data.update(extra_data)
         for key in form.inputs.keys():
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
@@ -411,8 +413,12 @@ class DjangoClientControlElement(DjangoClientElement):
         return bool(self._control.value)
 
     def click(self):
+        if self['name']:
+            extra_data = {self['name']: self.value}
+        else:
+            extra_data = None
         parent_form = self._get_parent_form()
-        return self.parent.submit(parent_form).content
+        return self.parent.submit(parent_form, extra_data=extra_data).content
 
     def fill(self, value):
         parent_form = self._get_parent_form()
