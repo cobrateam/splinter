@@ -155,6 +155,19 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.assertEqual('{}redirect-location?come=get&some=true'.format(EXAMPLE_APP), self.browser.url)
 
 
+    def test_can_submit_a_form_with_multiple_input_submit(self):
+        """
+        djangoclient does not support submitting a form with
+        multiple input[type=submit]"
+        """
+        #NOOP
+
+
+    def test_can_submit_a_form_with_multiple_buttons(self):
+        "djangoclient does not support submitting a form with multiple buttons"
+        #NOOP
+
+
 class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
 
     @classmethod

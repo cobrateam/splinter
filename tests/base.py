@@ -21,10 +21,11 @@ from .status_code import StatusCodeTest
 from .screenshot import ScreenshotTest
 from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest
+from .form_submit import FormSubmitTest
 
 
 class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickElementsTest,
-                       CookiesTest, SlowlyTypeTest, IsTextPresentTest):
+                       CookiesTest, SlowlyTypeTest, IsTextPresentTest, FormSubmitTest):
 
     def setUp(self):
         self.fail("You should set up your browser in the setUp() method")

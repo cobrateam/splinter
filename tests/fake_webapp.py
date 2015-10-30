@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from flask import Flask, request, abort, Response
+from flask import Flask, request, abort, Response, jsonify
 from os import path
 from functools import wraps
 
@@ -23,6 +23,7 @@ EXAMPLE_TYPE_HTML = read_static('type.html')
 EXAMPLE_POPUP_HTML = read_static('popup.html')
 EXAMPLE_NO_BODY_HTML = read_static('no-body.html')
 EXAMPLE_REDIRECT_LOCATION_HTML = read_static('redirect-location.html')
+EXAMPLE_ECHO_FORM_HTML = read_static('echo-form.html')
 
 # Functions for http basic auth.
 # Taken verbatim from http://flask.pocoo.org/snippets/8/
@@ -129,6 +130,13 @@ def popup():
 def auth_required():
     return "Success!"
 
+
+@app.route('/echo', methods=['POST', 'GET'])
+def echo():
+    if request.method == 'POST':
+        return jsonify(request.form.to_dict())
+
+    return EXAMPLE_ECHO_FORM_HTML
 
 def start_flask_app(host, port):
     """Runs the server."""

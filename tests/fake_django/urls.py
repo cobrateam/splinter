@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,8 @@ from tests.fake_webapp import (
     EXAMPLE_TYPE_HTML,
     EXAMPLE_NO_BODY_HTML,
     EXAMPLE_POPUP_HTML,
-    EXAMPLE_REDIRECT_LOCATION_HTML
+    EXAMPLE_REDIRECT_LOCATION_HTML,
+    EXAMPLE_ECHO_FORM_HTML,
 )
 
 
@@ -92,6 +93,15 @@ def redirect_location(request):
     return HttpResponse(EXAMPLE_REDIRECT_LOCATION_HTML)
 
 
+def echo(request):
+    if request.method == 'POST':
+        return JsonResponse(
+            request.POST,
+            safe=False,
+        )
+    return HttpResponse(EXAMPLE_ECHO_FORM_HTML)
+
+
 urlpatterns = patterns(
     '',
     url(r'^$', index),
@@ -109,5 +119,6 @@ urlpatterns = patterns(
     url(r'^authenticate$', auth_required),
     url(r'^redirected', redirected),
     url(r'^redirect-location', redirect_location, name='redirect_location'),
+    url(r'^echo', echo),
     url(r'^admin/', include(admin.site.urls)),
 )

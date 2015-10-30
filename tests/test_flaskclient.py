@@ -120,3 +120,17 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
+
+
+    def test_can_submit_a_form_with_multiple_input_submit(self):
+        """
+        flaskclient does not support submitting a form with
+        multiple input[type=submit]"
+        """
+        #NOOP
+
+
+    def test_can_submit_a_form_with_multiple_buttons(self):
+        "flaskclient does not support submitting a form with multiple buttons"
+        #NOOP
+
