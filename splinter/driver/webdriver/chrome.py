@@ -15,7 +15,7 @@ class WebDriver(BaseWebDriver):
     driver_name = "Chrome"
 
     def __init__(self, user_agent=None, wait_time=2, fullscreen=False,
-                 **kwargs):
+                 extensions=None, **kwargs):
 
         options = Options()
 
@@ -24,6 +24,10 @@ class WebDriver(BaseWebDriver):
 
         if fullscreen:
             options.add_argument('--kiosk')
+        
+        if extensions:
+            for extension in extensions:
+                options.add_extension(extension)
 
         self.driver = Chrome(chrome_options=options, **kwargs)
 
