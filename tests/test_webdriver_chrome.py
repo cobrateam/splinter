@@ -70,3 +70,9 @@ class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
     def test_should_support_with_statement(self):
         with Browser('chrome', fullscreen=True) as internet:
             pass
+
+    def test_with_extension(self):
+        extensions = list()
+        extensions.append('does_not_exist.crx')
+        with self.assertRaises(OSError):
+            Browser('chrome', extensions=extensions)
