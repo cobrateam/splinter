@@ -12,6 +12,7 @@ from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from splinter.driver import DriverAPI, ElementAPI
@@ -303,14 +304,21 @@ class BaseWebDriver(DriverAPI):
                 return True
             except ValueError:
                 pass
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
+            except WebDriverException:
+                # NoSuchElementException:
+                # Will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
-                pass
-            except StaleElementReferenceException:
-                # This is thrown when trying to get the body text after
+                #
+                # StaleElementReferenceException
+                # Thrown when trying to get the body text after
                 # navigating away from the page
+                #
+                # WebDriverException: Message: Unable to get element text
+                # (WARNING: The server did not provide any stacktrace
+                # information)
+                # Thrown instead of StaleElementReferenceException on
+                # Internet Explorer
                 pass
         return False
 
