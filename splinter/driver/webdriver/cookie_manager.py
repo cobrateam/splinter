@@ -49,7 +49,7 @@ class CookieManager(CookieManagerAPI):
         return self.driver.get_cookie(item)['value']
 
     def __contains__(self, key):
-        return self.driver.is_cookie_present(key)
+        return self.driver.get_cookie(key) is not None
 
     def __eq__(self, other_object):
         cookies = {}
