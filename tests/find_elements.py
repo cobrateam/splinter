@@ -36,11 +36,6 @@ class FindElementsTest(object):
         element = self.browser.find_by_text('Complex')
         self.assertEqual(element.value, 'Complex')
 
-    def test_finding_by_text_quotation(self):
-        "should find elements by text"
-        element = self.browser.find_by_text('Quotation " marks')
-        self.assertEqual(element.value, 'Quotation " marks')
-
     def test_finding_by_id(self):
         "should find elements by id"
         value = self.browser.find_by_id("firstheader").value
@@ -94,10 +89,6 @@ class FindElementsTest(object):
     def test_finding_all_links_by_partial_text(self):
         "should find links by partial text"
         link = self.browser.find_link_by_partial_text('FOO')[0]
-        self.assertEqual('http://localhost:5000/foo', link['href'])
-
-    def test_finding_all_links_by_partial_text_complex_contents(self):
-        link = self.browser.find_link_by_partial_text('Complex Link')[0]
         self.assertEqual('http://localhost:5000/foo', link['href'])
 
     def test_finding_last_element_by_css(self):
