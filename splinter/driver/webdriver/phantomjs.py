@@ -5,6 +5,12 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriverElement(BaseWebDriverElement):
+    def mouse_out(self):
+        raise NotImplementedError('Not supported by phantomjs webdriver.')
+
+    def mouse_over(self):
+        raise NotImplementedError('Not supported by phantomjs webdriver.')
+
     def right_click(self):
         raise NotImplementedError('Not supported by webdriver.')
 

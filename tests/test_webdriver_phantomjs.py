@@ -20,6 +20,14 @@ class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
         else:
             self.browser.visit(EXAMPLE_APP)
 
+    def test_mouse_over(self):
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_id('visible').mouse_over()
+
+    def test_mouse_out(self):
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_id('visible').mouse_out()
+
     def test_default_wait_time(self):
         "should driver default wait time 1.5"
         self.assertEqual(1.5, self.browser.wait_time)
