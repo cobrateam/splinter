@@ -20,7 +20,6 @@ def firefox_installed():
     return True
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -52,7 +51,6 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
             pass
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxWithExtensionTest(unittest.TestCase):
 
     @classmethod
@@ -75,7 +73,6 @@ class FirefoxWithExtensionTest(unittest.TestCase):
         cls.browser.quit()
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
 
     @classmethod
@@ -97,7 +94,6 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
         cls.browser.quit()
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
 
     @classmethod
@@ -120,7 +116,6 @@ class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
         cls.browser.quit()
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserFullScreenTest(unittest.TestCase):
 
     @classmethod

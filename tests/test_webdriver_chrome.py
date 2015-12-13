@@ -21,7 +21,6 @@ def chrome_installed():
     return True
 
 
-@unittest.skipIf(not chrome_installed(), 'chrome is not installed')
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -53,7 +52,6 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
             pass
 
 
-@unittest.skipIf(not chrome_installed(), 'chrome is not installed')
 class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
 
     @classmethod

@@ -24,10 +24,6 @@ def selenium_server_is_running():
     return 'WebDriver Hub' in page_contents
 
 
-@unittest.skipIf(
-    not selenium_server_is_running(),
-    'Skipping the remote webdriver tests'
-)
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
