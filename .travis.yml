@@ -48,7 +48,7 @@ before_script:
   # - sudo cp chromedriver /usr/local/bin
   # - sudo chmod 755 /usr/local/bin/chromedriver
   - wget http://goo.gl/PJUZfa -O selenium-server.jar
-  - java -jar selenium-server.jar > /dev/null 2>&1
+  - java -jar selenium-server.jar > /dev/null 2>&1 &
   - sleep 3
 install:
   - pip install -q Django==$DJANGO_VERSION
