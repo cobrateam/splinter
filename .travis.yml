@@ -38,6 +38,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
   - FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
+  - export PATH=$HOME:$PATH
   # - sudo apt-get install libxss1 xdg-utils -y
   # - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
   # - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
