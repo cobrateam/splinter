@@ -18,20 +18,9 @@ sys.path.append('tests/fake_django')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 import django
-try:
-    # Django >= 1.7 needs setup
-    django.setup()
-except AttributeError:
-    pass
 
 
-def django_installed():
-    try:
-        import django  # noqa
-        Browser("django")
-    except ImportError:
-        return False
-    return True
+django.setup()
 
 
 class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
