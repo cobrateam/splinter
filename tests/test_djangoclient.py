@@ -141,7 +141,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         """
         self.browser.visit('{}redirected'.format(EXAMPLE_APP))
         assert 'I just been redirected to this location.' in self.browser.html
-        self.assertEqual('{}redirect-location?come=get&some=true'.format(EXAMPLE_APP), self.browser.url)
+        self.assertIn('redirect-location?come=get&some=true', self.browser.url)
 
 
 class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
