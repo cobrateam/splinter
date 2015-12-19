@@ -3,6 +3,7 @@
 # license that can be found in the LICENSE file.
 
 sudo: false
+cache: pip
 addons:
   firefox: "latest"
   apt:
