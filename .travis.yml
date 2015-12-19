@@ -26,6 +26,9 @@ env:
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_zopetestbrowser.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_phantomjs.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_browser.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_element_list.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_request_handler.py
 matrix:
   exclude:
     - python: "3.3"
