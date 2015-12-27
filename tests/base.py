@@ -196,9 +196,11 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.browser.find_by_name("uf").select_by_text("Rio de Janeiro")
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
 
-    def browser_can_change_user_agent(self, webdriver):
-        self.browser.visit(EXAMPLE_APP + "useragent")
-        return 'iphone' in self.browser.html
-
     def test_should_be_able_to_change_user_agent(self):
-        self.assertTrue(self.browser_can_change_user_agent('django'))
+        from splinter import Browser
+        driver_name = self.browser.driver_name.lower()
+        browser = Browser(driver_name=driver_name, user_agent="iphone")
+        browser.visit(EXAMPLE_APP + "useragent")
+        result = 'iphone' in browser.html
+        browser.quit()
+        self.assertTrue(result)
