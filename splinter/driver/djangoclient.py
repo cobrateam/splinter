@@ -8,8 +8,6 @@ from __future__ import with_statement
 import six
 from six.moves.urllib import parse
 
-import lxml.html
-from lxml.cssselect import CSSSelector
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
 
@@ -66,7 +64,12 @@ class DjangoClient(LxmlDriver):
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
         self._custom_headers = kwargs.pop('custom_headers', {})
-        client_kwargs = dict((key.replace('client_', ''), value) for (key, value) in six.iteritems(kwargs) if key.startswith('client_'))
+
+        client_kwargs = {}
+        for key, value in six.iteritems(kwargs):
+            if key.startswith('client_'):
+                client_kwargs[key.replace('client_', '')] = value
+
         self._browser = Client(**client_kwargs)
         self._user_agent = user_agent
         self._cookie_manager = CookieManager(self._browser.cookies)
