@@ -4,6 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import time
+
 
 class FormElementsTest(object):
 
@@ -15,6 +17,7 @@ class FormElementsTest(object):
 
     def test_should_provide_a_method_on_element_to_change_its_value(self):
         self.browser.find_by_name('q').fill('new query')
+        time.sleep(1)
         value = self.browser.find_by_name('q').value
         self.assertEqual('new query', value)
 
