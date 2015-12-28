@@ -39,8 +39,3 @@ external links
 `salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
 `behave-django <https://github.com/mixxorz/behave-django>`_, BDD testing in Django using `Behave <http://pythonhosted.org/behave/>`_. Works well with splinter.
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/cobrateam/splinter/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
