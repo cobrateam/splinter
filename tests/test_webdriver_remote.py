@@ -72,3 +72,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         "Remote should not support mouseover"
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').mouseover()
+
+    def test_should_not_be_able_to_change_user_agent(self):
+        "Remote should not support custom user agent"
+        pass
