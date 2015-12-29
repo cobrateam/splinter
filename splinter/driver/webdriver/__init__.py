@@ -12,6 +12,7 @@ from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -506,7 +507,15 @@ class WebDriverElement(ElementAPI):
     def _set_value(self, value):
         if self._element.get_attribute('type') != 'file':
             self._element.clear()
+            wait = WebDriverWait(self.parent.driver, 10)
+            def cleared(*args, **kwargs):
+                return self.value == ""
+            wait.until(cleared)
+
         self._element.send_keys(value)
+        def sended(*args, **kwargs):
+            return self.value == value
+        wait.until(sended)
 
     value = property(_get_value, _set_value)
 
