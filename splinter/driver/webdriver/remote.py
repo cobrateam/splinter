@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from selenium.webdriver import Remote
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
 from splinter.driver.webdriver.cookie_manager import CookieManager
