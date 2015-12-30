@@ -63,12 +63,12 @@ class FindElementsTest(object):
 
     def test_finding_all_elements_by_id(self):
         "should find elements by id"
-        value = self.browser.find_by_id("firstheader")[0].value
+        value = self.browser.find_by_id("firstheader").value
         self.assertEqual('Example Header', value)
 
     def test_finding_all_elements_by_name(self):
         "should find elements by name"
-        value = self.browser.find_by_name('query')[0].value
+        value = self.browser.find_by_name('query').value
         self.assertEqual('default value', value)
 
     def test_finding_all_links_by_text(self):
@@ -120,7 +120,7 @@ class FindElementsTest(object):
 
     def test_finding_last_element_by_name(self):
         "should find last element by name"
-        value = self.browser.find_by_name('query').last.value
+        value = self.browser.find_by_name('input1').last.value
         self.assertEqual('default last value', value)
 
     def test_finding_last_link_by_text(self):
@@ -172,7 +172,7 @@ class FindElementsTest(object):
 
     def test_finding_element_by_name_using_slice(self):
         "should find element by name using slice"
-        value = self.browser.find_by_name('query')[-1].value
+        value = self.browser.find_by_name('input1')[-1].value
         self.assertEqual('default last value', value)
 
     def test_finding_link_by_text_using_slice(self):
