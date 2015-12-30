@@ -505,12 +505,15 @@ class WebDriverElement(ElementAPI):
         return self['value'] or self._element.text
 
     def _set_value(self, value):
-        if self._element.get_attribute('type') != 'file':
-            self._element.clear()
-            wait = WebDriverWait(self.parent.driver, 10)
-            def cleared(*args, **kwargs):
-                return self.value == ""
-            wait.until(cleared)
+        if self._element.get_attribute('type') == 'file':
+            self._element.send_keys(value)
+            return
+
+        wait = WebDriverWait(self.parent.driver, 10)
+        self._element.clear()
+        def cleared(*args, **kwargs):
+            return self.value == ""
+        wait.until(cleared)
 
         self._element.send_keys(value)
         def sended(*args, **kwargs):
