@@ -15,6 +15,7 @@ language: python
 python:
   - "2.7"
   - "3.4"
+  - "3.5"
 env:
   - DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_djangoclient.py
@@ -31,6 +32,9 @@ env:
 matrix:
   exclude:
     - python: 3.4
+      env: DRIVER=tests/test_zopetestbrowser.py
+  exclude:
+    - python: 3.5
       env: DRIVER=tests/test_zopetestbrowser.py
 before_script:
   - "export DISPLAY=:99.0"
