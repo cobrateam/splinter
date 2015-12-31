@@ -437,7 +437,7 @@ class BaseWebDriver(DriverAPI):
                 element.value = value
 
     def type(self, name, value, slowly=False):
-        element = self.driver.find_element_by_css_selector('[name="%s"]' % name)
+        element = self.driver.find_by_name(name).first
         if slowly:
             return TypeIterator(element, value)
         element.send_keys(value)
