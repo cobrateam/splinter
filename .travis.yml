@@ -21,7 +21,7 @@ env:
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.9 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.8.7 DRIVER=$ests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_remote.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_firefox.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_zopetestbrowser.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_phantomjs.py
@@ -36,14 +36,7 @@ matrix:
   exclude:
     - python: 3.5
       env: DRIVER=tests/test_zopetestbrowser.py
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 1
-  - FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
-  - export PATH=$HOME:$PATH
-  - make install-remote
 install:
-  - pip install -q Django==$DJANGO_VERSION
+  - ./traivs-install.bash
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}
