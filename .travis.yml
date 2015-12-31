@@ -37,6 +37,6 @@ matrix:
     - python: 3.5
       env: DRIVER=tests/test_zopetestbrowser.py
 install:
-  - ./traivs-install.bash
+  - ./travis-install.bash
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}
