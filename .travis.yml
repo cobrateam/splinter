@@ -21,7 +21,7 @@ env:
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.9 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.8.7 DRIVER=$ests/test_webdriver_remote.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_firefox.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_zopetestbrowser.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_phantomjs.py
@@ -42,7 +42,7 @@ before_script:
   - sleep 1
   - FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
   - export PATH=$HOME:$PATH
-  - make install-remote
+  - [ $DRIVER == "tests/test_webdriver_remote.py" ] && install-remote
 install:
   - pip install -q Django==$DJANGO_VERSION
   - make dependencies
