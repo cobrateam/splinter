@@ -18,4 +18,4 @@ class RequestHandlerTestCase(unittest.TestCase):
         self.assertTrue(self.status_code.is_success())
 
     def test_should_compare_app_index_with_404_and_get_false(self):
-        self.assertFalse(self.status_code == 404)
+        self.assertNotEqual(self.status_code, 404)

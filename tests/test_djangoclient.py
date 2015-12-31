@@ -52,8 +52,8 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path, 'rb').read().decode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -140,7 +140,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         browser.url should be updated
         """
         self.browser.visit('{}redirected'.format(EXAMPLE_APP))
-        assert 'I just been redirected to this location.' in self.browser.html
+        self.assertIn('I just been redirected to this location.', self.browser.html)
         self.assertIn('redirect-location?come=get&some=true', self.browser.url)
 
 

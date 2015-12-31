@@ -49,13 +49,11 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         self.assertEqual(url, self.browser.url)
 
     def test_should_have_html(self):
-        "should have access to the html"
         html = self.browser.html
-        assert '<title>Example Title</title>' in html
-        assert '<h1 id="firstheader">Example Header</h1>' in html
+        self.assertIn('<title>Example Title</title>', html)
+        self.assertIn('<h1 id="firstheader">Example Header</h1>', html)
 
     def test_should_reload_a_page(self):
-        "should reload a page"
         title = self.browser.title
         self.browser.reload()
         self.assertEqual('Example Title', title)

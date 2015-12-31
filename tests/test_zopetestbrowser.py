@@ -42,8 +42,8 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read().encode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path).read().encode('utf-8'), html)
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"

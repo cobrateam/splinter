@@ -43,8 +43,8 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path, 'rb').read().decode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
 
     def test_should_support_with_statement(self):
         with Browser('firefox'):
