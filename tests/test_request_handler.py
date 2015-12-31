@@ -6,7 +6,7 @@
 
 import unittest
 
-from splinter.request_handler.status_code import HttpResponseError, StatusCode
+from splinter.request_handler.status_code import StatusCode
 
 
 class RequestHandlerTestCase(unittest.TestCase):
@@ -19,8 +19,3 @@ class RequestHandlerTestCase(unittest.TestCase):
 
     def test_should_compare_app_index_with_404_and_get_false(self):
         self.assertFalse(self.status_code == 404)
-
-    def test_should_be_able_to_represent_exception_as_string(self):
-        "HttpResponseError exception should be representable as string"
-        error = HttpResponseError(404, "Not Found")
-        self.assertEqual("404 - Not Found", str(error))

@@ -5,25 +5,6 @@
 # license that can be found in the LICENSE file.
 
 
-class HttpResponseError(Exception):
-    """
-    Represents an HTTP response error.
-    """
-
-    def __init__(self, code, reason):
-        #: Number representing the error (example: 404)
-        self.status_code = code
-
-        #: Reason of the fail (example: "Not found")
-        self.reason = reason.title()
-
-        #: A message for the error (example: "404 - Not found")
-        self.msg = "%s - %s" % (self.status_code, self.reason)
-
-    def __str__(self):
-        return self.msg
-
-
 class StatusCode(object):
 
     http_errors = (400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411,
