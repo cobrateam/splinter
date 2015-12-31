@@ -436,10 +436,10 @@ class BaseWebDriver(DriverAPI):
                 element.value = value
 
     def type(self, name, value, slowly=False):
-        element = self.find_by_name(name).first
+        element = self.find_by_name(name).first._element
         if slowly:
             return TypeIterator(element, value)
-        element.fill(value)
+        element.send_keys(value)
         return value
 
     def choose(self, name, value):
@@ -489,7 +489,7 @@ class TypeIterator(object):
 
     def __iter__(self):
         for key in self._keys:
-            self._element.fill(key)
+            self._element.send_keys(key)
             yield key
 
 
