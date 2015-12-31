@@ -9,10 +9,9 @@ This module contains the basic API for splinter drivers and elemnts.
 """
 
 from splinter.meta import InheritedDocs
-from splinter.request_handler.request_handler import RequestHandler
 
 
-class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
+class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
     """
     Basic driver API class.
     """
