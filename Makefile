@@ -38,3 +38,8 @@ format: clean dependencies
 coverage: dependencies clean
 	@echo "Running all tests with coverage..."
 	@coverage run run_tests.py -w $(which) && coverage report
+
+install-remote:
+	@wget http://goo.gl/PJUZfa -O selenium-server.jar
+	@java -jar selenium-server.jar > /dev/null 2>&1 &
+	@sleep 1
