@@ -9,13 +9,12 @@ import time
 
 class FormElementsTest(object):
 
-    def test_can_change_field_value(self):
-        "should provide a away to change field value"
+    def test_fill(self):
         self.browser.fill('query', 'new query')
         value = self.browser.find_by_name('query').value
         self.assertEqual('new query', value)
 
-    def test_should_provide_a_method_on_element_to_change_its_value(self):
+    def test_fill_element(self):
         self.browser.find_by_name('q').fill('new query')
         time.sleep(1)
         value = self.browser.find_by_name('q').value
