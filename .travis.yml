@@ -37,6 +37,8 @@ matrix:
     - python: 3.5
       env: DRIVER=tests/test_zopetestbrowser.py
 install:
+  - export DISPLAY=:99.0
+  - export PATH=$HOME:$PATH
   - ./travis-install.bash
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}
