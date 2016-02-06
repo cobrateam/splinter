@@ -13,11 +13,12 @@ import sys
 import lxml.html
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
+from splinter.driver.element_present import ElementPresentMixIn
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 
 
-class LxmlDriver(DriverAPI):
+class LxmlDriver(ElementPresentMixIn, DriverAPI):
     def __init__(self, user_agent=None, wait_time=2):
         self.wait_time = wait_time
         self._history = []
@@ -370,7 +371,9 @@ class LxmlControlElement(LxmlElement):
         if sys.version_info[0] > 2:
             parent_form.fields[self['name']] = value
         else:
-            parent_form.fields[self['name']] = value.decode('utf-8')
+            if not isinstance(value, unicode):
+                value = value.decode('utf-8')
+            parent_form.fields[self['name']] = value
 
     def select(self, value):
         self._control.value = value

@@ -10,9 +10,10 @@ import unittest
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import app, EXAMPLE_APP
+from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
-class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class FlaskClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):

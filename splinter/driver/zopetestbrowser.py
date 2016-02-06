@@ -11,6 +11,7 @@ from zope.testbrowser.browser import Browser, ListControl
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI
+from splinter.driver.element_present import ElementPresentMixIn
 from splinter.cookie_manager import CookieManagerAPI
 
 import mimetypes
@@ -60,7 +61,7 @@ class CookieManager(CookieManagerAPI):
             return dict(self._cookies) == other_object
 
 
-class ZopeTestBrowser(DriverAPI):
+class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     driver_name = "zope.testbrowser"
 

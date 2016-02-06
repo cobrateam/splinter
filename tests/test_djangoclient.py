@@ -12,6 +12,7 @@ from six.moves.urllib import parse
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
+from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
 sys.path.append('tests/fake_django')
@@ -23,7 +24,7 @@ import django
 django.setup()
 
 
-class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
