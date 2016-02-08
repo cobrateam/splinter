@@ -94,7 +94,6 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         self.browser.visit('{}redirected'.format(EXAMPLE_APP))
         self.assertIn('I just been redirected to this location.', self.browser.html)
         self.assertIn('redirect-location?come=get&some=true', self.browser.url)
-        self.assertEqual(self.browser.status_code.code, 200)
 
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest,
