@@ -87,8 +87,14 @@ class FlaskClient(LxmlDriver):
     def _do_method(self, method, url, data=None):
         self._url = url
         func_method = getattr(self._browser, method.lower())
-        self._response = func_method(url, headers=self._custom_headers, data=data, follow_redirects=True)
-        self._last_urls.append(url)
+        while True:
+            self._last_urls.append(url)
+            # flask doesn't expose redirect_chain, so we have to mark it
+            self._response = func_method(url, headers=self._custom_headers, data=data, follow_redirects=False)
+            if self._response.status_code not in (301, 302, 303, 305, 307):
+                break
+            url = self._response.headers['Location']
+        self._url = self._last_urls[-1]
         self._post_load()
 
     def submit_data(self, form):
