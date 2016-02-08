@@ -135,15 +135,6 @@ class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittes
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
 
-    def test_redirection(self):
-        """
-        when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
-        browser.url should be updated
-        """
-        self.browser.visit('{}redirected'.format(EXAMPLE_APP))
-        self.assertIn('I just been redirected to this location.', self.browser.html)
-        self.assertIn('redirect-location?come=get&some=true', self.browser.url)
-
 
 class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
 

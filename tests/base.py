@@ -86,6 +86,15 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         element = self.browser.find_by_id("firstheader")
         self.assertEqual(self.browser, element.parent)
 
+    def test_redirection(self):
+        """
+        when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
+        browser.url should be updated
+        """
+        self.browser.visit('{}redirected'.format(EXAMPLE_APP))
+        self.assertIn('I just been redirected to this location.', self.browser.html)
+        self.assertIn('redirect-location?come=get&some=true', self.browser.url)
+
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest,
                      IsElementVisibleTest, AsyncFinderTests, StatusCodeTest, MouseInteractionTest,
