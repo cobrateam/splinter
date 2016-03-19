@@ -126,7 +126,7 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
     def find_by_xpath(self, xpath):
         """
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`,
-        using a xpath selector to query the urrent page content.
+        using a xpath selector to query the current page content.
         """
         raise NotImplementedError("%s doesn't support finding elements by xpath selector." % self.driver_name)
 
