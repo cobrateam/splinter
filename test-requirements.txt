@@ -2,7 +2,7 @@ zope.testbrowser==4.0.4
 lxml==3.3.0
 Flask==0.10.1
 selenium==2.53.1
-coverage==3.7.1
+coverage==4.0.3
 cssselect>=0.7.1
 argparse
 Django>=1.7.11,<1.10
