@@ -137,3 +137,30 @@ class FormElementsTest(object):
         self.browser.fill_form({'search_keyword': new_search_keyword})
         value = self.browser.find_by_name('search_keyword').value
         self.assertEqual(new_search_keyword, value)
+
+    def test_can_clear_text_field_content(self):
+        self.browser.fill('query', 'random query')
+        value = self.browser.find_by_name('query').value
+        self.assertEqual('random query', value)
+
+        self.browser.find_by_name('query').clear()
+        value = self.browser.find_by_name('query').value
+        self.assertNone(value)
+
+    def test_can_clear_password_field_content(self):
+        self.browser.fill('password', '1nF4m310')
+        value = self.browser.find_by_name('password').value
+        self.assertEqual('1nF4m310', value)
+
+        self.browser.find_by_name('password').clear()
+        value = self.browser.find_by_name('password').value
+        self.assertNone(value)
+
+    def test_can_clear_tel_field_content(self):
+        self.browser.fill('telephone', '5553743980')
+        value = self.browser.find_by_name('telephone').value
+        self.assertEqual('5553743980', value)
+
+        self.browser.find_by_name('telephone').clear()
+        value = self.browser.find_by_name('telephone').value
+        self.assertNone(value)

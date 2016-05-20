@@ -518,6 +518,10 @@ class WebDriverElement(ElementAPI):
     def tag_name(self):
         return self._element.tag_name
 
+    def clear(self):
+        if self._element.get_attribute('type') in ['textarea', 'text', 'password', 'tel']:
+            self._element.clear()
+
     def fill(self, value):
         self.value = value
 
