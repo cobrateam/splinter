@@ -587,6 +587,12 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
         """
         raise NotImplementedError
 
+    def clear(self):
+        """
+        Reset the field value.
+        """
+        raise NotImplementedError
+
     def fill(self, value):
         """
         Fill the field with the content specified by ``value``.
