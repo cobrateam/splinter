@@ -11,8 +11,7 @@ if [ "${DRIVER}" = "tests/test_djangoclient.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
+    
     sleep 1
 
 	wget http://goo.gl/PJUZfa -O selenium-server.jar
@@ -21,14 +20,12 @@ if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
+    
     sleep 1
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
+    
     sleep 1
 
     FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
