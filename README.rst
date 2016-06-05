@@ -8,24 +8,24 @@ splinter - python tool for test web applications
 
 splinter is a tool for test web applications with a simple for find elements, form actions, and others browser actions.
 
-`what's new in splinter? <http://splinter.readthedocs.org/en/latest/news.html>`_
+`what's new in splinter? <https://splinter.readthedocs.io/en/latest/news.html>`_
 
 first steps
 ===========
 
-* `Installation <http://splinter.readthedocs.org/en/latest/install.html>`_
-* `Quick tutorial <http://splinter.readthedocs.org/en/latest/tutorial.html>`_
+* `Installation <https://splinter.readthedocs.io/en/latest/install.html>`_
+* `Quick tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
 splinter open source project
 ============================
 
-* `Community <http://splinter.readthedocs.org/en/latest/community.html>`_
-* `Contribute <http://splinter.readthedocs.org/en/latest/contribute.html>`_
+* `Community <https://splinter.readthedocs.io/en/latest/community.html>`_
+* `Contribute <https://splinter.readthedocs.io/en/latest/contribute.html>`_
 
 documentation
 =============
 
-`splinter documentation <http://splinter.readthedocs.org>`_
+`splinter documentation <https://splinter.readthedocs.io>`_
 
 external links
 ==============
