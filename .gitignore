@@ -18,6 +18,5 @@ dist/*
 *.swo
 *.DS_Store
 /include
-/lib
 /bin
 /.Python

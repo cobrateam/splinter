@@ -74,7 +74,8 @@ class PhantomJSExecutablePathTest(WebDriverTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         lib_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'lib'))
-        cls.browser = Browser("phantomjs", executable_path=lib_path+"/phantomjs", wait_time=1.5)
+        lib_path = lib_path + "/phantomjs-2.1.1-linux-x86_64/bin/phantomjs"
+        cls.browser = Browser("phantomjs", executable_path=lib_path, wait_time=1.5)
 
     @classmethod
     def tearDownClass(cls):
