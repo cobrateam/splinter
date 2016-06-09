@@ -117,6 +117,8 @@ Chrome Options
 Options can be passed to Chrome as a list to the `chrome_options` argument.
 
 .. highlight:: python
+
+::
     
     from splinter import Browser
 
