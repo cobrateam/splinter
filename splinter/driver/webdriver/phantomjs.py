@@ -22,7 +22,7 @@ class WebDriver(BaseWebDriver):
     driver_name = "PhantomJS"
     element_class = WebDriverElement
 
-    def __init__(self, user_agent=None, load_images=True,
+    def __init__(self, executable_path=None, user_agent=None, load_images=True,
                  desired_capabilities=None, wait_time=2,
                  custom_headers={}, **kwargs):
         capabilities = DesiredCapabilities.PHANTOMJS.copy()
@@ -35,7 +35,13 @@ class WebDriver(BaseWebDriver):
         if desired_capabilities:
             capabilities.update(desired_capabilities)
 
-        self.driver = PhantomJS(desired_capabilities=capabilities, **kwargs)
+        if executable_path is not None:
+            self.driver = PhantomJS(executable_path=executable_path, 
+                                    desired_capabilities=capabilities, 
+                                    **kwargs)
+        else:
+            self.driver = PhantomJS(desired_capabilities=capabilities, 
+                                    **kwargs)
 
         self._cookie_manager = CookieManager(self.driver)
 

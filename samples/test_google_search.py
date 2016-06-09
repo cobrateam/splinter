@@ -29,7 +29,7 @@ class TestGoogleSearch(unittest.TestCase):
             # waits for the JavaScript to put the button on the page
             pass
         search_button.click()
-        self.assertTrue(self.browser.is_text_present('splinter.readthedocs.org'))
+        self.assertTrue(self.browser.is_text_present('splinter.readthedocs.io'))
 
 
 unittest.main()
