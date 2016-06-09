@@ -68,3 +68,41 @@ class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
     def test_should_support_with_statement(self):
         with Browser('chrome', fullscreen=True) as internet:
             pass
+
+class ChromeBrowserOptionsTest(WebDriverTests, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        options = ['--start-maximized', '--disable-setuid-sandbox']
+        cls.browser = Browser("chrome", chrome_options=options)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    def test_should_support_with_statement(self):
+        options = ['--start-maximized', '--disable-setuid-sandbox']
+        with Browser('chrome', chrome_options=options) as internet:
+            pass
+
+class ChromeBrowserOptionsTest(WebDriverTests, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        extensions = ['lib/chrome-extension']
+        cls.browser = Browser("chrome", extensions=extensions)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    def test_should_support_with_statement(self):
+        extensions = ['lib/chrome-extension']
+        with Browser('chrome', extensions=extensions) as internet:
+            pass
