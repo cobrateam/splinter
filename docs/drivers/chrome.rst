@@ -114,12 +114,12 @@ the ``Browser`` instance:
 Chrome Options
 --------------
 
-Options can be passed to Chrome as a list to the `chrome_options` argument.
+Options can be passed to Chrome as a list to the ``chrome_options`` argument.
 
 .. highlight:: python
 
 ::
-    
+
     from splinter import Browser
 
     options = ['--start-maximized', '--disable-setuid-sandbox']
