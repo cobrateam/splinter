@@ -15,7 +15,7 @@ class WebDriver(BaseWebDriver):
     driver_name = "Chrome"
 
     def __init__(self, user_agent=None, wait_time=2, fullscreen=False,
-                 chrome_options=None, **kwargs):
+                 chrome_options=None, extensions=None, **kwargs):
 
         options = Options()
 
@@ -28,6 +28,10 @@ class WebDriver(BaseWebDriver):
         if chrome_options is not None:
             for option in chrome_options:
                 options.add_argument(option)
+
+        if extensions is not None:
+            for extension in extensions:
+                options.add_extension(extension)
 
         self.driver = Chrome(chrome_options=options, **kwargs)
 
