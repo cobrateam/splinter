@@ -18,6 +18,7 @@ if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_phantomjs.py" ]; then
+	tar -zxvf lib/phantomjs-2.1.1-linux-x86_64.tar.gz -C lib/phantomjs-2.1.1-linux-x86_64
     export PATH=$PWD/lib/phantomjs-2.1.1-linux-x86_64/bin:$PATH
 fi
 
