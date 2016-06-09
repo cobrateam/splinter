@@ -11,14 +11,14 @@ if [ "${DRIVER}" = "tests/test_djangoclient.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
-    
     wget http://goo.gl/PJUZfa -O selenium-server.jar
     java -jar selenium-server.jar > /dev/null 2>&1 &
     sleep 1
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_phantomjs.py" ]; then
-	tar -zxvf lib/phantomjs-2.1.1-linux-x86_64.tar.gz -C lib/phantomjs-2.1.1-linux-x86_64
+    git lfs pull
+    tar -zxvf lib/phantomjs-2.1.1-linux-x86_64.tar.gz -C lib/phantomjs-2.1.1-linux-x86_64
     export PATH=$PWD/lib/phantomjs-2.1.1-linux-x86_64/bin:$PATH
 fi
 
@@ -28,7 +28,6 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
-
     sudo apt-get install -y python-software-properties
     sudo apt-add-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
     sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
