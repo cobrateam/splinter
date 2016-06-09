@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+import os
 import unittest
 
 from splinter import Browser
@@ -5,6 +8,12 @@ from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 import os
 
+def phantomjs_installed():
+    try:
+        Browser("phantomjs")
+    except OSError:
+        return False
+    return True
 
 class PhantomJSBrowserTest(WebDriverTests, unittest.TestCase):
     @classmethod
