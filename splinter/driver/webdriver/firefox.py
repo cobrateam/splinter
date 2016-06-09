@@ -6,6 +6,7 @@
 
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from splinter.driver.webdriver import (
     BaseWebDriver, WebDriverElement as WebDriverElement)
 from splinter.driver.webdriver.cookie_manager import CookieManager
@@ -19,7 +20,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 capabilities=None):
+                 capabilities=None, firefox_binary_path=None):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -43,7 +44,12 @@ class WebDriver(BaseWebDriver):
             for extension in extensions:
                 firefox_profile.add_extension(extension)
 
-        self.driver = Firefox(firefox_profile,
+        if firefox_binary_path is not None:
+        	self.driver = Firefox(firefox_profile,
+                              capabilities=firefox_capabilities,
+                              firefox_binary_path=firefox_binary_path)
+        else:
+        	self.driver = Firefox(firefox_profile,
                               capabilities=firefox_capabilities)
 
         if fullscreen:

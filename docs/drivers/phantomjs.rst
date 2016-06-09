@@ -35,6 +35,15 @@ the ``Browser`` instance:
     from splinter import Browser
     browser = Browser('phantomjs')
 
+PhantomJS can also be used from a custom path. To do this you give the path to the PhantomJS executable using the keyword argument ``executable_path`` when creating the ``Browser`` instance:
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    browser = Browser('phantomjs', executable_path='path/to/executable')
+
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 API docs

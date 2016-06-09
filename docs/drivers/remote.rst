@@ -55,7 +55,7 @@ browser instance running on Windows 7.
                  name="Test of IE 9 on WINDOWS") as browser:
         print("Link to job: https://saucelabs.com/jobs/{}".format(
               browser.driver.session_id))
-        browser.visit("http://splinter.readthedocs.org")
+        browser.visit("https://splinter.readthedocs.io")
         browser.find_link_by_text('documentation').first.click()
 
 
