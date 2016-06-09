@@ -20,3 +20,4 @@ dist/*
 /include
 /bin
 /.Python
+/lib
