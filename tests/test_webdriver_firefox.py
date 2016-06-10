@@ -115,6 +115,37 @@ class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.browser.quit()
 
+class FirefoxBrowserBinaryPathTest(WebDriverTests, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        lib_path = lib_path + "/tmp/firefox/firefox"
+        cls.browser = Browser("firefox", firefox_binary_path=lib_path)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+    def setUp(self):
+        self.browser.visit(EXAMPLE_APP)
+
+    def test_attach_file(self):
+        "should provide a way to change file field value"
+        file_path = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            'mockfile.txt'
+        )
+        self.browser.attach_file('file', file_path)
+        self.browser.find_by_name('upload').click()
+
+        html = self.browser.html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
+
+    def test_should_support_with_statement(self):
+        with Browser('firefox'):
+            pass
+
 
 class FirefoxBrowserFullScreenTest(unittest.TestCase):
 

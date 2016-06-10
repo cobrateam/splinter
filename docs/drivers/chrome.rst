@@ -111,6 +111,35 @@ the ``Browser`` instance:
     from splinter import Browser
     browser = Browser('chrome')
 
+Chrome Options
+--------------
+
+Options can be passed to Chrome as a list to the ``chrome_options`` argument.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+
+    options = ['--start-maximized', '--disable-setuid-sandbox']
+    browser = Browser('chrome', chrome_options=options)
+
+Chrome Extensions
+-----------------
+
+Extensions can be used by passing them as a list to the ``extensions`` argument.
+
+.. highlight:: python
+
+::
+    
+    from splinter import Browser
+
+    extensions = list()
+    browser = Browser('chrome', extensions=extensions)
+
+
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
