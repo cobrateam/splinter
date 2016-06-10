@@ -23,8 +23,10 @@ if [ "${DRIVER}" = "tests/test_webdriver_phantomjs.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
-    wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/46.0.1/linux-x86_64/en-US/firefox-46.0.1.tar.bz2 -O lib/firefox.tar.bz2
-    tar jxf lib/firefox.tar.bz2 -C lib/firefox 
+    echo "Extracting firefox and setting PATH variable..."
+    tar -xjf /tmp/firefox-43.0.tar.bz2 --directory /tmp
+    export PATH="/tmp/firefox:$PATH"
+    echo "Using firefox version `firefox --version`"
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then

@@ -119,8 +119,7 @@ class FirefoxBrowserBinaryPathTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        lib_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'lib'))
-        lib_path = lib_path + "/firefox/firefox"
+        lib_path = lib_path + "/tmp/firefox/firefox"
         cls.browser = Browser("firefox", firefox_binary_path=lib_path)
 
     @classmethod
