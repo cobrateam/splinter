@@ -31,7 +31,7 @@ fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
     sudo apt-get install -y python-software-properties
-    sudo apt-add-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
+    sudo apt-add-repository "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
     wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo apt-get update -qq
