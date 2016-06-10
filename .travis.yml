@@ -9,6 +9,7 @@ before_install:
   - git lfs init
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - chmod +x .travis.chrome.sh
   - ./.travis.chrome.sh 
 cache: pip
 addons:
