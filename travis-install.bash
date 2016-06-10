@@ -30,15 +30,6 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
-    sudo apt-get install -y python-software-properties
-    sudo apt-add-repository "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-    sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
-    wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo apt-get update -qq
-    sudo apt-get install -y google-chrome-stable
-
-    sudo chmod 1777 /dev/shm
-    
     FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     
     export PATH=$HOME:$PATH
