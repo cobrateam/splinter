@@ -9,7 +9,7 @@ before_install:
   - git lfs init
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - ./.travis.chrome.shgit 
+  - ./.travis.chrome.sh 
 cache: pip
 addons:
   firefox: "43.0"
