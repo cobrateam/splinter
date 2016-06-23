@@ -20,6 +20,17 @@ Chrome WebDriver is provided by Selenium2. To use it, you need to install Seleni
 
 It's important to note that you also need to have Google Chrome installed in your machine.
 
+Chrome can also be used from a custom path. To do this pass the executable path as a dictionary to the `**kwargs` argument. The dictionary should be set up with `executable_path` as the key and the value set to the path to the executable file.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    executable_path = {'executable_path':'</path/to/chrome>'}
+
+    browser = Browser('chrome', **executable_path)
+
 Setting up Chrome WebDriver
 ---------------------------
 
