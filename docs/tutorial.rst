@@ -29,6 +29,8 @@ First of all, import ``Browser`` class and instantiate it.
     from splinter import Browser
     browser = Browser()
 
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
+
 
 Visit Google website
 ====================
@@ -95,7 +97,7 @@ After pressing the button, you can check if Splinter official website is among t
 
 ::
 
-    if browser.is_text_present('splinter.readthedocs.org'):
+    if browser.is_text_present('splinter.readthedocs.io'):
         print "Yes, found it! :)"
     else:
         print "No, didn't find it :("
@@ -130,7 +132,7 @@ Finally, the source code will be:
     browser.fill('q', 'splinter - python acceptance testing for web applications')
     browser.find_by_name('btnG').click()
 
-    if browser.is_text_present('splinter.readthedocs.org'):
+    if browser.is_text_present('splinter.readthedocs.io'):
         print "Yes, the official website was found!"
     else:
         print "No, it wasn't found... We need to improve our SEO techniques"
