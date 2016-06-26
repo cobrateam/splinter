@@ -58,8 +58,23 @@ class FlaskClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest
         self.assertEqual(EXAMPLE_APP, browser.url)
         browser.quit()
 
+    def test_can_clear_password_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('password').clear()
+
+    def test_can_clear_tel_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('telephone').clear()
+
+    def test_can_clear_text_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('query').clear()
+
     def test_cant_switch_to_frame(self):
-        "zope.testbrowser should not be able to switch to frames"
+        "flask should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:
             self.browser.get_iframe('frame_123')
             self.fail()
@@ -69,7 +84,7 @@ class FlaskClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest
 
     def test_simple_type(self):
         """
-        zope.testbrowser won't support type method
+        flask won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
