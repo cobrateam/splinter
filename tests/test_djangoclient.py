@@ -65,7 +65,7 @@ class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittes
         browser.quit()
 
     def test_cant_switch_to_frame(self):
-        "zope.testbrowser should not be able to switch to frames"
+        "django driver should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:
             self.browser.get_iframe('frame_123')
             self.fail()
@@ -75,7 +75,7 @@ class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittes
 
     def test_simple_type(self):
         """
-        zope.testbrowser won't support type method
+        django won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
