@@ -64,6 +64,21 @@ class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittes
         self.assertEqual(EXAMPLE_APP, browser.url)
         browser.quit()
 
+    def test_can_clear_password_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('password').clear()
+
+    def test_can_clear_tel_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('telephone').clear()
+
+    def test_can_clear_text_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('query').clear()
+
     def test_cant_switch_to_frame(self):
         "django driver should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:
