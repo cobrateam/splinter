@@ -31,9 +31,6 @@ matrix:
   exclude:
     - python: 3.4
       env: DRIVER=tests/test_zopetestbrowser.py
-  exclude:
-    - python: 3.5
-      env: DRIVER=tests/test_zopetestbrowser.py
 install:
   - export PATH=$HOME:$PATH
   - ./travis-install.bash
