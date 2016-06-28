@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# Copyright 2015 splinter authors. All rights reserved.
+# Copyright 2016 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
 set -ev
 
 if [ "${DRIVER}" = "tests/test_djangoclient.py" ]; then
-    pip install -q Django==${DJANGO_VERSION}
+  pip install -q Django==${DJANGO_VERSION}
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
-    
-    sleep 1
+  sleep 1
 
 	wget http://goo.gl/PJUZfa -O selenium-server.jar
 	java -jar selenium-server.jar > /dev/null 2>&1 &
@@ -20,15 +19,15 @@ if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
-    
     sleep 1
+
+    FILE=`mktemp`; wget "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -qO $FILE && unzip $FILE firefox -d ~; rm $FILE; chmod 777 ~/firefox;
+    export PATH=$HOME:$PATH
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
-    
     sleep 1
 
     FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
-    
     export PATH=$HOME:$PATH
 fi

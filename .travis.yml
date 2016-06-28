@@ -1,4 +1,4 @@
-# Copyright 2012-2015 splinter authors. All rights reserved.
+# Copyright 2012-2016 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -8,8 +8,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - ./.travis.chrome.sh
 cache: pip
-addons:
-  firefox: "latest"
 language: python
 python:
   - "2.7"
