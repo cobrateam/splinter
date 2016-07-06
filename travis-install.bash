@@ -22,7 +22,7 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     sleep 1
 
     curl "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -L > firefox.tbz2
-    bzip2 -dc firefox.bz2 | tar xvf -
+    bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
     export PATH=$HOME/firefox:$PATH
 fi
