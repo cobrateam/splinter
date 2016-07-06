@@ -21,8 +21,10 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     sleep 1
 
-    FILE=`mktemp`; wget "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -qO $FILE && unzip $FILE firefox -d ~; rm $FILE; chmod 777 ~/firefox;
-    export PATH=$HOME:$PATH
+    curl "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -L > firefox.tbz2
+    bzip2 -dc firefox.bz2 | tar xvf -
+    mv ./firefox $HOME
+    export PATH=$HOME/firefox:$PATH
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
