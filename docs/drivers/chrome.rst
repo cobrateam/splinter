@@ -126,6 +126,29 @@ the ``Browser`` instance:
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 
+Using emulation mode in Chrome
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
+experimental emulation mode.
+
+.. highlight:: python
+
+::
+
+    from selenium import webdriver
+    from splinter import Browser
+
+    mobile_emulation = {"deviceName": "Google Nexus 5"}
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("mobileEmulation",
+                                           mobile_emulation)
+    browser = Browser('chrome', options=chrome_options)
+
+
+refer to `chrome driver documentation <https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation>`_
+
+
 API docs
 --------
 
