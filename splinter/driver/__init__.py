@@ -330,6 +330,12 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
         """
         return self.find_link_by_partial_text(partial_text).first.click()
 
+    def click_link_by_id(self, id):
+        """
+        Clicks in a link by id.
+        """
+        return self.find_by_id(id).first.click()
+
     def quit(self):
         """
         Quits the browser, closing its windows (if it has one).

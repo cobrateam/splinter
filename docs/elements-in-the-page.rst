@@ -67,6 +67,14 @@ or
 
     browser.click_link_by_partial_text('part of link text')
 
+or
+
+.. highlight:: python
+
+::
+
+    browser.click_link_by_id('link_id')
+
 
 Clicking buttons
 ----------------

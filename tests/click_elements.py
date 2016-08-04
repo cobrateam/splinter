@@ -34,3 +34,7 @@ class ClickElementsTest(object):
     def test_click_link_by_partial_text(self):
         self.browser.click_link_by_partial_text("wordier")
         self.assertIn("BAR!", self.browser.html)
+
+    def test_click_link_by_id(self):
+        self.browser.click_link_by_id('foo')
+        self.assertIn("BAR!", self.browser.html)
