@@ -8,6 +8,7 @@ import tempfile
 import time
 import re
 import sys
+import os
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
@@ -459,6 +460,8 @@ class BaseWebDriver(DriverAPI):
         name = name or ''
 
         (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
 
         self.driver.get_screenshot_as_file(filename)
         return filename
