@@ -33,3 +33,12 @@ if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
     FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
+
+if [ "${DRIVER}" = "tests/test_webdriver_phantomjs.py" ]; then
+    sleep 1
+
+    FILENAME="phantomjs-2.1.1-linux-x86_64"
+    wget "https://bitbucket.org/ariya/phantomjs/downloads/${FILENAME}.tar.bz2" -q && tar -C ~ --strip-components 2 -jvxf ${FILENAME}.tar.bz2 ${FILENAME}/bin/phantomjs
+    export PATH=$HOME:$PATH
+    echo "PhantomJs version: $(phantomjs -v)"
+fi
