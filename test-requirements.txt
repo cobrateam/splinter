@@ -8,3 +8,4 @@ argparse
 Django>=1.7.11,<1.10
 flake8==2.5.4
 six==1.10.0
+pillow

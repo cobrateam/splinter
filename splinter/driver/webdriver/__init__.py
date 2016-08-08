@@ -6,9 +6,12 @@
 
 import tempfile
 import time
+import math
 import re
 import sys
 import os
+from io import BytesIO
+from PIL import Image
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
@@ -656,6 +659,37 @@ class WebDriverElement(ElementAPI):
         """
         self.action_chains.drag_and_drop(self._element, droppable._element)
         self.action_chains.perform()
+
+    def screenshot(self, name=None, suffix='.png'):
+        """
+        Saves a screenshot of the element into TEMP folder
+        and returns its filepath
+        """
+        name = name or ''
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
+
+        # Firefox and PhantomJS make a full page screenshot
+        # Chrome only makes a screenshot of a visible part
+        if self.parent.driver_name in ('Firefox', 'PhantomJS'):
+            location = self._element.location
+        else:
+            location = self._element.location_once_scrolled_into_view
+
+        size = self._element.size
+        left = int(math.floor(location['x']))
+        top = int(math.floor(location['y']))
+        right = int(math.ceil(location['x'] + size['width']))
+        bottom = int(math.ceil(location['y'] + size['height']))
+
+        page_png_bytes = self.parent.driver.get_screenshot_as_png()
+        page_img = Image.open(BytesIO(page_png_bytes))
+        element_img = page_img.crop((left, top, right, bottom))
+        element_img.save(filename)
+
+        return filename
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
