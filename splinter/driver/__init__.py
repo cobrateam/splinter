@@ -9,10 +9,9 @@ This module contains the basic API for splinter drivers and elemnts.
 """
 
 from splinter.meta import InheritedDocs
-from splinter.request_handler.request_handler import RequestHandler
 
 
-class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
+class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
     """
     Basic driver API class.
     """
@@ -127,7 +126,7 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
     def find_by_xpath(self, xpath):
         """
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`,
-        using a xpath selector to query the urrent page content.
+        using a xpath selector to query the current page content.
         """
         raise NotImplementedError("%s doesn't support finding elements by xpath selector." % self.driver_name)
 
@@ -331,6 +330,12 @@ class DriverAPI(InheritedDocs('_DriverAPI', (RequestHandler,), {})):
         """
         return self.find_link_by_partial_text(partial_text).first.click()
 
+    def click_link_by_id(self, id):
+        """
+        Clicks in a link by id.
+        """
+        return self.find_by_id(id).first.click()
+
     def quit(self):
         """
         Quits the browser, closing its windows (if it has one).
@@ -504,7 +509,7 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
     Once you have an instance, you can easily access attributes like a ``dict``:
 
         >>> element = browser.find_by_id("link-logo").first
-        >>> assert element['href'] == 'http://splinter.readthedocs.org'
+        >>> assert element['href'] == 'https://splinter.readthedocs.io'
 
     You can also interact with the instance using the methods and properties listed below.
     """
@@ -585,6 +590,12 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
     def mouse_out(self):
         """
         Moves the mouse away from the element.
+        """
+        raise NotImplementedError
+
+    def clear(self):
+        """
+        Reset the field value.
         """
         raise NotImplementedError
 

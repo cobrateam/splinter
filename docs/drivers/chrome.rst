@@ -20,6 +20,17 @@ Chrome WebDriver is provided by Selenium2. To use it, you need to install Seleni
 
 It's important to note that you also need to have Google Chrome installed in your machine.
 
+Chrome can also be used from a custom path. To do this pass the executable path as a dictionary to the `**kwargs` argument. The dictionary should be set up with `executable_path` as the key and the value set to the path to the executable file.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    executable_path = {'executable_path':'</path/to/chrome>'}
+
+    browser = Browser('chrome', **executable_path)
+
 Setting up Chrome WebDriver
 ---------------------------
 
@@ -114,6 +125,29 @@ the ``Browser`` instance:
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
+
+Using emulation mode in Chrome
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
+experimental emulation mode.
+
+.. highlight:: python
+
+::
+
+    from selenium import webdriver
+    from splinter import Browser
+
+    mobile_emulation = {"deviceName": "Google Nexus 5"}
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("mobileEmulation",
+                                           mobile_emulation)
+    browser = Browser('chrome', options=chrome_options)
+
+
+refer to `chrome driver documentation <https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation>`_
+
 
 API docs
 --------

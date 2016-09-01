@@ -8,10 +8,10 @@ clean:
 	@find . -name "*.pyc" -delete
 
 doc_dependencies:
-	@pip install -r doc-requirements.txt --use-mirrors
+	@pip install -r doc-requirements.txt
 
 dependencies:
-	@pip install -r test-requirements.txt --use-mirrors
+	@pip install -r test-requirements.txt
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
@@ -38,3 +38,8 @@ format: clean dependencies
 coverage: dependencies clean
 	@echo "Running all tests with coverage..."
 	@coverage run run_tests.py -w $(which) && coverage report
+
+install-remote:
+	@wget http://goo.gl/PJUZfa -O selenium-server.jar
+	@java -jar selenium-server.jar > /dev/null 2>&1 &
+	@sleep 1

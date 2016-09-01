@@ -30,10 +30,12 @@ Sample code
         button = browser.find_by_name('btnG')
         # Interact with elements
         button.click()
-        if browser.is_text_present('splinter.readthedocs.org'):
+        if browser.is_text_present('splinter.readthedocs.io'):
             print("Yes, the official website was found!")
         else:
             print("No, it wasn't found... We need to improve our SEO techniques")
+
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 Features
 --------
@@ -96,6 +98,7 @@ specific docs for each driver):
 * :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 * :doc:`django client </drivers/django>`
+* :doc:`flask client </drivers/flask>`
 
 Remote driver
 ++++++++++++++

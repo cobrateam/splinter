@@ -46,6 +46,12 @@ class CookieManager(CookieManagerAPI):
         cookies = dict([(c.name, c) for c in self._cookies.cookie_jar])
         return cookies[item].value
 
+    def __contains__(self, key):
+        for cookie in self._cookies.cookie_jar:
+            if cookie.name == key:
+                return True
+        return False
+
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             cookies_dict = dict([(c.name, c.value)
@@ -57,10 +63,11 @@ class FlaskClient(LxmlDriver):
 
     driver_name = "flask"
 
-    def __init__(self, app, user_agent=None, wait_time=2):
+    def __init__(self, app, user_agent=None, wait_time=2, custom_headers=None):
         app.config['TESTING'] = True
         self._browser = app.test_client()
         self._cookie_manager = CookieManager(self._browser)
+        self._custom_headers = custom_headers if custom_headers else {}
         super(FlaskClient, self).__init__(wait_time=wait_time)
 
     def __enter__(self):
@@ -80,8 +87,14 @@ class FlaskClient(LxmlDriver):
     def _do_method(self, method, url, data=None):
         self._url = url
         func_method = getattr(self._browser, method.lower())
-        self._response = func_method(url, data=data, follow_redirects=True)
-        self._last_urls.append(url)
+        while True:
+            self._last_urls.append(url)
+            # flask doesn't expose redirect_chain, so we have to mark it
+            self._response = func_method(url, headers=self._custom_headers, data=data, follow_redirects=False)
+            if self._response.status_code not in (301, 302, 303, 305, 307):
+                break
+            url = self._response.headers['Location']
+        self._url = self._last_urls[-1]
         self._post_load()
 
     def submit_data(self, form):

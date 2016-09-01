@@ -1,0 +1,37 @@
+.. Copyright 2016 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.4.
+    :keywords: splinter 0.7.4, news
+
+whats's new in splinter 0.7.4?
+==============================
+
+
+* support Selenium 2.53.6
+* find_by_text support quotes (`#420 <https://github.com/cobrateam/splinter/pull/420>`_).
+* Selenium capabilities for Firefox driver
+  (`#417 <https://github.com/cobrateam/splinter/pull/417>`_).
+* multi-select support for Django and Flask
+  (`#443 <https://github.com/cobrateam/splinter/pull/443>`_).
+* custom headers support to Flask
+  (`#444 <https://github.com/cobrateam/splinter/pull/444>`_).
+* add `in` operation for cookies
+  (`#445 <https://github.com/cobrateam/splinter/pull/445>`_).
+* Support for `is_element_present_by_*` in non-javascript drivers
+  (`#463 <https://github.com/cobrateam/splinter/pull/463>`_).
+* incognito mode for Google Chrome
+  (`#465 <https://github.com/cobrateam/splinter/pull/465>`_).
+* support for clearing text field types
+  (`#479 <https://github.com/cobrateam/splinter/pull/479>`_).
+* allow to pass a chrome Options instance to Browser
+  (``#494 <https://github.com/cobrateam/splinter/pull/494>`_).
+* new click_link_by_id method
+  (`#498 <https://github.com/cobrateam/splinter/pull/498>`_).
+
+Backward incompatible changes
+-----------------------------
+
+* RequestHandler is removed and the `status` use lazy evaluation.

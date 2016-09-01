@@ -10,9 +10,10 @@ import unittest
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import app, EXAMPLE_APP
+from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
-class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class FlaskClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -39,8 +40,15 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path, 'rb').read().decode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
+
+    def test_serialize_select_mutiple(self):
+        "should serialize a select with multiple values into a list"
+        self.browser.select('pets', ['cat', 'dog'])
+        form = self.browser.find_by_name('send')._get_parent_form()
+        data = self.browser.serialize(form)
+        self.assertListEqual(data['pets'], ['cat', 'dog'])
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -50,8 +58,23 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.assertEqual(EXAMPLE_APP, browser.url)
         browser.quit()
 
+    def test_can_clear_password_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('password').first.clear()
+
+    def test_can_clear_tel_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('telephone').first.clear()
+
+    def test_can_clear_text_field_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('query').first.clear()
+
     def test_cant_switch_to_frame(self):
-        "zope.testbrowser should not be able to switch to frames"
+        "flask should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:
             self.browser.get_iframe('frame_123')
             self.fail()
@@ -61,7 +84,7 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_simple_type(self):
         """
-        zope.testbrowser won't support type method
+        flask won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -120,3 +143,23 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
+
+
+class FlaskClientDriverTestWithCustomHeaders(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        custom_headers = {'X-Splinter-Customheaders-1': 'Hello',
+                          'X-Splinter-Customheaders-2': 'Bye'}
+        cls.browser = Browser('flask', app=app, custom_headers=custom_headers)
+
+    def test_create_a_flask_client_with_custom_headers(self):
+        self.browser.visit(EXAMPLE_APP + 'headers')
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-1: Hello'))
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-2: Bye'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()

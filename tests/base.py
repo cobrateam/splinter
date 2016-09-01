@@ -49,13 +49,11 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         self.assertEqual(url, self.browser.url)
 
     def test_should_have_html(self):
-        "should have access to the html"
         html = self.browser.html
-        assert '<title>Example Title</title>' in html
-        assert '<h1 id="firstheader">Example Header</h1>' in html
+        self.assertIn('<title>Example Title</title>', html)
+        self.assertIn('<h1 id="firstheader">Example Header</h1>', html)
 
     def test_should_reload_a_page(self):
-        "should reload a page"
         title = self.browser.title
         self.browser.reload()
         self.assertEqual('Example Title', title)
@@ -87,6 +85,15 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
         "element should contains the browser on \"parent\" attribute"
         element = self.browser.find_by_id("firstheader")
         self.assertEqual(self.browser, element.parent)
+
+    def test_redirection(self):
+        """
+        when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
+        browser.url should be updated
+        """
+        self.browser.visit('{}redirected'.format(EXAMPLE_APP))
+        self.assertIn('I just been redirected to this location.', self.browser.html)
+        self.assertIn('redirect-location?come=get&some=true', self.browser.url)
 
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest,
@@ -195,3 +202,12 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         self.assertFalse(self.browser.find_option_by_value("rj").selected)
         self.browser.find_by_name("uf").select_by_text("Rio de Janeiro")
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
+
+    def test_should_be_able_to_change_user_agent(self):
+        from splinter import Browser
+        driver_name = self.browser.driver_name.lower()
+        browser = Browser(driver_name=driver_name, user_agent="iphone")
+        browser.visit(EXAMPLE_APP + "useragent")
+        result = 'iphone' in browser.html
+        browser.quit()
+        self.assertTrue(result)

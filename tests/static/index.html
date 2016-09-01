@@ -83,8 +83,9 @@
     <form action="name" method="GET">
         <label for="query">Query</label>
         <input type="text" name="q" />
+        <input type="text" name="input1" value="default value" />
+        <input type="text" name="input1" value="default last value" />
         <input type="text" name="query" value="default value" />
-        <input type="text" name="query" value="default last value" />
         <input type="password" name="password" />
         <input type="tel" name="telephone" />
         <input type="search" name="search_keyword" />
@@ -108,6 +109,11 @@
                 <option value="celery">Celery</option>
             </optgroup>
         </select>
+        <select name="pets" multiple="multiple">
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="fish">Fish</option>
+        </select>
         <label for="description">Description</label>
         <textarea rows="3" cols="50" name="description"></textarea>
     </form>
@@ -123,7 +129,7 @@
     <a class="show-invisible-element" href="#">Show invisible element</a>
     <div id="simple_text">my test text</div>
     <div id="text_with_html">another <b>b</b>it of text</div>
-    <a href="http://localhost:5000/foo">FOO</a>
+    <a href="http://localhost:5000/foo" id="foo">FOO</a>
     <a href="http://localhost:5000/foo">
         <i class="fa fa-fw fa-user"></i>
         &nbsp;

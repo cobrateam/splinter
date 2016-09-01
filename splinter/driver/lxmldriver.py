@@ -13,11 +13,12 @@ import sys
 import lxml.html
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
+from splinter.driver.element_present import ElementPresentMixIn
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 
 
-class LxmlDriver(DriverAPI):
+class LxmlDriver(ElementPresentMixIn, DriverAPI):
     def __init__(self, user_agent=None, wait_time=2):
         self.wait_time = wait_time
         self._history = []
@@ -37,6 +38,21 @@ class LxmlDriver(DriverAPI):
     def visit(self, url):
         self._do_method('get', url)
 
+    def serialize(self, form):
+        data = {}
+        for k, v in form.fields.items():
+            if v is None:
+                continue
+            if isinstance(v, lxml.html.MultipleSelectOptions):
+                data[k] = [val for val in v]
+            else:
+                data[k] = v
+        for key in form.inputs.keys():
+            input = form.inputs[key]
+            if getattr(input, 'type', '') == 'file' and key in data:
+                data[key] = open(data[key], 'rb')
+        return data
+
     def submit(self, form):
         method = form.attrib.get('method', 'get').lower()
         action = form.attrib.get('action', '')
@@ -45,11 +61,7 @@ class LxmlDriver(DriverAPI):
         else:
             url = self._url
         self._url = url
-        data = dict(((k, v) for k, v in form.fields.items() if v is not None))
-        for key in form.inputs.keys():
-            input = form.inputs[key]
-            if getattr(input, 'type', '') == 'file' and key in data:
-                data[key] = open(data[key], 'rb')
+        data = self.serialize(form)
         self._do_method(method, url, data=data)
         return self._response
 
@@ -190,7 +202,10 @@ class LxmlDriver(DriverAPI):
             elif control_type == 'radio':
                 control.value = value  # [option for option in control.options if option == value]
             elif control_type == 'select':
-                control.value = [value]
+                if isinstance(value, list):
+                    control.value = value
+                else:
+                    control.value = [value]
             else:
                 # text, textarea, password, tel
                 control.value = value
@@ -356,7 +371,9 @@ class LxmlControlElement(LxmlElement):
         if sys.version_info[0] > 2:
             parent_form.fields[self['name']] = value
         else:
-            parent_form.fields[self['name']] = value.decode('utf-8')
+            if not isinstance(value, unicode):
+                value = value.decode('utf-8')
+            parent_form.fields[self['name']] = value
 
     def select(self, value):
         self._control.value = value

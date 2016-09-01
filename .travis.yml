@@ -1,60 +1,36 @@
-# Copyright 2012-2015 splinter authors. All rights reserved.
+# Copyright 2012-2016 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-addons:
-  firefox: "38.0.5"
+sudo: required
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - ./.travis.chrome.sh
+cache: pip
 language: python
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
 env:
-  - DJANGO_VERSION=1.5.12 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_remote.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_firefox.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_zopetestbrowser.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_phantomjs.py
-  - DJANGO_VERSION=1.6.11 DRIVER=tests/test_webdriver_chrome.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_remote.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_firefox.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_zopetestbrowser.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_phantomjs.py
-  - DJANGO_VERSION=1.7.8 DRIVER=tests/test_webdriver_chrome.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_djangoclient.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_flaskclient.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_remote.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_firefox.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_zopetestbrowser.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_phantomjs.py
-  - DJANGO_VERSION=1.8.2 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.9 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_flaskclient.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_remote.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_firefox.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_zopetestbrowser.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_phantomjs.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_chrome.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_browser.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_element_list.py
+  - DJANGO_VERSION=1.8.7 DRIVER=tests/test_request_handler.py
 matrix:
   exclude:
-    - python: "3.3"
+    - python: 3.4
       env: DRIVER=tests/test_zopetestbrowser.py
-  exclude:
-    - python: "3.4"
-      env: DRIVER=tests/test_zopetestbrowser.py
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  # - sudo apt-get install libxss1 xdg-utils -y
-  # - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  # - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  # - sudo apt-get update
-  # - sudo apt-get install google-chrome-stable
-  # - wget https://chromedriver.googlecode.com/files/chromedriver_linux32_26.0.1383.0.zip -O chromedriver.zip
-  # - unzip chromedriver.zip
-  # - sudo cp chromedriver /usr/local/bin
-  # - sudo chmod 755 /usr/local/bin/chromedriver
-  # - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.32.0.jar -O selenium-server.jar
-  # - java -jar selenium-server.jar > /dev/null &
-  # - export PATH=./firefox:$PATH
 install:
-  - pip install -q Django==$DJANGO_VERSION
+  - export PATH=$HOME:$PATH
+  - ./travis-install.bash
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}

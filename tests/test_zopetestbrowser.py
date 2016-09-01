@@ -11,11 +11,12 @@ import sys
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
+from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
 @unittest.skipIf(sys.version_info[0] > 2,
                  'zope.testbrowser is not currently compatible with Python 3')
-class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
+class ZopeTestBrowserDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -42,8 +43,8 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read().encode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path).read().encode('utf-8'), html)
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -77,6 +78,21 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         """
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_name('query').type('with type method')
+
+    def test_can_clear_password_field_content(self):
+        "zope.testbrowser should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('password').first.clear()
+
+    def test_can_clear_tel_field_content(self):
+        "zope.testbrowser should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('telephone').first.clear()
+
+    def test_can_clear_text_field_content(self):
+        "zope.testbrowser should not be able to clear"
+        with self.assertRaises(NotImplementedError) as cm:
+            self.browser.find_by_name('query').first.clear()
 
     def test_slowly_typing(self):
         """

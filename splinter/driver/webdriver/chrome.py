@@ -14,13 +14,16 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Chrome"
 
-    def __init__(self, user_agent=None, wait_time=2, fullscreen=False,
+    def __init__(self, options=None, user_agent=None, wait_time=2, fullscreen=False, incognito=False,
                  **kwargs):
 
-        options = Options()
+        options = Options() if options is None else options
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
+            
+        if incognito:
+            options.add_argument("--incognito")
 
         if fullscreen:
             options.add_argument('--kiosk')

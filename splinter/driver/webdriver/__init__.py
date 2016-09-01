@@ -8,6 +8,7 @@ import tempfile
 import time
 import re
 import sys
+import os
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
@@ -17,6 +18,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
 from splinter.utils import warn_deprecated
+from splinter.request_handler.status_code import StatusCode
 
 
 if sys.version_info[0] > 2:
@@ -158,6 +160,7 @@ class BaseWebDriver(DriverAPI):
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
+        self.status_code = None
 
     def __enter__(self):
         return self
@@ -177,12 +180,10 @@ class BaseWebDriver(DriverAPI):
     def url(self):
         return self.driver.current_url
 
-    @property
-    def status_code(self):
-        return self.connect(self.url)
-
     def visit(self, url):
+        self.status_code = None
         self.driver.get(url)
+        self.status_code = StatusCode(200, 'OK')
 
     def back(self):
         self.driver.back()
@@ -449,7 +450,7 @@ class BaseWebDriver(DriverAPI):
                 element.value = value
 
     def type(self, name, value, slowly=False):
-        element = self.driver.find_element_by_css_selector('[name="%s"]' % name)
+        element = self.find_by_name(name).first._element
         if slowly:
             return TypeIterator(element, value)
         element.send_keys(value)
@@ -472,6 +473,8 @@ class BaseWebDriver(DriverAPI):
         name = name or ''
 
         (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
 
         self.driver.get_screenshot_as_file(filename)
         return filename
@@ -530,6 +533,10 @@ class WebDriverElement(ElementAPI):
     @property
     def tag_name(self):
         return self._element.tag_name
+
+    def clear(self):
+        if self._element.get_attribute('type') in ['textarea', 'text', 'password', 'tel']:
+            self._element.clear()
 
     def fill(self, value):
         self.value = value
