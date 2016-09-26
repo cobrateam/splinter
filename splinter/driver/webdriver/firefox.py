@@ -19,7 +19,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 capabilities=None):
+                 timeout=90, capabilities=None):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -44,7 +44,8 @@ class WebDriver(BaseWebDriver):
                 firefox_profile.add_extension(extension)
 
         self.driver = Firefox(firefox_profile,
-                              capabilities=firefox_capabilities)
+                              capabilities=firefox_capabilities,
+                              timeout=timeout)
 
         if fullscreen:
             ActionChains(self.driver).send_keys(Keys.F11).perform()
