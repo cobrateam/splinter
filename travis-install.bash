@@ -25,12 +25,13 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
     export PATH=$HOME/firefox:$PATH
+    echo "Firefox version: $(firefox -v)"
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
     sleep 1
 
-    FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
+    FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
 
