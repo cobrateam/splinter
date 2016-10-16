@@ -39,9 +39,14 @@ class CookieManager(CookieManagerAPI):
             cleaned_cookies = {}
             cookies = self.driver.get_cookies()
             for cookie in cookies:
-                cookie_domain = cookie['domain'] if not cookie['domain'].startswith('.') else cookie['domain'][1:]
+                if not cookie['domain'].startswith('.'):
+                    cookie_domain = cookie['domain']
+                else:
+                    cookie_domain = cookie['domain'][1:]
+
                 if cookie_domain in urlparse(self.driver.current_url).netloc:
                     cleaned_cookies[cookie['name']] = cookie['value']
+
             return cleaned_cookies
         return self.driver.get_cookies()
 

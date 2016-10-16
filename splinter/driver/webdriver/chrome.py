@@ -21,7 +21,7 @@ class WebDriver(BaseWebDriver):
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
-            
+
         if incognito:
             options.add_argument("--incognito")
 
