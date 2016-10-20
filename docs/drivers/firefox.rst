@@ -20,7 +20,8 @@ Firefox WebDriver is provided by Selenium 2.0. To use it, you need to install Se
 
     $ [sudo] pip install selenium
 
-It's important to note that you also need to have `Firefox <http://firefox.com>`_ installed in your machine.
+
+It's important to note that you also need to have `Firefox <http://firefox.com>`_ and `geckodriver <https://github.com/mozilla/geckodriver/releases>`_ installed in your machine and available on `PATH` environment variable.
 Once you have it installed, there is nothing you have to do, just use it :)
 
 Using Firefox WebDriver
