@@ -266,7 +266,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         return element.tag == 'a'
 
     def _element_is_control(self, element):
-        return hasattr(element, 'type')
+        return hasattr(element, 'type') or element.tag == 'textarea'
 
     @property
     def cookies(self):

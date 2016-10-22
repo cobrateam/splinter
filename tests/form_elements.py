@@ -31,6 +31,11 @@ class FormElementsTest(object):
         self.browser.choose("gender", "M")
         self.assertTrue(self.browser.find_by_id("gender-m").checked)
 
+    def test_can_find_textarea_by_tag(self):
+        "should provide a way to find a textarea by tag_name"
+        tag = self.browser.find_by_tag("textarea").first
+        self.assertEqual('', tag.value)
+
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
         self.assertEqual("Rio de Janeiro", self.browser.find_option_by_value("rj").text)
