@@ -36,6 +36,16 @@ class FormElementsTest(object):
         tag = self.browser.find_by_tag("textarea").first
         self.assertEqual('', tag.value)
 
+    def test_can_find_input_without_type(self):
+        "should recognize an input element that doesn't have a `type` attribute"
+        tag = self.browser.find_by_css('[name="typeless"]').first
+        self.assertEqual('default value', tag.value)
+
+    def test_can_find_button(self):
+        "should recognize a button"
+        tag = self.browser.find_by_css('.just-a-button').first
+        self.assertTrue(hasattr(tag, 'click'))
+
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
         self.assertEqual("Rio de Janeiro", self.browser.find_option_by_value("rj").text)
