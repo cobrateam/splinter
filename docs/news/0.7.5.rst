@@ -1,0 +1,14 @@
+.. Copyright 2016 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.5.
+    :keywords: splinter 0.7.5, news
+
+whats's new in splinter 0.7.5?
+==============================
+
+* Timeout settings for Firefox driver
+* Remove default icognito mode in Chrome driver
+* Make input a contro element in `django`, `flask` and `zope.testbrowser`
