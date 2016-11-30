@@ -39,3 +39,9 @@ external links
 `salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
 `behave-django <https://github.com/mixxorz/behave-django>`_, BDD testing in Django using `Behave <http://pythonhosted.org/behave/>`_. Works well with splinter.
+
+`pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
+
+`PyPOM <http://pypom.readthedocs.io/>`_, PyPOM, or Python Page Object Model, is a Python library that provides a base page object model for use with Selenium or Splinter functional tests.
+
+`pypom_form <http://pypom-form.readthedocs.io>`_, is a PyPOM based package that provides declarative schema based form interaction for page object models compatible with Splinter.
