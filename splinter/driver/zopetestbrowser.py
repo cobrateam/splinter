@@ -205,7 +205,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
             elif control.type == 'radio':
                 control.value = [option for option in control.options if option == value]
             elif control.type == 'select':
-                control.value = [value]
+                element.select_by_name(value)
             else:
                 # text, textarea, password, tel
                 control.value = value
