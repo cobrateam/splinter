@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -92,8 +92,7 @@ def redirect_location(request):
     return HttpResponse(EXAMPLE_REDIRECT_LOCATION_HTML)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', index),
     url(r'^iframe$', iframed),
     url(r'^alert$', alertd),
@@ -110,4 +109,4 @@ urlpatterns = patterns(
     url(r'^redirected', redirected),
     url(r'^redirect-location', redirect_location, name='redirect_location'),
     url(r'^admin/', include(admin.site.urls)),
-)
+]
