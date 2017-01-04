@@ -21,6 +21,11 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     sleep 1
 
+    wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+    mkdir geckodriver
+    tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
+    export PATH=$PATH:$PWD/geckodriver
+
     curl "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -L > firefox.tbz2
     bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
