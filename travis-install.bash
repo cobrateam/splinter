@@ -30,6 +30,9 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
     export PATH=$HOME/firefox:$PATH
+    echo "envs"
+    echo $PATH
+    echo "envs"
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
