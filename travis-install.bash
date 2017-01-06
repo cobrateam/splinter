@@ -25,17 +25,13 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     mkdir geckodriver
     tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
     mv ./geckodriver $HOME
+    chmod +x $HOME/geckodriver/geckodriver
 
     curl "https://download.mozilla.org/?product=firefox-latest&lang=en-US&os=linux64" -L > firefox.tbz2
     bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
     export PATH=$HOME/firefox:$PATH
     export PATH=$HOME/geckodriver:$PATH
-    
-    echo "envs"
-    echo $PATH
-    ls
-    echo "envs"
 fi
 
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
