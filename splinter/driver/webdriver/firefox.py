@@ -26,6 +26,7 @@ class WebDriver(BaseWebDriver):
         firefox_profile.set_preference('network.dns.disableIPv6', False)
 
         firefox_capabilities = DesiredCapabilities().FIREFOX
+        firefox_capabilities["marionette"] = True
 
         if capabilities:
             for key, value in capabilities.items():
