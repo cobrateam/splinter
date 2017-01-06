@@ -31,6 +31,7 @@ if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     bzip2 -dc firefox.tbz2 | tar xvf -
     mv ./firefox $HOME
     export PATH=$HOME/firefox:$PATH
+    ls -lsa $HOME/geckodriver
     export PATH=$HOME/geckodriver:$PATH
 fi
 
