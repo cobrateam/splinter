@@ -1,6 +1,6 @@
 zope.testbrowser==4.0.4
 lxml==3.6.4
-Flask==0.11.1
+Flask==0.12
 selenium==3.0.2
 coverage==4.2
 cssselect>=0.7.1

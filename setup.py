@@ -27,6 +27,6 @@ setup(
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.4',
                                          'lxml>=2.3.6', 'cssselect'],
                     'django': ['Django>=1.7.11,<1.10.6', 'lxml>=2.3.6', 'cssselect', 'six'],
-                    'flask': ['Flask>=0.10', 'lxml>=2.3.6', 'cssselect']},
+                    'flask': ['Flask>=0.12', 'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
 )
