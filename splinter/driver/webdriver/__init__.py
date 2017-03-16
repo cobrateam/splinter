@@ -182,7 +182,7 @@ class BaseWebDriver(DriverAPI):
     def visit(self, url):
         self.status_code = None
         self.driver.get(url)
-        self.status_code = StatusCode(200, 'OK')
+        self.status_code = StatusCode(url)
 
     def back(self):
         self.driver.back()
