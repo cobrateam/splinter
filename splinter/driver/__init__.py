@@ -233,6 +233,8 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
         Types the ``value`` in the field identified by ``name``.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
+        
+        If ``slowly`` is True, this function returns an iterator which will type one character per iteration.
         """
         raise NotImplementedError("%s doesn't support typing on fields by name." % self.driver_name)
 
@@ -610,6 +612,8 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
         Types the ``value`` in the field.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
+        
+        If ``slowly`` is True, this function returns an iterator which will type one character per iteration.
         """
         raise NotImplementedError
 
