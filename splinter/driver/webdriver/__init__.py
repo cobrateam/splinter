@@ -522,7 +522,9 @@ class WebDriverElement(ElementAPI):
         return self._element.tag_name
 
     def clear(self):
-        if self._element.get_attribute('type') in ['textarea', 'text', 'password', 'tel']:
+        # based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
+        allowed_types = ['email', 'number', 'password', 'search', 'tel', 'text', 'textarea', 'url']
+        if self._element.get_attribute('type') in allowed_types:
             self._element.clear()
 
     def fill(self, value):
