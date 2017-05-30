@@ -32,7 +32,7 @@ splinter around the world
 Projects using splinter
 -----------------------
 
-* `salad <https://github.com/wieden-kennedy/salad>`_: splinter and lettuce integration
+* `salad <https://github.com/salad/salad>`_: splinter and lettuce integration
 
 Blog posts
 ----------
