@@ -432,7 +432,7 @@ class BaseWebDriver(DriverAPI):
                     if field.value == value:
                         field.click()
             elif element._element.tag_name == 'select':
-                element.select_by_text(value)
+                element.select(value)
             else:
                 element.value = value
 
