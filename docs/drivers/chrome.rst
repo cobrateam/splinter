@@ -126,8 +126,21 @@ the ``Browser`` instance:
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 
+Using headless option for Chrome
+--------------------------------
+
+Starting with Chrome 59, we can run Chrome as a headless browser.
+Make sure you read `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    browser = Browser('chrome', headless=True)
+
 Using emulation mode in Chrome
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
 experimental emulation mode.
