@@ -16,6 +16,8 @@ env:
   - DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.9 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.10 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=1.11 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_flaskclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_remote.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_firefox.py
