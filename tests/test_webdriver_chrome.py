@@ -32,6 +32,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         cls.browser.quit()
 
     def setUp(self):
+        self.browser.driver.set_window_size(1024, 768)
         self.browser.visit(EXAMPLE_APP)
 
     def test_attach_file(self):
