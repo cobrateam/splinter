@@ -42,3 +42,9 @@ if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
     FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
+
+python_version=$(python -c "import sys; print(sys.version_info.major)")
+
+if [ "${python_version}" = "3" ]; then
+  sed -i s/zope.testbrowser==4.0.4//g test-requirements.txt
+fi
