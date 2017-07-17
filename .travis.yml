@@ -36,3 +36,4 @@ install:
   - ./travis-install.bash
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}
+dist: trusty
