@@ -39,7 +39,7 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
     sleep 1
 
-    FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
+    FILE=`mktemp`; wget "http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
 
