@@ -21,9 +21,9 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_firefox.py" ]; then
     sleep 1
 
-    wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+    wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz
     mkdir geckodriver
-    tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
+    tar -xzf geckodriver-v0.18.0-linux64.tar.gz -C geckodriver
     mv ./geckodriver $HOME
     chmod +x $HOME/geckodriver/geckodriver
 
