@@ -122,6 +122,18 @@
         <input type="file" name="file">
         <input type="submit" name="upload" />
     </form>
+
+    <form action="/post" method="POST">
+      <button type="submit" name="submit-button" value="submit-button-value">Submit button</button>
+      <button type="submit" name="submit-button-no-value">Submit button</button>
+      <button type="submit" class="submit-button-empty">Submit button</button>
+      <button type="submit" class="submit-button-no-name" value="submit-button-value">Submit button</button>
+      <input type="submit" name="submit-input" value="submit-input-value"/>
+      <input type="submit" name="submit-input-no-value"/>
+      <input type="submit" class="submit-input-empty"/>
+      <input type="submit" class="submit-input-no-name" value="submit-input-value"/>
+    </form>
+
     <a href="http://example.com/">Link for Example.com</a>
     <a href="http://example.com/last">Link for Example.com</a>
     <a href="http://example.com/">Link for last Example.com</a>
