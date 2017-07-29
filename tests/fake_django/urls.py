@@ -54,7 +54,6 @@ def post_form(request):
 
 
 def request_headers(request):
-
     body = '\n'.join('%s: %s' % (key, value) for key, value in six.iteritems(request.META))
     return HttpResponse(body)
 

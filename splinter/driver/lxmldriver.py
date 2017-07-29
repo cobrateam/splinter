@@ -383,7 +383,6 @@ class LxmlControlElement(LxmlElement):
                 value = self._control.get('value', '')
                 parent_form.append(lxml.html.Element('input', name=name, value=value, type='hidden'))
 
-
         return self.parent.submit_data(parent_form)
 
     def fill(self, value):
