@@ -11,6 +11,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            sed -i s/zope.testbrowser==4.0.4//g test-requirements.txt
             pip install -r test-requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "test-requirements.txt" }}
