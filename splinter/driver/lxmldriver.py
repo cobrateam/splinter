@@ -10,6 +10,7 @@ import re
 import time
 import sys
 
+import lxml.etree
 import lxml.html
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
@@ -40,17 +41,26 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def serialize(self, form):
         data = {}
+
+        for key in form.inputs.keys():
+            input = form.inputs[key]
+            if getattr(input, 'type', '') == 'submit':
+                form.remove(input)
+
         for k, v in form.fields.items():
             if v is None:
                 continue
+
             if isinstance(v, lxml.html.MultipleSelectOptions):
                 data[k] = [val for val in v]
             else:
                 data[k] = v
+
         for key in form.inputs.keys():
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'file' and key in data:
                 data[key] = open(data[key], 'rb')
+
         return data
 
     def submit(self, form):
@@ -62,6 +72,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             url = self._url
         self._url = url
         data = self.serialize(form)
+
         self._do_method(method, url, data=data)
         return self._response
 
@@ -364,6 +375,14 @@ class LxmlControlElement(LxmlElement):
 
     def click(self):
         parent_form = self._get_parent_form()
+
+        if self._control.get('type') == 'submit':
+            name = self._control.get('name')
+
+            if name:
+                value = self._control.get('value', '')
+                parent_form.append(lxml.html.Element('input', name=name, value=value, type='hidden'))
+
         return self.parent.submit_data(parent_form)
 
     def fill(self, value):

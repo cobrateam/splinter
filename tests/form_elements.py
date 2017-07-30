@@ -5,6 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import time
+import re
 
 
 class FormElementsTest(object):
@@ -19,6 +20,51 @@ class FormElementsTest(object):
         time.sleep(1)
         value = self.browser.find_by_name('q').value
         self.assertEqual('new query', value)
+
+    def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
+        self.browser.find_by_css('input.submit-input-no-name').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
+
+    def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
+        self.browser.find_by_css('input[name="submit-input-no-value"]').click()
+        body_text = self.browser.find_by_xpath('/descendant-or-self::*').text.strip()
+        self.assertTrue(
+            re.match(r'^submit-input-no-value:(?:| Submit)$', body_text),
+            repr(body_text))
+
+    def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
+        self.browser.find_by_css('input.submit-input-empty').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
+
+    def test_clicking_submit_input_posts_input_value_if_value_present(self):
+        self.browser.find_by_css('input[name="submit-input"]').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text,
+            'submit-input: submit-input-value')
+
+    def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
+        self.browser.find_by_css('button.submit-button-no-name').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text, '')
+
+    def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
+        self.browser.find_by_css('button[name="submit-button-no-value"]').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), 'submit-button-no-value:')
+
+    def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
+        self.browser.find_by_css('button.submit-button-empty').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(),'')
+
+    def test_clicking_submit_button_posts_button_value_if_value_present(self):
+        self.browser.find_by_css('button[name="submit-button"]').click()
+
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text,
+            'submit-button: submit-button-value')
 
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill('query', 'my name')

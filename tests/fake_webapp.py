@@ -90,6 +90,11 @@ def get_user_agent():
     return request.user_agent.string
 
 
+@app.route('/post', methods=['POST'])
+def post_form():
+    return "<html><body>" + '\n'.join("{}: {}".format(*item) for item in request.form.items()) + "</body></html>"
+
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':

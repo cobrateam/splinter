@@ -48,6 +48,11 @@ def get_user_agent(request):
     return HttpResponse(request.META['User-Agent'])
 
 
+def post_form(request):
+    body = "<html><body>" + '\n'.join("{}: {}".format(*item) for item in request.POST.items()) + "</body></html>"
+    return HttpResponse(body)
+
+
 def request_headers(request):
     body = '\n'.join('%s: %s' % (key, value) for key, value in six.iteritems(request.META))
     return HttpResponse(body)
@@ -107,6 +112,7 @@ urlpatterns = [
     url(r'^popup$', popup),
     url(r'^authenticate$', auth_required),
     url(r'^redirected', redirected),
+    url(r'^post', post_form),
     url(r'^redirect-location', redirect_location, name='redirect_location'),
     url(r'^admin/', include(admin.site.urls)),
 ]
