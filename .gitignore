@@ -21,3 +21,4 @@ dist/*
 /lib
 /bin
 /.Python
+.tox
