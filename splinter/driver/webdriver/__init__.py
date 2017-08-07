@@ -13,6 +13,7 @@ from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import WebDriverException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
@@ -473,7 +474,10 @@ class BaseWebDriver(DriverAPI):
         self.find_by_xpath('//select[@name="%s"]/option[text()="%s"]' % (name, text)).first._element.click()
 
     def quit(self):
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except WebDriverException:
+            pass
 
     @property
     def cookies(self):
