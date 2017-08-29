@@ -39,6 +39,20 @@ the ``Browser`` instance:
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
+
+Using headless option for Firefox
+-----------------------
+
+Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    browser = Browser('firefox', headless=True)
+
+
 How to use a specific profile for Firefox
 -----------------------------------------
 
