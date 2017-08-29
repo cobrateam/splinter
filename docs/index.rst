@@ -96,6 +96,7 @@ The following drivers don't open a browser to run your actions (but has its own 
 specific docs for each driver):
 
 * :doc:`Chrome WebDriver </drivers/chrome>`
+* :doc:`Firefox WebDriver </drivers/firefox>`
 * :doc:`Phantomjs WebDriver </drivers/phantomjs>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 * :doc:`django client </drivers/django>`
