@@ -44,6 +44,7 @@ browser instance running on Windows 7.
 .. highlight:: python
 
 ::
+
     # Specify the server URL
     remote_server_url = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub'
 
