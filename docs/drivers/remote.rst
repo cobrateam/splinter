@@ -45,7 +45,8 @@ browser instance running on Windows 7.
 
 ::
 
-    remote_server_url = ... # Specify the server URL
+    # Specify the server URL
+    remote_server_url = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub'
 
     with Browser(driver_name="remote",
                  url=remote_server_url,
