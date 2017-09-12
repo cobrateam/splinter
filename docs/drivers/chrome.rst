@@ -100,7 +100,7 @@ Windows
 
     **Note:** We don't provide official support for Windows, but you can try it by yourself.
 
-All you need to do is go to `download page on Selenium project <https://code.google.com/p/chromedriver/downloads/list>`_ and choose
+All you need to do is go to `download page on Selenium project <https://sites.google.com/a/chromium.org/chromedriver/downloads>`_ and choose
 "ChromeDriver server for win". Your browser will download a zip file, extract it and add the ``.exe`` file to your PATH.
 
 If you don't know how to add an executable to the PATH on Windows, check these link out:
