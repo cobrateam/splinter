@@ -417,11 +417,25 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values):
+    def fill_form(self, field_values, form_id=None, name=None):
+        form = None
+
+        if name is not None:
+            form = self.find_by_name(name)
+        if form_id is not None:
+            form = self.find_by_xpath(
+                '//form[contains(@id, "{0}")]'.format(form_id))
+
         for name, value in field_values.items():
-            elements = self.find_by_name(name)
+            if form:
+                elements = form.find_by_name(name)
+            else:
+                elements = self.find_by_name(name)
             element = elements.first
-            if element['type'] in ['text', 'password', 'tel'] or element.tag_name == 'textarea':
+            if (
+                    element['type'] in ['text', 'password', 'tel'] or
+                    element.tag_name == 'textarea'
+            ):
                 element.value = value
             elif element['type'] == 'checkbox':
                 if value:
