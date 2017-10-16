@@ -211,10 +211,9 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
         for name, value in field_values.items():
             if form:
-                elements = form.find_by_name(name)
+                element = form.find_by_name(name)
             else:
-                elements = self.find_by_name(name)
-            element = elements.first
+                element = self.find_by_name(name)
             control = element.first._control
             control_type = control.get('type')
             if control_type == 'checkbox':
