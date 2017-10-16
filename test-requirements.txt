@@ -7,4 +7,4 @@ cssselect>=0.7.1
 argparse
 Django>=1.7.11,<1.12
 flake8==3.4.1
-six==1.10.0
+six==1.11.0
