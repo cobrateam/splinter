@@ -206,15 +206,15 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         if name is not None:
             form = self.find_by_name(name)
         if form_id is not None:
-            form = self.find_by_xpath(
-                '//form[contains(@id, "{0}")]'.format(form_id))
+            form = self.find_by_id(form_id)
 
         for name, value in field_values.items():
             if form:
                 element = form.find_by_name(name)
+                control = element.first._element
             else:
                 element = self.find_by_name(name)
-            control = element.first._control
+                control = element.first._control
             control_type = control.get('type')
             if control_type == 'checkbox':
                 if value:
