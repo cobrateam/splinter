@@ -193,10 +193,21 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
-    def fill_form(self, field_values):
+    def fill_form(self, field_values, form_id=None, name=None):
+        form = None
+
+        if name is not None:
+            form = self.find_by_name(name)
+        if form_id is not None:
+            form = self.find_by_id(form_id)
+
         for name, value in field_values.items():
-            element = self.find_by_name(name)
-            control = element.first._control
+            if form:
+                element = form.find_by_name(name)
+                control = element.first._element
+            else:
+                element = self.find_by_name(name)
+                control = element.first._control
             if control.type == 'checkbox':
                 if value:
                     control.value = control.options

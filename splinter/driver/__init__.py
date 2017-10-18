@@ -244,7 +244,7 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
         """
         raise NotImplementedError("%s doesn't support filling fields by name." % self.driver_name)
 
-    def fill_form(self, field_values):
+    def fill_form(self, field_values, form_id=None, name=None):
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
 

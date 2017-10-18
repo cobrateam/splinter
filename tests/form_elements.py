@@ -199,6 +199,18 @@ class FormElementsTest(object):
         value = self.browser.find_by_name('search_keyword').value
         self.assertEqual(new_search_keyword, value)
 
+    def test_can_fill_form_by_id(self):
+        "should be able to fill a form by its id"
+        self.browser.fill_form(
+            {
+                'firstname': 'John',
+                'lastname': 'Doe',
+            },
+            form_id='login'
+        )
+        value = self.browser.find_by_name('firstname').value
+        self.assertEqual('John', value)
+
     def test_can_clear_text_field_content(self):
         self.browser.fill('query', 'random query')
         value = self.browser.find_by_name('query').value
