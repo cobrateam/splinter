@@ -24,7 +24,9 @@ release:
 	@git tag $(version)
 	@git push --tags
 	@git push origin master
-	@python setup.py sdist upload
+	@rm dist/*
+	@python setup.py sdist bdist_wheel
+	@twine upload dist/*
 
 which = 'tests'
 
