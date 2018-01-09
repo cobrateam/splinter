@@ -53,6 +53,19 @@ Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
     browser = Browser('firefox', headless=True)
 
 
+Using incognito option for Firefox
+-----------------------
+
+We can run Firefox as a private browser.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    browser = Browser('firefox', incognito=True)
+
+
 How to use a specific profile for Firefox
 -----------------------------------------
 

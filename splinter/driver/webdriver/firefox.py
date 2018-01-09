@@ -13,6 +13,7 @@ from splinter.driver.webdriver.cookie_manager import CookieManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
 
 
 class WebDriver(BaseWebDriver):
@@ -21,7 +22,8 @@ class WebDriver(BaseWebDriver):
 
     def __init__(self, profile=None, extensions=None, user_agent=None,
                  profile_preferences=None, fullscreen=False, wait_time=2,
-                 timeout=90, capabilities=None, headless=False, **kwargs):
+                 timeout=90, capabilities=None, headless=False,
+                 incognito=False, **kwargs):
 
         firefox_profile = FirefoxProfile(profile)
         firefox_profile.set_preference('extensions.logging.enabled', False)
@@ -29,6 +31,8 @@ class WebDriver(BaseWebDriver):
 
         firefox_capabilities = DesiredCapabilities().FIREFOX
         firefox_capabilities["marionette"] = True
+
+        firefox_options = Options()
 
         if capabilities:
             for key, value in capabilities.items():
@@ -52,8 +56,12 @@ class WebDriver(BaseWebDriver):
             binary.add_command_line_options('-headless')
             kwargs['firefox_binary'] = binary
 
+        if incognito:
+            firefox_options.add_argument('-private')
+
         self.driver = Firefox(firefox_profile,
                               capabilities=firefox_capabilities,
+                              firefox_options=firefox_options,
                               timeout=timeout, **kwargs)
 
         if fullscreen:
