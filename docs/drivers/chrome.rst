@@ -139,6 +139,18 @@ Make sure you read `google developers updates <https://developers.google.com/web
     from splinter import Browser
     browser = Browser('chrome', headless=True)
 
+Using incognito option for Chrome
+--------------------------------
+
+We can run Chrome as a incognito browser.
+
+.. highlight:: python
+
+::
+
+    from splinter import Browser
+    browser = Browser('chrome', incognito=True)
+
 Using emulation mode in Chrome
 ------------------------------
 
