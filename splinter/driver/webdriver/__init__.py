@@ -195,7 +195,7 @@ class BaseWebDriver(DriverAPI):
         self.driver.refresh()
 
     def execute_script(self, script):
-        self.driver.execute_script(script)
+        return self.driver.execute_script(script)
 
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)

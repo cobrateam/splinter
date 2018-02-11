@@ -211,3 +211,6 @@ class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistT
         result = 'iphone' in browser.html
         browser.quit()
         self.assertTrue(result)
+
+    def test_execute_script_returns_result_if_present(self):
+        assert self.browser.execute_script('return 42') == 42
