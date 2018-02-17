@@ -101,6 +101,7 @@ How to use selenium capabilities for Firefox
 .. highlight:: python
 
 ::
+
     from splinter import Browser
     browser = Browser('firefox', capabilities={'acceptSslCerts': True})
 
