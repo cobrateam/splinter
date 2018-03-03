@@ -32,7 +32,7 @@ class WebDriver(BaseWebDriver):
             options.add_argument('--headless')
             options.add_argument('--disable-gpu')
 
-        self.driver = Chrome(chrome_options=options, **kwargs)
+        self.driver = Chrome(options=options, **kwargs)
 
         self.element_class = WebDriverElement
 
