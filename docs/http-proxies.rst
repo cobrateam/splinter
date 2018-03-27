@@ -16,7 +16,7 @@ the browser with the hostname and port.
 Authenticated proxies are rather more complicated, (see
 `RFC2617 <http://www.ietf.org/rfc/rfc2617.txt>`_)
 
-Using an unauthenticated HTTP proxy with FireFox
+Using an unauthenticated HTTP proxy with Firefox
 ------------------------------------------------
 
 ::
