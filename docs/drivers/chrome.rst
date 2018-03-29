@@ -53,23 +53,11 @@ The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 Linux
 -----
 
-Go to the `download page on Chromium project <https://code.google.com/p/chromedriver/downloads/list>`_ and choose
-the properly version for you Linux (32 or 64 bits). Then extract the
-downloaded file in a directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any directory
-and add that directory to the ``PATH``:
-
-
-Linux 32bits
-============
-
-.. highlight:: bash
-
-::
-
-    $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux32_20.0.1133.0.zip
-    $ unzip chromedriver_linux32_20.0.1133.0.zip
-
+Go to the `download page on Chromium project
+<https://sites.google.com/a/chromium.org/chromedriver/downloads>`_ and choose
+the properly version for you Linux. Then extract the downloaded file in a
+directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any
+directory and add that directory to the ``PATH``:
 
 Linux 64bits
 ============
@@ -79,16 +67,8 @@ Linux 64bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.googlecode.com/files/chromedriver_linux64_20.0.1133.0.zip
-    $ unzip chromedriver_linux64_20.0.1133.0.zip
-
-
-Linux (common steps for 32 and 64bits)
-======================================
-
-.. highlight:: bash
-
-::
+    $ wget https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+    $ unzip chromedriver_linux64.zip
 
     $ mkdir -p $HOME/bin
     $ mv chromedriver $HOME/bin
