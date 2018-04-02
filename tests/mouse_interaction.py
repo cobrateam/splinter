@@ -55,14 +55,3 @@ class MouseInteractionTest(object):
         draggable = self.browser.find_by_css('.draggable')
         draggable.drag_and_drop(droppable)
         self.assertEqual(self.browser.find_by_css('.dragged').text, 'yes')
-
-    def test_mouseover_should_be_an_alias_to_mouse_over(self):
-        "mouseover should be an alias to mouse_over and be deprecated"
-        with warnings.catch_warnings(record=True) as warnings_list:
-            self.browser.visit(EXAMPLE_APP)
-            warnings.simplefilter("always")
-            element = self.browser.find_by_css(".add-element-mouseover")
-            element.mouseover()
-            warn_message = warnings_list[-1].message
-            self.assertIsInstance(warn_message, DeprecationWarning)
-            self.assertIn('mouse_over', warn_message.args[0])

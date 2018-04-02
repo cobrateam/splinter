@@ -17,7 +17,6 @@ from selenium.common.exceptions import WebDriverException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from splinter.utils import warn_deprecated
 from splinter.request_handler.status_code import StatusCode
 
 
@@ -644,8 +643,6 @@ class WebDriverElement(ElementAPI):
         """
         self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
-
-    mouseover = warn_deprecated(mouse_over, 'mouseover')
 
     def double_click(self):
         """
