@@ -87,6 +87,7 @@ If you don't know how to add an executable to the PATH on Windows, check these l
 
 * `Environment variables <http://msdn.microsoft.com/en-us/library/ms682653.aspx>`_
 * `How to manage environment variables in Windows XP <http://support.microsoft.com/kb/310519>`_
+* `How to manage environment variables in Windows 8 & 10 <https://www.computerhope.com/issues/ch000549.htm>`_
 
 
 Using Chrome WebDriver
