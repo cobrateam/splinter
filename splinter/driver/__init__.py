@@ -103,7 +103,7 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
         e.g.: ::
             >>> browser.execute_script('document.getElementById("body").innerHTML = "<p>Hello world!</p>"')
         """
-        raise NotImplementedError("%s doesn't support executiong of arbitrary JavaScript." % self.driver_name)
+        raise NotImplementedError("%s doesn't support execution of arbitrary JavaScript." % self.driver_name)
 
     def evaluate_script(self, script):
         """
@@ -233,7 +233,7 @@ class DriverAPI(InheritedDocs('_DriverAPI', (object,), {})):
         Types the ``value`` in the field identified by ``name``.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
-        
+
         If ``slowly`` is True, this function returns an iterator which will type one character per iteration.
         """
         raise NotImplementedError("%s doesn't support typing on fields by name." % self.driver_name)
@@ -612,7 +612,7 @@ class ElementAPI(InheritedDocs('_ElementAPI', (object,), {})):
         Types the ``value`` in the field.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
-        
+
         If ``slowly`` is True, this function returns an iterator which will type one character per iteration.
         """
         raise NotImplementedError
