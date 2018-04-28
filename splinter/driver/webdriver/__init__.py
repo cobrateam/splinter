@@ -12,6 +12,7 @@ import os
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import WebDriverException
 
@@ -303,10 +304,21 @@ class BaseWebDriver(DriverAPI):
                 return True
             except ValueError:
                 pass
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
+            except WebDriverException:
+                # NoSuchElementException:
+                # Will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
+                #
+                # StaleElementReferenceException
+                # Thrown when trying to get the body text after
+                # navigating away from the page
+                #
+                # WebDriverException: Message: Unable to get element text
+                # (WARNING: The server did not provide any stacktrace
+                # information)
+                # Thrown instead of StaleElementReferenceException on
+                # Internet Explorer
                 pass
         return False
 
@@ -319,7 +331,8 @@ class BaseWebDriver(DriverAPI):
                 self.driver.find_element_by_tag_name('body').text.index(text)
             except ValueError:
                 return True
-            except NoSuchElementException:
+            except WebDriverException:
+                # NoSuchElementException:
                 # This exception will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
