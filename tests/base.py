@@ -97,8 +97,12 @@ class BaseBrowserTests(ElementTest, FindElementsTest, FormElementsTest, ClickEle
 
 
 class WebDriverTests(BaseBrowserTests, IFrameElementsTest, ElementDoestNotExistTest, IsElementPresentTest,
-                     IsElementVisibleTest, AsyncFinderTests, StatusCodeTest, MouseInteractionTest,
+                     IsElementVisibleTest, AsyncFinderTests, MouseInteractionTest,
                      PopupWindowsTest, ScreenshotTest):
+
+    def test_status_code(self):
+        with self.assertRaises(NotImplementedError):
+            self.browser.status_code
 
     def test_can_execute_javascript(self):
         "should be able to execute javascript"

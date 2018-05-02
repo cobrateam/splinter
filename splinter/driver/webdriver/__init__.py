@@ -17,7 +17,6 @@ from selenium.common.exceptions import WebDriverException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from splinter.request_handler.status_code import StatusCode
 
 
 if sys.version_info[0] > 2:
@@ -159,7 +158,6 @@ class BaseWebDriver(DriverAPI):
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
-        self.status_code = None
 
     def __enter__(self):
         return self
@@ -179,10 +177,12 @@ class BaseWebDriver(DriverAPI):
     def url(self):
         return self.driver.current_url
 
+    @property
+    def status_code(self):
+        raise NotImplementedError
+
     def visit(self, url):
-        self.status_code = None
         self.driver.get(url)
-        self.status_code = StatusCode(200, 'OK')
 
     def back(self):
         self.driver.back()
