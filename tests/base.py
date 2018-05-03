@@ -17,7 +17,6 @@ from .is_element_present import IsElementPresentTest
 from .is_element_visible import IsElementVisibleTest
 from .is_text_present import IsTextPresentTest
 from .mouse_interaction import MouseInteractionTest
-from .status_code import StatusCodeTest
 from .screenshot import ScreenshotTest
 from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest

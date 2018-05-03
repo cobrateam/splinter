@@ -15,6 +15,7 @@ this_folder = path.abspath(path.dirname(__file__))
 def read_static(static_name):
     return open(path.join(this_folder, 'static', static_name)).read()
 
+
 EXAMPLE_APP = "http://127.0.0.1:5000/"
 EXAMPLE_HTML = read_static('index.html')
 EXAMPLE_IFRAME_HTML = read_static('iframe.html')
@@ -51,6 +52,7 @@ def requires_auth(f):
             return authenticate()
         return f(*args, **kwargs)
     return decorated
+
 
 app = Flask(__name__)
 
@@ -92,7 +94,8 @@ def get_user_agent():
 
 @app.route('/post', methods=['POST'])
 def post_form():
-    return "<html><body>" + '\n'.join("{}: {}".format(*item) for item in request.form.items()) + "</body></html>"
+    items = '\n'.join("{}: {}".format(*item) for item in request.form.items())
+    return "<html><body>{}</body></html>".format(items)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -151,6 +154,7 @@ def start_flask_app(host, port):
     app.run(host=host, port=port)
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
+
 
 if __name__ == '__main__':
     app.run()

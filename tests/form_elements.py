@@ -57,7 +57,7 @@ class FormElementsTest(object):
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         self.browser.find_by_css('button.submit-button-empty').click()
         self.assertEqual(
-            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(),'')
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
 
     def test_clicking_submit_button_posts_button_value_if_value_present(self):
         self.browser.find_by_css('button[name="submit-button"]').click()

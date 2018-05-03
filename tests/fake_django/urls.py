@@ -49,7 +49,8 @@ def get_user_agent(request):
 
 
 def post_form(request):
-    body = "<html><body>" + '\n'.join("{}: {}".format(*item) for item in request.POST.items()) + "</body></html>"
+    items = '\n'.join("{}: {}".format(*item) for item in request.POST.items())
+    body = "<html><body>{}</body></html>".format(items)
     return HttpResponse(body)
 
 

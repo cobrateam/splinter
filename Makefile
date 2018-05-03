@@ -35,7 +35,7 @@ test: dependencies clean
 	./run_tests.py -w $(which)
 
 format: clean dependencies
-	@flake8 --max-line-length 110 splinter
+	@flake8 --max-line-length 110 ./splinter ./tests
 
 coverage: dependencies clean
 	@echo "Running all tests with coverage..."

@@ -9,6 +9,7 @@ import sys
 import unittest
 from six.moves.urllib import parse
 
+import django
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
@@ -17,8 +18,6 @@ from .is_element_present_nojs import IsElementPresentNoJSTest
 
 sys.path.append('tests/fake_django')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
-
-import django
 
 
 django.setup()
