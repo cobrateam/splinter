@@ -49,7 +49,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         self.assertIn(open(file_path).read().encode('utf-8'), html)
 
     def test_should_support_with_statement(self):
-        with Browser('chrome') as internet:
+        with Browser('chrome'):
             pass
 
 
@@ -67,5 +67,5 @@ class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
     def test_should_support_with_statement(self):
-        with Browser('chrome', fullscreen=True) as internet:
+        with Browser('chrome', fullscreen=True):
             pass

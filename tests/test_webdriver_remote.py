@@ -39,7 +39,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     def test_support_with_statement(self):
         "Remote should support with statement"
-        with Browser('remote') as remote:
+        with Browser('remote'):
             pass
 
     def test_mouse_over(self):

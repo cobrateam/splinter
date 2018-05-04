@@ -30,7 +30,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unit
         self.browser.quit()
 
     def test_should_support_with_statement(self):
-        with Browser('zope.testbrowser') as internet:
+        with Browser('zope.testbrowser'):
             pass
 
     def test_attach_file(self):
@@ -81,17 +81,17 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unit
 
     def test_can_clear_password_field_content(self):
         "zope.testbrowser should not be able to clear"
-        with self.assertRaises(NotImplementedError) as cm:
+        with self.assertRaises(NotImplementedError):
             self.browser.find_by_name('password').first.clear()
 
     def test_can_clear_tel_field_content(self):
         "zope.testbrowser should not be able to clear"
-        with self.assertRaises(NotImplementedError) as cm:
+        with self.assertRaises(NotImplementedError):
             self.browser.find_by_name('telephone').first.clear()
 
     def test_can_clear_text_field_content(self):
         "zope.testbrowser should not be able to clear"
-        with self.assertRaises(NotImplementedError) as cm:
+        with self.assertRaises(NotImplementedError):
             self.browser.find_by_name('query').first.clear()
 
     def test_slowly_typing(self):

@@ -42,7 +42,7 @@ class BrowserTest(unittest.TestCase):
         return result
 
     def test_brower_can_still_be_imported_from_splinters_browser_module(self):
-        from splinter.browser import Browser
+        from splinter.browser import Browser # NOQA
 
     def test_should_work_even_without_zope_testbrowser(self):
         self.patch_driver('zope')
