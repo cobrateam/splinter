@@ -8,14 +8,15 @@ import tempfile
 import time
 import re
 import sys
+import os
 from contextlib import contextmanager
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import WebDriverException
 
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.element_list import ElementList
-from splinter.utils import warn_deprecated
 
 
 if sys.version_info[0] > 2:
@@ -176,9 +177,11 @@ class BaseWebDriver(DriverAPI):
     def url(self):
         return self.driver.current_url
 
+    @property
+    def status_code(self):
+        raise NotImplementedError
+
     def visit(self, url):
-        self.connect(url)
-        self.ensure_success_response()
         self.driver.get(url)
 
     def back(self):
@@ -191,7 +194,7 @@ class BaseWebDriver(DriverAPI):
         self.driver.refresh()
 
     def execute_script(self, script):
-        self.driver.execute_script(script)
+        return self.driver.execute_script(script)
 
     def evaluate_script(self, script):
         return self.driver.execute_script("return %s" % script)
@@ -274,6 +277,12 @@ class BaseWebDriver(DriverAPI):
 
     def is_element_not_present_by_value(self, value, wait_time=None):
         return self.is_element_not_present(self.find_by_value, value, wait_time)
+
+    def is_element_present_by_text(self, text, wait_time=None):
+        return self.is_element_present(self.find_by_text, text, wait_time)
+
+    def is_element_not_present_by_text(self, text, wait_time=None):
+        return self.is_element_not_present(self.find_by_text, text, wait_time)
 
     def is_element_present_by_id(self, id, wait_time=None):
         return self.is_element_present(self.find_by_id, id, wait_time)
@@ -394,6 +403,10 @@ class BaseWebDriver(DriverAPI):
     def find_by_value(self, value):
         return self.find_by_xpath('//*[@value="%s"]' % value, original_find='value', original_query=value)
 
+    def find_by_text(self, text):
+        return self.find_by_xpath('//*[text()="%s"]' % text,
+                                  original_find='text', original_query=text)
+
     def find_by_id(self, id):
         return self.find_by(self.driver.find_element_by_id, id)
 
@@ -403,11 +416,24 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values):
+    def fill_form(self, field_values, form_id=None, name=None):
+        form = None
+
+        if name is not None:
+            form = self.find_by_name(name)
+        if form_id is not None:
+            form = self.find_by_id(form_id)
+
         for name, value in field_values.items():
-            elements = self.find_by_name(name)
+            if form:
+                elements = form.find_by_name(name)
+            else:
+                elements = self.find_by_name(name)
             element = elements.first
-            if element['type'] in ['text', 'password', 'tel'] or element.tag_name == 'textarea':
+            if (
+                    element['type'] in ['text', 'password', 'tel'] or
+                    element.tag_name == 'textarea'
+            ):
                 element.value = value
             elif element['type'] == 'checkbox':
                 if value:
@@ -419,12 +445,12 @@ class BaseWebDriver(DriverAPI):
                     if field.value == value:
                         field.click()
             elif element._element.tag_name == 'select':
-                element.find_by_value(value).first._element.click()
+                element.select(value)
             else:
                 element.value = value
 
     def type(self, name, value, slowly=False):
-        element = self.driver.find_element_by_css_selector('[name="%s"]' % name)
+        element = self.find_by_name(name).first._element
         if slowly:
             return TypeIterator(element, value)
         element.send_keys(value)
@@ -447,6 +473,8 @@ class BaseWebDriver(DriverAPI):
         name = name or ''
 
         (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
 
         self.driver.get_screenshot_as_file(filename)
         return filename
@@ -458,7 +486,10 @@ class BaseWebDriver(DriverAPI):
         self.find_by_xpath('//select[@name="%s"]/option[text()="%s"]' % (name, text)).first._element.click()
 
     def quit(self):
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except WebDriverException:
+            pass
 
     @property
     def cookies(self):
@@ -505,6 +536,10 @@ class WebDriverElement(ElementAPI):
     @property
     def tag_name(self):
         return self._element.tag_name
+
+    def clear(self):
+        if self._element.get_attribute('type') in ['textarea', 'text', 'password', 'tel']:
+            self._element.clear()
 
     def fill(self, value):
         self.value = value
@@ -560,7 +595,7 @@ class WebDriverElement(ElementAPI):
         return ElementList(
             [self.__class__(element, self.parent) for element in elements], find_by=find_by, query=query)
 
-    def find_by_xpath(self, selector):
+    def find_by_xpath(self, selector, original_find=None, original_query=None):
         elements = ElementList(self._element.find_elements_by_xpath(selector))
         return ElementList(
             [self.__class__(element, self.parent) for element in elements], find_by='xpath', query=selector)
@@ -578,6 +613,10 @@ class WebDriverElement(ElementAPI):
     def find_by_value(self, value):
         selector = '[value="%s"]' % value
         return self.find_by_css(selector, original_find='value', original_query=value)
+
+    def find_by_text(self, text):
+        selector = '//*[text()="%s"]' % text
+        return self.find_by_xpath(selector, original_find='text', original_query=text)
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
@@ -604,8 +643,6 @@ class WebDriverElement(ElementAPI):
         """
         self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
-
-    mouseover = warn_deprecated(mouse_over, 'mouseover')
 
     def double_click(self):
         """

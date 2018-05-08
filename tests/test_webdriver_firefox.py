@@ -20,7 +20,6 @@ def firefox_installed():
     return True
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -44,15 +43,14 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path).read().encode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
 
     def test_should_support_with_statement(self):
-        with Browser('firefox') as internet:
+        with Browser('firefox'):
             pass
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxWithExtensionTest(unittest.TestCase):
 
     @classmethod
@@ -75,7 +73,6 @@ class FirefoxWithExtensionTest(unittest.TestCase):
         cls.browser.quit()
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
 class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
 
     @classmethod
@@ -97,7 +94,28 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
         cls.browser.quit()
 
 
-@unittest.skipIf(not firefox_installed(), 'firefox is not installed')
+class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        capabilities = {
+            'acceptSslCerts': False,
+            'javascriptEnabled': True
+        }
+        cls.browser = Browser("firefox", capabilities=capabilities)
+
+    def test_capabilities_set(self):
+        capabilities = self.browser.driver.capabilities
+        self.assertIn('acceptSslCerts', capabilities)
+        self.assertEqual(False, capabilities.get('acceptSslCerts'))
+        self.assertIn('javascriptEnabled', capabilities)
+        self.assertEqual(True, capabilities.get('javascriptEnabled'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+
+
 class FirefoxBrowserFullScreenTest(unittest.TestCase):
 
     @classmethod

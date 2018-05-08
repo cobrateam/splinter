@@ -4,30 +4,93 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import time
+import re
+
 
 class FormElementsTest(object):
 
-    def test_can_change_field_value(self):
-        "should provide a away to change field value"
+    def test_fill(self):
         self.browser.fill('query', 'new query')
         value = self.browser.find_by_name('query').value
         self.assertEqual('new query', value)
 
-    def test_should_provide_a_method_on_element_to_change_its_value(self):
+    def test_fill_element(self):
         self.browser.find_by_name('q').fill('new query')
+        time.sleep(1)
         value = self.browser.find_by_name('q').value
         self.assertEqual('new query', value)
+
+    def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
+        self.browser.find_by_css('input.submit-input-no-name').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
+
+    def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
+        self.browser.find_by_css('input[name="submit-input-no-value"]').click()
+        body_text = self.browser.find_by_xpath('/descendant-or-self::*').text.strip()
+        self.assertTrue(
+            re.match(r'^submit-input-no-value:(?:| Submit)$', body_text),
+            repr(body_text))
+
+    def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
+        self.browser.find_by_css('input.submit-input-empty').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
+
+    def test_clicking_submit_input_posts_input_value_if_value_present(self):
+        self.browser.find_by_css('input[name="submit-input"]').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text,
+            'submit-input: submit-input-value')
+
+    def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
+        self.browser.find_by_css('button.submit-button-no-name').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text, '')
+
+    def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
+        self.browser.find_by_css('button[name="submit-button-no-value"]').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), 'submit-button-no-value:')
+
+    def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
+        self.browser.find_by_css('button.submit-button-empty').click()
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text.strip(), '')
+
+    def test_clicking_submit_button_posts_button_value_if_value_present(self):
+        self.browser.find_by_css('button[name="submit-button"]').click()
+
+        self.assertEqual(
+            self.browser.find_by_xpath('/descendant-or-self::*').text,
+            'submit-button: submit-button-value')
 
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill('query', 'my name')
         self.browser.find_by_name('send').click()
-        assert 'My name is: Master Splinter' in self.browser.html
+        self.assertIn('My name is: Master Splinter', self.browser.html)
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
         self.assertFalse(self.browser.find_by_id("gender-m").checked)
         self.browser.choose("gender", "M")
         self.assertTrue(self.browser.find_by_id("gender-m").checked)
+
+    def test_can_find_textarea_by_tag(self):
+        "should provide a way to find a textarea by tag_name"
+        tag = self.browser.find_by_tag("textarea").first
+        self.assertEqual('', tag.value)
+
+    def test_can_find_input_without_type(self):
+        "should recognize an input element that doesn't have a `type` attribute"
+        tag = self.browser.find_by_css('[name="typeless"]').first
+        self.assertEqual('default value', tag.value)
+
+    def test_can_find_button(self):
+        "should recognize a button"
+        tag = self.browser.find_by_css('.just-a-button').first
+        self.assertTrue(hasattr(tag, 'click'))
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
@@ -135,3 +198,42 @@ class FormElementsTest(object):
         self.browser.fill_form({'search_keyword': new_search_keyword})
         value = self.browser.find_by_name('search_keyword').value
         self.assertEqual(new_search_keyword, value)
+
+    def test_can_fill_form_by_id(self):
+        "should be able to fill a form by its id"
+        self.browser.fill_form(
+            {
+                'firstname': 'John',
+                'lastname': 'Doe',
+            },
+            form_id='login'
+        )
+        value = self.browser.find_by_name('firstname').value
+        self.assertEqual('John', value)
+
+    def test_can_clear_text_field_content(self):
+        self.browser.fill('query', 'random query')
+        value = self.browser.find_by_name('query').value
+        self.assertEqual('random query', value)
+
+        self.browser.find_by_name('query').clear()
+        value = self.browser.find_by_name('query').value
+        self.assertFalse(value)
+
+    def test_can_clear_password_field_content(self):
+        self.browser.fill('password', '1nF4m310')
+        value = self.browser.find_by_name('password').value
+        self.assertEqual('1nF4m310', value)
+
+        self.browser.find_by_name('password').clear()
+        value = self.browser.find_by_name('password').value
+        self.assertFalse(value)
+
+    def test_can_clear_tel_field_content(self):
+        self.browser.fill('telephone', '5553743980')
+        value = self.browser.find_by_name('telephone').value
+        self.assertEqual('5553743980', value)
+
+        self.browser.find_by_name('telephone').clear()
+        value = self.browser.find_by_name('telephone').value
+        self.assertFalse(value)

@@ -1,0 +1,14 @@
+.. Copyright 2017 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.7.7.
+    :keywords: splinter 0.7.7, news
+
+whats's new in splinter 0.7.7?
+==============================
+
+* `fill_form` more robust by requiring form ID
+* support firefox `headless mode
+* handle exceptions when calling quit on webdriver

@@ -24,10 +24,6 @@ def selenium_server_is_running():
     return 'WebDriver Hub' in page_contents
 
 
-@unittest.skipIf(
-    not selenium_server_is_running(),
-    'Skipping the remote webdriver tests'
-)
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     @classmethod
@@ -43,7 +39,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
     def test_support_with_statement(self):
         "Remote should support with statement"
-        with Browser('remote') as remote:
+        with Browser('remote'):
             pass
 
     def test_mouse_over(self):
@@ -77,27 +73,6 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id('visible').mouseover()
 
-    def test_create_and_access_a_cookie(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.add({'sha': 'zam'})
-
-    def test_create_some_cookies_and_delete_them_all(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete()
-
-    def test_create_and_delete_a_cookie(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('cookie')
-
-    def test_create_and_delete_many_cookies(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('cookie', 'notacookie')
-
-    def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
-        "Remote should not support cookies"
-        with self.assertRaises(NotImplementedError):
-            self.browser.cookies.delete('mwahahahaha')
+    def test_should_be_able_to_change_user_agent(self):
+        "Remote should not support custom user agent"
+        pass

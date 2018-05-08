@@ -1,11 +1,10 @@
-import sys
-
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
+import six
 
 from tests.fake_webapp import (
     EXAMPLE_HTML,
@@ -46,7 +45,18 @@ def get_name(request):
 
 
 def get_user_agent(request):
-    return HttpResponse(request.user_agent.string)
+    return HttpResponse(request.META['User-Agent'])
+
+
+def post_form(request):
+    items = '\n'.join("{}: {}".format(*item) for item in request.POST.items())
+    body = "<html><body>{}</body></html>".format(items)
+    return HttpResponse(body)
+
+
+def request_headers(request):
+    body = '\n'.join('%s: %s' % (key, value) for key, value in six.iteritems(request.META))
+    return HttpResponse(body)
 
 
 def upload_file(request):
@@ -88,21 +98,22 @@ def redirect_location(request):
     return HttpResponse(EXAMPLE_REDIRECT_LOCATION_HTML)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', index),
     url(r'^iframe$', iframed),
     url(r'^alert$', alertd),
     url(r'^type$', type),
     url(r'^no_body$', no_body),
     url(r'^name$', get_name),
-    url(r'^user_agent$', get_user_agent),
+    url(r'^useragent$', get_user_agent),
+    url(r'^headers$', request_headers),
     url(r'^upload$', upload_file),
     url(r'^foo$', foo),
     url(r'^query$', query_string),
     url(r'^popup$', popup),
     url(r'^authenticate$', auth_required),
     url(r'^redirected', redirected),
+    url(r'^post', post_form),
     url(r'^redirect-location', redirect_location, name='redirect_location'),
     url(r'^admin/', include(admin.site.urls)),
-)
+]

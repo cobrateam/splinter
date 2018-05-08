@@ -7,12 +7,12 @@
 from selenium.webdriver import Remote
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
-from splinter.cookie_manager import CookieManagerAPI
+from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
 
-    driver_name = "Remote webdriver"
+    driver_name = "remote"
     # TODO: This constant belongs in selenium.webdriver.Remote
     DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
 
@@ -23,11 +23,12 @@ class WebDriver(BaseWebDriver):
             browsername = 'INTERNETEXPLORER'
         abilities = getattr(DesiredCapabilities, browsername, {})
         abilities.update(ability_args)
+
         self.driver = Remote(url, abilities)
 
         self.element_class = WebDriverElement
 
-        self._cookie_manager = CookieManagerAPI()
+        self._cookie_manager = CookieManager(self.driver)
 
         super(WebDriver, self).__init__(wait_time)
 

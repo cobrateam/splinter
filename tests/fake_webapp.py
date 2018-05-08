@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from flask import Flask, request, abort, Response
+from flask import Flask, request, abort, Response, redirect, url_for
 from os import path
 from functools import wraps
 
@@ -14,6 +14,7 @@ this_folder = path.abspath(path.dirname(__file__))
 
 def read_static(static_name):
     return open(path.join(this_folder, 'static', static_name)).read()
+
 
 EXAMPLE_APP = "http://127.0.0.1:5000/"
 EXAMPLE_HTML = read_static('index.html')
@@ -52,6 +53,7 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
+
 app = Flask(__name__)
 
 
@@ -88,6 +90,12 @@ def get_name():
 @app.route('/useragent', methods=['GET'])
 def get_user_agent():
     return request.user_agent.string
+
+
+@app.route('/post', methods=['POST'])
+def post_form():
+    items = '\n'.join("{}: {}".format(*item) for item in request.form.items())
+    return "<html><body>{}</body></html>".format(items)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -130,11 +138,23 @@ def auth_required():
     return "Success!"
 
 
+@app.route('/redirected')
+def redirected():
+    location = '{}?{}'.format(url_for('redirect_location'), 'come=get&some=true')
+    return redirect(location)
+
+
+@app.route('/redirect-location')
+def redirect_location():
+    return EXAMPLE_REDIRECT_LOCATION_HTML
+
+
 def start_flask_app(host, port):
     """Runs the server."""
     app.run(host=host, port=port)
     app.config['DEBUG'] = False
     app.config['TESTING'] = False
+
 
 if __name__ == '__main__':
     app.run()

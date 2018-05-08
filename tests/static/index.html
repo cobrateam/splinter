@@ -83,8 +83,10 @@
     <form action="name" method="GET">
         <label for="query">Query</label>
         <input type="text" name="q" />
+        <input type="text" name="input1" value="default value" />
+        <input type="text" name="input1" value="default last value" />
         <input type="text" name="query" value="default value" />
-        <input type="text" name="query" value="default last value" />
+        <input name="typeless" value="default value" />
         <input type="password" name="password" />
         <input type="tel" name="telephone" />
         <input type="search" name="search_keyword" />
@@ -108,6 +110,11 @@
                 <option value="celery">Celery</option>
             </optgroup>
         </select>
+        <select name="pets" multiple="multiple">
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="fish">Fish</option>
+        </select>
         <label for="description">Description</label>
         <textarea rows="3" cols="50" name="description"></textarea>
     </form>
@@ -115,6 +122,27 @@
         <input type="file" name="file">
         <input type="submit" name="upload" />
     </form>
+
+    <form action="/post" method="POST">
+      <button type="submit" name="submit-button" value="submit-button-value">Submit button</button>
+      <button type="submit" name="submit-button-no-value">Submit button</button>
+      <button type="submit" class="submit-button-empty">Submit button</button>
+      <button type="submit" class="submit-button-no-name" value="submit-button-value">Submit button</button>
+      <input type="submit" name="submit-input" value="submit-input-value"/>
+      <input type="submit" name="submit-input-no-value"/>
+      <input type="submit" class="submit-input-empty"/>
+      <input type="submit" class="submit-input-no-name" value="submit-input-value"/>
+    </form>
+
+ 
+    <form id='login'>
+      First name:<br>
+      <input type="text" name="firstname"><br>
+      Last name:<br>
+      <input type="text" name="lastname">
+    </form>
+ 
+    
     <a href="http://example.com/">Link for Example.com</a>
     <a href="http://example.com/last">Link for Example.com</a>
     <a href="http://example.com/">Link for last Example.com</a>
@@ -123,11 +151,12 @@
     <a class="show-invisible-element" href="#">Show invisible element</a>
     <div id="simple_text">my test text</div>
     <div id="text_with_html">another <b>b</b>it of text</div>
-    <a href="http://localhost:5000/foo">FOO</a>
+    <a href="http://localhost:5000/foo" id="foo">FOO</a>
     <a href="http://localhost:5000/foo">
         <i class="fa fa-fw fa-user"></i>
         &nbsp;
         <span>Complex</span>
+        <span>Quotation " marks</span>
         <span style="display: inline;" class="env-DEV">Link</span>
     </a>
     <a href="http://localhost:5000/foo">A wordier (and last) link to FOO</a>
@@ -136,6 +165,7 @@
     <a class="add-async-element" href="#">add async element</a>
     <a class="remove-async-element" href="#">remove async element</a>
     <a class="add-element-mouseover" href="#">addelement (mouseover)</a>
+    <button class="just-a-button"></button>
     <iframe id="iframemodal" src="/iframe"></iframe>
     <div id="inside">
         <h2>inside</h2>

@@ -73,6 +73,7 @@ You can manage multiple windows (such as popups) through the windows object:
 .. highlight:: python
 
 ::
+
     browser.windows              # all open windows
     browser.windows[0]           # the first window
     browser.windows[window_name] # the window_name window
@@ -113,7 +114,7 @@ You can back and forward on your browsing history using ``back`` and ``forward``
 ::
 
     browser.visit('http://cobrateam.info')
-    browser.visit('http://splinter.readthedocs.org')
+    browser.visit('https://splinter.readthedocs.io')
     browser.back()
     browser.forward()
 

@@ -4,8 +4,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import warnings
-
 from .fake_webapp import EXAMPLE_APP
 
 
@@ -15,7 +13,7 @@ class MouseInteractionTest(object):
         "Should be able to perform a mouse over on an element"
         self.browser.visit(EXAMPLE_APP)
         self.browser.find_by_css(".add-element-mouseover").mouse_over()
-        assert self.browser.is_element_present_by_id('what-is-your-name')
+        self.assertTrue(self.browser.is_element_present_by_id('what-is-your-name'))
         self.browser.find_by_css(".add-element-mouseover").mouse_out()
 
     def test_mouse_out(self):
@@ -24,7 +22,7 @@ class MouseInteractionTest(object):
         element = self.browser.find_by_css(".add-element-mouseover")
         element.mouse_over()
         element.mouse_out()
-        assert not self.browser.is_element_present_by_id('what-is-your-name')
+        self.assertFalse(self.browser.is_element_present_by_id('what-is-your-name'))
 
     def test_double_click(self):
         "double click should shows a hidden element"
@@ -34,8 +32,8 @@ class MouseInteractionTest(object):
         element = self.browser.find_by_css(
             ".should-be-visible-after-double-click"
         )
-        assert element.visible
-        assert self.browser.is_element_not_present_by_id('what-is-your-name')
+        self.assertTrue(element.visible)
+        self.assertTrue(self.browser.is_element_not_present_by_id('what-is-your-name'))
 
     def test_right_click(self):
         "should be able to perform a right click on an element"
@@ -54,15 +52,4 @@ class MouseInteractionTest(object):
         droppable = self.browser.find_by_css('.droppable')
         draggable = self.browser.find_by_css('.draggable')
         draggable.drag_and_drop(droppable)
-        assert self.browser.find_by_css('.dragged').text == 'yes'
-
-    def test_mouseover_should_be_an_alias_to_mouse_over(self):
-        "mouseover should be an alias to mouse_over and be deprecated"
-        with warnings.catch_warnings(record=True) as warnings_list:
-            self.browser.visit(EXAMPLE_APP)
-            warnings.simplefilter("always")
-            element = self.browser.find_by_css(".add-element-mouseover")
-            element.mouseover()
-            warn_message = warnings_list[-1].message
-            assert type(warn_message) is DeprecationWarning
-            assert 'mouse_over' in warn_message.args[0]
+        self.assertEqual(self.browser.find_by_css('.dragged').text, 'yes')

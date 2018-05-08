@@ -1,11 +1,9 @@
-zope.testbrowser==4.0.4
 lxml==3.6.4
 Flask==0.12.2
-selenium==3.8.1
+selenium==3.4.3
 coverage==4.2
 cssselect>=0.7.1
 argparse
 Django>=1.7.11,<1.12
-flake8==3.5.0
-six==1.11.0
-twine==1.9.1
+flake8==3.2.1
+six==1.10.0

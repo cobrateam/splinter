@@ -1,4 +1,4 @@
-.. image:: https://secure.travis-ci.org/cobrateam/splinter.png
+.. image:: https://secure.travis-ci.org/cobrateam/splinter.svg?branch=master
    :target: http://travis-ci.org/cobrateam/splinter
 
 
@@ -8,24 +8,24 @@ splinter - python tool for test web applications
 
 splinter is a tool for test web applications with a simple for find elements, form actions, and others browser actions.
 
-`what's new in splinter? <http://splinter.readthedocs.org/en/latest/news.html>`_
+`what's new in splinter? <https://splinter.readthedocs.io/en/latest/news.html>`_
 
 first steps
 ===========
 
-* `Installation <http://splinter.readthedocs.org/en/latest/install.html>`_
-* `Quick tutorial <http://splinter.readthedocs.org/en/latest/tutorial.html>`_
+* `Installation <https://splinter.readthedocs.io/en/latest/install.html>`_
+* `Quick tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
 splinter open source project
 ============================
 
-* `Community <http://splinter.readthedocs.org/en/latest/community.html>`_
-* `Contribute <http://splinter.readthedocs.org/en/latest/contribute.html>`_
+* `Community <https://splinter.readthedocs.io/en/latest/community.html>`_
+* `Contribute <https://splinter.readthedocs.io/en/latest/contribute.html>`_
 
 documentation
 =============
 
-`splinter documentation <http://splinter.readthedocs.org>`_
+`splinter documentation <https://splinter.readthedocs.io>`_
 
 external links
 ==============
@@ -36,9 +36,12 @@ external links
 
 `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
 
-`salad <https://github.com/wieden-kennedy/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
+`salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
+`behave-django <https://github.com/mixxorz/behave-django>`_, BDD testing in Django using `Behave <http://pythonhosted.org/behave/>`_. Works well with splinter.
 
-.. image:: https://d2weczhvl823v0.cloudfront.net/cobrateam/splinter/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
+`pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
+
+`PyPOM <http://pypom.readthedocs.io/>`_, PyPOM, or Python Page Object Model, is a Python library that provides a base page object model for use with Selenium or Splinter functional tests.
+
+`pypom_form <http://pypom-form.readthedocs.io>`_, is a PyPOM based package that provides declarative schema based form interaction for page object models compatible with Splinter.

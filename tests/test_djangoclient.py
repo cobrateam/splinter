@@ -9,23 +9,21 @@ import sys
 import unittest
 from six.moves.urllib import parse
 
+import django
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
+from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
 sys.path.append('tests/fake_django')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-import django
-try:
-    # Django >= 1.7 needs setup
-    django.setup()
-except AttributeError:
-    pass
+
+django.setup()
 
 
-class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class DjangoClientDriverTest(BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -54,8 +52,8 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.browser.find_by_name('upload').click()
 
         html = self.browser.html
-        assert 'text/plain' in html
-        assert open(file_path, 'rb').read().decode('utf-8') in html
+        self.assertIn('text/plain', html)
+        self.assertIn(open(file_path, 'rb').read().decode('utf-8'), html)
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -65,8 +63,23 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         self.assertEqual(EXAMPLE_APP, browser.url)
         browser.quit()
 
+    def test_can_clear_password_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('password').first.clear()
+
+    def test_can_clear_tel_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('telephone').first.clear()
+
+    def test_can_clear_text_field_content(self):
+        "django should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name('query').first.clear()
+
     def test_cant_switch_to_frame(self):
-        "zope.testbrowser should not be able to switch to frames"
+        "django driver should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:
             self.browser.get_iframe('frame_123')
             self.fail()
@@ -76,7 +89,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_simple_type(self):
         """
-        zope.testbrowser won't support type method
+        django won't support type method
         because it doesn't interact with JavaScript
         """
         with self.assertRaises(NotImplementedError):
@@ -136,11 +149,22 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link['id'])
 
-    def test_redirection(self):
-        """
-        when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
-        browser.url should be updated
-        """
-        self.browser.visit('{}redirected'.format(EXAMPLE_APP))
-        assert 'I just been redirected to this location.' in self.browser.html
-        self.assertEqual('{}redirect-location?come=get&some=true'.format(EXAMPLE_APP), self.browser.url)
+
+class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        custom_headers = {'X-Splinter-Customheaders-1': 'Hello',
+                          'X-Splinter-Customheaders-2': 'Bye'}
+        cls.browser = Browser("django", custom_headers=custom_headers)
+
+    def test_create_a_phantomjs_with_custom_headers(self):
+        self.browser.visit(EXAMPLE_APP + 'headers')
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-1: Hello'))
+        self.assertTrue(
+            self.browser.is_text_present('X-Splinter-Customheaders-2: Bye'))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()

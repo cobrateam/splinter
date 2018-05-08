@@ -11,7 +11,8 @@ README = codecs.open('README.rst', encoding='utf-8').read()
 
 setup(
     name='splinter',
-    version='0.7.2',
+    version='0.8.0',
+    url='https://github.com/cobrateam/splinter',
     description='browser abstraction for web acceptance testing',
     long_description=README,
     author='CobraTeam',
@@ -22,10 +23,10 @@ setup(
     ] + [('Programming Language :: Python :: %s' % x) for x in '2.6 2.7 3.3 3.4'.split()],
     packages=find_packages(exclude=['docs', 'tests', 'samples']),
     include_package_data=True,
-    install_requires=['selenium>=2.44.0'],
+    install_requires=['selenium>=3.8.1'],
     extras_require={'zope.testbrowser': ['zope.testbrowser>=4.0.4',
                                          'lxml>=2.3.6', 'cssselect'],
-                    'django': ['Django>=1.5.8,<1.9', 'lxml>=2.3.6', 'cssselect', 'six'],
-                    'flask': ['Flask>=0.10', 'lxml>=2.3.6', 'cssselect']},
+                    'django': ['Django>=1.7.11,<1.12', 'lxml>=2.3.6', 'cssselect', 'six'],
+                    'flask': ['Flask>=0.12.2', 'lxml>=2.3.6', 'cssselect']},
     tests_require=['coverage', 'flask'],
 )

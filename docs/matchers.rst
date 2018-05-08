@@ -34,7 +34,7 @@ in the page content. It returns ``True`` or ``False``.
 ::
 
     browser = Browser()
-    browser.visit('http://splinter.readthedocs.org/')
+    browser.visit('https://splinter.readthedocs.io/')
     browser.is_text_present('splinter') # True
     browser.is_text_present('splinter', wait_time=10) # True, using wait_time
     browser.is_text_present('text not present') # False
@@ -58,7 +58,7 @@ Checking the presence of elements
 
 Splinter provides 6 methods to check the presence of elements in the page, one
 for each selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``,
-``value``. Examples:
+``value``, ``text``. Examples:
 
 .. highlight:: python
 
@@ -68,6 +68,7 @@ for each selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``,
     browser.is_element_present_by_xpath('//h1')
     browser.is_element_present_by_tag('h1')
     browser.is_element_present_by_name('name')
+    browser.is_element_present_by_text('Hello World!')
     browser.is_element_present_by_id('firstheader')
     browser.is_element_present_by_value('query')
     browser.is_element_present_by_value('query', wait_time=10) # using wait_time
@@ -85,5 +86,6 @@ There's also the negative forms of these methods, as in ``is_text_present``:
     browser.is_element_not_present_by_xpath('//h6')
     browser.is_element_not_present_by_tag('h6')
     browser.is_element_not_present_by_name('unexisting-name')
+    browser.is_element_not_present_by_text('Not here :(')
     browser.is_element_not_present_by_id('unexisting-header')
     browser.is_element_not_present_by_id('unexisting-header', wait_time=10) # using wait_time

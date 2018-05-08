@@ -14,18 +14,25 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "Chrome"
 
-    def __init__(self, user_agent=None, wait_time=2, fullscreen=False,
-                 **kwargs):
+    def __init__(self, options=None, user_agent=None, wait_time=2,
+                 fullscreen=False, incognito=False, headless=False, **kwargs):
 
-        options = Options()
+        options = Options() if options is None else options
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
 
+        if incognito:
+            options.add_argument("--incognito")
+
         if fullscreen:
             options.add_argument('--kiosk')
 
-        self.driver = Chrome(chrome_options=options, **kwargs)
+        if headless:
+            options.add_argument('--headless')
+            options.add_argument('--disable-gpu')
+
+        self.driver = Chrome(options=options, **kwargs)
 
         self.element_class = WebDriverElement
 

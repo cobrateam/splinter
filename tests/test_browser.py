@@ -10,13 +10,10 @@ except ImportError:
     import builtins
 import unittest
 from imp import reload
-import sys
 
 from splinter.exceptions import DriverNotFoundError
 
 from .fake_webapp import EXAMPLE_APP
-from .test_webdriver_chrome import chrome_installed
-from .test_webdriver_firefox import firefox_installed
 
 
 class BrowserTest(unittest.TestCase):
@@ -45,7 +42,7 @@ class BrowserTest(unittest.TestCase):
         return result
 
     def test_brower_can_still_be_imported_from_splinters_browser_module(self):
-        from splinter.browser import Browser
+        from splinter.browser import Browser # NOQA
 
     def test_should_work_even_without_zope_testbrowser(self):
         self.patch_driver('zope')
@@ -58,16 +55,3 @@ class BrowserTest(unittest.TestCase):
         with self.assertRaises(DriverNotFoundError):
             from splinter import Browser
             Browser('unknown-driver')
-
-    @unittest.skipIf(not firefox_installed(), 'firefox is not installed')
-    def test_firefox_should_be_able_to_change_user_agent(self):
-        self.assertTrue(self.browser_can_change_user_agent('firefox'))
-
-    @unittest.skipIf(not chrome_installed(), 'chrome is not installed')
-    def test_chrome_should_be_able_to_change_user_agent(self):
-        self.assertTrue(self.browser_can_change_user_agent('chrome'))
-
-    @unittest.skipIf(sys.version_info[0] > 2,
-                     'zope.testbrowser is not currently compatible with Python 3')
-    def test_zope_testbrowser_should_be_able_to_change_user_agent(self):
-        self.assertTrue(self.browser_can_change_user_agent('zope.testbrowser'))

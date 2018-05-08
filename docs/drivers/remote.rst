@@ -45,7 +45,8 @@ browser instance running on Windows 7.
 
 ::
 
-    remote_server_url = ... # Specify the server URL
+    # Specify the server URL
+    remote_server_url = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub'
 
     with Browser(driver_name="remote",
                  url=remote_server_url,
@@ -55,7 +56,7 @@ browser instance running on Windows 7.
                  name="Test of IE 9 on WINDOWS") as browser:
         print("Link to job: https://saucelabs.com/jobs/{}".format(
               browser.driver.session_id))
-        browser.visit("http://splinter.readthedocs.org")
+        browser.visit("https://splinter.readthedocs.io")
         browser.find_link_by_text('documentation').first.click()
 
 
