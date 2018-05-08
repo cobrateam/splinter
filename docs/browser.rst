@@ -4,7 +4,7 @@
 
 .. meta::
     :description: Browser
-    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser
+    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testbrowser, android
 
 +++++++
 Browser
@@ -32,7 +32,7 @@ Or, you can use it by a ``context manager``, through the ``with`` statement:
 This last example will create a new browser window and close it when the cursor
 reach the code outside the ``with`` statement, automatically.
 
-splinter support three drivers: chrome, firefox and zopetestbrowser
+splinter support four drivers: chrome, firefox, android and zopetestbrowser
 
 .. highlight:: python
 
@@ -41,6 +41,7 @@ splinter support three drivers: chrome, firefox and zopetestbrowser
     browser = Browser('chrome')
     browser = Browser('firefox')
     browser = Browser('zope.testbrowser')
+    browser = Browser('android')
 
 =============================
 Navigating with Browser.visit

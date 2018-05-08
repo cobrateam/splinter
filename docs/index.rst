@@ -41,7 +41,7 @@ Features
 --------
 
 * simple api
-* multi webdrivers (chrome webdriver, firefox webdriver, phantomjs webdriver, zopetestbrowser, remote webdriver)
+* multi webdrivers (chrome webdriver, firefox webdriver, phantomjs webdriver, zopetestbrowser, remote webdriver, android webdriver)
 * css and xpath selectors
 * support to iframe and alert
 * execute javascript
@@ -111,6 +111,14 @@ machine.
 
 * :doc:`Remote WebDriver </drivers/remote>`
 
+
+Android driver
+++++++++++++++
+
+The android driver uses an android emulator that has already been started up. It
+uses a hub such as Solendroid to communicate with the emulator.
+
+* :doc:`Android WebDriver </drivers/android`
 
 Get in touch and contribute
 ===========================
