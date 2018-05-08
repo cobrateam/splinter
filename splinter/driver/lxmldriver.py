@@ -45,7 +45,11 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         for key in form.inputs.keys():
             input = form.inputs[key]
             if getattr(input, 'type', '') == 'submit':
-                form.remove(input)
+                try:
+                    form.remove(input)
+                # Issue 595: throws ValueError: Element not child of this node
+                except ValueError:
+                    pass
 
         for k, v in form.fields.items():
             if v is None:
