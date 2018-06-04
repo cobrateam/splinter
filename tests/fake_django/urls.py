@@ -1,5 +1,8 @@
-from django.conf.urls import include, url
-from django.core.urlresolvers import reverse
+from django.conf.urls import url
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
@@ -117,5 +120,5 @@ urlpatterns = [
     url(r"^redirected", redirected),
     url(r"^post", post_form),
     url(r"^redirect-location", redirect_location, name="redirect_location"),
-    url(r"^admin/", include(admin.site.urls)),
+    url(r"^admin/", admin.site.urls),
 ]

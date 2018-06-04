@@ -18,6 +18,7 @@ env:
   - DJANGO_VERSION=1.9 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.10 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.11 DRIVER=tests/test_djangoclient.py
+  - DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_flaskclient.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_remote.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_webdriver_firefox.py
@@ -26,6 +27,12 @@ env:
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_browser.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_element_list.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_request_handler.py
+matrix:
+  exclude:
+    - python: 3.4
+      env: DRIVER=tests/test_zopetestbrowser.py
+    - python: 2.7
+      env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
 install:
   - export PATH=$HOME:$PATH
   - ./travis-install.bash
