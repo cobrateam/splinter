@@ -6,7 +6,10 @@
 
 from selenium.webdriver import Remote
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from splinter.driver.webdriver import BaseWebDriver, WebDriverElement as BaseWebDriverElement
+from splinter.driver.webdriver import (
+    BaseWebDriver,
+    WebDriverElement as BaseWebDriverElement,
+)
 from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
@@ -14,13 +17,13 @@ class WebDriver(BaseWebDriver):
 
     driver_name = "remote"
     # TODO: This constant belongs in selenium.webdriver.Remote
-    DEFAULT_URL = 'http://127.0.0.1:4444/wd/hub'
+    DEFAULT_URL = "http://127.0.0.1:4444/wd/hub"
 
-    def __init__(self, url=DEFAULT_URL, browser='firefox', wait_time=2, **ability_args):
+    def __init__(self, url=DEFAULT_URL, browser="firefox", wait_time=2, **ability_args):
         browsername = browser.upper()
         # Handle case where user specifies IE with a space in it
-        if browsername == 'INTERNET EXPLORER':
-            browsername = 'INTERNETEXPLORER'
+        if browsername == "INTERNET EXPLORER":
+            browsername = "INTERNETEXPLORER"
         abilities = getattr(DesiredCapabilities, browsername, {})
         abilities.update(ability_args)
 
@@ -34,7 +37,6 @@ class WebDriver(BaseWebDriver):
 
 
 class WebDriverElement(BaseWebDriverElement):
-
     def mouse_over(self):
         """
         Remote Firefox doesn't support mouseover.

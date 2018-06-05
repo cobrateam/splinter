@@ -14,6 +14,7 @@ class DriverNotFoundError(Exception):
         >>> from splinter import Browser
         >>> b = Browser('unknown driver') # raises DriverNotFoundError
     """
+
     pass
 
 
@@ -29,4 +30,5 @@ class ElementDoesNotExist(Exception):
         >>> elements = browser.find_by_id('unknown-id') # returns an empty list
         >>> elements[0] # raises ElementDoesNotExist
     """
+
     pass

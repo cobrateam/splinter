@@ -6,15 +6,18 @@
 
 
 class PopupWindowsTest(object):
-
     def test_lists_all_windows_as_window_instances(self):
         self.browser.find_by_id("open-popup").click()
         self.assertEqual(len(self.browser.windows), 2)
-        for window, handle in zip(self.browser.windows, self.browser.driver.window_handles):
+        for window, handle in zip(
+            self.browser.windows, self.browser.driver.window_handles
+        ):
             self.assertEqual(window.name, handle)
 
     def test_current_is_a_window_instance_pointing_to_current_window(self):
-        self.assertEqual(self.browser.windows.current.name, self.browser.driver.current_window_handle)
+        self.assertEqual(
+            self.browser.windows.current.name, self.browser.driver.current_window_handle
+        )
 
     def test_set_current_to_window_instance_sets_current_window(self):
         last_current_window = self.browser.windows.current
@@ -23,8 +26,12 @@ class PopupWindowsTest(object):
 
     def test_next_prev_return_next_prev_windows(self):
         self.browser.find_by_id("open-popup").click()
-        self.assertEqual(self.browser.windows.current.next, self.browser.windows.current.prev)
-        self.assertNotEqual(self.browser.windows.current, self.browser.windows.current.next)
+        self.assertEqual(
+            self.browser.windows.current.next, self.browser.windows.current.prev
+        )
+        self.assertNotEqual(
+            self.browser.windows.current, self.browser.windows.current.next
+        )
 
     def test_is_current_returns_true_if_current_window_else_false(self):
         self.browser.find_by_id("open-popup").click()
@@ -41,7 +48,9 @@ class PopupWindowsTest(object):
 
     def test_get_window_by_index(self):
         self.browser.find_by_id("open-popup").click()
-        self.assertEqual(self.browser.windows[0].name, self.browser.driver.window_handles[0])
+        self.assertEqual(
+            self.browser.windows[0].name, self.browser.driver.window_handles[0]
+        )
 
     def test_get_window_by_name(self):
         self.browser.find_by_id("open-popup").click()

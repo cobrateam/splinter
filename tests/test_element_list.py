@@ -21,7 +21,6 @@ class Person(object):
 
 
 class ElementListTest(unittest.TestCase):
-
     def test_method_that_verifies_if_the_list_is_empty(self):
         "should verify if the list is empty"
         the_list = ElementList([1, 2, 3])
@@ -55,7 +54,7 @@ class ElementListTest(unittest.TestCase):
     def test_raise_exception_on_indexerror_with_unicode_query(self):
         "should raise ElementDoesNotExist exception on IndexError"
         with self.assertRaises(ElementDoesNotExist):
-            ElementList([], query=u'.element[title=título]').first
+            ElementList([], query=u".element[title=título]").first
 
     def test_raise_attribute_error(self):
         """

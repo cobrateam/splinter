@@ -9,8 +9,7 @@ import unittest
 from splinter.meta import InheritedDocs
 
 
-class SuperClass(InheritedDocs('_SuperClass', (object,), {})):
-
+class SuperClass(InheritedDocs("_SuperClass", (object,), {})):
     def say_hello(self):
         """
         Says hello
@@ -19,7 +18,6 @@ class SuperClass(InheritedDocs('_SuperClass', (object,), {})):
 
 
 class SubClass(SuperClass):
-
     def say_hello(self):
         print("hello")
 
@@ -32,7 +30,6 @@ class SubClass(SuperClass):
 
 
 class SubSubClass(SubClass):
-
     def say_hello(self):
         print("I can't say hello")
 
@@ -44,20 +41,13 @@ class SubSubClass(SubClass):
 
 
 class MetaTest(unittest.TestCase):
-
     def test_should_include_docs_from_superclass(self):
         "should include doc from superclass"
-        self.assertEqual(
-            SuperClass.say_hello.__doc__,
-            SubClass.say_hello.__doc__
-        )
+        self.assertEqual(SuperClass.say_hello.__doc__, SubClass.say_hello.__doc__)
 
     def test_should_include_docs_from_any_class_in_hierarchy(self):
         "should include doc from any class in hierarchy"
-        self.assertEqual(
-            SuperClass.say_hello.__doc__,
-            SubSubClass.say_hello.__doc__
-        )
+        self.assertEqual(SuperClass.say_hello.__doc__, SubSubClass.say_hello.__doc__)
 
     def test_change_docs_for_readonly_properties(self):
         "should also change docs for readonly properties"
@@ -65,4 +55,4 @@ class MetaTest(unittest.TestCase):
 
     def test_should_not_touch_the_class_type(self):
         "shouldn't touch the type of the object"
-        self.assertEqual('SubSubClass', SubSubClass.__name__)
+        self.assertEqual("SubSubClass", SubSubClass.__name__)

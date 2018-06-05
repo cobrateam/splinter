@@ -6,7 +6,6 @@
 
 
 class StatusCode(object):
-
     def __init__(self, status_code, reason):
         #: A message for the response (example: Success)
         self.reason = reason

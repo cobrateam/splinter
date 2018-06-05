@@ -12,6 +12,7 @@ import unittest
 import os
 
 from multiprocessing import Process
+
 try:
     from urllib import urlopen
 except ImportError:
@@ -20,10 +21,10 @@ except ImportError:
 from tests import TESTS_ROOT
 from tests.fake_webapp import start_flask_app, EXAMPLE_APP
 
-parser = argparse.ArgumentParser('Run splinter tests')
-parser.add_argument('-w', '--which', action='store')
-parser.add_argument('-f', '--failfast', action='store_true')
-parser.add_argument('-v', '--verbosity', type=int, default=1)
+parser = argparse.ArgumentParser("Run splinter tests")
+parser.add_argument("-w", "--which", action="store")
+parser.add_argument("-f", "--failfast", action="store_true")
+parser.add_argument("-v", "--verbosity", type=int, default=1)
 
 
 class Env(object):
@@ -32,7 +33,7 @@ class Env(object):
 
 env = Env()
 env.process = None
-env.host, env.port = 'localhost', 5000
+env.host, env.port = "localhost", 5000
 
 
 def wait_until_start():
@@ -40,7 +41,7 @@ def wait_until_start():
         try:
             results = urlopen(EXAMPLE_APP)
             if results.code == 404:
-                raise Exception('%s returned unexpected 404' % EXAMPLE_APP)
+                raise Exception("%s returned unexpected 404" % EXAMPLE_APP)
             break
         except IOError:
             pass
@@ -57,7 +58,7 @@ def wait_until_stop():
 
 
 def start_server():
-    sys.stderr = open('/dev/null', 'w')
+    sys.stderr = open("/dev/null", "w")
     env.process = Process(target=start_flask_app, args=(env.host, env.port))
     env.process.daemon = True
     env.process.start()
@@ -71,27 +72,28 @@ def stop_server():
 
 
 def get_modules(modules_str):
-    names = modules_str.split(',')
+    names = modules_str.split(",")
     modules = []
 
     for name in names:
-        name = name.replace('/', '.').replace('.py', '')
+        name = name.replace("/", ".").replace(".py", "")
         try:
-            module = __import__(name, fromlist='tests')
+            module = __import__(name, fromlist="tests")
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
-            print('Error importing module {}:'.format(name))
+            print("Error importing module {}:".format(name))
             import traceback
-            traceback.print_exception(exc_type, exc_value, exc_traceback,
-                                      file=sys.stdout)
+
+            traceback.print_exception(
+                exc_type, exc_value, exc_traceback, file=sys.stdout
+            )
         modules.append(module)
 
     return modules
 
 
 def run_suite(suite, args):
-    runner = unittest.TextTestRunner(sys.stdout, True, args.verbosity,
-                                     args.failfast)
+    runner = unittest.TextTestRunner(sys.stdout, True, args.verbosity, args.failfast)
     return runner.run(suite)
 
 
@@ -108,12 +110,11 @@ def get_suite_from_modules(modules):
 def get_complete_suite():
     loader = unittest.TestLoader()
     return loader.discover(
-        start_dir=TESTS_ROOT,
-        top_level_dir=os.path.join(TESTS_ROOT, os.path.pardir)
+        start_dir=TESTS_ROOT, top_level_dir=os.path.join(TESTS_ROOT, os.path.pardir)
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         start_server()
     except Exception as e:
@@ -123,7 +124,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     loader = unittest.TestLoader()
-    if args.which and args.which != 'tests':
+    if args.which and args.which != "tests":
         modules = get_modules(args.which)
         suite = get_suite_from_modules(modules)
     else:

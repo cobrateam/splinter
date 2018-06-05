@@ -13,7 +13,7 @@ from tests.fake_webapp import (
     EXAMPLE_TYPE_HTML,
     EXAMPLE_NO_BODY_HTML,
     EXAMPLE_POPUP_HTML,
-    EXAMPLE_REDIRECT_LOCATION_HTML
+    EXAMPLE_REDIRECT_LOCATION_HTML,
 )
 
 
@@ -45,28 +45,30 @@ def get_name(request):
 
 
 def get_user_agent(request):
-    return HttpResponse(request.META['User-Agent'])
+    return HttpResponse(request.META["User-Agent"])
 
 
 def post_form(request):
-    items = '\n'.join("{}: {}".format(*item) for item in request.POST.items())
+    items = "\n".join("{}: {}".format(*item) for item in request.POST.items())
     body = "<html><body>{}</body></html>".format(items)
     return HttpResponse(body)
 
 
 def request_headers(request):
-    body = '\n'.join('%s: %s' % (key, value) for key, value in six.iteritems(request.META))
+    body = "\n".join(
+        "%s: %s" % (key, value) for key, value in six.iteritems(request.META)
+    )
     return HttpResponse(body)
 
 
 def upload_file(request):
-    if request.method == 'POST':
-        f = request.FILES['file']
+    if request.method == "POST":
+        f = request.FILES["file"]
         buffer = []
         buffer.append("Content-type: %s" % f.content_type)
         buffer.append("File content: %s" % f.read())
 
-        return HttpResponse('|'.join(buffer))
+        return HttpResponse("|".join(buffer))
 
 
 def foo(request):
@@ -77,7 +79,7 @@ def query_string(request):
     if request.query_string == "model":
         return HttpResponse("query string is valid")
     else:
-        raise Exception('500')
+        raise Exception("500")
 
 
 def popup(request):
@@ -90,7 +92,7 @@ def auth_required(request):
 
 
 def redirected(request):
-    location = '{}?{}'.format(reverse('redirect_location'), 'come=get&some=true')
+    location = "{}?{}".format(reverse("redirect_location"), "come=get&some=true")
     return redirect(location)
 
 
@@ -99,21 +101,21 @@ def redirect_location(request):
 
 
 urlpatterns = [
-    url(r'^$', index),
-    url(r'^iframe$', iframed),
-    url(r'^alert$', alertd),
-    url(r'^type$', type),
-    url(r'^no_body$', no_body),
-    url(r'^name$', get_name),
-    url(r'^useragent$', get_user_agent),
-    url(r'^headers$', request_headers),
-    url(r'^upload$', upload_file),
-    url(r'^foo$', foo),
-    url(r'^query$', query_string),
-    url(r'^popup$', popup),
-    url(r'^authenticate$', auth_required),
-    url(r'^redirected', redirected),
-    url(r'^post', post_form),
-    url(r'^redirect-location', redirect_location, name='redirect_location'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r"^$", index),
+    url(r"^iframe$", iframed),
+    url(r"^alert$", alertd),
+    url(r"^type$", type),
+    url(r"^no_body$", no_body),
+    url(r"^name$", get_name),
+    url(r"^useragent$", get_user_agent),
+    url(r"^headers$", request_headers),
+    url(r"^upload$", upload_file),
+    url(r"^foo$", foo),
+    url(r"^query$", query_string),
+    url(r"^popup$", popup),
+    url(r"^authenticate$", auth_required),
+    url(r"^redirected", redirected),
+    url(r"^post", post_form),
+    url(r"^redirect-location", redirect_location, name="redirect_location"),
+    url(r"^admin/", include(admin.site.urls)),
 ]

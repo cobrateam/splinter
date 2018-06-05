@@ -22,7 +22,6 @@ def chrome_installed():
 
 
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("chrome")
@@ -38,23 +37,21 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)),
-            'mockfile.txt'
+            os.path.abspath(os.path.dirname(__file__)), "mockfile.txt"
         )
-        self.browser.attach_file('file', file_path)
-        self.browser.find_by_name('upload').click()
+        self.browser.attach_file("file", file_path)
+        self.browser.find_by_name("upload").click()
 
         html = self.browser.html
-        self.assertIn('text/plain', html)
-        self.assertIn(open(file_path).read().encode('utf-8'), html)
+        self.assertIn("text/plain", html)
+        self.assertIn(open(file_path).read().encode("utf-8"), html)
 
     def test_should_support_with_statement(self):
-        with Browser('chrome'):
+        with Browser("chrome"):
             pass
 
 
 class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("chrome", fullscreen=True)
@@ -67,5 +64,5 @@ class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
     def test_should_support_with_statement(self):
-        with Browser('chrome', fullscreen=True):
+        with Browser("chrome", fullscreen=True):
             pass

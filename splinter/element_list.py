@@ -41,7 +41,9 @@ class ElementList(list):
         except IndexError:
             raise ElementDoesNotExist(
                 u'no elements could be found with {0} "{1}"'.format(
-                    self.find_by, self.query))
+                    self.find_by, self.query
+                )
+            )
 
     @property
     def first(self):
@@ -71,5 +73,8 @@ class ElementList(list):
         try:
             return getattr(self.first, name)
         except (ElementDoesNotExist, AttributeError):
-            raise AttributeError(u"'{0}' object has no attribute '{1}'".format(
-                self.__class__.__name__, name))
+            raise AttributeError(
+                u"'{0}' object has no attribute '{1}'".format(
+                    self.__class__.__name__, name
+                )
+            )

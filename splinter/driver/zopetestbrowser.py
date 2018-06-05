@@ -21,7 +21,6 @@ import time
 
 
 class CookieManager(CookieManagerAPI):
-
     def __init__(self, browser_cookies):
         self._cookies = browser_cookies
 
@@ -100,7 +99,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     @property
     def htmltree(self):
-        return lxml.html.fromstring(self.html.decode('utf-8'))
+        return lxml.html.fromstring(self.html.decode("utf-8"))
 
     @property
     def title(self):
@@ -118,17 +117,23 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         html = self.htmltree
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="value", query=value)
+        return ElementList(
+            [ZopeTestBrowserOptionElement(control, self)], find_by="value", query=value
+        )
 
     def find_option_by_text(self, text):
         html = self.htmltree
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
-        return ElementList([ZopeTestBrowserOptionElement(control, self)], find_by="text", query=text)
+        return ElementList(
+            [ZopeTestBrowserOptionElement(control, self)], find_by="text", query=text
+        )
 
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
-        return self.find_by_xpath(xpath, original_find="css", original_selector=selector)
+        return self.find_by_xpath(
+            xpath, original_find="css", original_selector=selector
+        )
 
     def find_by_xpath(self, xpath, original_find=None, original_selector=None):
         html = self.htmltree
@@ -147,21 +152,32 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         query = original_selector or xpath
 
         return ElementList(
-            [ZopeTestBrowserElement(element, self) for element in elements], find_by=find_by, query=query)
+            [ZopeTestBrowserElement(element, self) for element in elements],
+            find_by=find_by,
+            query=query,
+        )
 
     def find_by_tag(self, tag):
-        return self.find_by_xpath('//%s' % tag, original_find="tag", original_selector=tag)
+        return self.find_by_xpath(
+            "//%s" % tag, original_find="tag", original_selector=tag
+        )
 
     def find_by_value(self, value):
-        return self.find_by_xpath('//*[@value="%s"]' % value, original_find="value", original_selector=value)
+        return self.find_by_xpath(
+            '//*[@value="%s"]' % value, original_find="value", original_selector=value
+        )
 
     def find_by_text(self, text):
-        return self.find_by_xpath('//*[text()="%s"]' % text,
-                                  original_find="text", original_selector=text)
+        return self.find_by_xpath(
+            '//*[text()="%s"]' % text, original_find="text", original_selector=text
+        )
 
     def find_by_id(self, id_value):
         return self.find_by_xpath(
-            '//*[@id="%s"][1]' % id_value, original_find="id", original_selector=id_value)
+            '//*[@id="%s"][1]' % id_value,
+            original_find="id",
+            original_selector=id_value,
+        )
 
     def find_by_name(self, name):
         elements = []
@@ -176,7 +192,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                 break
         return ElementList(
             [ZopeTestBrowserControlElement(element, self) for element in elements],
-            find_by="name", query=name)
+            find_by="name",
+            query=name,
+        )
 
     def find_link_by_text(self, text):
         return self._find_links_by_xpath("//a[text()='%s']" % text)
@@ -188,7 +206,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         return self._find_links_by_xpath("//a[contains(@href, '%s')]" % partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return self._find_links_by_xpath("//a[contains(normalize-space(.), '%s')]" % partial_text)
+        return self._find_links_by_xpath(
+            "//a[contains(normalize-space(.), '%s')]" % partial_text
+        )
 
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
@@ -208,14 +228,16 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
             else:
                 element = self.find_by_name(name)
                 control = element.first._control
-            if control.type == 'checkbox':
+            if control.type == "checkbox":
                 if value:
                     control.value = control.options
                 else:
                     control.value = []
-            elif control.type == 'radio':
-                control.value = [option for option in control.options if option == value]
-            elif control.type == 'select':
+            elif control.type == "radio":
+                control.value = [
+                    option for option in control.options if option == value
+                ]
+            elif control.type == "select":
                 element.select(value)
             else:
                 # text, textarea, password, tel
@@ -234,7 +256,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         control.value = []
 
     def attach_file(self, name, file_path):
-        filename = file_path.split('/')[-1]
+        filename = file_path.split("/")[-1]
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
         control.add_file(open(file_path), content_type, filename)
@@ -243,7 +265,10 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         html = self.htmltree
         links = html.xpath(xpath)
         return ElementList(
-            [ZopeTestBrowserLinkElement(link, self) for link in links], find_by="xpath", query=xpath)
+            [ZopeTestBrowserLinkElement(link, self) for link in links],
+            find_by="xpath",
+            query=xpath,
+        )
 
     def select(self, name, value):
         self.find_by_name(name).first._control.value = [value]
@@ -259,7 +284,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     def _is_text_present(self, text):
         try:
-            body = self.find_by_tag('body').first
+            body = self.find_by_tag("body").first
             return text in body.text
         except ElementDoesNotExist:
             # This exception will be thrown if the body tag isn't present
@@ -277,16 +302,16 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         return False
 
     def _element_is_link(self, element):
-        return element.tag == 'a'
+        return element.tag == "a"
 
     def _element_is_control(self, element):
-        return hasattr(element, 'type')
+        return hasattr(element, "type")
 
     def _get_mech_browser(self, user_agent, ignore_robots):
         mech_browser = mechanize.Browser()
 
         if user_agent is not None:
-            mech_browser.addheaders = [("User-agent", user_agent), ]
+            mech_browser.addheaders = [("User-agent", user_agent)]
 
         if ignore_robots:
             mech_browser.set_handle_robots(False)
@@ -298,11 +323,10 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         return self._cookie_manager
 
 
-re_extract_inner_html = re.compile(r'^<[^<>]+>(.*)</[^<>]+>$')
+re_extract_inner_html = re.compile(r"^<[^<>]+>(.*)</[^<>]+>$")
 
 
 class ZopeTestBrowserElement(ElementAPI):
-
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
@@ -334,7 +358,7 @@ class ZopeTestBrowserElement(ElementAPI):
         return self.find_by_xpath('//*[text()="%s"]' % text)
 
     def find_by_id(self, id):
-        elements = self._element.cssselect('#%s' % id)
+        elements = self._element.cssselect("#%s" % id)
         return ElementList([self.__class__(element, self) for element in elements])
 
     @property
@@ -347,7 +371,7 @@ class ZopeTestBrowserElement(ElementAPI):
 
     @property
     def outer_html(self):
-        return lxml.html.tostring(self._element, encoding='unicode').strip()
+        return lxml.html.tostring(self._element, encoding="unicode").strip()
 
     @property
     def html(self):
@@ -358,7 +382,6 @@ class ZopeTestBrowserElement(ElementAPI):
 
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
-
     def __init__(self, element, parent):
         super(ZopeTestBrowserLinkElement, self).__init__(element, parent)
         self._browser = parent._browser
@@ -371,7 +394,6 @@ class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
 
 
 class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
-
     def __init__(self, control, parent):
         self._control = control
         self.parent = parent
@@ -401,7 +423,6 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
 
 
 class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
-
     def __init__(self, control, parent):
         self._control = control
         self.parent = parent

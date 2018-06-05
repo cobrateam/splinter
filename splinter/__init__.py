@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from splinter.browser import Browser # NOQA
+from splinter.browser import Browser  # NOQA
 
 
-__version__ = '0.8.0'
+__version__ = "0.8.0"

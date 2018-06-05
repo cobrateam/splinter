@@ -17,7 +17,6 @@ from .fake_webapp import EXAMPLE_APP
 
 
 class BrowserTest(unittest.TestCase):
-
     def patch_driver(self, pattern):
         self.old_import = builtins.__import__
 
@@ -34,24 +33,27 @@ class BrowserTest(unittest.TestCase):
 
     def browser_can_change_user_agent(self, webdriver):
         from splinter import Browser
+
         browser = Browser(driver_name=webdriver, user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
-        result = 'iphone' in browser.html
+        result = "iphone" in browser.html
         browser.quit()
 
         return result
 
     def test_brower_can_still_be_imported_from_splinters_browser_module(self):
-        from splinter.browser import Browser # NOQA
+        from splinter.browser import Browser  # NOQA
 
     def test_should_work_even_without_zope_testbrowser(self):
-        self.patch_driver('zope')
+        self.patch_driver("zope")
         from splinter import browser
+
         reload(browser)
-        self.assertNotIn('zope.testbrowser', browser._DRIVERS)
+        self.assertNotIn("zope.testbrowser", browser._DRIVERS)
         self.unpatch_driver(browser)
 
     def test_should_raise_an_exception_when_browser_driver_is_not_found(self):
         with self.assertRaises(DriverNotFoundError):
             from splinter import Browser
-            Browser('unknown-driver')
+
+            Browser("unknown-driver")

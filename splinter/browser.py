@@ -13,34 +13,37 @@ from splinter.exceptions import DriverNotFoundError
 
 
 _DRIVERS = {
-    'firefox': FirefoxWebDriver,
-    'remote': RemoteWebDriver,
-    'chrome': ChromeWebDriver,
+    "firefox": FirefoxWebDriver,
+    "remote": RemoteWebDriver,
+    "chrome": ChromeWebDriver,
 }
 
 if sys.version_info[0] <= 2:
     try:
         from splinter.driver.zopetestbrowser import ZopeTestBrowser
-        _DRIVERS['zope.testbrowser'] = ZopeTestBrowser
+
+        _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
     except ImportError:
         pass
 
 try:
     import django  # noqa
     from splinter.driver.djangoclient import DjangoClient
-    _DRIVERS['django'] = DjangoClient
+
+    _DRIVERS["django"] = DjangoClient
 except ImportError:
     pass
 
 try:
     import flask  # noqa
     from splinter.driver.flaskclient import FlaskClient
-    _DRIVERS['flask'] = FlaskClient
+
+    _DRIVERS["flask"] = FlaskClient
 except ImportError:
     pass
 
 
-def Browser(driver_name='firefox', *args, **kwargs):
+def Browser(driver_name="firefox", *args, **kwargs):
     """
     Returns a driver instance for the given name.
 

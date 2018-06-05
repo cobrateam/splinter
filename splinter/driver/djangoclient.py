@@ -15,7 +15,6 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-
     def __init__(self, browser_cookies):
         self._cookies = browser_cookies
 
@@ -52,8 +51,9 @@ class CookieManager(CookieManagerAPI):
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict([(key, morsel.value)
-                                 for key, morsel in self._cookies.items()])
+            cookies_dict = dict(
+                [(key, morsel.value) for key, morsel in self._cookies.items()]
+            )
             return cookies_dict == other_object
 
 
@@ -63,12 +63,13 @@ class DjangoClient(LxmlDriver):
 
     def __init__(self, user_agent=None, wait_time=2, **kwargs):
         from django.test.client import Client
-        self._custom_headers = kwargs.pop('custom_headers', {})
+
+        self._custom_headers = kwargs.pop("custom_headers", {})
 
         client_kwargs = {}
         for key, value in six.iteritems(kwargs):
-            if key.startswith('client_'):
-                client_kwargs[key.replace('client_', '')] = value
+            if key.startswith("client_"):
+                client_kwargs[key.replace("client_", "")] = value
 
         self._browser = Client(**client_kwargs)
         self._user_agent = user_agent
@@ -87,7 +88,7 @@ class DjangoClient(LxmlDriver):
             del self._html
         except AttributeError:
             pass
-        self.status_code = StatusCode(self._response.status_code, '')
+        self.status_code = StatusCode(self._response.status_code, "")
 
     def _handle_redirect_chain(self):
         if self._response.redirect_chain:
@@ -99,11 +100,11 @@ class DjangoClient(LxmlDriver):
         extra = {}
         components = parse.urlparse(url)
         if components.hostname:
-            extra.update({'SERVER_NAME': components.hostname})
+            extra.update({"SERVER_NAME": components.hostname})
         if components.port:
-            extra.update({'SERVER_PORT': components.port})
+            extra.update({"SERVER_PORT": components.port})
         if self._user_agent:
-            extra.update({'User-Agent': self._user_agent})
+            extra.update({"User-Agent": self._user_agent})
         if self._custom_headers:
             extra.update(self._custom_headers)
         return extra
@@ -122,4 +123,4 @@ class DjangoClient(LxmlDriver):
 
     @property
     def html(self):
-        return self._response.content.decode(self._response._charset or 'utf-8')
+        return self._response.content.decode(self._response._charset or "utf-8")

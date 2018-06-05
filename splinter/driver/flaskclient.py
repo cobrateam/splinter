@@ -13,7 +13,6 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-
     def __init__(self, browser_cookies):
         self._cookies = browser_cookies
 
@@ -21,16 +20,16 @@ class CookieManager(CookieManagerAPI):
         if isinstance(cookies, list):
             for cookie in cookies:
                 for key, value in cookie.items():
-                    self._cookies.set_cookie('localhost', key, value)
+                    self._cookies.set_cookie("localhost", key, value)
                 return
         for key, value in cookies.items():
-            self._cookies.set_cookie('localhost', key, value)
+            self._cookies.set_cookie("localhost", key, value)
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    self._cookies.delete_cookie('localhost', cookie)
+                    self._cookies.delete_cookie("localhost", cookie)
                 except KeyError:
                     pass
         else:
@@ -54,8 +53,7 @@ class CookieManager(CookieManagerAPI):
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict([(c.name, c.value)
-                                 for c in self._cookies.cookie_jar])
+            cookies_dict = dict([(c.name, c.value) for c in self._cookies.cookie_jar])
             return cookies_dict == other_object
 
 
@@ -64,7 +62,7 @@ class FlaskClient(LxmlDriver):
     driver_name = "flask"
 
     def __init__(self, app, user_agent=None, wait_time=2, custom_headers=None):
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         self._browser = app.test_client()
         self._cookie_manager = CookieManager(self._browser)
         self._custom_headers = custom_headers if custom_headers else {}
@@ -82,7 +80,7 @@ class FlaskClient(LxmlDriver):
             del self._html
         except AttributeError:
             pass
-        self.status_code = StatusCode(self._response.status_code, '')
+        self.status_code = StatusCode(self._response.status_code, "")
 
     def _do_method(self, method, url, data=None):
         self._url = url
@@ -90,10 +88,12 @@ class FlaskClient(LxmlDriver):
         while True:
             self._last_urls.append(url)
             # flask doesn't expose redirect_chain, so we have to mark it
-            self._response = func_method(url, headers=self._custom_headers, data=data, follow_redirects=False)
+            self._response = func_method(
+                url, headers=self._custom_headers, data=data, follow_redirects=False
+            )
             if self._response.status_code not in (301, 302, 303, 305, 307):
                 break
-            url = self._response.headers['Location']
+            url = self._response.headers["Location"]
         self._url = self._last_urls[-1]
         self._post_load()
 
