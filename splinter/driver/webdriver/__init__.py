@@ -11,7 +11,7 @@ import sys
 import os
 from contextlib import contextmanager
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import WebDriverException
 
@@ -310,6 +310,9 @@ class BaseWebDriver(DriverAPI):
                 self.driver.find_element_by_tag_name("body").text.index(text)
                 return True
             except ValueError:
+                pass
+            except StaleElementReferenceException:
+                self.reload()
                 pass
             except NoSuchElementException:
                 # This exception will be thrown if the body tag isn't present
