@@ -722,5 +722,11 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """
         raise NotImplementedError
 
+    def screenshot(self):
+        """
+        Take screenshot of the element.
+        """
+        raise NotImplementedError
+
     def __getitem__(self, attribute):
         raise NotImplementedError

@@ -3,18 +3,58 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Finding elements
+    :description: Take screenshot
     :keywords: splinter, python, tutorial, screenshot
 
 ++++++++++++++++++
-Taking screenshots
+Take screenshot
 ++++++++++++++++++
 
-Splinter doesn't support taking screenshots by itself, to take screenshots you must to call the driver's `take_screenshot` method:
+Splinter can take current view screenshot easily:
 
 .. highlight:: python
 
 ::
 
     browser = Browser()
-    browser.driver.save_screenshot('your_screenshot.png')
+    screenshot_path = browser.screenshot('absolute_path/your_screenshot.png')
+
+You should use the absolute path to save screenshot, if not screenshot will save in a temporary file.
+
+Take a full view screenshot:
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    screenshot_path = browser.screenshot('absolute_path/your_screenshot.png', full=True)
+
+++++++++++++++++++
+Take element screenshot
+++++++++++++++++++
+First, if you want to use this function, you should install the Pillow dependency:
+
+::
+
+    pip install Pillow
+
+If the element in current view:
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    browser.visit('http://example.com')
+    screenshot_path = browser.find_by_xpath('xpath_rule').first.screenshot('absolute_path/your_screenshot.png')
+
+If the element not in current view, you should do it like this:
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    browser.visit('http://example.com')
+    screenshot_path = browser.find_by_xpath('xpath_rule').first.screenshot('absolute_path/your_screenshot.png', full=True)
