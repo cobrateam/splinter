@@ -24,7 +24,7 @@ setup(
     + [("Programming Language :: Python :: %s" % x) for x in "2.6 2.7 3.3 3.4".split()],
     packages=find_packages(exclude=["docs", "tests", "samples"]),
     include_package_data=True,
-    install_requires=["selenium>=3.8.1"],
+    install_requires=["selenium>=3.13.0"],
     extras_require={
         "zope.testbrowser": ["zope.testbrowser>=4.0.4", "lxml>=2.3.6", "cssselect"],
         "django": ["Django>=1.7.11,<1.12", "lxml>=2.3.6", "cssselect", "six"],
