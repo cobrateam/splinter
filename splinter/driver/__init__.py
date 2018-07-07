@@ -718,7 +718,7 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
 
         Example:
 
-            >>> element..select("NY")
+            >>> element.select("NY")
         """
         raise NotImplementedError
 
