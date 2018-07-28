@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 """
-This module contains the basic API for splinter drivers and elemnts.
+This module contains the basic API for splinter drivers and elements.
 """
 
 from splinter.meta import InheritedDocs
