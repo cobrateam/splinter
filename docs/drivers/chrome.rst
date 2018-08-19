@@ -67,7 +67,7 @@ Linux 64bits
 ::
 
     $ cd $HOME/Downloads
-    $ wget https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+    $ wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
     $ unzip chromedriver_linux64.zip
 
     $ mkdir -p $HOME/bin
