@@ -10,6 +10,9 @@
 Dealing with HTTP status code and exceptions
 ++++++++++++++++++++++++++++++++++++++++++++
 
+**Note:** After 0.8 version the `webdriver` (firefox, chrome) based drivers does not support http error
+handling.
+
 Dealing with HTTP status code
 -----------------------------
 
