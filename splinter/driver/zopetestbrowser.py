@@ -143,7 +143,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         for xpath_element in html.xpath(xpath):
             if self._element_is_link(xpath_element):
                 return self._find_links_by_xpath(xpath)
-            elif self._element_is_control(xpath_element):
+            elif self._element_is_control(xpath_element) and xpath_element.name:
                 return self.find_by_name(xpath_element.name)
             else:
                 elements.append(xpath_element)
