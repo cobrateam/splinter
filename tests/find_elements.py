@@ -179,7 +179,7 @@ class FindElementsTest(object):
 
     def test_find_by_name_in_element_context(self):
         elements = self.browser.find_by_css("#inside")
-        decendent = elements[0].find_by_name("upload")
+        decendent = elements[0].find_by_name("crazy-upload")
         self.assertEqual(len(decendent), 1)
         self.assertIsInstance(decendent, ElementList)
         self.assertIsInstance(decendent.first, ElementAPI)

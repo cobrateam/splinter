@@ -6,6 +6,16 @@
 
 import time
 import re
+import unittest
+
+
+def skipIfZope(f):
+    def wrapper(self, *args, **kwargs):
+        if self.__class__.__name__ == 'ZopeTestBrowserDriverTest':
+            return unittest.skip("skipping this test for zope testbrowser")
+        else:
+            f(self, *args, **kwargs)
+    return wrapper
 
 
 class FormElementsTest(object):
@@ -20,12 +30,14 @@ class FormElementsTest(object):
         value = self.browser.find_by_name("q").value
         self.assertEqual("new query", value)
 
+    @skipIfZope
     def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
         self.browser.find_by_css("input.submit-input-no-name").click()
         self.assertEqual(
             self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
         )
 
+    @skipIfZope
     def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('input[name="submit-input-no-value"]').click()
         body_text = self.browser.find_by_xpath("/descendant-or-self::*").text.strip()
@@ -34,6 +46,7 @@ class FormElementsTest(object):
             repr(body_text),
         )
 
+    @skipIfZope
     def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
         self.browser.find_by_css("input.submit-input-empty").click()
         self.assertEqual(
@@ -47,10 +60,12 @@ class FormElementsTest(object):
             "submit-input: submit-input-value",
         )
 
+    @skipIfZope
     def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
         self.browser.find_by_css("button.submit-button-no-name").click()
         self.assertEqual(self.browser.find_by_xpath("/descendant-or-self::*").text, "")
 
+    @skipIfZope
     def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('button[name="submit-button-no-value"]').click()
         self.assertEqual(
@@ -58,12 +73,14 @@ class FormElementsTest(object):
             "submit-button-no-value:",
         )
 
+    @skipIfZope
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         self.browser.find_by_css("button.submit-button-empty").click()
         self.assertEqual(
             self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
         )
 
+    @skipIfZope
     def test_clicking_submit_button_posts_button_value_if_value_present(self):
         self.browser.find_by_css('button[name="submit-button"]').click()
 

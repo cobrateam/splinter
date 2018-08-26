@@ -7,7 +7,7 @@
 import re
 
 from lxml.cssselect import CSSSelector
-from zope.testbrowser.browser import Browser, ListControl
+from zope.testbrowser.browser import Browser, ListControl, SubmitControl
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI
@@ -16,60 +16,58 @@ from splinter.cookie_manager import CookieManagerAPI
 
 import mimetypes
 import lxml.html
-import mechanize
 import time
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, browser_cookies):
-        self._cookies = browser_cookies
+    def __init__(self, driver):
+        self.driver = driver
 
     def add(self, cookies):
         if isinstance(cookies, list):
             for cookie in cookies:
                 for key, value in cookie.items():
-                    self._cookies[key] = value
+                    self.driver.cookies[key] = value
                 return
         for key, value in cookies.items():
-            self._cookies[key] = value
+            self.driver.cookies[key] = value
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    del self._cookies[cookie]
+                    del self.driver.cookies[cookie]
                 except KeyError:
                     pass
         else:
-            self._cookies.clearAll()
+            self.driver.cookies.clearAll()
 
     def all(self, verbose=False):
         cookies = {}
-        for key, value in self._cookies.items():
+        for key, value in self.driver.cookies.items():
             cookies[key] = value
         return cookies
 
     def __getitem__(self, item):
-        return self._cookies[item]
+        return self.driver.cookies[item]
 
     def __contains__(self, key):
-        return key in self._cookies
+        return key in self.driver.cookies
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            return dict(self._cookies) == other_object
+            return dict(self.driver.cookies) == other_object
 
 
 class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     driver_name = "zope.testbrowser"
 
-    def __init__(self, user_agent=None, wait_time=2, ignore_robots=False):
+    def __init__(self, wait_time=2):
         self.wait_time = wait_time
-        mech_browser = self._get_mech_browser(user_agent, ignore_robots)
-        self._browser = Browser(mech_browser=mech_browser)
+        self._browser = Browser()
 
-        self._cookie_manager = CookieManager(self._browser.cookies)
+        self._cookie_manager = CookieManager(self._browser)
         self._last_urls = []
 
     def __enter__(self):
@@ -135,6 +133,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
             xpath, original_find="css", original_selector=selector
         )
 
+    def get_control(self, xpath_element):
+        return xpath_element
+
     def find_by_xpath(self, xpath, original_find=None, original_selector=None):
         html = self.htmltree
 
@@ -143,10 +144,10 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         for xpath_element in html.xpath(xpath):
             if self._element_is_link(xpath_element):
                 return self._find_links_by_xpath(xpath)
-            elif self._element_is_control(xpath_element):
+            elif self._element_is_control(xpath_element) and xpath_element.name:
                 return self.find_by_name(xpath_element.name)
             else:
-                elements.append(xpath_element)
+                elements.append(self.get_control(xpath_element))
 
         find_by = original_find or "xpath"
         query = original_selector or xpath
@@ -190,6 +191,8 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                 index += 1
             except LookupError:
                 break
+            except NotImplementedError:
+                break
         return ElementList(
             [ZopeTestBrowserControlElement(element, self) for element in elements],
             find_by="name",
@@ -214,20 +217,13 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         self.find_by_name(name=name).first._control.value = value
 
     def fill_form(self, field_values, form_id=None, name=None):
-        form = None
-
-        if name is not None:
-            form = self.find_by_name(name)
-        if form_id is not None:
-            form = self.find_by_id(form_id)
+        form = self._browser
+        if name or form_id:
+            form = self._browser.getForm(name=name, id=form_id)
 
         for name, value in field_values.items():
-            if form:
-                element = form.find_by_name(name)
-                control = element.first._element
-            else:
-                element = self.find_by_name(name)
-                control = element.first._control
+            control = form.getControl(name=name)
+
             if control.type == "checkbox":
                 if value:
                     control.value = control.options
@@ -238,9 +234,8 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                     option for option in control.options if option == value
                 ]
             elif control.type == "select":
-                element.select(value)
+                control.value = [value]
             else:
-                # text, textarea, password, tel
                 control.value = value
 
     def choose(self, name, value):
@@ -306,17 +301,6 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     def _element_is_control(self, element):
         return hasattr(element, "type")
-
-    def _get_mech_browser(self, user_agent, ignore_robots):
-        mech_browser = mechanize.Browser()
-
-        if user_agent is not None:
-            mech_browser.addheaders = [("User-agent", user_agent)]
-
-        if ignore_robots:
-            mech_browser.set_handle_robots(False)
-
-        return mech_browser
 
     @property
     def cookies(self):
@@ -399,7 +383,10 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_control.attrs[attr]
+        try:
+            return getattr(self._control._control, attr)
+        except AttributeError:
+            return self._control._control.attrs[attr]
 
     @property
     def value(self):
@@ -428,11 +415,11 @@ class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
         self.parent = parent
 
     def __getitem__(self, attr):
-        return self._control.mech_item.attrs[attr]
+        return getattr(self._control, attr)
 
     @property
     def text(self):
-        return self._control.mech_item.get_labels()[0]._text
+        return self._control.labels[0]
 
     @property
     def value(self):
@@ -440,4 +427,4 @@ class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):
 
     @property
     def selected(self):
-        return self._control.mech_item._selected
+        return self._control.selected

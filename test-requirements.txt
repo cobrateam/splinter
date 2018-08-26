@@ -1,4 +1,4 @@
-zope.testbrowser==4.0.4
+zope.testbrowser==5.2.4
 lxml==4.2.4
 Flask==1.0.2
 selenium==3.14.0
