@@ -326,9 +326,6 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         return self._cookie_manager
 
 
-re_extract_inner_html = re.compile(r"^<[^<>]+>(.*)</[^<>]+>$")
-
-
 class LxmlElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
@@ -358,7 +355,7 @@ class LxmlElement(ElementAPI):
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_text(self, text):
-        return self.find_by_xpath('//*[text()="%s"]' % text)
+        return self.find_by_xpath('./*[text()="%s"]' % text)
 
     def find_by_id(self, id):
         elements = self._element.cssselect("#%s" % id)
@@ -378,7 +375,7 @@ class LxmlElement(ElementAPI):
 
     @property
     def html(self):
-        return re_extract_inner_html.match(self.outer_html).group(1)
+        return re.match(r"^<[^<>]+>(.*)</[^<>]+>$", self.outer_html, re.MULTILINE | re.DOTALL).group(1)
 
     def has_class(self, class_name):
         return len(self._element.find_class(class_name)) > 0
