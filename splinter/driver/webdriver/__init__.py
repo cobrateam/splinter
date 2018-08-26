@@ -11,8 +11,7 @@ import tempfile
 import time
 from contextlib import contextmanager
 
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 from six import BytesIO
 
@@ -318,6 +317,10 @@ class BaseWebDriver(DriverAPI):
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
                 pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
+                pass
         return False
 
     def is_text_not_present(self, text, wait_time=None):
@@ -333,6 +336,10 @@ class BaseWebDriver(DriverAPI):
                 # This exception will be thrown if the body tag isn't present
                 # This has occasionally been observed. Assume that the
                 # page isn't fully loaded yet
+                pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
                 pass
         return False
 
@@ -396,6 +403,10 @@ class BaseWebDriver(DriverAPI):
                 if not isinstance(elements, list):
                     elements = [elements]
             except NoSuchElementException:
+                pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
                 pass
 
             if elements:
