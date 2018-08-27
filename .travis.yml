@@ -26,10 +26,6 @@ env:
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_browser.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_element_list.py
   - DJANGO_VERSION=1.8.7 DRIVER=tests/test_request_handler.py
-matrix:
-  exclude:
-    - python: 3.7
-      env: DRIVER=tests/test_zopetestbrowser.py
 install:
   - export PATH=$HOME:$PATH
   - ./travis-install.bash
