@@ -23,7 +23,7 @@ def firefox_installed():
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("firefox")
+        cls.browser = Browser("firefox", headless=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -55,7 +55,7 @@ class FirefoxWithExtensionTest(unittest.TestCase):
         extension_path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)), "firebug.xpi"
         )
-        cls.browser = Browser("firefox", extensions=[extension_path])
+        cls.browser = Browser("firefox", extensions=[extension_path], headless=True)
 
     def test_create_a_firefox_instance_with_extension(self):
         "should be able to load an extension"
@@ -76,7 +76,7 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
             "dom.max_script_run_time": 360,
             "devtools.inspector.enabled": True,
         }
-        cls.browser = Browser("firefox", profile_preferences=preferences)
+        cls.browser = Browser("firefox", profile_preferences=preferences, headless=True)
 
     def test_preference_set(self):
         preferences = self.browser.driver.profile.default_preferences
@@ -93,7 +93,7 @@ class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         capabilities = {"acceptSslCerts": False, "javascriptEnabled": True}
-        cls.browser = Browser("firefox", capabilities=capabilities)
+        cls.browser = Browser("firefox", capabilities=capabilities, headless=True)
 
     def test_capabilities_set(self):
         capabilities = self.browser.driver.capabilities
@@ -110,7 +110,7 @@ class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
 class FirefoxBrowserFullScreenTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("firefox", fullscreen=True)
+        cls.browser = Browser("firefox", fullscreen=True, headless=True)
 
     @classmethod
     def tearDownClass(cls):
