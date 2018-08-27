@@ -580,7 +580,6 @@ class WebDriverElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
-        self.action_chains = ActionChains(parent.driver)
 
     def _get_value(self):
         return self["value"] or self._element.text
@@ -714,14 +713,20 @@ class WebDriverElement(ElementAPI):
             re.search(r"(?:^|\s)" + re.escape(class_name) + r"(?:$|\s)", self["class"])
         )
 
+    def scroll_to(self):
+        """
+        Scroll to the current element.
+        """
+        self.parent.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
+
     def mouse_over(self):
         """
         Performs a mouse over the element.
 
         Currently works only on Chrome driver.
         """
-        self.action_chains.move_to_element(self._element)
-        self.action_chains.perform()
+        self.scroll_to()
+        ActionChains(self.parent.driver).move_to_element(self._element).perform()
 
     def mouse_out(self):
         """
@@ -729,8 +734,8 @@ class WebDriverElement(ElementAPI):
 
         Currently works only on Chrome driver.
         """
-        self.action_chains.move_by_offset(5000, 5000)
-        self.action_chains.perform()
+        self.scroll_to()
+        ActionChains(self.parent.driver).move_by_offset(0, 0).click().perform()#5000, 5000)
 
     def double_click(self):
         """
@@ -738,8 +743,8 @@ class WebDriverElement(ElementAPI):
 
         Currently works only on Chrome driver.
         """
-        self.action_chains.double_click(self._element)
-        self.action_chains.perform()
+        self.scroll_to()
+        ActionChains(self.parent.driver).double_click(self._element).perform()
 
     def right_click(self):
         """
@@ -747,8 +752,8 @@ class WebDriverElement(ElementAPI):
 
         Currently works only on Chrome driver.
         """
-        self.action_chains.context_click(self._element)
-        self.action_chains.perform()
+        self.scroll_to()
+        ActionChains(self.parent.driver).context_click(self._element).perform()
 
     def drag_and_drop(self, droppable):
         """
@@ -756,8 +761,8 @@ class WebDriverElement(ElementAPI):
 
         Currently works only on Chrome driver.
         """
-        self.action_chains.drag_and_drop(self._element, droppable._element)
-        self.action_chains.perform()
+        self.scroll_to()
+        ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
 
     def screenshot(self, name='', suffix='.png', full=False):
         name = name or ''
