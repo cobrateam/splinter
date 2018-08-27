@@ -24,7 +24,7 @@ def chrome_installed():
 class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("chrome")
+        cls.browser = Browser("chrome", headless=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -54,7 +54,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.browser = Browser("chrome", fullscreen=True)
+        cls.browser = Browser("chrome", fullscreen=True, headless=True)
 
     @classmethod
     def tearDownClass(cls):
