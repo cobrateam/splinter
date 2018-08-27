@@ -34,11 +34,11 @@ class switch_window:
 
     def __enter__(self):
         self.current_window_handle = self.browser.driver.current_window_handle
-        self.browser.driver.switch_to_window(self.window_handle)
+        self.browser.driver.switch_to.window(self.window_handle)
 
     def __exit__(self, type, value, traceback):
         if self.current_window_handle in self.browser.driver.window_handles:
-            self.browser.driver.switch_to_window(self.current_window_handle)
+            self.browser.driver.switch_to.window(self.current_window_handle)
 
 
 class Window(object):
@@ -87,7 +87,7 @@ class Window(object):
 
         def fset(self, value):
             if value is True:
-                self._browser.driver.switch_to_window(self.name)
+                self._browser.driver.switch_to.window(self.name)
             else:
                 raise TypeError("can only set to True")
 
@@ -148,7 +148,7 @@ class Windows(object):
             return Window(self._browser, current_handle) if current_handle else None
 
         def fset(self, value):
-            self._browser.driver.switch_to_window(value.name)
+            self._browser.driver.switch_to.window(value.name)
 
         return locals()
 
@@ -300,7 +300,7 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_not_present(self.find_by_id, id, wait_time)
 
     def get_alert(self):
-        return AlertElement(self.driver.switch_to_alert())
+        return AlertElement(self.driver.switch_to.alert())
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
