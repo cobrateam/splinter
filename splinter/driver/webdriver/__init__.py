@@ -631,6 +631,15 @@ class WebDriverElement(ElementAPI):
     def click(self):
         self._element.click()
 
+    def click_by_coordinate(self, x=0, y=0):
+        """
+        Click element by (x, y) which the coordinate inside the element.
+        """
+        action_chains = ActionChains(self.parent.driver)
+        action_chains.move_to_element_with_offset(to_element=self._element, xoffset=x, yoffset=y)
+        action_chains.click()
+        action_chains.perform()
+
     def check(self):
         if not self.checked:
             self._element.click()

@@ -103,6 +103,17 @@ Right-clicks on the element. Example:
 
     browser.find_by_tag('h1').right_click()
 
+``click_by_coordinate``
+---------------
+
+.. highlight:: python
+
+Click element by (x, y) which the coordinate inside the element. Example:
+
+::
+
+    browser.find_by_tag('h1').click_by_coordinate(10, 10)
+
 ``drag_and_drop``
 -----------------
 

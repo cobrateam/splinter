@@ -632,6 +632,12 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         Clicks in the element.
         """
         raise NotImplementedError
+    
+    def click_by_coordinate(self, x=0, y=0):
+        """
+        Click element by (x, y) which the coordinate inside the element.
+        """
+        raise NotImplementedError
 
     def check(self):
         """
