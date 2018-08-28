@@ -55,7 +55,7 @@ Linux
 
 Go to the `download page on Chromium project
 <https://sites.google.com/a/chromium.org/chromedriver/downloads>`_ and choose
-the properly version for you Linux. Then extract the downloaded file in a
+the correct version for your Linux installation. Then extract the downloaded file in a
 directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any
 directory and add that directory to the ``PATH``:
 
