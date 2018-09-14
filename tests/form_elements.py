@@ -98,6 +98,14 @@ class FormElementsTest(object):
             "submit-button: submit-button-value",
         )
 
+    def test_submitting_a_form_when_input_is_outside_the_form(self):
+        self.browser.find_by_css('input[form="form-with-submit-outside"]').click()
+        assert "submit-input: submit-input-value" == self.browser.find_by_xpath("/descendant-or-self::*").text
+
+    def test_submitting_a_form_when_button_is_outside_the_form(self):
+        self.browser.find_by_css('button[form="form-with-submit-outside"]').click()
+        assert "submit-button: submit-button-value" == self.browser.find_by_xpath("/descendant-or-self::*").text
+
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill("query", "my name")
         self.browser.find_by_name("send").click()

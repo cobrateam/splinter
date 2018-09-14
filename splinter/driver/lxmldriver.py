@@ -453,7 +453,13 @@ class LxmlControlElement(LxmlElement):
         self._control.value = value
 
     def _get_parent_form(self):
-        parent_form = next(self._control.iterancestors("form"))
+        # First, try to find the form by the `form` attribute.
+        if 'form' in self._control.attrib:
+            parent_form = self._control.getroottree().xpath(
+                '//*[@id="%s"][1]' % self._control.attrib['form']
+            )[0]
+        else:
+            parent_form = next(self._control.iterancestors("form"))
         return self.parent._forms.setdefault(parent_form._name(), parent_form)
 
 
