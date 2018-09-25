@@ -73,7 +73,7 @@ class WebDriver(BaseWebDriver):
         self.driver = Firefox(
             firefox_profile,
             capabilities=firefox_capabilities,
-            firefox_options=firefox_options,
+            options=firefox_options,
             timeout=timeout,
             **kwargs
         )
