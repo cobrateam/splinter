@@ -5,9 +5,15 @@
 splinter - python tool for testing web applications
 ++++++++++++++++++++++++++++++++++++++++++++++++
 
-Splinter is a tool for web application testing with a simple solution for finding elements, forming actions, and performing other browser actions. In order to show how easy it is, take a look at the following sample code block.
+splinter is an open source tool for testing web applications using Python.
+It lets you automate browser actions, such as visiting URLs and interacting with their items.
 
-.. codeblock:: python
+Sample code
+-----------
+
+.. highlight:: python
+
+::
    
    from splinter import Browser
 
