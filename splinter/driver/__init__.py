@@ -113,7 +113,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         """
         raise NotImplementedError("%s doesn't support frames." % self.driver_name)
 
-    def execute_script(self, script):
+    def execute_script(self, script, *args):
         """
         Executes a given JavaScript in the browser.
 
@@ -124,7 +124,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support execution of arbitrary JavaScript." % self.driver_name
         )
 
-    def evaluate_script(self, script):
+    def evaluate_script(self, script, *args):
         """
         Similar to :meth:`execute_script <DriverAPI.execute_script>` method.
 

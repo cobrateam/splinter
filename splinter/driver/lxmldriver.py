@@ -20,6 +20,9 @@ from splinter.exceptions import ElementDoesNotExist
 
 
 class LxmlDriver(ElementPresentMixIn, DriverAPI):
+    _response = ""
+    _url = ""
+
     def __init__(self, user_agent=None, wait_time=2):
         self.wait_time = wait_time
         self._history = []
