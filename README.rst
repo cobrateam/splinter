@@ -49,10 +49,9 @@ Documentation
 
 External links
 ==============
-
 * `Django Full Stack Testing and BDD with Lettuce and Splinter <http://cilliano.com/blog/2011/02/07/django-bdd-with-lettuce-and-splinter/>`_
 
-* `Splinter: Python tool for acceptance tests on web applications <http://www.franciscosouza.com/2011/05/splinter-python-tool-for-acceptance-tests-on-web-applications/>`_
+* `Splinter: Python tool for acceptance tests on web applications <https://f.souza.cc/2011/05/splinter-python-tool-for-acceptance.html/>`_
 
 * `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
 

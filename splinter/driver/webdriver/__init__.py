@@ -164,6 +164,8 @@ class Windows(object):
 
 
 class BaseWebDriver(DriverAPI):
+    driver = None
+
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
         self.ori_window_size = None
@@ -202,11 +204,11 @@ class BaseWebDriver(DriverAPI):
     def reload(self):
         self.driver.refresh()
 
-    def execute_script(self, script):
-        return self.driver.execute_script(script)
+    def execute_script(self, script, *args):
+        return self.driver.execute_script(script, *args)
 
-    def evaluate_script(self, script):
-        return self.driver.execute_script("return %s" % script)
+    def evaluate_script(self, script, *args):
+        return self.driver.execute_script("return %s" % script, *args)
 
     def is_element_visible(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
