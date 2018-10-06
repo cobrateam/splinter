@@ -20,9 +20,9 @@ def skipIfZope(f):
 
 class FormElementsTest(object):
     def test_fill(self):
-        self.browser.fill("query", "new query")
+        self.browser.fill("query", "LT-CS-01/2018")
         value = self.browser.find_by_name("query").value
-        self.assertEqual("new query", value)
+        self.assertEqual("LT-CS-01/2018", value)
 
     def test_fill_element(self):
         self.browser.find_by_name("q").fill("new query")
