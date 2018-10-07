@@ -97,9 +97,8 @@ Headless drivers
 The following drivers don't open a browser to run your actions (but has its own dependencies, check the
 specific docs for each driver):
 
-* :doc:`Chrome WebDriver </drivers/chrome>`
-* :doc:`Firefox WebDriver </drivers/firefox>`
-* :doc:`Phantomjs WebDriver </drivers/phantomjs>`
+* :doc:`Chrome WebDriver (headless option) </drivers/chrome>`
+* :doc:`Firefox WebDriver  (headless option) </drivers/firefox>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
 * :doc:`django client </drivers/django>`
 * :doc:`flask client </drivers/flask>`
