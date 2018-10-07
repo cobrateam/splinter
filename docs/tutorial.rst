@@ -29,7 +29,7 @@ First of all, import ``Browser`` class and instantiate it.
     from splinter import Browser
     browser = Browser()
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
+**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
 
 
 Visit Google website
@@ -127,7 +127,7 @@ Finally, the source code will be:
 
     from splinter import Browser
 
-    browser = Browser()
+    browser = Browser() # defaults to firefox
     browser.visit('http://google.com')
     browser.fill('q', 'splinter - python acceptance testing for web applications')
     browser.find_by_name('btnG').click()
