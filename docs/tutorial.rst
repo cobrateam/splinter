@@ -29,7 +29,7 @@ First of all, import ``Browser`` class and instantiate it.
     from splinter import Browser
     browser = Browser()
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
+**Note:** if you don't provide any driver argument to the ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
 
 
 Visit Google website
