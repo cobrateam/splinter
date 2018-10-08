@@ -302,7 +302,7 @@ class BaseWebDriver(DriverAPI):
         return self.is_element_not_present(self.find_by_id, id, wait_time)
 
     def get_alert(self):
-        return AlertElement(self.driver.switch_to.alert())
+        return AlertElement(self.driver.switch_to_alert())
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
