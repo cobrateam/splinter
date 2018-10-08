@@ -35,6 +35,7 @@ matrix:
     - python: 3.6
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
 install:
+  - export PATH=$HOME:$PATH
   - make dependencies
 script: ./run_tests.py -w ${DRIVER}
 dist: trusty
