@@ -20,7 +20,7 @@ from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
 from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest
-
+from fake_webapp import read_static
 
 class BaseBrowserTests(
     ElementTest,
