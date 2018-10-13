@@ -10,7 +10,7 @@
 Installing PyQt4
 ++++++++++++++++
 
-In order to use Spynner driver, you need to install PyQt4. PyQt4 has a few dependencies,
+In order to use Spynner driver, you need to install PyQt4. PyQt4 itself has a few dependencies;
 follow the steps below to get PyQt4 and its dependencies running on your system.
 
 Install Qt4
