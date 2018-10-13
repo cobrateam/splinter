@@ -317,7 +317,29 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             if not self._is_text_present(text):
                 return True
         return False
-
+    
+    def contains_text(self, text, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+        while time.time() < end_time:
+            if self._contains_text(text):
+                return True
+        return False
+    
+    def _contains_text(self, text):
+        try:
+            body = self.find_by_tag("body").first
+            # Check if there's a substring match at all
+            if body.find(text) is not -1:
+                return True
+            else:
+                return False
+        except ElementDoesNotExist:
+            # This exception will be thrown if the body tag isn't present
+            # This has occasionally been observed. Assume that the
+            # page isn't fully loaded yet
+            return False                
+    
     def _element_is_link(self, element):
         return element.tag == "a"
 
