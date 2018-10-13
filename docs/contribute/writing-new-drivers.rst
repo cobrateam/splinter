@@ -7,14 +7,13 @@
     :keywords: splinter, python, contribution, open source, testing, web application, atdd, drivers
 
 ++++++++++++++++++++++++++++
-writing new splinter drivers
+Writing new splinter drivers
 ++++++++++++++++++++++++++++
 
 The process of creating a new splinter browser is really simple: you just need to implement a
-TestCase (extending ``tests.base. BaseBrowserTests``) and make all tests green.
+TestCase (extending ``tests.base. BaseBrowserTests``) and make all tests green. For example:
 
-Here is an example: imagine you're creating the ``Columbia`` driver, you would add the ``test_columbia.py``
-file containing some code like this:
+Imagine you're creating the ``Columbia`` driver, you would add the ``test_columbia.py`` file containing some code like...
 
 .. highlight:: python
 
