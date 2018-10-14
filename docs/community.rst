@@ -7,7 +7,7 @@
     :keywords: splinter, python, cobrateam, community, atdd, tests, acceptance tests, web applications
 
 +++++++++
-community
+Community
 +++++++++
 
 mailing list

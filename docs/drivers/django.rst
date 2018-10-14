@@ -8,7 +8,7 @@
 
 ++++++++++++++++
 django client
-+++++++++++++
+++++++++++++++++
 
 .. module:: splinter.driver.djangoclient
 

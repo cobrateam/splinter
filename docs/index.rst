@@ -1,4 +1,4 @@
-.. Copyright 2012 splinter authors. All rights reserved.
+.. Copyright 2012-2018 splinter authors. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 
@@ -35,16 +35,17 @@ Sample code
         else:
             print("No, it wasn't found... We need to improve our SEO techniques")
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
+**Note:** if you don't provide any driver to the ``Browser`` function, ``firefox`` will be used.
 
 Features
 --------
 
 * simple api
-* multi webdrivers (chrome webdriver, firefox webdriver, phantomjs webdriver, zopetestbrowser, remote webdriver)
+* multiple webdrivers (chrome, firefox, zopetestbrowser, remote
+  webdriver, Django, Flask)
 * css and xpath selectors
-* support to iframe and alert
-* execute javascript
+* support for iframes and alerts
+* can execute javascript
 * works with ajax and async javascript
 
 :doc:`what's new in splinter? </news>`
@@ -89,12 +90,11 @@ The following drivers open a browser to run your actions:
 
 * :doc:`Chrome WebDriver </drivers/chrome>`
 * :doc:`Firefox WebDriver </drivers/firefox>`
-* :doc:`Remote WebDriver </drivers/remote>`
 
 Headless drivers
 ++++++++++++++++
 
-The following drivers don't open a browser to run your actions (but has its own dependencies, check the
+The following drivers don't open a browser to run your actions (but each has its own dependencies, check the
 specific docs for each driver):
 
 * :doc:`Chrome WebDriver (headless option) </drivers/chrome>`
@@ -119,3 +119,58 @@ Get in touch and contribute
 * :doc:`Contribute </contribute>`
 * :doc:`Writing new drivers </contribute/writing-new-drivers>`
 * :doc:`Setting up your splinter development environment </contribute/setting-up-your-development-environment>`
+
+.. toctree::
+   :caption: Getting Started
+   :hidden:
+
+   why
+   install
+   tutorial
+
+.. toctree::
+   :caption: Browsing and Interactions
+   :hidden:
+      
+   browser
+   finding
+   mouse-interaction
+   elements-in-the-page
+   matchers
+   cookies
+   screenshot
+      
+.. toctree::
+   :caption: JavaScript
+   :hidden:
+
+   javascript
+
+.. toctree::
+   :caption: Drivers
+   :hidden:
+
+   drivers/chrome
+   drivers/firefox
+   drivers/remote
+   drivers/zope.testbrowser
+   drivers/django
+   drivers/flask
+
+.. toctree::
+   :caption: More
+   :hidden:
+      
+   http-status-code-and-exception
+   http-proxies
+   iframes-and-alerts
+   api/index
+
+.. toctree::
+   :caption: Get in touch and contribute
+   :hidden:
+
+   community
+   contribute
+   contribute/writing-new-drivers
+   contribute/setting-up-your-development-environment

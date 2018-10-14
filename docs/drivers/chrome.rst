@@ -53,7 +53,7 @@ The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 Linux
 -----
 
-Go to the `download page on Chromium project
+Go to the `download page on the Chromium project
 <https://sites.google.com/a/chromium.org/chromedriver/downloads>`_ and choose
 the correct version for your Linux installation. Then extract the downloaded file in a
 directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any
@@ -103,7 +103,7 @@ the ``Browser`` instance:
     from splinter import Browser
     browser = Browser('chrome')
 
-**Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
+**Note:** if you don't provide any driver to the ``Browser`` function, ``firefox`` will be used.
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 

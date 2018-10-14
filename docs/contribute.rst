@@ -7,7 +7,7 @@
     :keywords: splinter, python, contribution, open source, testing, web application, atdd
 
 ++++++++++
-contribute
+Contribute
 ++++++++++
 
 * Source hosted at `GitHub <http://github.com/cobrateam/splinter>`_
@@ -48,15 +48,21 @@ When adding support for new drivers, we usually work in a separated branch.
 writing docs
 ============
 
-Splinter documentation is written using `Sphinx <http://sphinx.pocoo.org/>`_, which uses `RST <http://docutils.sourceforge.net/rst.html>`_. Check these tools docs to learn how to write docs for Splinter.
+Splinter documentation is written using `Sphinx 
+<http://sphinx.pocoo.org/>`_, which uses `RST 
+<http://docutils.sourceforge.net/rst.html>`_. We use the `Read the Docs Sphinx Theme <https://sphinx-rtd-theme.readthedocs.io/en/latest/index.html>`_. Check these tools' docs to learn how to write docs for Splinter.
 
 building docs
 =============
 
-In order to build the HTML docs, just run on terminal:
+In order to build the HTML docs, just navigate to the project folder
+(the main folder, not the ``docs`` folder) and run the following on the terminal:
 
 .. highlight:: bash
 
 ::
 
     $ make doc
+
+The requirements for building the docs are specified in
+``doc-requirements.txt`` in the project folder.
