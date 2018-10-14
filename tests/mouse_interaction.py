@@ -21,7 +21,7 @@ class MouseInteractionTest(object):
         element = self.browser.find_by_css(".add-element-mouseover")
         element.mouse_over()
         element.mouse_out()
-        self.assertFalse(self.browser.is_element_present_by_id("what-is-your-name"))
+        self.assertTrue(self.browser.is_element_not_present_by_id("what-is-your-name"))
 
     def test_double_click(self):
         "double click should shows a hidden element"
