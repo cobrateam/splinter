@@ -113,6 +113,7 @@ def get_complete_suite():
         start_dir=TESTS_ROOT, top_level_dir=os.path.join(TESTS_ROOT, os.path.pardir)
     )
 
+# If executing the same file __name__ is equal to __main__ , while when imported via some other file the code below will not execute
 
 if __name__ == "__main__":
     try:
