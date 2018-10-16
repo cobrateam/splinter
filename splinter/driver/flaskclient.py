@@ -55,7 +55,7 @@ class CookieManager(CookieManagerAPI):
         if isinstance(other_object, dict):
             cookies_dict = dict([(c.name, c.value) for c in self._cookies.cookie_jar])
             return cookies_dict == other_object
-
+        return False
 
 class FlaskClient(LxmlDriver):
 

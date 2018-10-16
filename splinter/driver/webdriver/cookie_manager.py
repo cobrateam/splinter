@@ -62,3 +62,5 @@ class CookieManager(CookieManagerAPI):
 
         if isinstance(other_object, dict):
             return dict(cookies) == other_object
+
+        return False
