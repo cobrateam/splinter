@@ -57,6 +57,7 @@ class CookieManager(CookieManagerAPI):
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             return dict(self.driver.cookies) == other_object
+        return False
 
 
 class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):

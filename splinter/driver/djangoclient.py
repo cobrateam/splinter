@@ -55,6 +55,7 @@ class CookieManager(CookieManagerAPI):
                 [(key, morsel.value) for key, morsel in self._cookies.items()]
             )
             return cookies_dict == other_object
+        return False
 
 
 class DjangoClient(LxmlDriver):
