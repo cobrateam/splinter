@@ -699,7 +699,7 @@ class WebDriverElement(ElementAPI):
         return self.find_by_css(selector, original_find="value", original_query=value)
 
     def find_by_text(self, text):
-        selector = './*[text()="%s"]' % text
+        selector = './/*[text()="%s"]' % text
         return self.find_by_xpath(selector, original_find="text", original_query=text)
 
     def find_by_id(self, id):

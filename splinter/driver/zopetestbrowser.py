@@ -340,7 +340,7 @@ class ZopeTestBrowserElement(ElementAPI):
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_text(self, text):
-        return self.find_by_xpath('./*[text()="%s"]' % text)
+        return self.find_by_xpath('.//*[text()="%s"]' % text)
 
     def find_by_id(self, id):
         elements = self._element.cssselect("#%s" % id)
