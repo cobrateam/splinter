@@ -4,13 +4,13 @@
 
 .. meta::
     :description: Browser
-    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope, testebrowser
+    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope.testbrowser
 
 +++++++
 Browser
 +++++++
 
-To use splinter you need create a Browser instance:
+To use splinter you need to create a Browser instance:
 
 .. highlight:: python
 
@@ -30,10 +30,18 @@ Or, you can use it by a ``context manager``, through the ``with`` statement:
         # stuff using the browser
 
 This last example will create a new browser window and close it when the cursor
-reach the code outside the ``with`` statement, automatically.
+reaches the code outside the ``with`` statement, automatically.
 
-splinter support three drivers: chrome, firefox and zopetestbrowser
+splinter supports the following drivers:
+* :doc:`Chrome </drivers/chrome>`
+* :doc:`Firefox </drivers/firefox>`
+* :doc:`Browsers on remote machines </drivers/remote>`
+* :doc:`zope.testbrowser </drivers/zope.testbrowser>`
+* :doc:`Django client </drivers/django>`
+* :doc:`Flask client </drivers/flask>`
 
+The following examples create new Browser instances for specific drivers:
+  
 .. highlight:: python
 
 ::
@@ -94,7 +102,7 @@ exposed in v0.6.0 and earlier.
 Reload a page
 =============
 
-You can reload a page using ``reload`` method:
+You can reload a page using the ``reload`` method:
 
 .. highlight:: python
 
@@ -106,7 +114,7 @@ You can reload a page using ``reload`` method:
 Navigate through the history
 ============================
 
-You can back and forward on your browsing history using ``back`` and ``forward`` methods:
+You can move back and forward through your browsing history using the ``back`` and ``forward`` methods:
 
 .. highlight:: python
 
@@ -157,7 +165,7 @@ The visited page's url can be accessed by the ``url`` attribute:
 Changing Browser User-Agent
 ===========================
 
-You can pass User-Agent on Browser instantiation.
+You can pass a User-Agent header on Browser instantiation.
 
 .. highlight:: python
 

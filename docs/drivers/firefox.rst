@@ -41,7 +41,7 @@ the ``Browser`` instance:
 
 
 Using headless option for Firefox
------------------------
+-----------------------------------
 
 Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
 
@@ -54,7 +54,7 @@ Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
 
 
 Using incognito option for Firefox
------------------------
+------------------------------------
 
 We can run Firefox as a private browser.
 
