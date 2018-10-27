@@ -9,7 +9,7 @@ splinter is an open source tool for testing web applications using Python.
 It lets you automate browser actions, such as visiting URLs and interacting with their items.
 
 Sample code
------------
+------------
 
 .. highlight:: python
 
