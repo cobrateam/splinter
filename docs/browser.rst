@@ -26,8 +26,8 @@ Or, you can use it by a ``context manager``, through the ``with`` statement:
 ::
 
     from splinter import Browser
-    with Browser() as b:
-        # stuff using the browser
+    with Browser() as browser:
+        browser.visit('http://cobrateam.info')
 
 This last example will create a new browser window and close it when the cursor
 reaches the code outside the ``with`` statement, automatically.
@@ -41,7 +41,7 @@ splinter supports the following drivers:
 * :doc:`Flask client </drivers/flask>`
 
 The following examples create new Browser instances for specific drivers:
-  
+
 .. highlight:: python
 
 ::
