@@ -330,7 +330,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         try:
             body = self.find_by_tag("body").first
             # Check if there's a substring match at all
-            if body.find(text) is not -1:
+            if body.find(text) != -1:
                 return True
             else:
                 return False
