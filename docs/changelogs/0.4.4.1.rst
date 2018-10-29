@@ -1,0 +1,11 @@
+.. meta::
+    :description: New splinter features on version 0.4.4.1.
+    :keywords: splinter 0.4.4.1, python, news, documentation, tutorial, web application
+
+0.4.4.1 changes
+==============================
+
+Bugfixes
+--------
+
+* update selenium version, to work with latest Firefox version

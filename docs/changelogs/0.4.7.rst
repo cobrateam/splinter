@@ -1,0 +1,21 @@
+.. Copyright 2012 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.4.7.
+    :keywords: splinter 0.4.7, python, news, documentation, tutorial, web application
+
+0.4.7 changes
+==============================
+
+Features
+--------
+
+* has_class method on Element
+* fix documentation
+
+Bugfixes and improvements
+-------------------------
+
+* improving `find_by_css` method to use native methods from drivers

@@ -167,6 +167,14 @@ Get in touch and contribute
    api/index
 
 .. toctree::
+   :caption: News
+   :maxdepth: 2
+   :glob:
+
+   news
+   news/*
+
+.. toctree::
    :caption: Get in touch and contribute
    :hidden:
 
