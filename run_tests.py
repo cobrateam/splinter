@@ -132,4 +132,4 @@ if __name__ == "__main__":
 
     result = run_suite(suite, args)
     stop_server()
-    sys.exit(len(result.errors) + len(result.failures))
+    sys.exit(len(result.errors) + len(result.failures))//hi
