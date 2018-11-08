@@ -7,6 +7,7 @@
 import os
 import unittest
 
+import werkzeug
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import app, EXAMPLE_APP
@@ -105,6 +106,10 @@ class FlaskClientDriverTest(
         """
         with self.assertRaises(NotImplementedError):
             self.browser.type("query", "with type method", slowly=True)
+
+    def test_response_headers(self):
+        self.browser.visit(EXAMPLE_APP)
+        self.assertIsInstance(self.browser.response_headers, werkzeug.datastructures.Headers)
 
     def test_slowly_typing_on_element(self):
         """

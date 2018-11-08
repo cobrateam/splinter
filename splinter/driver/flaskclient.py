@@ -103,3 +103,10 @@ class FlaskClient(LxmlDriver):
     @property
     def html(self):
         return self._response.get_data(as_text=True)
+
+    @property
+    def response_headers(self):
+        try:
+            return self._response.headers
+        except AttributeError:
+            return None

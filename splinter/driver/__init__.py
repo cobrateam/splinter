@@ -596,6 +596,15 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support cookies manipulation" % self.driver_name
         )
 
+    @property
+    def response_headers(self):
+        """
+        Headers from the most recent response.
+        """
+        raise NotImplementedError(
+            "%s doesn't support access to the response headers." % self.driver_name
+        )
+
 
 class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
     """
