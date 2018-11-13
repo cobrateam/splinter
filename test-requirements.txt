@@ -1,7 +1,7 @@
 zope.testbrowser==5.2.4; python_version < '3.0'
 lxml==4.2.4
 Flask==1.0.2
-selenium==3.14.1
+selenium==3.141.0
 coverage==4.5.1
 cssselect>=1.0.3
 argparse
