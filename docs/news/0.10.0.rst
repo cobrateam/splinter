@@ -1,0 +1,19 @@
+.. Copyright 2018 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.10.0.
+    :keywords: splinter 0.10.0, news
+
+whats's new in splinter 0.10.0?
+==============================
+
+* Scroll to elements before to execute action chains ()
+* Using `options` instead `firefox_options` to avoid warnings (https://github.com/cobrateam/splinter/pull/634)
+* Add support for `*args` parameter in `execute_script` (https://github.com/cobrateam/splinter/issues/436)
+* Implement `__ne__` in `StatusCode` (https://github.com/cobrateam/splinter/issues/460)
+* Using the new syntax `switch_to_alert` instead `switch_to.alert` to avoid webdriver warnings.
+* `CookieManager. __eq__` returns a bool value (https://github.com/cobrateam/splinter/issues/308<Paste>)
+* Fix find_by_text to be used inside a chain (https://github.com/cobrateam/splinter/issues/6281)
+* Add support for selenium 3.141.0
