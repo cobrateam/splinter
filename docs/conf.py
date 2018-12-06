@@ -18,6 +18,7 @@
 
 import os
 import sys
+from datetime import datetime
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -44,7 +45,7 @@ master_doc = "index"
 
 # General information about the project.
 project = u"Splinter"
-copyright = u"2014, cobrateam"
+copyright = u"{}, cobrateam".format(datetime.now().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
