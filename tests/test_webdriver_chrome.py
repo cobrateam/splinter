@@ -44,7 +44,11 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
 
         html = self.browser.html
         self.assertIn("text/plain", html)
-        self.assertIn(open(file_path).read().encode("utf-8"), html)
+
+        with open(file_path) as f:
+            expected = str(f.read().encode("utf-8"))
+
+        self.assertIn(expected, html)
 
     def test_should_support_with_statement(self):
         with Browser("chrome"):
