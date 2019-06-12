@@ -7,7 +7,7 @@
 from splinter.exceptions import ElementDoesNotExist
 
 
-class ElementList(list):
+class ElementList(object):
     """
     List of elements. Each member of the list is (usually) an instance
     of :class:`ElementAPI <splinter.driver.ElementAPI>`.
@@ -28,7 +28,9 @@ class ElementList(list):
         """
         Creates the list.
         """
-        self.extend(list)
+        self._container = []
+        self._container.extend(list)
+
         self.driver = driver
         self.find_by = find_by
         self.query = query
@@ -37,7 +39,7 @@ class ElementList(list):
         if not isinstance(index, int):
             return self.first[index]
         try:
-            return super(ElementList, self).__getitem__(index)
+            return self._container[index]
         except IndexError:
             raise ElementDoesNotExist(
                 u'no elements could be found with {0} "{1}"'.format(
@@ -73,8 +75,19 @@ class ElementList(list):
         try:
             return getattr(self.first, name)
         except (ElementDoesNotExist, AttributeError):
-            raise AttributeError(
-                u"'{0}' object has no attribute '{1}'".format(
-                    self.__class__.__name__, name
+            try:
+                return getattr(self._container, name)
+            except AttributeError:
+                raise AttributeError(
+                    u"'{0}' object has no attribute '{1}'".format(
+                        self.__class__.__name__, name
+                    )
                 )
-            )
+
+    def __iter__(self):
+        for item in self._container:
+            yield item
+
+    def __len__(self):
+        """__len__ checks the internal container."""
+        return len(self._container)
