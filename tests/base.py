@@ -175,6 +175,7 @@ class WebDriverTests(
 
         self.assertEqual("Should I continue?", alert.text)
         alert.accept()
+
         alert = self.browser.get_alert()
         self.assertEqual("You say I should", alert.text)
         alert.accept()
