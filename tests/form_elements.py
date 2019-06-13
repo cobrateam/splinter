@@ -42,7 +42,7 @@ class FormElementsTest(object):
         self.browser.find_by_css('input[name="submit-input-no-value"]').click()
         body_text = self.browser.find_by_xpath("/descendant-or-self::*").text.strip()
         self.assertTrue(
-            re.match(r"^submit-input-no-value:(?:| Submit)$", body_text),
+            re.match(r"^submit-input-no-value:(?:| Submit| Submit Query)$", body_text),
             repr(body_text),
         )
 
