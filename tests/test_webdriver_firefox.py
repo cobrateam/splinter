@@ -92,15 +92,16 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
 class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        capabilities = {"acceptSslCerts": False, "javascriptEnabled": True}
-        cls.browser = Browser("firefox", capabilities=capabilities, headless=True)
+        cls.browser = Browser(
+            "firefox",
+            capabilities={"pageLoadStrategy": "eager"},
+            headless=True,
+        )
 
     def test_capabilities_set(self):
         capabilities = self.browser.driver.capabilities
-        self.assertIn("acceptSslCerts", capabilities)
-        self.assertEqual(False, capabilities.get("acceptSslCerts"))
-        self.assertIn("javascriptEnabled", capabilities)
-        self.assertEqual(True, capabilities.get("javascriptEnabled"))
+        self.assertIn("pageLoadStrategy", capabilities)
+        self.assertEqual("eager", capabilities.get("pageLoadStrategy"))
 
     @classmethod
     def tearDownClass(cls):
