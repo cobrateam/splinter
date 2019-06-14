@@ -1,10 +1,14 @@
 from django.conf.urls import include, url
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 import six
+
+if six.PY2:
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 from tests.fake_webapp import (
     EXAMPLE_HTML,
@@ -117,5 +121,9 @@ urlpatterns = [
     url(r"^redirected", redirected),
     url(r"^post", post_form),
     url(r"^redirect-location", redirect_location, name="redirect_location"),
-    url(r"^admin/", include(admin.site.urls)),
 ]
+
+if six.PY2:
+    urlpatterns.append(url(r"^admin/", include(admin.site.urls)))
+else:
+    urlpatterns.append(url(r"^admin/", admin.site.urls))
