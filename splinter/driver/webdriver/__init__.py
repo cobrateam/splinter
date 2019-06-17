@@ -744,7 +744,8 @@ class WebDriverElement(ElementAPI):
         Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).move_by_offset(0, 0).click().perform()#5000, 5000)
+        ActionChains(self.parent.driver).move_to_element_with_offset(
+            self._element, -10, -10).click().perform()
 
     def double_click(self):
         """

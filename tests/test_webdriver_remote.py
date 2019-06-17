@@ -52,6 +52,11 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_id("visible").mouse_out()
 
+    def test_mouse_out_top_left(self):
+        "Remote should not support mouseout"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_id("visible").mouse_out()
+
     def test_double_click(self):
         "Remote should not support double_click"
         with self.assertRaises(NotImplementedError):

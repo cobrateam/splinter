@@ -23,6 +23,16 @@ class MouseInteractionTest(object):
         element.mouse_out()
         self.assertTrue(self.browser.is_element_not_present_by_id("what-is-your-name"))
 
+    def test_mouse_out_top_left(self):
+        """Should be able to perform a mouse out on an element,
+        even if the element is at the top left corner of the screen.
+        """
+        self.browser.visit(EXAMPLE_APP + '/mouse')
+        element = self.browser.find_by_css(".add-element-mouseover")
+        element.mouse_over()
+        element.mouse_out()
+        self.assertTrue(self.browser.is_element_not_present_by_id("what-is-your-name"))
+
     def test_double_click(self):
         "double click should shows a hidden element"
         self.browser.visit(EXAMPLE_APP)
