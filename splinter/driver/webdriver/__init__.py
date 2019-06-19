@@ -622,12 +622,12 @@ class WebDriverElement(ElementAPI):
 
     def select(self, value):
         self.find_by_xpath(
-            '//select[@name="%s"]/option[@value="%s"]' % (self["name"], value)
+            '//select/option[@value="%s"]' % value
         )._element.click()
 
     def select_by_text(self, text):
         self.find_by_xpath(
-            '//select[@name="%s"]/option[text()="%s"]' % (self["name"], text)
+            '//select/option[text()="%s"]' % text
         )._element.click()
 
     def type(self, value, slowly=False):
