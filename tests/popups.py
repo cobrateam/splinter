@@ -38,6 +38,9 @@ class PopupWindowsTest(object):
         self.assertTrue(self.browser.windows.current.is_current)
         self.assertFalse(self.browser.windows.current.next.is_current)
 
+        # Close popup window
+        self.browser.windows.current.close_others()
+
     def test_set_is_current_to_True_sets_window_to_current(self):
         self.browser.find_by_id("open-popup").click()
         next_window = self.browser.windows.current.next
