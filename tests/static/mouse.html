@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>Example Title</title>
+    <style>
+        .add-element-mouseover {
+            background-color: cyan;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+    </style>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $(".add-element-mouseover").mouseover(function () {
+                $('body').append('<label for="what-is-your-name" class="over-label">What is your name?</label>');
+                $('body').append('<input type="text" id="what-is-your-name" class="over-input" name="whatsname" />');
+           });
+
+           $(".add-element-mouseover").mouseout(function () {
+                $('.over-label').remove();
+                $('.over-input').remove();
+           });
+        });
+    </script>
+  </head>
+  <body>
+    <a class="add-element-mouseover" href="#">Element at X:0 Y:0</a>
+
+  </body>
+</html>
