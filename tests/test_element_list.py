@@ -21,6 +21,12 @@ class Person(object):
 
 
 class ElementListTest(unittest.TestCase):
+    def test_slice(self):
+        """ElementList should work with slice operations."""
+        elem_list = ElementList([1, 2, 3, 4, 5])
+        new_elem_list = elem_list[2:5]
+        self.assertTrue(len(new_elem_list) == 3)
+
     def test_method_that_verifies_if_the_list_is_empty(self):
         "should verify if the list is empty"
         the_list = ElementList([1, 2, 3])

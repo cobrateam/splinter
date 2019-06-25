@@ -36,7 +36,7 @@ class ElementList(object):
         self.query = query
 
     def __getitem__(self, index):
-        if not isinstance(index, int):
+        if not isinstance(index, int) and not isinstance(index, slice):
             return self.first[index]
         try:
             return self._container[index]
