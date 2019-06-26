@@ -13,7 +13,7 @@ Frames, alerts and prompts
 Using iframes
 -------------
 
-You can use the ``get_iframe`` method and the ``with`` statement to interact with iframes. You can pass the iframe's name, id, or index to ``get_iframe``.
+You can use the ``get_iframe`` method and the ``with`` statement to interact with iframes. You can pass the iframe's name, id, index, or web element to ``get_iframe``.
 
 .. highlight:: python
 
