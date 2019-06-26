@@ -353,8 +353,14 @@ class BaseWebDriver(DriverAPI):
         return False
 
     @contextmanager
-    def get_iframe(self, id):
-        self.driver.switch_to.frame(id)
+    def get_iframe(self, frame_reference):
+
+        # If a WebDriverElement is provided, send the underlying element
+        if isinstance(frame_reference, WebDriverElement):
+            frame_reference = frame_reference._element
+
+        self.driver.switch_to.frame(frame_reference)
+
         try:
             yield self
         finally:
