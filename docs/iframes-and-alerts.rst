@@ -28,9 +28,9 @@ Handling alerts and prompts
 
     Chrome support for alerts and prompts is new in Splinter 0.4.
 
-**IMPORTANT:** Only webdrivers (Firefox and Chrome) has support for alerts and prompts.
+**IMPORTANT:** Only webdriver (Firefox and Chrome) has support for alerts and prompts.
 
-You can deal with alerts and prompts using the ``get_alert`` method.
+You can interact with alerts and prompts using the ``get_alert`` method.
 
 .. highlight:: python
 
@@ -42,7 +42,7 @@ You can deal with alerts and prompts using the ``get_alert`` method.
     alert.dismiss()
 
 
-In case of prompts, you can answer it using the ``fill_with`` method.
+In case of prompts, you can answer it using the ``send_keys`` method.
 
 .. highlight:: python
 
@@ -50,12 +50,12 @@ In case of prompts, you can answer it using the ``fill_with`` method.
 
     prompt = browser.get_alert()
     prompt.text
-    prompt.fill_with('text')
+    prompt.send_keys('text')
     prompt.accept()
     prompt.dismiss()
 
 
-You can use the ``with`` statement to interacte with both alerts and prompts too.
+You can also use the ``with`` statement to interact with both alerts and prompts.
 
 .. highlight:: python
 
@@ -64,6 +64,6 @@ You can use the ``with`` statement to interacte with both alerts and prompts too
     with browser.get_alert() as alert:
         alert.do_stuff()
 
-If there's not any prompt or alert, ``get_alert`` will return ``None``.
+If there's no prompt or alert, ``get_alert`` will return ``None``.
 Remember to always use at least one of the alert/prompt ending methods (accept and dismiss).
-Otherwise your browser instance will be frozen until you accept or dismiss the alert/prompt correctly.
+Otherwise, your browser instance will be frozen until you accept or dismiss the alert/prompt correctly.

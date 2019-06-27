@@ -12,6 +12,7 @@ import tempfile
 import time
 from contextlib import contextmanager
 
+from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
@@ -29,6 +30,17 @@ if sys.version_info[0] > 2:
 else:
     _meth_func = "im_func"
     _func_name = "func_name"
+
+# Patch contextmanager onto Selenium's Alert
+def alert_enter(self):
+    return self
+
+def alert_exit(self, type, value, traceback):
+    pass
+
+Alert.__enter__ = alert_enter
+Alert.__exit__ = alert_exit
+Alert.fill_with = Alert.send_keys
 
 
 class switch_window:
@@ -310,7 +322,7 @@ class BaseWebDriver(DriverAPI):
 
         alert = WebDriverWait(self.driver, wait_time).until(EC.alert_is_present())
 
-        return AlertElement(alert)
+        return alert
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -844,24 +856,3 @@ class WebDriverElement(ElementAPI):
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
-
-
-class AlertElement(object):
-    def __init__(self, alert):
-        self._alert = alert
-        self.text = alert.text
-
-    def accept(self):
-        self._alert.accept()
-
-    def dismiss(self):
-        self._alert.dismiss()
-
-    def fill_with(self, text):
-        self._alert.send_keys(text)
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, type, value, traceback):
-        pass
