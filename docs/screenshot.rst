@@ -59,3 +59,16 @@ If the element not in the current view, you should do it like this:
     browser = Browser()
     browser.visit('http://example.com')
     screenshot_path = browser.find_by_xpath('xpath_rule').first.screenshot('absolute_path/your_screenshot.png', full=True)
+
+
+++++++++++++++++++
+Take html snapshot
+++++++++++++++++++
+Splinter can also take a snapshot of the current HTML:
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    screenshot_path = browser.html_snapshot('absolute_path/your_screenshot.html')

@@ -18,6 +18,7 @@ from .is_element_visible import IsElementVisibleTest
 from .is_text_present import IsTextPresentTest
 from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
+from .html_snapshot import HTMLSnapshotTest
 from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest
 
@@ -111,6 +112,7 @@ class WebDriverTests(
     MouseInteractionTest,
     PopupWindowsTest,
     ScreenshotTest,
+    HTMLSnapshotTest,
 ):
     def test_status_code(self):
         with self.assertRaises(NotImplementedError):

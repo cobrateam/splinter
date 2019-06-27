@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import io
 import os
 import re
 import sys
@@ -570,6 +571,19 @@ class BaseWebDriver(DriverAPI):
             height = self.ori_window_size.get('height')
             self.driver.set_window_size(width, height)
             self.ori_window_size = None
+
+    def html_snapshot(self, name="", suffix=".html", encoding='utf-8'):
+        """Write the current html to a file."""
+        name = name or ""
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # Don't hold the file
+        os.close(fd)
+
+        with io.open(filename, 'w', encoding=encoding) as f:
+            f.write(self.html)
+
+        return filename
 
     @property
     def cookies(self):
