@@ -1,17 +1,15 @@
 .. image:: https://secure.travis-ci.org/cobrateam/splinter.svg?branch=master
    :target: http://travis-ci.org/cobrateam/splinter
 
-++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++
 splinter - python tool for testing web applications
-++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 splinter is an open source tool for testing web applications using Python.
 It lets you automate browser actions, such as visiting URLs and interacting with their items.
 
 Sample code
 -----------
-
-.. highlight:: python
 
 ::
    
