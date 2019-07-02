@@ -179,12 +179,56 @@ class Windows(object):
         )
 
 
+class FindLinks(object):
+    """Contains methods for finding links in a parent.
+
+    Accessed through the browser object or an element via the links attribute.
+
+    Example:
+
+        browser.links.find_by_href('foobar')
+
+    """
+    def __init__(self, parent):
+        self.parent = parent
+
+    def find_by_href(self, href):
+        return self.parent.find_by_xpath(
+            '//a[@href="{}"]'.format(href),
+            original_find="link by href",
+            original_query=href,
+        )
+
+    def find_by_partial_href(self, partial_href):
+        return self.parent.find_by_xpath(
+            '//a[contains(@href, "{}")]'.format(partial_href),
+            original_find="link by partial href",
+            original_query=partial_href,
+        )
+
+    def find_by_partial_text(self, partial_text):
+        return self.parent.find_by_xpath(
+            '//a[contains(normalize-space(.), "{}")]'.format(partial_text),
+            original_find="link by partial text",
+            original_query=partial_text,
+        )
+
+    def find_by_text(self, text):
+        return self.parent.find_by_xpath(
+            '//a[text()="{}"]'.format(text),
+            original_find="link by text",
+            original_query=text,
+        )
+
+
 class BaseWebDriver(DriverAPI):
     driver = None
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
         self.ori_window_size = None
+
+        self.links = FindLinks(self)
 
     def __enter__(self):
         return self
@@ -394,28 +438,16 @@ class BaseWebDriver(DriverAPI):
         )
 
     def find_link_by_href(self, href):
-        return self.find_by_xpath(
-            '//a[@href="%s"]' % href, original_find="link by href", original_query=href
-        )
+        return self.links.find_by_href(href)
 
     def find_link_by_partial_href(self, partial_href):
-        return self.find_by_xpath(
-            '//a[contains(@href, "%s")]' % partial_href,
-            original_find="link by partial href",
-            original_query=partial_href,
-        )
+        return self.links.find_by_partial_href(partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return self.find_by_xpath(
-            '//a[contains(normalize-space(.), "%s")]' % partial_text,
-            original_find="link by partial text",
-            original_query=partial_text,
-        )
+        return self.links.find_by_partial_text(partial_text)
 
     def find_link_by_text(self, text):
-        return self.find_by_xpath(
-            '//a[text()="%s"]' % text, original_find="link by text", original_query=text
-        )
+        return self.links.find_by_text(text)
 
     def find_by(self, finder, selector, original_find=None, original_query=None):
         elements = None
@@ -621,6 +653,8 @@ class WebDriverElement(ElementAPI):
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
+
+        self.links = FindLinks(self)
 
     def _get_value(self):
         return self["value"] or self._element.text
