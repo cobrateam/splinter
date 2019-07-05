@@ -15,6 +15,7 @@ import lxml.html
 from lxml.cssselect import CSSSelector
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.element_present import ElementPresentMixIn
+from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 
@@ -183,8 +184,11 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
 
     def find_by_text(self, text):
+        xpath_str = _concat_xpath_from_str(text)
         return self.find_by_xpath(
-            '//*[text()="%s"]' % text, original_find="text", original_selector=text
+            xpath_str,
+            original_find="text",
+            original_selector=text,
         )
 
     def find_by_id(self, id_value):
@@ -358,7 +362,9 @@ class LxmlElement(ElementAPI):
         return ElementList([self.__class__(element, self) for element in elements])
 
     def find_by_text(self, text):
-        return self.find_by_xpath('.//*[text()="%s"]' % text)
+        # Add a period to the xpath to search only inside the parent.
+        xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+        return self.find_by_xpath(xpath_str)
 
     def find_by_id(self, id):
         elements = self._element.cssselect("#%s" % id)
