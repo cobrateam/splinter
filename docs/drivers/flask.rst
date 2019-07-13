@@ -37,6 +37,15 @@ To use the ``flask`` driver, you'll need to pass the string ``flask`` and an app
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
+When visiting pages with the Flask client, you only need to provide a path rather than a full URL.
+For example:
+
+.. highlight:: python
+
+::
+
+    browser.visit('/my-path')
+
 API docs
 --------
 
