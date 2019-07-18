@@ -44,5 +44,7 @@ matrix:
 install:
   - export PATH=$HOME:$PATH
   - make dependencies
-script: ./run_tests.py -w ${DRIVER}
+script:
+  - pip install tox
+  - tox -- ${DRIVER}
 dist: xenial
