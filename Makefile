@@ -32,7 +32,7 @@ which = 'tests'
 
 test: dependencies clean
 	@echo "Running all tests..."
-	./run_tests.py -w $(which)
+	tox -- $(which)
 
 format: clean dependencies
 	@flake8 --max-line-length 110 ./splinter ./tests

@@ -7,9 +7,10 @@
 import os
 import unittest
 
-from splinter import Browser
+import pytest
+
 from .fake_webapp import EXAMPLE_APP
-from .base import WebDriverTests
+from .base import WebDriverTests, get_browser
 from selenium.common.exceptions import WebDriverException
 
 
@@ -21,16 +22,19 @@ def chrome_installed():
     return True
 
 
-class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("chrome", headless=True)
+class ChromeBase(object):
+    @pytest.fixture(autouse=True, scope='class')
+    def teardown(self, request):
+        request.addfinalizer(self.browser.quit)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
-    def setUp(self):
+class ChromeBrowserTest(WebDriverTests, ChromeBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('chrome', fullscreen=False)
+
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.driver.set_window_size(1024, 768)
         self.browser.visit(EXAMPLE_APP)
 
@@ -51,22 +55,19 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         self.assertIn(expected, html)
 
     def test_should_support_with_statement(self):
-        with Browser("chrome"):
+        with get_browser('chrome'):
             pass
 
 
-class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("chrome", fullscreen=True, headless=True)
+class ChromeBrowserFullscreenTest(WebDriverTests, ChromeBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('chrome', fullscreen=True)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
-
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self):
         self.browser.visit(EXAMPLE_APP)
 
     def test_should_support_with_statement(self):
-        with Browser("chrome", fullscreen=True):
+        with get_browser('chrome', fullscreen=True):
             pass

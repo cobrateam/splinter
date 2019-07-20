@@ -4,6 +4,10 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from selenium import webdriver
+
+from splinter import Browser
+
 from .async_finder import AsyncFinderTests
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest
@@ -23,6 +27,24 @@ from .type import SlowlyTypeTest
 from .popups import PopupWindowsTest
 
 
+def get_browser(browser_name, **kwargs):
+    if browser_name == 'chrome':
+        options = webdriver.chrome.options.Options()
+        options.add_argument("--disable-dev-shm-usage")
+        return Browser(
+            "chrome",
+            headless=True,
+            options=options,
+            **kwargs
+        )
+    else:
+        return Browser(
+            "firefox",
+            headless=True,
+            **kwargs
+        )
+
+
 class BaseBrowserTests(
     ElementTest,
     FindElementsTest,
@@ -32,9 +54,6 @@ class BaseBrowserTests(
     SlowlyTypeTest,
     IsTextPresentTest,
 ):
-    def setUp(self):
-        self.fail("You should set up your browser in the setUp() method")
-
     def test_can_open_page(self):
         "should be able to visit, get title and quit"
         title = self.browser.title
@@ -225,10 +244,8 @@ class WebDriverTests(
         self.assertTrue(self.browser.find_option_by_value("rj").selected)
 
     def test_should_be_able_to_change_user_agent(self):
-        from splinter import Browser
-
         driver_name = self.browser.driver_name.lower()
-        browser = Browser(driver_name=driver_name, user_agent="iphone")
+        browser = get_browser(driver_name, user_agent="iphone")
         browser.visit(EXAMPLE_APP + "useragent")
         result = "iphone" in browser.html
         browser.quit()

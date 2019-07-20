@@ -7,9 +7,11 @@
 import os
 import unittest
 
+import pytest
+
 from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
-from .base import WebDriverTests
+from .base import WebDriverTests, get_browser
 
 
 def firefox_installed():
@@ -20,16 +22,19 @@ def firefox_installed():
     return True
 
 
-class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("firefox", headless=True)
+class FirefoxBase(object):
+    @pytest.fixture(autouse=True, scope='class')
+    def teardown(self, request):
+        request.addfinalizer(self.browser.quit)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
-    def setUp(self):
+class FirefoxBrowserTest(WebDriverTests, FirefoxBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('firefox', fullscreen=False)
+
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
 
     def test_attach_file(self):
@@ -49,13 +54,14 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
             pass
 
 
-class FirefoxWithExtensionTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+class FirefoxWithExtensionTest(FirefoxBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
         extension_path = os.path.join(
             os.path.abspath(os.path.dirname(__file__)), "firebug.xpi"
         )
-        cls.browser = Browser("firefox", extensions=[extension_path], headless=True)
+
+        request.cls.browser = get_browser('firefox', extensions=[extension_path])
 
     def test_create_a_firefox_instance_with_extension(self):
         "should be able to load an extension"
@@ -64,19 +70,16 @@ class FirefoxWithExtensionTest(unittest.TestCase):
             os.listdir(self.browser.driver.profile.extensionsDir),
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
-
-class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+class FirefoxBrowserProfilePreferencesTest(FirefoxBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
         preferences = {
             "dom.max_script_run_time": 360,
             "devtools.inspector.enabled": True,
         }
-        cls.browser = Browser("firefox", profile_preferences=preferences, headless=True)
+
+        request.cls.browser = get_browser('firefox', profile_preferences=preferences)
 
     def test_preference_set(self):
         preferences = self.browser.driver.profile.default_preferences
@@ -84,35 +87,19 @@ class FirefoxBrowserProfilePreferencesTest(unittest.TestCase):
         value = preferences.get("dom.max_script_run_time")
         self.assertEqual(int(value), 360)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
-
-class FirefoxBrowserCapabilitiesTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser(
-            "firefox",
-            capabilities={"pageLoadStrategy": "eager"},
-            headless=True,
-        )
+class FirefoxBrowserCapabilitiesTest(FirefoxBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('firefox', capabilities={"pageLoadStrategy": "eager"})
 
     def test_capabilities_set(self):
         capabilities = self.browser.driver.capabilities
         self.assertIn("pageLoadStrategy", capabilities)
         self.assertEqual("eager", capabilities.get("pageLoadStrategy"))
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
-
-class FirefoxBrowserFullScreenTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("firefox", fullscreen=True, headless=True)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+class FirefoxBrowserFullScreenTest(FirefoxBase, unittest.TestCase):
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('firefox', fullscreen=True)
