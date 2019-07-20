@@ -30,6 +30,10 @@ class FindElementsTest(object):
         element = self.browser.find_by_text("Complex")
         self.assertEqual(element.value, "Complex")
 
+    def test_finding_by_text_with_quotation_marks(self):
+        element = self.browser.find_by_text("Quotation \" marks")
+        self.assertEqual(element.value, "Quotation \" marks")
+
     def test_finding_by_id(self):
         value = self.browser.find_by_id("firstheader").value
         self.assertEqual("Example Header", value)

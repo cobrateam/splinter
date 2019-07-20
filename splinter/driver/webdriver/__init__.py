@@ -21,6 +21,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from six import BytesIO
 
 from splinter.driver import DriverAPI, ElementAPI
+from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 
 
@@ -474,9 +475,12 @@ class BaseWebDriver(DriverAPI):
             '//*[@value="%s"]' % value, original_find="value", original_query=value
         )
 
-    def find_by_text(self, text):
+    def find_by_text(self, text=None):
+        xpath_str = _concat_xpath_from_str(text)
         return self.find_by_xpath(
-            '//*[text()="%s"]' % text, original_find="text", original_query=text
+            xpath_str,
+            original_find="text",
+            original_query=text,
         )
 
     def find_by_id(self, id):
@@ -738,8 +742,13 @@ class WebDriverElement(ElementAPI):
         return self.find_by_css(selector, original_find="value", original_query=value)
 
     def find_by_text(self, text):
-        selector = './/*[text()="%s"]' % text
-        return self.find_by_xpath(selector, original_find="text", original_query=text)
+        # Add a period to the xpath to search only inside the parent.
+        xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+        return self.find_by_xpath(
+            xpath_str,
+            original_find="text",
+            original_query=text,
+        )
 
     def find_by_id(self, id):
         elements = ElementList(self._element.find_elements_by_id(id))
