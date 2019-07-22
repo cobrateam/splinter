@@ -11,6 +11,7 @@ import sys
 import tempfile
 import time
 from contextlib import contextmanager
+import warnings
 
 from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException
@@ -439,15 +440,35 @@ class BaseWebDriver(DriverAPI):
         )
 
     def find_link_by_href(self, href):
+        warnings.warn(
+            'browser.find_link_by_href is deprecated.'
+            ' Use browser.links.find_by_href instead.',
+            FutureWarning,
+        )
         return self.links.find_by_href(href)
 
     def find_link_by_partial_href(self, partial_href):
+        warnings.warn(
+            'browser.find_link_by_partial_href is deprecated.'
+            ' Use browser.links.find_by_partial_href instead.',
+            FutureWarning,
+        )
         return self.links.find_by_partial_href(partial_href)
 
     def find_link_by_partial_text(self, partial_text):
+        warnings.warn(
+            'browser.find_link_by_partial_text is deprecated.'
+            ' Use browser.links.find_by_partial_text instead.',
+            FutureWarning,
+        )
         return self.links.find_by_partial_text(partial_text)
 
     def find_link_by_text(self, text):
+        warnings.warn(
+            'browser.find_link_by_text is deprecated.'
+            ' Use browser.links.find_by_text instead.',
+            FutureWarning,
+        )
         return self.links.find_by_text(text)
 
     def find_by(self, finder, selector, original_find=None, original_query=None):

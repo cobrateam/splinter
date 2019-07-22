@@ -57,7 +57,7 @@ browser instance running on Windows 7.
         print("Link to job: https://saucelabs.com/jobs/{}".format(
               browser.driver.session_id))
         browser.visit("https://splinter.readthedocs.io")
-        browser.find_link_by_text('documentation').first.click()
+        browser.find_by_text('documentation').first.click()
 
 
 .. _Selenium Grid: https://code.google.com/p/selenium/wiki/Grid2

@@ -68,25 +68,28 @@ a list with just one element.
 Finding links
 =============
 
-If you need to find the links in a page, you can use the methods
-``find_link_by_text``, ``find_link_by_partial_text``, ``find_link_by_href`` or
-``find_link_by_partial_href``. Examples:
+If you want to target only links on a page, you can use the methods provided in the
+links namespace. This in available at both the browser and element level.
+
+Examples:
 
 .. highlight:: python
 
 ::
 
-    links_found = browser.find_link_by_text('Link for Example.com')
-    links_found = browser.find_link_by_partial_text('for Example')
-    links_found = browser.find_link_by_href('http://example.com')
-    links_found = browser.find_link_by_partial_href('example')
+    links_found = browser.links.find_by_text('Link for Example.com')
+    links_found = browser.links.find_by_partial_text('for Example')
+    links_found = browser.links.find_by_href('http://example.com')
+    links_found = browser.links.find_by_partial_href('example')
+
+    links_found = browser.find_by_css('.main').links.find_by_text('Link for Example.com')
+    links_found = browser.find_by_css('.main').links.find_by_partial_text('for Example.com')
+    links_found = browser.find_by_css('.main').links.find_by_href('http://example.com')
+    links_found = browser.find_by_css('.main').links.find_by_partial_href('example')
 
 
 As the other ``find_*`` methods, these returns a list of all found elements.
 
-You also can search for links using other selector types with the methods
-``find_by_css``, ``find_by_xpath``, ``find_by_tag``, ``find_by_name``,
-``find_by_value`` and ``find_by_id``.
 
 Chaining find of elements
 =========================
