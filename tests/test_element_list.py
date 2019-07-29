@@ -71,12 +71,12 @@ class ElementListTest(unittest.TestCase):
             the_list = ElementList([Person(), Person()])
             the_list.talk()
 
-    def test_attribute_error_for_empty(self):
+    def test_attribute_error_method_for_empty(self):
         """
-        should raise AttributeError when the list is empty
-        and someone tries to access a method or property on it
+        should raise ElementDoesNotExist when the list is empty
+        and someone tries to access a method or property on the child element.
         """
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(ElementDoesNotExist):
             the_list = ElementList([])
             the_list.unknown_method()
 
