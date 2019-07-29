@@ -74,7 +74,7 @@ class ElementList(object):
     def __getattr__(self, name):
         try:
             return getattr(self.first, name)
-        except (ElementDoesNotExist, AttributeError):
+        except AttributeError:
             try:
                 return getattr(self._container, name)
             except AttributeError:
