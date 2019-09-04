@@ -14,10 +14,6 @@ from .fake_webapp import EXAMPLE_APP
 from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
-@unittest.skipIf(
-    sys.version_info[0] > 2,
-    "zope.testbrowser is not currently compatible with Python 3",
-)
 class ZopeTestBrowserDriverTest(
     BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase
 ):
@@ -140,6 +136,6 @@ class ZopeTestBrowserDriverTest(
             "pangram_ru": u"В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
             "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
-        for key, text in non_ascii_encodings.iteritems():
+        for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])

@@ -99,7 +99,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     @property
     def htmltree(self):
-        return lxml.html.fromstring(self.html.decode("utf-8"))
+        return lxml.html.fromstring(self.html)
 
     @property
     def title(self):

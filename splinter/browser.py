@@ -18,13 +18,12 @@ _DRIVERS = {
     "chrome": ChromeWebDriver,
 }
 
-if sys.version_info[0] <= 2:
-    try:
-        from splinter.driver.zopetestbrowser import ZopeTestBrowser
+try:
+    from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
-        _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
-    except ImportError:
-        pass
+    _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
+except ImportError:
+    pass
 
 try:
     import django  # noqa
