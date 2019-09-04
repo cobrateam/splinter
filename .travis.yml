@@ -22,6 +22,7 @@ python:
   - "3.7"
   - "3.8-dev"
 env:
+  - DRIVER=tests/test_zopetestbrowser.py
   - DRIVER=tests/test_flaskclient.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER=tests/test_webdriver_firefox.py
@@ -32,9 +33,7 @@ env:
 matrix:
   include:
     - python: 2.7
-      env:
-        - DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
-        - DRIVER=tests/test_zopetestbrowser.py
+      env: DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
     - python: 3.6
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
     - python: 3.7
