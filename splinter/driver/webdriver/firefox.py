@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import os
+import six
 
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
@@ -16,11 +17,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
-
-try:
-    basestring
-except NameError:  # Python 3.x
-    basestring = str
 
 
 class WebDriver(BaseWebDriver):
@@ -69,7 +65,7 @@ class WebDriver(BaseWebDriver):
         if headless:
             os.environ.update({"MOZ_HEADLESS": "1"})
             if 'firefox_binary' in kwargs:
-                if isinstance(kwargs['firefox_binary'], str):
+                if isinstance(kwargs['firefox_binary'], six.string_types):
                     binary = FirefoxBinary(kwargs['firefox_binary'])
                 else:
                     binary = kwargs['firefox_binary']
