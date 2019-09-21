@@ -17,6 +17,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 
+try:
+    basestring
+except NameError:  # Python 3.x
+    basestring = str
+
 
 class WebDriver(BaseWebDriver):
 
@@ -63,7 +68,13 @@ class WebDriver(BaseWebDriver):
 
         if headless:
             os.environ.update({"MOZ_HEADLESS": "1"})
-            binary = FirefoxBinary()
+            if 'firefox_binary' in kwargs:
+                if isinstance(kwargs['firefox_binary'], str):
+                    binary = FirefoxBinary(kwargs['firefox_binary'])
+                else:
+                    binary = kwargs['firefox_binary']
+            else:
+                binary = FirefoxBinary()
             binary.add_command_line_options("-headless")
             kwargs["firefox_binary"] = binary
 
