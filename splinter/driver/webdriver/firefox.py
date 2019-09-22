@@ -73,6 +73,9 @@ class WebDriver(BaseWebDriver):
                 binary = FirefoxBinary()
             binary.add_command_line_options("-headless")
             kwargs["firefox_binary"] = binary
+        else:
+            if "MOZ_HEADLESS" in os.environ:
+                del os.environ["MOZ_HEADLESS"]
 
         if incognito:
             firefox_options.add_argument("-private")
