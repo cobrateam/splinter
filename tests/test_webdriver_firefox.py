@@ -50,7 +50,7 @@ class FirefoxBrowserTest(WebDriverTests, FirefoxBase, unittest.TestCase):
         self.assertIn(open(file_path, "rb").read().decode("utf-8"), html)
 
     def test_should_support_with_statement(self):
-        with Browser("firefox"):
+        with Browser("firefox", headless=True):
             pass
 
 
