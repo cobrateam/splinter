@@ -237,6 +237,11 @@ class WebDriverTests(
             self.assertEqual("This is an alert example.", alert.text)
             alert.accept()
 
+    def test_get_alert_return_none_if_no_alerts(self):
+        "should return None if no alerts available"
+        alert = self.browser.get_alert()
+        self.assertEqual(None, alert)
+
     def test_can_select_a_option_via_element_text(self):
         "should provide a way to select a option via element"
         self.assertFalse(self.browser.find_option_by_value("rj").selected)

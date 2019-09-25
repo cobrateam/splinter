@@ -14,7 +14,7 @@ from contextlib import contextmanager
 import warnings
 
 from selenium.webdriver.common.alert import Alert
-from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -366,9 +366,11 @@ class BaseWebDriver(DriverAPI):
     def get_alert(self, wait_time=None):
         wait_time = wait_time or self.wait_time
 
-        alert = WebDriverWait(self.driver, wait_time).until(EC.alert_is_present())
-
-        return alert
+        try:
+            alert = WebDriverWait(self.driver, wait_time).until(EC.alert_is_present())
+            return alert
+        except TimeoutException:
+            return None
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
