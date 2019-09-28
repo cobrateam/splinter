@@ -599,20 +599,35 @@ class BaseWebDriver(DriverAPI):
     def uncheck(self, name):
         self.find_by_name(name).first.uncheck()
 
-    def screenshot(self, name="", suffix=".png", full=False):
-
-        name = name or ""
-
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # don't hold the file
-        os.close(fd)
-
+    def screenshot(self, filename, full=False, waiting_time=0):
         if full:
             self.full_screen()
+            # trigger the `scroll` event to ensure lazy-load images can be rendered.
+            self.execute_script("window.dispatchEvent(new Event('scroll'))")
 
-        self.driver.get_screenshot_as_file(filename)
+        if waiting_time > 0:
+            time.sleep(waiting_time)
+
+        result = self.driver.get_screenshot_as_file(filename)
+        
         self.recover_screen()
-        return filename
+
+        return result
+
+    def screenshot_as_base64(self, full=False, waiting_time=0):
+        if full:
+            self.full_screen()
+            # trigger the `scroll` event to ensure lazy-load images can be rendered.
+            self.execute_script("window.dispatchEvent(new Event('scroll'))")
+
+        if waiting_time > 0:
+            time.sleep(waiting_time)
+
+        result = self.driver.get_screenshot_as_base64()
+
+        self.recover_screen()
+
+        return result
 
     def select(self, name, value):
         self.find_by_xpath(
@@ -632,16 +647,28 @@ class BaseWebDriver(DriverAPI):
 
     def full_screen(self):
         self.ori_window_size = self.driver.get_window_size()
-        width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
-        height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
-        self.driver.set_window_size(width, height)
+        width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth, document.documentElement.scrollWidth);")
+        height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight);")
+        self.set_viewport_size(width, height)
 
     def recover_screen(self):
         if self.ori_window_size:
             width = self.ori_window_size.get('width')
             height = self.ori_window_size.get('height')
-            self.driver.set_window_size(width, height)
+            self.set_viewport_size(width, height)
             self.ori_window_size = None
+
+    def set_viewport_size(self, width, height):
+        device_metrics = {
+            'width': width,
+            'height': height,
+            'deviceScaleFactor': self.execute_script('return window.devicePixelRatio'),
+            'mobile': self.execute_script("return typeof window.orientation !== 'undefined'")
+        }
+
+        self.driver.execute_cdp_cmd('Emulation.setDeviceMetricsOverride', device_metrics)
+        
+        return self
 
     def html_snapshot(self, name="", suffix=".html", encoding='utf-8'):
         """Write the current html to a file."""
@@ -872,53 +899,17 @@ class WebDriverElement(ElementAPI):
         self.scroll_to()
         ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
 
-    def screenshot(self, name='', suffix='.png', full=False):
-        name = name or ''
+    def screenshot(self, filename, waiting_time=0):
+        if waiting_time > 0:
+            time.sleep(waiting_time)
 
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # don't hold the file
-        os.close(fd)
+        return self._element.screenshot(filename)
 
-        if full:
-            self.parent.full_screen()
-        target = self.screenshot_as_png()
-        self.parent.recover_screen()
-        target.save(filename)
+    def screenshot_as_base64(self, waiting_time=0):
+        if waiting_time > 0:
+            time.sleep(waiting_time)
 
-        return filename
-
-    def screenshot_as_png(self):
-        try:
-            from PIL import Image
-        except ImportError:
-            raise NotImplementedError('Element screenshot need the Pillow dependency. '
-                                      'Please use "pip install Pillow" install it.')
-
-        full_screen_png = self.parent.driver.get_screenshot_as_png()
-
-        full_screen_bytes = BytesIO(full_screen_png)
-
-        im = Image.open(full_screen_bytes)
-        im_width, im_height = im.size[0], im.size[1]
-        window_size = self.parent.driver.get_window_size()
-        window_width = window_size['width']
-
-        ratio = im_width * 1.0 / window_width
-        height_ratio = im_height / ratio
-
-        im = im.resize((int(window_width), int(height_ratio)))
-
-        location = self._element.location
-        x, y = location['x'], location['y']
-
-        pic_size = self._element.size
-        w, h = pic_size['width'], pic_size['height']
-
-        box = x, y, x + w, y + h
-        box = [int(i) for i in box]
-        target = im.crop(box)
-
-        return target
+        return self._element.screenshot_as_base64
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
