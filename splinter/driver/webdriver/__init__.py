@@ -900,16 +900,43 @@ class WebDriverElement(ElementAPI):
         ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
 
     def screenshot(self, filename, waiting_time=0):
-        if waiting_time > 0:
-            time.sleep(waiting_time)
+        base64_string = self.screenshot_as_base64(waiting_time)
+        png = base64.b64decode(base64_string.encode('ascii'))
 
-        return self._element.screenshot(filename)
+        try:
+            with open(filename, 'wb') as f:
+                f.write(png)
+        except IOError:
+            return False
+        finally:
+            del png
+
+        return True
 
     def screenshot_as_base64(self, waiting_time=0):
+        self.parent.full_screen()
+
         if waiting_time > 0:
             time.sleep(waiting_time)
+        
+        
+        location = self._element.location
+        size = self._element.size
 
-        return self._element.screenshot_as_base64
+        response = self.parent.driver.execute_cdp_cmd('Page.captureScreenshot', {
+            'clip': {
+                'x': location['x'],
+                'y': location['y'],
+                'width': size['width'],
+                'height': size['height'],
+                'scale': self.parent.execute_script('return window.devicePixelRatio')
+            }
+        })
+        
+        self.parent.recover_screen()
+
+        return response['data']
+
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
