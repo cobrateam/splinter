@@ -10,6 +10,7 @@ import re
 import sys
 import tempfile
 import time
+import base64
 from contextlib import contextmanager
 import warnings
 
@@ -599,7 +600,20 @@ class BaseWebDriver(DriverAPI):
     def uncheck(self, name):
         self.find_by_name(name).first.uncheck()
 
-    def screenshot(self, filename, full=False, waiting_time=0):
+    def screenshot(self, name="", suffix=".png", full=False):
+        warnings.warn('Deprecated, use `self.capture_screenshot()` instead.')
+
+        name = name or ""
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
+
+        self.capture_screenshot(filename, full)
+        
+        return filename
+
+    def capture_screenshot(self, filename, full=False, waiting_time=0):
         if full:
             self.full_screen()
             # trigger the `scroll` event to ensure lazy-load images can be rendered.
@@ -614,7 +628,7 @@ class BaseWebDriver(DriverAPI):
 
         return result
 
-    def screenshot_as_base64(self, full=False, waiting_time=0):
+    def capture_screenshot_as_base64(self, full=False, waiting_time=0):
         if full:
             self.full_screen()
             # trigger the `scroll` event to ensure lazy-load images can be rendered.
@@ -899,7 +913,21 @@ class WebDriverElement(ElementAPI):
         self.scroll_to()
         ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
 
-    def screenshot(self, filename, waiting_time=0):
+    def screenshot(self, name='', suffix='.png', full=False):
+        warnings.warn('Deprecated, use `self.capture_screenshot()` instead.')
+
+        name = name or ''
+
+        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+        # don't hold the file
+        os.close(fd)
+
+        self.capture_screenshot(filename)
+
+        return filename
+
+
+    def capture_screenshot(self, filename, waiting_time=0):
         base64_string = self.screenshot_as_base64(waiting_time)
         png = base64.b64decode(base64_string.encode('ascii'))
 
@@ -913,7 +941,7 @@ class WebDriverElement(ElementAPI):
 
         return True
 
-    def screenshot_as_base64(self, waiting_time=0):
+    def capture_screenshot_as_base64(self, waiting_time=0):
         self.parent.full_screen()
 
         if waiting_time > 0:
