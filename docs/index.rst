@@ -165,6 +165,7 @@ Get in touch and contribute
    http-proxies
    iframes-and-alerts
    api/index
+   selenium-keys
 
 .. toctree::
    :caption: Get in touch and contribute
