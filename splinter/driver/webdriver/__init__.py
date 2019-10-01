@@ -610,7 +610,7 @@ class BaseWebDriver(DriverAPI):
         os.close(fd)
 
         self.capture_screenshot(filename, full)
-        
+
         return filename
 
     def capture_screenshot(self, filename, full=False, waiting_time=0):
@@ -926,9 +926,15 @@ class WebDriverElement(ElementAPI):
 
         return filename
 
+    # TODO Uncomment this method and remove the hotfix one once the upstream issue(https://bugs.chromium.org/p/chromedriver/issues/detail?id=3154) has been fixed.
+    # def capture_screenshot(self, filename, waiting_time=0):
+    #     if waiting_time > 0:
+    #         time.sleep(waiting_time)
+
+    #     return self._element.screenshot(filename)
 
     def capture_screenshot(self, filename, waiting_time=0):
-        base64_string = self.screenshot_as_base64(waiting_time)
+        base64_string = self.capture_screenshot_as_base64(waiting_time)
         png = base64.b64decode(base64_string.encode('ascii'))
 
         try:
@@ -941,12 +947,18 @@ class WebDriverElement(ElementAPI):
 
         return True
 
+    # TODO Uncomment this method and remove the hotfix one once the upstream issue(https://bugs.chromium.org/p/chromedriver/issues/detail?id=3154) has been fixed.
+    # def capture_screenshot_as_base64(self, waiting_time=0):
+    #     if waiting_time > 0:
+    #         time.sleep(waiting_time)
+        
+    #     return self._element.screenshot_as_base64
+
     def capture_screenshot_as_base64(self, waiting_time=0):
         self.parent.full_screen()
 
         if waiting_time > 0:
             time.sleep(waiting_time)
-        
         
         location = self._element.location
         size = self._element.size
