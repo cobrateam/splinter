@@ -709,6 +709,13 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
 
         If ``slowly`` is True, this function returns an iterator which will type one character per iteration.
+
+        Also supports selenium.
+
+        Example:
+            >>> from selenium.webdriver.common.keys import Keys
+            >>> ElementAPI.type(Keys.RETURN)
+
         """
         raise NotImplementedError
 
