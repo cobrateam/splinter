@@ -11,7 +11,7 @@ It lets you automate browser actions, such as visiting URLs and interacting with
 Sample code
 -----------
 
-::
+.. code:: python
    
    from splinter import Browser
 
@@ -21,9 +21,9 @@ Sample code
    browser.find_by_name('btnG').click()
 
    if browser.is_text_present('splinter.readthedocs.io'):
-       print "Yes, the official website was found!"
+       print("Yes, the official website was found!")
    else:
-       print "No, it wasn't found... We need to improve our SEO techniques"
+       print("No, it wasn't found... We need to improve our SEO techniques")
 
    browser.quit()
 
