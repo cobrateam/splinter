@@ -89,3 +89,19 @@ There's also the negative forms of these methods, as in ``is_text_present``:
     browser.is_element_not_present_by_text('Not here :(')
     browser.is_element_not_present_by_id('unexisting-header')
     browser.is_element_not_present_by_id('unexisting-header', wait_time=10) # using wait_time
+
+
+Checking the visibility of elements
+---------------------------------
+
+There are two methods to check if the element is visible or hidden in the current page using either the selector type ``css`` or ``xpath``. It 
+returns ``True`` if the element is visible and ``False`` if the element in not visible.  
+
+.. highlight:: python
+
+::
+
+    browser.is_element_visible_by_css('h5') 
+    browser.is_element_visible_by_css('h5', wait_time=10) 
+    browser.is_element_visible_by_xpath('//h5')
+
