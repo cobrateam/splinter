@@ -41,6 +41,19 @@ def alert_enter(self):
 def alert_exit(self, type, value, traceback):
     pass
 
+def create_file_from_base64_string(base64_string, filename):
+    file = base64.b64decode(base64_string.encode('ascii'))
+
+    try:
+        with open(filename, 'wb') as f:
+            f.write(file)
+    except IOError:
+        return False
+    finally:
+        del file
+
+    return True
+
 Alert.__enter__ = alert_enter
 Alert.__exit__ = alert_exit
 Alert.fill_with = Alert.send_keys
@@ -613,35 +626,78 @@ class BaseWebDriver(DriverAPI):
 
         return filename
 
-    def capture_screenshot(self, filename, full=False, waiting_time=0):
+    def capture_viewport(self, viewport, filename, waiting_time=0):
+        base64_string = self.capture_viewport_as_base64(viewport, waiting_time)
+
+        return create_file_from_base64_string(base64_string, filename)
+
+
+    def capture_viewport_as_base64(self, viewport, waiting_time=0):
+        self.full_screen()
+
+        if waiting_time > 0: time.sleep(waiting_time)
+
+        response = self.driver.execute_cdp_cmd('Page.captureScreenshot', {
+            'clip': {
+                'x': viewport['x'],
+                'y': viewport['y'],
+                'width': viewport['width'],
+                'height': viewport['height'],
+                'scale': self.driver.execute_script('return window.devicePixelRatio')
+            }
+        })
+
+        self.recover_screen()
+
+        return response['data']
+
+
+    def capture_screenshot(self, filename, full=False, viewport=None, waiting_time=0):
         if full:
             self.full_screen()
+
             # trigger the `scroll` event to ensure lazy-load images can be rendered.
             self.execute_script("window.dispatchEvent(new Event('scroll'))")
 
-        if waiting_time > 0:
-            time.sleep(waiting_time)
+            if waiting_time > 0: time.sleep(waiting_time)
 
-        result = self.driver.get_screenshot_as_file(filename)
+            result = self.driver.get_screenshot_as_file(filename)
         
-        self.recover_screen()
+            self.recover_screen()
 
-        return result
+            return result
 
-    def capture_screenshot_as_base64(self, full=False, waiting_time=0):
+        elif viewport:
+            return self.capture_viewport(viewport, filename, waiting_time)
+
+        else:
+            if waiting_time > 0: time.sleep(waiting_time)
+
+            return self.driver.get_screenshot_as_file(filename)
+
+
+    def capture_screenshot_as_base64(self, full=False, viewport=None, waiting_time=0):
         if full:
             self.full_screen()
+
             # trigger the `scroll` event to ensure lazy-load images can be rendered.
             self.execute_script("window.dispatchEvent(new Event('scroll'))")
 
-        if waiting_time > 0:
-            time.sleep(waiting_time)
+            if waiting_time > 0: time.sleep(waiting_time)
 
-        result = self.driver.get_screenshot_as_base64()
+            result = self.driver.get_screenshot_as_base64()
 
-        self.recover_screen()
+            self.recover_screen()
 
-        return result
+            return result
+
+        elif viewport:
+            return self.capture_viewport_as_base64(viewport, waiting_time)
+
+        else:
+            if waiting_time > 0: time.sleep(waiting_time)
+
+            return self.driver.get_screenshot_as_base64()
 
     def select(self, name, value):
         self.find_by_xpath(
@@ -660,7 +716,7 @@ class BaseWebDriver(DriverAPI):
             pass
 
     def full_screen(self):
-        self.ori_window_size = self.driver.get_window_size()
+        self.set_original_window_size()
         width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth, document.documentElement.scrollWidth);")
         height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.scrollHeight);")
         self.set_viewport_size(width, height)
@@ -671,6 +727,9 @@ class BaseWebDriver(DriverAPI):
             height = self.ori_window_size.get('height')
             self.set_viewport_size(width, height)
             self.ori_window_size = None
+
+    def set_original_window_size(self):
+        self.ori_window_size = self.driver.get_window_size()
 
     def set_viewport_size(self, width, height):
         device_metrics = {
@@ -935,17 +994,9 @@ class WebDriverElement(ElementAPI):
 
     def capture_screenshot(self, filename, waiting_time=0):
         base64_string = self.capture_screenshot_as_base64(waiting_time)
-        png = base64.b64decode(base64_string.encode('ascii'))
 
-        try:
-            with open(filename, 'wb') as f:
-                f.write(png)
-        except IOError:
-            return False
-        finally:
-            del png
+        return create_file_from_base64_string(base64_string, filename)
 
-        return True
 
     # TODO Uncomment this method and remove the hotfix one once the upstream issue(https://bugs.chromium.org/p/chromedriver/issues/detail?id=3154) has been fixed.
     # def capture_screenshot_as_base64(self, waiting_time=0):
