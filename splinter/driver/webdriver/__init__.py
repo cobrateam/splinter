@@ -635,6 +635,9 @@ class BaseWebDriver(DriverAPI):
     def capture_viewport_as_base64(self, viewport, waiting_time=0):
         self.full_screen()
 
+        # trigger the `scroll` event to ensure lazy-load images can be rendered.
+        self.execute_script("window.dispatchEvent(new Event('scroll'))")
+
         if waiting_time > 0: time.sleep(waiting_time)
 
         response = self.driver.execute_cdp_cmd('Page.captureScreenshot', {
