@@ -643,7 +643,7 @@ class BaseWebDriver(DriverAPI):
                 'y': viewport['y'],
                 'width': viewport['width'],
                 'height': viewport['height'],
-                'scale': self.driver.execute_script('return window.devicePixelRatio')
+                'scale': 1
             }
         })
 
@@ -1006,27 +1006,17 @@ class WebDriverElement(ElementAPI):
     #     return self._element.screenshot_as_base64
 
     def capture_screenshot_as_base64(self, waiting_time=0):
-        self.parent.full_screen()
-
-        if waiting_time > 0:
-            time.sleep(waiting_time)
-        
         location = self._element.location
         size = self._element.size
 
-        response = self.parent.driver.execute_cdp_cmd('Page.captureScreenshot', {
-            'clip': {
-                'x': location['x'],
-                'y': location['y'],
-                'width': size['width'],
-                'height': size['height'],
-                'scale': self.parent.execute_script('return window.devicePixelRatio')
-            }
-        })
-        
-        self.parent.recover_screen()
+        viewport = {
+            'x': location['x'],
+            'y': location['y'],
+            'width': size['width'],
+            'height': size['height']
+        }
 
-        return response['data']
+        return self.parent.capture_viewport_as_base64(viewport, waiting_time)
 
 
     def __getitem__(self, attr):
