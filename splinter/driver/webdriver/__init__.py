@@ -14,7 +14,7 @@ from contextlib import contextmanager
 import warnings
 
 from selenium.webdriver.common.alert import Alert
-from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException, WebDriverException, StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -486,9 +486,10 @@ class BaseWebDriver(DriverAPI):
                 elements = finder(selector)
                 if not isinstance(elements, list):
                     elements = [elements]
-            except NoSuchElementException:
-                pass
-            except StaleElementReferenceException:
+            except (
+                NoSuchElementException,
+                StaleElementReferenceException,
+            ):
                 # This exception is sometimes thrown if the page changes
                 # quickly
                 pass
@@ -731,15 +732,32 @@ class WebDriverElement(ElementAPI):
         return value
 
     def click(self):
-        self._element.click()
+        """Click an element.
+
+        If the element is not interactive due to being covered by another
+         element, the click will retry for self.parent.wait_time amount of
+         time.
+        """
+        end_time = time.time() + self.parent.wait_time
+        error = None
+        while time.time() < end_time:
+            try:
+                return self._element.click()
+            except(
+                ElementClickInterceptedException,
+                WebDriverException,
+            ) as e:
+                error = e
+
+        raise error
 
     def check(self):
         if not self.checked:
-            self._element.click()
+            self.click()
 
     def uncheck(self):
         if self.checked:
-            self._element.click()
+            self.click()
 
     @property
     def checked(self):

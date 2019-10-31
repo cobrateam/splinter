@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+      <title>Element covered by another element for 3 seconds</title>
+
+      <style>
+          .overlapper {
+              position: absolute;
+              background-color: #0000ff;
+              width: 200px;
+              height: 50px;
+          }
+
+          .overlapped {
+              display: block;
+              background-color: #ccc;
+              width: 200px;
+              height: 50px;
+          }
+      </style>
+
+      <script>
+      function addElement() {
+          var newDiv = document.createElement('div');
+          newDiv.id = 'added_container';
+          newDiv.style.width = '100px';
+          newDiv.style.height = '100px';
+          newDiv.style.backgroundColor = "green";
+          newDiv.innerHTML = 'Added';
+          document.getElementById("overlapped").appendChild(newDiv);
+      }
+
+      function moveBox() {
+          setTimeout(function () {
+              var newDiv = document.getElementById("overlapper")
+              newDiv.style.left = '400px';
+          }, 3000);
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          moveBox();
+
+      }, false);
+
+      </script>
+
+    </head>
+    <body>
+      <div id='overlapper' class='overlapper'>Moves in 5 seconds</div>
+      <a href='#' id='overlapped' class='overlapped' onclick="addElement()">Click Me</a>
+
+      <div id='overlapper2' class='overlapper'>Never moves</div>
+      <a href='#' id='overlapped2' class='overlapped'>Click Me</a>
+    </body>
+</html>
