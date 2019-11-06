@@ -223,8 +223,48 @@ class FindLinks(object):
         )
 
 
+def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
+    """Wrapper for finding elements.
+
+    Must be attached to a class.
+
+    Returns:
+        ElementList
+
+    """
+    elements = None
+    elem_list = []
+
+    func_name = getattr(getattr(finder, _meth_func), _func_name)
+    find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
+    query = original_query or selector
+
+    wait_time = wait_time or self.wait_time
+    end_time = time.time() + wait_time
+    while time.time() < end_time:
+        try:
+            elements = finder(selector)
+            if not isinstance(elements, list):
+                elements = [elements]
+
+        except (
+            NoSuchElementException,
+            StaleElementReferenceException,
+        ):
+            # This exception is sometimes thrown if the page changes
+            # quickly
+            pass
+
+        if elements:
+            elem_list = [self.element_class(element, self) for element in elements]
+            break
+
+    return ElementList(elem_list, find_by=find_by, query=query)
+
+
 class BaseWebDriver(DriverAPI):
     driver = None
+    find_by = find_by
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
@@ -473,35 +513,6 @@ class BaseWebDriver(DriverAPI):
         )
         return self.links.find_by_text(text)
 
-    def find_by(self, finder, selector, original_find=None, original_query=None):
-        elements = None
-        end_time = time.time() + self.wait_time
-
-        func_name = getattr(getattr(finder, _meth_func), _func_name)
-        find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
-        query = original_query or selector
-
-        while time.time() < end_time:
-            try:
-                elements = finder(selector)
-                if not isinstance(elements, list):
-                    elements = [elements]
-            except (
-                NoSuchElementException,
-                StaleElementReferenceException,
-            ):
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
-
-            if elements:
-                return ElementList(
-                    [self.element_class(element, self) for element in elements],
-                    find_by=find_by,
-                    query=query,
-                )
-        return ElementList([], find_by=find_by, query=query)
-
     def find_by_css(self, css_selector):
         return self.find_by(
             self.driver.find_elements_by_css_selector,
@@ -678,9 +689,14 @@ class TypeIterator(object):
 
 
 class WebDriverElement(ElementAPI):
+    find_by = find_by
+
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
+
+        self.wait_time = self.parent.wait_time
+        self.element_class = self.parent.element_class
 
         self.links = FindLinks(self)
 
@@ -777,61 +793,60 @@ class WebDriverElement(ElementAPI):
     def outer_html(self):
         return self["outerHTML"]
 
-    def find_by_css(self, selector, original_find=None, original_query=None):
-        find_by = original_find or "css"
-        query = original_query or selector
-
-        elements = self._element.find_elements_by_css_selector(selector)
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by=find_by,
-            query=query,
+    def find_by_css(self, selector):
+        return self.find_by(
+            self._element.find_elements_by_css_selector,
+            selector,
+            original_find="css",
         )
 
-    def find_by_xpath(self, selector, original_find=None, original_query=None):
-        elements = ElementList(self._element.find_elements_by_xpath(selector))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="xpath",
-            query=selector,
+    def find_by_xpath(self, selector):
+        return self.find_by(
+            self._element.find_elements_by_xpath,
+            selector,
+            original_find="xpath",
         )
 
-    def find_by_name(self, name):
-        elements = ElementList(self._element.find_elements_by_name(name))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="name",
-            query=name,
+    def find_by_name(self, selector):
+        return self.find_by(
+            self._element.find_elements_by_name,
+            selector,
+            original_find="name",
         )
 
-    def find_by_tag(self, tag):
-        elements = ElementList(self._element.find_elements_by_tag_name(tag))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="tag",
-            query=tag,
+    def find_by_tag(self, selector):
+        return self.find_by(
+            self._element.find_elements_by_tag_name,
+            selector,
+            original_find="tag",
         )
 
     def find_by_value(self, value):
-        selector = '[value="%s"]' % value
-        return self.find_by_css(selector, original_find="value", original_query=value)
+        selector = '[value="{}"]'.format(value)
+        return self.find_by(
+            self._element.find_elements_by_css_selector,
+            selector,
+            original_find="value",
+            original_query=value,
+        )
 
     def find_by_text(self, text):
         # Add a period to the xpath to search only inside the parent.
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
-        return self.find_by_xpath(
+        return self.find_by(
+            self._element.find_elements_by_xpath,
             xpath_str,
             original_find="text",
             original_query=text,
         )
 
-    def find_by_id(self, id):
-        elements = ElementList(self._element.find_elements_by_id(id))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="id",
-            query=id,
+    def find_by_id(self, selector):
+        return self.find_by(
+            self._element.find_elements_by_id,
+            selector,
+            original_find="id",
         )
+
 
     def has_class(self, class_name):
         return bool(
