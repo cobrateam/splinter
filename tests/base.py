@@ -4,7 +4,9 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import pytest
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 from splinter import Browser
 
@@ -258,3 +260,20 @@ class WebDriverTests(
 
     def test_execute_script_returns_result_if_present(self):
         assert self.browser.execute_script("return 42") == 42
+
+    def test_click_intercepted(self):
+        """Intercepted clicks should retry."""
+        self.browser.visit(EXAMPLE_APP + "click_intercepted")
+        self.browser.wait_time = 10
+        # Clicking this element adds a new element to the page.
+        self.browser.find_by_id("overlapped").click()
+        value = self.browser.find_by_id("added_container").value
+        assert "Added" == value
+        self.browser.wait_time = 2
+
+    def test_click_intercepted_fails(self):
+        """Intercepted clicks that never unblock should raise an error."""
+        self.browser.visit(EXAMPLE_APP + "click_intercepted")
+
+        with pytest.raises(WebDriverException) as e:
+            self.browser.find_by_id("overlapped2").click()

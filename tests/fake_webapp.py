@@ -25,6 +25,7 @@ EXAMPLE_POPUP_HTML = read_static("popup.html")
 EXAMPLE_NO_BODY_HTML = read_static("no-body.html")
 EXAMPLE_REDIRECT_LOCATION_HTML = read_static("redirect-location.html")
 EXAMPLE_MOUSE_HTML = read_static("mouse.html")
+EXAMPLE_CLICK_INTERCEPTED_HTML = read_static("click_intercepted.html")
 
 # Functions for http basic auth.
 # Taken verbatim from http://flask.pocoo.org/snippets/8/
@@ -156,6 +157,11 @@ def redirect_location():
 @app.route("/mouse")
 def mouse():
     return EXAMPLE_MOUSE_HTML
+
+
+@app.route("/click_intercepted")
+def click_intercepted():
+    return EXAMPLE_CLICK_INTERCEPTED_HTML
 
 
 def start_flask_app(host, port):
