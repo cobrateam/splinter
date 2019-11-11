@@ -730,15 +730,23 @@ class WebDriverElement(ElementAPI):
     def fill(self, value):
         self.value = value
 
-    def select(self, value):
+    def select(self, value=None, text=None):
+        finder = None
+        search_value = None
+
+        if text:
+            finder = 'text()'
+            search_value = text
+        elif value:
+            finder = '@value'
+            search_value = value
+
         self.find_by_xpath(
-            '//select/option[@value="%s"]' % value
+            './/option[{}="{}"]'.format(finder, search_value)
         )._element.click()
 
     def select_by_text(self, text):
-        self.find_by_xpath(
-            '//select/option[text()="%s"]' % text
-        )._element.click()
+        self.select(text=text)
 
     def type(self, value, slowly=False):
         if slowly:
