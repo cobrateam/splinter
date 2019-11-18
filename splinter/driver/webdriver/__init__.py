@@ -317,7 +317,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if finder(selector) and finder(selector).visible:
+            if finder(selector, wait_time=wait_time) and finder(selector, wait_time=wait_time).visible:
                 return True
         return False
 
@@ -326,7 +326,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            element = finder(selector)
+            element = finder(selector, wait_time=0)
             if not element or (element and not element.visible):
                 return True
         return False
@@ -348,7 +348,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if finder(selector):
+            if finder(selector, wait_time=wait_time):
                 return True
         return False
 
@@ -357,7 +357,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if not finder(selector):
+            if not finder(selector, wait_time=0):
                 return True
         return False
 
@@ -513,15 +513,16 @@ class BaseWebDriver(DriverAPI):
         )
         return self.links.find_by_text(text)
 
-    def find_by_css(self, css_selector):
+    def find_by_css(self, css_selector, wait_time=None):
         return self.find_by(
             self.driver.find_elements_by_css_selector,
             css_selector,
             original_find="css",
             original_query=css_selector,
+            wait_time=wait_time,
         )
 
-    def find_by_xpath(self, xpath, original_find=None, original_query=None):
+    def find_by_xpath(self, xpath, original_find=None, original_query=None, wait_time=None):
         original_find = original_find or "xpath"
         original_query = original_query or xpath
         return self.find_by(
@@ -529,29 +530,46 @@ class BaseWebDriver(DriverAPI):
             xpath,
             original_find=original_find,
             original_query=original_query,
+            wait_time=wait_time,
         )
 
-    def find_by_name(self, name):
-        return self.find_by(self.driver.find_elements_by_name, name)
+    def find_by_name(self, name, wait_time=None):
+        return self.find_by(
+            self.driver.find_elements_by_name,
+            name,
+            wait_time=wait_time,
+        )
 
-    def find_by_tag(self, tag):
-        return self.find_by(self.driver.find_elements_by_tag_name, tag)
+    def find_by_tag(self, tag, wait_time=None):
+        return self.find_by(
+            self.driver.find_elements_by_tag_name,
+            tag,
+            wait_time=wait_time,
+    )
 
-    def find_by_value(self, value):
+    def find_by_value(self, value, wait_time=None):
         return self.find_by_xpath(
-            '//*[@value="%s"]' % value, original_find="value", original_query=value
+            '//*[@value="{}"]'.format(value),
+            original_find="value",
+            original_query=value,
+            wait_time=wait_time,
         )
 
-    def find_by_text(self, text=None):
+    def find_by_text(self, text=None, wait_time=None):
         xpath_str = _concat_xpath_from_str(text)
         return self.find_by_xpath(
             xpath_str,
             original_find="text",
             original_query=text,
+            wait_time=wait_time,
         )
 
-    def find_by_id(self, id):
-        return self.find_by(self.driver.find_element_by_id, id)
+    def find_by_id(self, id, wait_time=None):
+        return self.find_by(
+            self.driver.find_element_by_id,
+            id,
+            wait_time=wait_time,
+        )
 
     def fill(self, name, value):
         field = self.find_by_name(name).first
