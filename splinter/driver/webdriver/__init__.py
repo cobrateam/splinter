@@ -223,6 +223,38 @@ class FindLinks(object):
         )
 
 
+def _find(self, finder, selector):
+    """Search for elements. Returns a list of results.
+
+    Arguments:
+        finder: The function to use for the element search.
+        selector: The search query.
+
+    Returns:
+        list
+
+    """
+    elements = None
+    elem_list = []
+
+    try:
+        elements = finder(selector)
+        if not isinstance(elements, list):
+            elements = [elements]
+
+    except (
+        NoSuchElementException,
+        StaleElementReferenceException,
+    ):
+        # This exception is sometimes thrown if the page changes
+        # quickly
+        pass
+
+    if elements:
+        elem_list = [self.element_class(element, self) for element in elements]
+
+    return elem_list
+
 def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
     """Wrapper for finding elements.
 
@@ -232,32 +264,24 @@ def find_by(self, finder, selector, original_find=None, original_query=None, wai
         ElementList
 
     """
-    elements = None
     elem_list = []
 
     func_name = getattr(getattr(finder, _meth_func), _func_name)
     find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
     query = original_query or selector
 
-    wait_time = wait_time or self.wait_time
-    end_time = time.time() + wait_time
-    while time.time() < end_time:
-        try:
-            elements = finder(selector)
-            if not isinstance(elements, list):
-                elements = [elements]
+    # Zero second wait time means only check once
+    if wait_time == 0:
+        elem_list = _find(self, finder, selector)
+    else:
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
 
-        except (
-            NoSuchElementException,
-            StaleElementReferenceException,
-        ):
-            # This exception is sometimes thrown if the page changes
-            # quickly
-            pass
+        while time.time() < end_time:
+            elem_list = _find(self, finder, selector)
 
-        if elements:
-            elem_list = [self.element_class(element, self) for element in elements]
-            break
+            if elem_list:
+                break
 
     return ElementList(elem_list, find_by=find_by, query=query)
 
