@@ -14,6 +14,8 @@ from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
+import pytest
+
 
 def selenium_server_is_running():
     try:
@@ -26,13 +28,10 @@ def selenium_server_is_running():
 
 
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("remote")
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = Browser("remote")
+        request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
