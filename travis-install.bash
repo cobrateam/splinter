@@ -13,7 +13,7 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
   sleep 1
 
-  wget https://goo.gl/s4o9Vx -O selenium-server.jar
+  wget https://selenium-release.storage.googleapis.com/3.10/selenium-server-standalone-3.10.0.jar -O selenium-server.jar
 	java -jar selenium-server.jar > /dev/null 2>&1 &
 	sleep 1
 fi
