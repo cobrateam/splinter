@@ -33,12 +33,11 @@ class WebDriver(BaseWebDriver):
 
         # If no desired capabilities specified, add default ones
         caps = getattr(DesiredCapabilities, browser_name, {})
-        if not kwargs.get('desired_capabilities'):
-            kwargs['desired_capabilities'] = caps
-        else:
+        if kwargs.get('desired_capabilities'):
             # Combine user's desired capabilities with default
             caps.update(kwargs['desired_capabilities'])
-            kwargs['desired_capabilities'] = caps
+
+        kwargs['desired_capabilities'] = caps
 
         self.driver = Remote(command_executor, **kwargs)
 
