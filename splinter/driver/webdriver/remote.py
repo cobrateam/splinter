@@ -19,15 +19,27 @@ class WebDriver(BaseWebDriver):
     # TODO: This constant belongs in selenium.webdriver.Remote
     DEFAULT_URL = "http://127.0.0.1:4444/wd/hub"
 
-    def __init__(self, url=DEFAULT_URL, browser="firefox", wait_time=2, **ability_args):
-        browsername = browser.upper()
+    def __init__(
+        self,
+        browser="firefox",
+        wait_time=2,
+        command_executor=DEFAULT_URL,
+        **kwargs
+    ):
+        browser_name = browser.upper()
         # Handle case where user specifies IE with a space in it
-        if browsername == "INTERNET EXPLORER":
-            browsername = "INTERNETEXPLORER"
-        abilities = getattr(DesiredCapabilities, browsername, {})
-        abilities.update(ability_args)
+        if browser_name == "INTERNET EXPLORER":
+            browser_name = "INTERNETEXPLORER"
 
-        self.driver = Remote(url, abilities)
+        # If no desired capabilities specified, add default ones
+        caps = getattr(DesiredCapabilities, browser_name, {})
+        if kwargs.get('desired_capabilities'):
+            # Combine user's desired capabilities with default
+            caps.update(kwargs['desired_capabilities'])
+
+        kwargs['desired_capabilities'] = caps
+
+        self.driver = Remote(command_executor, **kwargs)
 
         self.element_class = WebDriverElement
 
