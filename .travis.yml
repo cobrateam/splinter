@@ -7,15 +7,15 @@ services:
   - xvfb
 before_install:
   - export DISPLAY=:99.0
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - mkdir geckodriver
-  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
   - ./travis-install.bash
 language: python
 addons:
   chrome: stable
-  firefox: "62.0"
+  firefox: "68.0"
 python:
   - "2.7"
   - "3.6"
