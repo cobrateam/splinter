@@ -57,33 +57,36 @@ class BaseBrowserTests(
     IsTextPresentTest,
 ):
     def test_can_open_page(self):
-        "should be able to visit, get title and quit"
-        title = self.browser.title
-        self.assertEqual("Example Title", title)
+        """should be able to visit, get title and quit"""
+        self.browser.visit(EXAMPLE_APP)
+        self.assertEqual("Example Title", self.browser.title)
 
     def test_can_back_on_history(self):
-        "should be able to back on history"
-        self.browser.visit("%s/iframe" % EXAMPLE_APP.rstrip("/"))
+        """should be able to back on history"""
+        self.browser.visit(EXAMPLE_APP)
+        self.browser.visit("{}iframe".format(EXAMPLE_APP))
         self.browser.back()
         self.assertEqual(EXAMPLE_APP, self.browser.url)
 
     def test_can_forward_on_history(self):
-        "should be able to forward history"
-        url = "%s/iframe" % EXAMPLE_APP.rstrip("/")
-        self.browser.visit(url)
+        """should be able to forward history"""
+        self.browser.visit(EXAMPLE_APP)
+        next_url = "{}iframe".format(EXAMPLE_APP)
+        self.browser.visit(next_url)
         self.browser.back()
         self.browser.forward()
-        self.assertEqual(url, self.browser.url)
+        self.assertEqual(next_url, self.browser.url)
 
     def test_should_have_html(self):
+        self.browser.visit(EXAMPLE_APP)
         html = self.browser.html
         self.assertIn("<title>Example Title</title>", html)
         self.assertIn('<h1 id="firstheader">Example Header</h1>', html)
 
     def test_should_reload_a_page(self):
-        title = self.browser.title
+        self.browser.visit(EXAMPLE_APP)
         self.browser.reload()
-        self.assertEqual("Example Title", title)
+        self.assertEqual("Example Title", self.browser.title)
 
     def test_should_have_url(self):
         "should have access to the url"
