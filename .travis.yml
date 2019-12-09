@@ -22,13 +22,11 @@ python:
   - "3.7"
   - "3.8"
 env:
-  - DRIVER=tests/test_flaskclient.py
+  - DRIVER='tests/test_flaskclient.py tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py'
+  - DRIVER=tests/test_webdriver.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER=tests/test_webdriver_firefox.py
   - DRIVER=tests/test_webdriver_chrome.py
-  - DRIVER=tests/test_browser.py
-  - DRIVER=tests/test_element_list.py
-  - DRIVER=tests/test_request_handler.py
 matrix:
   include:
     - python: 2.7
