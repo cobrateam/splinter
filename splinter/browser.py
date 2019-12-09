@@ -59,13 +59,15 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
     This can mitigate issues running on Remote WebDriver.
 
     """
+    err = None
+
     for _ in range(retry_count):
         try:
             return driver(*args, **kwargs)
         except (IOError, HTTPException, WebDriverException, MaxRetryError) as e:
-            pass
+            err = e
 
-    raise e
+    raise err
 
 
 def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):

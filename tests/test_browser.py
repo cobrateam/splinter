@@ -11,7 +11,12 @@ except ImportError:
 import unittest
 from imp import reload
 
+from splinter.browser import get_driver
 from splinter.exceptions import DriverNotFoundError
+
+from selenium.common.exceptions import WebDriverException
+
+import pytest
 
 from .fake_webapp import EXAMPLE_APP
 
@@ -57,3 +62,14 @@ class BrowserTest(unittest.TestCase):
             from splinter import Browser
 
             Browser("unknown-driver")
+
+
+@pytest.mark.parametrize('browser_name', ['chrome', 'firefox'])
+def test_local_driver_not_present(browser_name):
+    """When chromedriver/geckodriver are not present on the system."""
+    from splinter import Browser
+
+    with pytest.raises(WebDriverException) as e:
+        Browser(browser_name, executable_path='failpath')
+
+    assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
