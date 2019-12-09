@@ -20,7 +20,7 @@ python:
   - "2.7"
   - "3.6"
   - "3.7"
-  - "3.8-dev"
+  - "3.8"
 env:
   - DRIVER=tests/test_flaskclient.py
   - DRIVER=tests/test_webdriver_remote.py
@@ -39,7 +39,7 @@ matrix:
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
     - python: 3.7
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
-    - python: 3.8-dev
+    - python: 3.8
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
 install:
   - export PATH=$HOME:$PATH
