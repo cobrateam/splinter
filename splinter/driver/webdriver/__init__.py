@@ -713,6 +713,7 @@ class WebDriverElement(ElementAPI):
         self._element = element
         self.parent = parent
 
+        self.driver = self.parent.driver
         self.wait_time = self.parent.wait_time
         self.element_class = self.parent.element_class
 
@@ -875,53 +876,48 @@ class WebDriverElement(ElementAPI):
         """
         Scroll to the current element.
         """
-        self.parent.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
 
     def mouse_over(self):
         """
         Performs a mouse over the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).move_to_element(self._element).perform()
+        ActionChains(self.driver).move_to_element(self._element).perform()
 
     def mouse_out(self):
         """
         Performs a mouse out the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).move_to_element_with_offset(
+        ActionChains(self.driver).move_to_element_with_offset(
             self._element, -10, -10).click().perform()
 
     def double_click(self):
         """
         Performs a double click in the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).double_click(self._element).perform()
+        ActionChains(self.driver).double_click(self._element).perform()
 
     def right_click(self):
         """
         Performs a right click in the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).context_click(self._element).perform()
+        ActionChains(self.driver).context_click(self._element).perform()
 
     def drag_and_drop(self, droppable):
         """
         Performs drag a element to another elmenet.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
+        ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
     def screenshot(self, name='', suffix='.png', full=False):
         name = name or ''
@@ -945,13 +941,13 @@ class WebDriverElement(ElementAPI):
             raise NotImplementedError('Element screenshot need the Pillow dependency. '
                                       'Please use "pip install Pillow" install it.')
 
-        full_screen_png = self.parent.driver.get_screenshot_as_png()
+        full_screen_png = self.driver.get_screenshot_as_png()
 
         full_screen_bytes = BytesIO(full_screen_png)
 
         im = Image.open(full_screen_bytes)
         im_width, im_height = im.size[0], im.size[1]
-        window_size = self.parent.driver.get_window_size()
+        window_size = self.driver.get_window_size()
         window_width = window_size['width']
 
         ratio = im_width * 1.0 / window_width
