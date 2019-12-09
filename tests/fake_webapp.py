@@ -143,7 +143,7 @@ def auth_required():
     return "Success!"
 
 
-@app.route("/redirected")
+@app.route("/redirected", methods=["GET", "POST"])
 def redirected():
     location = "{}?{}".format(url_for("redirect_location"), "come=get&some=true")
     return redirect(location)
