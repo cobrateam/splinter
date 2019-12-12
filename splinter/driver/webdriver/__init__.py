@@ -844,44 +844,49 @@ class WebDriverElement(ElementAPI):
     def outer_html(self):
         return self["outerHTML"]
 
-    def find_by_css(self, selector):
+    def find_by_css(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements_by_css_selector,
             selector,
             original_find="css",
+            wait_time=wait_time,
         )
 
-    def find_by_xpath(self, selector):
+    def find_by_xpath(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements_by_xpath,
             selector,
             original_find="xpath",
+            wait_time=wait_time,
         )
 
-    def find_by_name(self, selector):
+    def find_by_name(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements_by_name,
             selector,
             original_find="name",
+            wait_time=wait_time,
         )
 
-    def find_by_tag(self, selector):
+    def find_by_tag(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements_by_tag_name,
             selector,
             original_find="tag",
+            wait_time=wait_time,
         )
 
-    def find_by_value(self, value):
+    def find_by_value(self, value, wait_time=None):
         selector = '[value="{}"]'.format(value)
         return self.find_by(
             self._element.find_elements_by_css_selector,
             selector,
             original_find="value",
             original_query=value,
+            wait_time=wait_time,
         )
 
-    def find_by_text(self, text):
+    def find_by_text(self, text, wait_time=None):
         # Add a period to the xpath to search only inside the parent.
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
         return self.find_by(
@@ -889,15 +894,16 @@ class WebDriverElement(ElementAPI):
             xpath_str,
             original_find="text",
             original_query=text,
+            wait_time=wait_time,
         )
 
-    def find_by_id(self, selector):
+    def find_by_id(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements_by_id,
             selector,
             original_find="id",
+            wait_time=wait_time,
         )
-
 
     def has_class(self, class_name):
         return bool(
