@@ -21,17 +21,16 @@ import time
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, driver):
-        self.driver = driver
-
-    def add(self, cookies):
-        if isinstance(cookies, list):
-            for cookie in cookies:
-                for key, value in cookie.items():
-                    self.driver.cookies[key] = value
-                return
-        for key, value in cookies.items():
-            self.driver.cookies[key] = value
+    def add(self, key, value='', max_age=None, expires=None, path='/',
+            domain=None, secure=False, httponly=False, samesite=None):
+        self.driver.cookies.create(
+            key,
+            value=value,
+            domain=domain,
+            expires=expires,
+            path=path,
+            secure=secure,
+        )
 
     def delete(self, *cookies):
         if cookies:
@@ -41,7 +40,10 @@ class CookieManager(CookieManagerAPI):
                 except KeyError:
                     pass
         else:
-            self.driver.cookies.clearAll()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.cookies.clearAll()
 
     def all(self, verbose=False):
         cookies = {}

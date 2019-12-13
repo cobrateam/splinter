@@ -22,16 +22,27 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         >>> assert cookie_manager['name'] == 'Tony'
     """
 
-    def add(self, cookies):
-        """
-        Adds a cookie.
+    def __init__(self, driver):
+        self.driver = driver
 
-        The ``cookie`` parameter is a ``dict`` where each key is an identifier
-        for the cookie value (like any ``dict``).
+    def add(self, key, value='', max_age=None, expires=None, path='/',
+            domain=None, secure=False, httponly=False, samesite=None):
+        """Add a cookie.
+
+        Arguments:
+            key: Cookie name
+            value: Cookie value
+            expires
+            path
+            domain
+            max_age
+            secure
+            httponly
+            samesite
 
         Example of use:
 
-            >>> cookie_manager.add({'name': 'Tony'})
+            >>> cookie_manager.add('name', 'Tony')
         """
         raise NotImplementedError
 
@@ -48,6 +59,12 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
             >>> cookie_manager.delete('name', 'birthday',
                                       'favorite_color') # deletes these three cookies
             >>> cookie_manager.delete('name') # deletes one cookie
+        """
+        raise NotImplementedError
+
+    def delete_all(self):
+        """
+        Delete all cookies.
         """
         raise NotImplementedError
 

@@ -4,7 +4,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from __future__ import with_statement
 import six
 from six.moves.urllib import parse
 
@@ -15,44 +14,51 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, browser_cookies):
-        self._cookies = browser_cookies
+    def add(self, key, value='', max_age=None, expires=None, path='/',
+            domain=None, secure=False, httponly=False, samesite=None):
+        self.driver.cookies[key] = value
 
-    def add(self, cookies):
-        if isinstance(cookies, list):
-            for cookie in cookies:
-                for key, value in cookie.items():
-                    self._cookies[key] = value
-                return
-        for key, value in cookies.items():
-            self._cookies[key] = value
+        cookie_data = {
+            'max-age': max_age,
+            'expires': expires,
+            'path': path,
+            'domain': domain,
+            'secure': secure,
+            'httponly': httponly,
+            'samesite': samesite,
+        }
+
+        self.driver.cookies[key].update(cookie_data)
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    del self._cookies[cookie]
+                    del self.driver.cookies[cookie]
                 except KeyError:
                     pass
         else:
-            self._cookies.clear()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.cookies.clear()
 
     def all(self, verbose=False):
         cookies = {}
-        for key, value in self._cookies.items():
+        for key, value in self.driver.cookies.items():
             cookies[key] = value
         return cookies
 
     def __getitem__(self, item):
-        return self._cookies[item].value
+        return self.driver.cookies[item].value
 
     def __contains__(self, key):
-        return key in self._cookies
+        return key in self.driver.cookies
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
             cookies_dict = dict(
-                [(key, morsel.value) for key, morsel in self._cookies.items()]
+                [(key, morsel.value) for key, morsel in self.driver.cookies.items()]
             )
             return cookies_dict == other_object
         return False
@@ -74,7 +80,7 @@ class DjangoClient(LxmlDriver):
 
         self._browser = Client(**client_kwargs)
         self._user_agent = user_agent
-        self._cookie_manager = CookieManager(self._browser.cookies)
+        self._cookie_manager = CookieManager(self._browser)
         super(DjangoClient, self).__init__(wait_time=wait_time)
 
     def __enter__(self):

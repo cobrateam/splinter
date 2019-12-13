@@ -14,24 +14,29 @@ else:
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, driver):
-        self.driver = driver
-
-    def add(self, cookies):
-        if isinstance(cookies, list):
-            for cookie in cookies:
-                for key, value in cookie.items():
-                    self.driver.add_cookie({"name": key, "value": value})
-                return
-        for key, value in cookies.items():
-            self.driver.add_cookie({"name": key, "value": value})
+    def add(self, key, value='', max_age=None, expires=None, path='/',
+            domain=None, secure=False, httponly=False, samesite=None):
+        self.driver.add_cookie(
+            {
+                'name': key,
+                'value': value,
+                'path': path,
+                'domain': domain,
+                'secure': secure,
+                'expiry': expires,
+                'httpOnly': httponly,
+            }
+        )
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 self.driver.delete_cookie(cookie)
         else:
-            self.driver.delete_all_cookies()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.delete_all_cookies()
 
     def all(self, verbose=False):
         if not verbose:

@@ -23,7 +23,7 @@ To add a cookie use the add method:
 
 ::
 
-    browser.cookies.add({'whatever': 'and ever'})
+    browser.cookies.add('cookie name', 'cookie value')
 
 Retrieve all cookies
 --------------------

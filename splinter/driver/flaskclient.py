@@ -4,8 +4,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from __future__ import with_statement
-
 try:
     from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
 except:
@@ -19,47 +17,49 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, browser_cookies):
-        self._cookies = browser_cookies
-
-    def add(self, cookies):
-        if isinstance(cookies, list):
-            for cookie in cookies:
-                for key, value in cookie.items():
-                    self._cookies.set_cookie("localhost", key, value)
-                return
-        for key, value in cookies.items():
-            self._cookies.set_cookie("localhost", key, value)
+    def add(self, key, value='', max_age=None, expires=None, path='/',
+            domain=None, secure=False, httponly=False, samesite=None):
+        self.driver.set_cookie(
+            'localhost',
+            key,
+            value=value,
+            max_age=max_age,
+            expires=expires,
+            path=path,
+            domain=domain,
+            secure=secure,
+            httponly=httponly,
+        )
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
-                try:
-                    self._cookies.delete_cookie("localhost", cookie)
-                except KeyError:
-                    pass
+                self.driver.delete_cookie('localhost', cookie)
         else:
-            self._cookies.cookie_jar.clear()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.cookie_jar.clear()
 
     def all(self, verbose=False):
         cookies = {}
-        for cookie in self._cookies.cookie_jar:
+        for cookie in self.driver.cookie_jar:
             cookies[cookie.name] = cookie.value
         return cookies
 
     def __getitem__(self, item):
-        cookies = dict([(c.name, c) for c in self._cookies.cookie_jar])
+        cookies = dict([(c.name, c) for c in self.driver.cookie_jar])
         return cookies[item].value
 
     def __contains__(self, key):
-        for cookie in self._cookies.cookie_jar:
+        for cookie in self.driver.cookie_jar:
             if cookie.name == key:
                 return True
         return False
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict([(c.name, c.value) for c in self._cookies.cookie_jar])
+            cookies_dict = dict([(c.name, c.value) for c in self.driver.cookie_jar])
             return cookies_dict == other_object
         return False
 
