@@ -5,8 +5,8 @@
 # license that can be found in the LICENSE file.
 
 import os
-import unittest
 import sys
+import unittest
 
 from splinter import Browser
 from .base import BaseBrowserTests
@@ -143,3 +143,9 @@ class ZopeTestBrowserDriverTest(
         for key, text in non_ascii_encodings.iteritems():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])
+
+    def test_cookies_extra_parameters(self):
+        """Cookie can be created with extra parameters."""
+        comment = 'Ipsum lorem'
+        self.browser.cookies.add('sha', 'zam', comment=comment)
+        assert 'Ipsum%20lorem' == self.browser.cookies['sha']['comment']

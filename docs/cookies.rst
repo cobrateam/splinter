@@ -7,25 +7,35 @@
     :keywords: splinter, python, tutorial, documentation, cookies
 
 ++++++++++++++++++++
-Cookies manipulation
+Cookies Manipulation
 ++++++++++++++++++++
 
 It is possible to manipulate cookies using the `cookies` attribute from a
 `Browser` instance. The `cookies` attribute is a instance of a `CookieManager`
-class that manipulates cookies, like adding and deleting them.
+class that manipulates cookies (ie: adding and deleting them).
 
-Create cookie
+Create Cookie
 -------------
 
-To add a cookie use the add method:
+To add a cookie use the browser.cookies.add method:
 
 .. highlight:: python
 
 ::
 
-    browser.cookies.add({'whatever': 'and ever'})
+    browser.cookies.add('cookie name', 'cookie value')
 
-Retrieve all cookies
+Extra Arguments
+~~~~~~~~~~~~~~~
+
+Each driver accepts various parameters when creating cookies.
+These can be used with browser.cookies.add as extra arguments.
+For example, WebDriver can use `path`, `domain`, `secure`, and `expiry`:
+
+::
+    browser.cookies.add('cookie_name', 'cookie_value', path='/cookiePath')
+
+Retrieve All Cookies
 --------------------
 
 To retrieve all cookies use the `all` method:
