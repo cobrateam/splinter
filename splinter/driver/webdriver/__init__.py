@@ -572,12 +572,15 @@ class BaseWebDriver(DriverAPI):
     )
 
     def find_by_value(self, value, wait_time=None):
-        return self.find_by_xpath(
+        elem = self.find_by_xpath(
             '//*[@value="{}"]'.format(value),
             original_find="value",
             original_query=value,
             wait_time=wait_time,
         )
+        if elem:
+            return elem
+        return self.find_by_xpath('//*[.="%s"]' % value)
 
     def find_by_text(self, text=None, wait_time=None):
         xpath_str = _concat_xpath_from_str(text)
