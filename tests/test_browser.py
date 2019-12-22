@@ -11,7 +11,6 @@ except ImportError:
 import unittest
 from imp import reload
 
-from splinter.browser import get_driver
 from splinter.exceptions import DriverNotFoundError
 
 from selenium.common.exceptions import WebDriverException
