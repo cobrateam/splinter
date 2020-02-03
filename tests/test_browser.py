@@ -92,9 +92,9 @@ def test_driver_retry_count():
     assert "test_retry_count: 3" == str(e.value)
 
     test_retry_count = 0
-    with pytest.raises(OSError) as e:
-        Browser('test_driver', retry_count=10)
+    with pytest.raises(IOError) as e:
+        Browser("test_driver", retry_count=10)
     assert "test_retry_count: 10" == str(e.value)
 
     del test_retry_count
-    del _DRIVERS['test_driver']
+    del _DRIVERS["test_driver"]
