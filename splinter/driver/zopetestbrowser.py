@@ -12,6 +12,7 @@ from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.element_present import ElementPresentMixIn
+from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.cookie_manager import CookieManagerAPI
 
@@ -71,6 +72,8 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
         self._cookie_manager = CookieManager(self._browser)
         self._last_urls = []
+
+        self.links = FindLinks(self)
 
     def __enter__(self):
         return self
@@ -132,13 +135,13 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
         return self.find_by_xpath(
-            xpath, original_find="css", original_selector=selector
+            xpath, original_find="css", original_query=selector
         )
 
     def get_control(self, xpath_element):
         return xpath_element
 
-    def find_by_xpath(self, xpath, original_find=None, original_selector=None):
+    def find_by_xpath(self, xpath, original_find=None, original_query=None):
         html = self.htmltree
 
         elements = []
@@ -152,7 +155,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                 elements.append(self.get_control(xpath_element))
 
         find_by = original_find or "xpath"
-        query = original_selector or xpath
+        query = original_query or xpath
 
         return ElementList(
             [ZopeTestBrowserElement(element, self) for element in elements],
@@ -162,12 +165,12 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     def find_by_tag(self, tag):
         return self.find_by_xpath(
-            "//%s" % tag, original_find="tag", original_selector=tag
+            "//%s" % tag, original_find="tag", original_query=tag
         )
 
     def find_by_value(self, value):
         elem = self.find_by_xpath(
-            '//*[@value="%s"]' % value, original_find="value", original_selector=value
+            '//*[@value="%s"]' % value, original_find="value", original_query=value
         )
         if elem:
             return elem
@@ -178,14 +181,14 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         return self.find_by_xpath(
             xpath_str,
             original_find="text",
-            original_selector=text,
+            original_query=text,
         )
 
     def find_by_id(self, id_value):
         return self.find_by_xpath(
             '//*[@id="%s"][1]' % id_value,
             original_find="id",
-            original_selector=id_value,
+            original_query=id_value,
         )
 
     def find_by_name(self, name):
