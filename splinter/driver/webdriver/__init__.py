@@ -855,11 +855,12 @@ class WebDriverElement(ElementAPI):
             wait_time=wait_time,
         )
 
-    def find_by_xpath(self, selector, wait_time=None):
+    def find_by_xpath(self, selector, wait_time=None, original_find="xpath", original_query=None):
         return self.find_by(
             self._element.find_elements_by_xpath,
             selector,
-            original_find="xpath",
+            original_find=original_find,
+            original_query=original_query,
             wait_time=wait_time,
         )
 
