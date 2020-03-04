@@ -299,7 +299,6 @@ class BaseWebDriver(DriverAPI):
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
-        self.ori_window_size = None
 
         self.links = FindLinks(self)
 
@@ -672,10 +671,14 @@ class BaseWebDriver(DriverAPI):
         os.close(fd)
 
         if full:
+            ori_window_size = self.driver.get_window_size()
             self.full_screen()
 
         self.driver.get_screenshot_as_file(filename)
-        self.recover_screen()
+
+        if full:
+            self.recover_screen(ori_window_size)
+
         return filename
 
     def select(self, name, value):
@@ -695,17 +698,14 @@ class BaseWebDriver(DriverAPI):
             pass
 
     def full_screen(self):
-        self.ori_window_size = self.driver.get_window_size()
         width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
         height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
         self.driver.set_window_size(width, height)
 
-    def recover_screen(self):
-        if self.ori_window_size:
-            width = self.ori_window_size.get('width')
-            height = self.ori_window_size.get('height')
-            self.driver.set_window_size(width, height)
-            self.ori_window_size = None
+    def recover_screen(self, size):
+        width = size.get('width')
+        height = size.get('height')
+        self.driver.set_window_size(width, height)
 
     def html_snapshot(self, name="", suffix=".html", encoding='utf-8'):
         """Write the current html to a file."""
@@ -975,6 +975,11 @@ class WebDriverElement(ElementAPI):
         self.scroll_to()
         ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
+    def _full_screen():
+        width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
+        height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
+        self.driver.set_window_size(width, height)
+
     def screenshot(self, name='', suffix='.png', full=False):
         name = name or ''
 
@@ -983,9 +988,17 @@ class WebDriverElement(ElementAPI):
         os.close(fd)
 
         if full:
-            self.parent.full_screen()
+            ori_window_size = self.driver.get_window_size()
+            self._full_screen()
+
         target = self.screenshot_as_png()
-        self.parent.recover_screen()
+
+        if full:
+            # Restore screen size
+            width = ori_window_size.get('width')
+            height = ori_window_size.get('height')
+            self.driver.set_window_size(width, height)
+
         target.save(filename)
 
         return filename
