@@ -13,8 +13,6 @@ from splinter.driver.webdriver import (
     WebDriverElement as WebDriverElement,
 )
 from splinter.driver.webdriver.cookie_manager import CookieManager
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 
@@ -89,7 +87,7 @@ class WebDriver(BaseWebDriver):
         )
 
         if fullscreen:
-            ActionChains(self.driver).send_keys(Keys.F11).perform()
+            self.driver.fullscreen_window()
 
         self.element_class = WebDriverElement
 
