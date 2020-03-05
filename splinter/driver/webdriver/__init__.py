@@ -14,7 +14,14 @@ from contextlib import contextmanager
 import warnings
 
 from selenium.webdriver.common.alert import Alert
-from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException, WebDriverException, StaleElementReferenceException, TimeoutException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    NoSuchElementException,
+    WebDriverException,
+    StaleElementReferenceException,
+    TimeoutException,
+    MoveTargetOutOfBoundsException,
+)
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -934,8 +941,15 @@ class WebDriverElement(ElementAPI):
 
         """
         self.scroll_to()
-        ActionChains(self.driver).move_to_element_with_offset(
-            self._element, -10, -10).click().perform()
+        size = self._element.size
+
+        try:
+            # Fails on left edge of viewport
+            ActionChains(self.driver).move_to_element_with_offset(
+                self._element, -10, -10).click().perform()
+        except MoveTargetOutOfBoundsException:
+            ActionChains(self.driver).move_to_element_with_offset(
+                self._element, size['width'] + 10, 10).click().perform()
 
     def double_click(self):
         """
