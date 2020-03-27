@@ -401,45 +401,43 @@ class BaseWebDriver(DriverAPI):
         except TimeoutException:
             return None
 
+    def _is_text_present(self, text):
+        """Check if text is present on the page.
+
+        NoSuchElementException is thrown if the body tag isn't present.
+        This has occasionally been observed. Assume that the page isn't fully
+        loaded yet.
+
+        StaleElementReferenceException is thrown if the page changes
+        quickly.
+        """
+        try:
+            self.driver.find_element_by_tag_name("body").text.index(text)
+            return True
+        except (NoSuchElementException, StaleElementReferenceException):
+            pass
+        except ValueError:
+            return False
+        return False
+
     def is_text_present(self, text, wait_time=None):
+        """Check if text is present in the body."""
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                self.driver.find_element_by_tag_name("body").text.index(text)
+            if self._is_text_present(text):
                 return True
-            except ValueError:
-                pass
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
-                # This has occasionally been observed. Assume that the
-                # page isn't fully loaded yet
-                pass
-            except StaleElementReferenceException:
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
         return False
 
     def is_text_not_present(self, text, wait_time=None):
+        """Check if text is not present in the body."""
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                self.driver.find_element_by_tag_name("body").text.index(text)
-            except ValueError:
+            if not self._is_text_present(text):
                 return True
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
-                # This has occasionally been observed. Assume that the
-                # page isn't fully loaded yet
-                pass
-            except StaleElementReferenceException:
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
         return False
 
     @contextmanager
