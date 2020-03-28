@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import os
+import six
 
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
@@ -12,8 +13,6 @@ from splinter.driver.webdriver import (
     WebDriverElement as WebDriverElement,
 )
 from splinter.driver.webdriver.cookie_manager import CookieManager
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 
@@ -63,9 +62,18 @@ class WebDriver(BaseWebDriver):
 
         if headless:
             os.environ.update({"MOZ_HEADLESS": "1"})
-            binary = FirefoxBinary()
+            if 'firefox_binary' in kwargs:
+                if isinstance(kwargs['firefox_binary'], six.string_types):
+                    binary = FirefoxBinary(kwargs['firefox_binary'])
+                else:
+                    binary = kwargs['firefox_binary']
+            else:
+                binary = FirefoxBinary()
             binary.add_command_line_options("-headless")
             kwargs["firefox_binary"] = binary
+        else:
+            if "MOZ_HEADLESS" in os.environ:
+                del os.environ["MOZ_HEADLESS"]
 
         if incognito:
             firefox_options.add_argument("-private")
@@ -79,7 +87,7 @@ class WebDriver(BaseWebDriver):
         )
 
         if fullscreen:
-            ActionChains(self.driver).send_keys(Keys.F11).perform()
+            self.driver.fullscreen_window()
 
         self.element_class = WebDriverElement
 

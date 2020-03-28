@@ -11,7 +11,7 @@ It lets you automate browser actions, such as visiting URLs and interacting with
 Sample code
 -----------
 
-::
+.. code:: python
    
    from splinter import Browser
 
@@ -21,9 +21,9 @@ Sample code
    browser.find_by_name('btnG').click()
 
    if browser.is_text_present('splinter.readthedocs.io'):
-       print "Yes, the official website was found!"
+       print("Yes, the official website was found!")
    else:
-       print "No, it wasn't found... We need to improve our SEO techniques"
+       print("No, it wasn't found... We need to improve our SEO techniques")
 
    browser.quit()
 
@@ -50,15 +50,13 @@ Documentation
 
 External links
 ==============
-* `Django Full Stack Testing and BDD with Lettuce and Splinter <http://cilliano.com/blog/2011/02/07/django-bdd-with-lettuce-and-splinter/>`_
-
-* `Splinter: Python tool for acceptance tests on web applications <https://f.souza.cc/2011/05/splinter-python-tool-for-acceptance.html/>`_
+* `Django Full Stack Testing and BDD with Lettuce and Splinter <https://www.cilliano.com/2011/02/07/django-bdd-with-lettuce-and-splinter.html>`_
 
 * `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
 
 * `salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
-* `behave-django <https://github.com/mixxorz/behave-django>`_, BDD testing in Django using `Behave <http://pythonhosted.org/behave/>`_. Works well with splinter.
+* `behave-django <https://github.com/behave/behave-django>`_, BDD testing in Django using `Behave <https://github.com/behave/behave/>`_. Works well with splinter.
 
 * `pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
 

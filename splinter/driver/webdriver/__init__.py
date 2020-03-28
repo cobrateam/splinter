@@ -14,7 +14,14 @@ from contextlib import contextmanager
 import warnings
 
 from selenium.webdriver.common.alert import Alert
-from selenium.common.exceptions import NoSuchElementException, WebDriverException, StaleElementReferenceException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    NoSuchElementException,
+    WebDriverException,
+    StaleElementReferenceException,
+    TimeoutException,
+    MoveTargetOutOfBoundsException,
+)
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -223,8 +230,72 @@ class FindLinks(object):
         )
 
 
+def _find(self, finder, selector):
+    """Search for elements. Returns a list of results.
+
+    Arguments:
+        finder: The function to use for the element search.
+        selector: The search query.
+
+    Returns:
+        list
+
+    """
+    elements = None
+    elem_list = []
+
+    try:
+        elements = finder(selector)
+        if not isinstance(elements, list):
+            elements = [elements]
+
+    except (
+        NoSuchElementException,
+        StaleElementReferenceException,
+    ):
+        # This exception is sometimes thrown if the page changes
+        # quickly
+        pass
+
+    if elements:
+        elem_list = [self.element_class(element, self) for element in elements]
+
+    return elem_list
+
+def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
+    """Wrapper for finding elements.
+
+    Must be attached to a class.
+
+    Returns:
+        ElementList
+
+    """
+    elem_list = []
+
+    func_name = getattr(getattr(finder, _meth_func), _func_name)
+    find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
+    query = original_query or selector
+
+    # Zero second wait time means only check once
+    if wait_time == 0:
+        elem_list = _find(self, finder, selector)
+    else:
+        wait_time = wait_time or self.wait_time
+        end_time = time.time() + wait_time
+
+        while time.time() < end_time:
+            elem_list = _find(self, finder, selector)
+
+            if elem_list:
+                break
+
+    return ElementList(elem_list, find_by=find_by, query=query)
+
+
 class BaseWebDriver(DriverAPI):
     driver = None
+    find_by = find_by
 
     def __init__(self, wait_time=2):
         self.wait_time = wait_time
@@ -277,7 +348,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if finder(selector) and finder(selector).visible:
+            if finder(selector, wait_time=wait_time) and finder(selector, wait_time=wait_time).visible:
                 return True
         return False
 
@@ -286,7 +357,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            element = finder(selector)
+            element = finder(selector, wait_time=0)
             if not element or (element and not element.visible):
                 return True
         return False
@@ -308,7 +379,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if finder(selector):
+            if finder(selector, wait_time=wait_time):
                 return True
         return False
 
@@ -317,7 +388,7 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if not finder(selector):
+            if not finder(selector, wait_time=0):
                 return True
         return False
 
@@ -366,9 +437,11 @@ class BaseWebDriver(DriverAPI):
     def get_alert(self, wait_time=None):
         wait_time = wait_time or self.wait_time
 
-        alert = WebDriverWait(self.driver, wait_time).until(EC.alert_is_present())
-
-        return alert
+        try:
+            alert = WebDriverWait(self.driver, wait_time).until(EC.alert_is_present())
+            return alert
+        except TimeoutException:
+            return None
 
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -471,43 +544,16 @@ class BaseWebDriver(DriverAPI):
         )
         return self.links.find_by_text(text)
 
-    def find_by(self, finder, selector, original_find=None, original_query=None):
-        elements = None
-        end_time = time.time() + self.wait_time
-
-        func_name = getattr(getattr(finder, _meth_func), _func_name)
-        find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
-        query = original_query or selector
-
-        while time.time() < end_time:
-            try:
-                elements = finder(selector)
-                if not isinstance(elements, list):
-                    elements = [elements]
-            except NoSuchElementException:
-                pass
-            except StaleElementReferenceException:
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
-
-            if elements:
-                return ElementList(
-                    [self.element_class(element, self) for element in elements],
-                    find_by=find_by,
-                    query=query,
-                )
-        return ElementList([], find_by=find_by, query=query)
-
-    def find_by_css(self, css_selector):
+    def find_by_css(self, css_selector, wait_time=None):
         return self.find_by(
             self.driver.find_elements_by_css_selector,
             css_selector,
             original_find="css",
             original_query=css_selector,
+            wait_time=wait_time,
         )
 
-    def find_by_xpath(self, xpath, original_find=None, original_query=None):
+    def find_by_xpath(self, xpath, original_find=None, original_query=None, wait_time=None):
         original_find = original_find or "xpath"
         original_query = original_query or xpath
         return self.find_by(
@@ -515,29 +561,49 @@ class BaseWebDriver(DriverAPI):
             xpath,
             original_find=original_find,
             original_query=original_query,
+            wait_time=wait_time,
         )
 
-    def find_by_name(self, name):
-        return self.find_by(self.driver.find_elements_by_name, name)
-
-    def find_by_tag(self, tag):
-        return self.find_by(self.driver.find_elements_by_tag_name, tag)
-
-    def find_by_value(self, value):
-        return self.find_by_xpath(
-            '//*[@value="%s"]' % value, original_find="value", original_query=value
+    def find_by_name(self, name, wait_time=None):
+        return self.find_by(
+            self.driver.find_elements_by_name,
+            name,
+            wait_time=wait_time,
         )
 
-    def find_by_text(self, text=None):
+    def find_by_tag(self, tag, wait_time=None):
+        return self.find_by(
+            self.driver.find_elements_by_tag_name,
+            tag,
+            wait_time=wait_time,
+    )
+
+    def find_by_value(self, value, wait_time=None):
+        elem = self.find_by_xpath(
+            '//*[@value="{}"]'.format(value),
+            original_find="value",
+            original_query=value,
+            wait_time=wait_time,
+        )
+        if elem:
+            return elem
+        return self.find_by_xpath('//*[.="%s"]' % value)
+
+    def find_by_text(self, text=None, wait_time=None):
         xpath_str = _concat_xpath_from_str(text)
         return self.find_by_xpath(
             xpath_str,
             original_find="text",
             original_query=text,
+            wait_time=wait_time,
         )
 
-    def find_by_id(self, id):
-        return self.find_by(self.driver.find_element_by_id, id)
+    def find_by_id(self, id, wait_time=None):
+        return self.find_by(
+            self.driver.find_element_by_id,
+            id,
+            wait_time=wait_time,
+        )
 
     def fill(self, name, value):
         field = self.find_by_name(name).first
@@ -675,9 +741,15 @@ class TypeIterator(object):
 
 
 class WebDriverElement(ElementAPI):
+    find_by = find_by
+
     def __init__(self, element, parent):
         self._element = element
         self.parent = parent
+
+        self.driver = self.parent.driver
+        self.wait_time = self.parent.wait_time
+        self.element_class = self.parent.element_class
 
         self.links = FindLinks(self)
 
@@ -711,15 +783,23 @@ class WebDriverElement(ElementAPI):
     def fill(self, value):
         self.value = value
 
-    def select(self, value):
+    def select(self, value=None, text=None):
+        finder = None
+        search_value = None
+
+        if text:
+            finder = 'text()'
+            search_value = text
+        elif value:
+            finder = '@value'
+            search_value = value
+
         self.find_by_xpath(
-            '//select/option[@value="%s"]' % value
+            './/option[{}="{}"]'.format(finder, search_value)
         )._element.click()
 
     def select_by_text(self, text):
-        self.find_by_xpath(
-            '//select/option[text()="%s"]' % text
-        )._element.click()
+        self.select(text=text)
 
     def type(self, value, slowly=False):
         if slowly:
@@ -729,15 +809,32 @@ class WebDriverElement(ElementAPI):
         return value
 
     def click(self):
-        self._element.click()
+        """Click an element.
+
+        If the element is not interactive due to being covered by another
+         element, the click will retry for self.parent.wait_time amount of
+         time.
+        """
+        end_time = time.time() + self.parent.wait_time
+        error = None
+        while time.time() < end_time:
+            try:
+                return self._element.click()
+            except(
+                ElementClickInterceptedException,
+                WebDriverException,
+            ) as e:
+                error = e
+
+        raise error
 
     def check(self):
         if not self.checked:
-            self._element.click()
+            self.click()
 
     def uncheck(self):
         if self.checked:
-            self._element.click()
+            self.click()
 
     @property
     def checked(self):
@@ -757,60 +854,66 @@ class WebDriverElement(ElementAPI):
     def outer_html(self):
         return self["outerHTML"]
 
-    def find_by_css(self, selector, original_find=None, original_query=None):
-        find_by = original_find or "css"
-        query = original_query or selector
-
-        elements = self._element.find_elements_by_css_selector(selector)
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by=find_by,
-            query=query,
+    def find_by_css(self, selector, wait_time=None):
+        return self.find_by(
+            self._element.find_elements_by_css_selector,
+            selector,
+            original_find="css",
+            wait_time=wait_time,
         )
 
-    def find_by_xpath(self, selector, original_find=None, original_query=None):
-        elements = ElementList(self._element.find_elements_by_xpath(selector))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="xpath",
-            query=selector,
+    def find_by_xpath(self, selector, wait_time=None, original_find="xpath", original_query=None):
+        return self.find_by(
+            self._element.find_elements_by_xpath,
+            selector,
+            original_find=original_find,
+            original_query=original_query,
+            wait_time=wait_time,
         )
 
-    def find_by_name(self, name):
-        elements = ElementList(self._element.find_elements_by_name(name))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="name",
-            query=name,
+    def find_by_name(self, selector, wait_time=None):
+        return self.find_by(
+            self._element.find_elements_by_name,
+            selector,
+            original_find="name",
+            wait_time=wait_time,
         )
 
-    def find_by_tag(self, tag):
-        elements = ElementList(self._element.find_elements_by_tag_name(tag))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="tag",
-            query=tag,
+    def find_by_tag(self, selector, wait_time=None):
+        return self.find_by(
+            self._element.find_elements_by_tag_name,
+            selector,
+            original_find="tag",
+            wait_time=wait_time,
         )
 
-    def find_by_value(self, value):
-        selector = '[value="%s"]' % value
-        return self.find_by_css(selector, original_find="value", original_query=value)
+    def find_by_value(self, value, wait_time=None):
+        selector = '[value="{}"]'.format(value)
+        return self.find_by(
+            self._element.find_elements_by_css_selector,
+            selector,
+            original_find="value",
+            original_query=value,
+            wait_time=wait_time,
+        )
 
-    def find_by_text(self, text):
+    def find_by_text(self, text, wait_time=None):
         # Add a period to the xpath to search only inside the parent.
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
-        return self.find_by_xpath(
+        return self.find_by(
+            self._element.find_elements_by_xpath,
             xpath_str,
             original_find="text",
             original_query=text,
+            wait_time=wait_time,
         )
 
-    def find_by_id(self, id):
-        elements = ElementList(self._element.find_elements_by_id(id))
-        return ElementList(
-            [self.__class__(element, self.parent) for element in elements],
-            find_by="id",
-            query=id,
+    def find_by_id(self, selector, wait_time=None):
+        return self.find_by(
+            self._element.find_elements_by_id,
+            selector,
+            original_find="id",
+            wait_time=wait_time,
         )
 
     def has_class(self, class_name):
@@ -822,53 +925,55 @@ class WebDriverElement(ElementAPI):
         """
         Scroll to the current element.
         """
-        self.parent.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
 
     def mouse_over(self):
         """
         Performs a mouse over the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).move_to_element(self._element).perform()
+        ActionChains(self.driver).move_to_element(self._element).perform()
 
     def mouse_out(self):
         """
         Performs a mouse out the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).move_to_element_with_offset(
-            self._element, -10, -10).click().perform()
+        size = self._element.size
+
+        try:
+            # Fails on left edge of viewport
+            ActionChains(self.driver).move_to_element_with_offset(
+                self._element, -10, -10).click().perform()
+        except MoveTargetOutOfBoundsException:
+            ActionChains(self.driver).move_to_element_with_offset(
+                self._element, size['width'] + 10, 10).click().perform()
 
     def double_click(self):
         """
         Performs a double click in the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).double_click(self._element).perform()
+        ActionChains(self.driver).double_click(self._element).perform()
 
     def right_click(self):
         """
         Performs a right click in the element.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).context_click(self._element).perform()
+        ActionChains(self.driver).context_click(self._element).perform()
 
     def drag_and_drop(self, droppable):
         """
         Performs drag a element to another elmenet.
 
-        Currently works only on Chrome driver.
         """
         self.scroll_to()
-        ActionChains(self.parent.driver).drag_and_drop(self._element, droppable._element).perform()
+        ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
     def screenshot(self, name='', suffix='.png', full=False):
         name = name or ''
@@ -892,13 +997,13 @@ class WebDriverElement(ElementAPI):
             raise NotImplementedError('Element screenshot need the Pillow dependency. '
                                       'Please use "pip install Pillow" install it.')
 
-        full_screen_png = self.parent.driver.get_screenshot_as_png()
+        full_screen_png = self.driver.get_screenshot_as_png()
 
         full_screen_bytes = BytesIO(full_screen_png)
 
         im = Image.open(full_screen_bytes)
         im_width, im_height = im.size[0], im.size[1]
-        window_size = self.parent.driver.get_window_size()
+        window_size = self.driver.get_window_size()
         window_width = window_size['width']
 
         ratio = im_width * 1.0 / window_width

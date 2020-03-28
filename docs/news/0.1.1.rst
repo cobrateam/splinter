@@ -9,4 +9,4 @@
 what's new in splinter 0.1.1?
 =============================
 
-- compability with Firefox 5
+- compatibility with Firefox 5

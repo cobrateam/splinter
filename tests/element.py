@@ -33,6 +33,12 @@ class ElementTest(object):
             u'inner <div class="inner-html">inner text</div> html test</div>',
         )
 
+    def test_element_html_with_breakline(self):
+        self.assertEqual(
+            self.browser.find_by_id("html-property-with-breakline").html,
+            u'\\n     some text here\\n',
+        )
+
     def test_element_html(self):
         self.assertEqual(
             self.browser.find_by_id("html-property").html,

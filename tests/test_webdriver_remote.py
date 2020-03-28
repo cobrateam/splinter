@@ -14,6 +14,8 @@ from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
+import pytest
+
 
 def selenium_server_is_running():
     try:
@@ -26,13 +28,10 @@ def selenium_server_is_running():
 
 
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("remote")
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = Browser("remote")
+        request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
         self.browser.visit(EXAMPLE_APP)
@@ -41,42 +40,6 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         "Remote should support with statement"
         with Browser("remote"):
             pass
-
-    def test_mouse_over(self):
-        "Remote should not support mouseover"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").mouse_over()
-
-    def test_mouse_out(self):
-        "Remote should not support mouseout"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").mouse_out()
-
-    def test_mouse_out_top_left(self):
-        "Remote should not support mouseout"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").mouse_out()
-
-    def test_double_click(self):
-        "Remote should not support double_click"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").double_click()
-
-    def test_right_click(self):
-        "Remote should not support right_click"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").right_click()
-
-    def test_drag_and_drop(self):
-        "Remote should not support drag_and_drop"
-        with self.assertRaises(NotImplementedError):
-            droppable = self.browser.find_by_css(".droppable")
-            self.browser.find_by_css(".draggable").drag_and_drop(droppable)
-
-    def test_mouseover_should_be_an_alias_to_mouse_over(self):
-        "Remote should not support mouseover"
-        with self.assertRaises(NotImplementedError):
-            self.browser.find_by_id("visible").mouseover()
 
     def test_should_be_able_to_change_user_agent(self):
         "Remote should not support custom user agent"

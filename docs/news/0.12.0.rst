@@ -1,0 +1,22 @@
+.. Copyright 2019 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.12.0.
+    :keywords: splinter 0.12.0, news
+
+whats's new in splinter 0.12.0?
+==============================
+
+* `find_by_text` now handle strings with quotation marks (https://github.com/cobrateam/splinter/issues/457)
+* `find_link_by` methods are now chainable (https://github.com/cobrateam/splinter/pull/699)
+* `ElementList.__getattr__()` no longer hide ElementNotFound (https://github.com/cobrateam/splinter/pull/707)
+* Firefox headless mode now handle custom firefox_binary option (https://github.com/cobrateam/splinter/pull/714)
+* Firefox driver now respects headless option in subsequent calls (https://github.com/cobrateam/splinter/pull/715)
+* `Browser.get_alert()` returns None if no alert exists (https://github.com/cobrateam/splinter/issues/387)
+* Retry WebElement.click if Exception is thrown (https://github.com/cobrateam/splinter/pull/725)
+* `find_by` methods in WebDriverElement now uses retry mechanism (https://github.com/cobrateam/splinter/pull/727)
+* `is_not_present/visible` returns True immediately after not finding anything (https://github.com/cobrateam/splinter/pull/732)
+* Accept all valid arguments for Remote WebDriver (https://github.com/cobrateam/splinter/pull/734)
+* Allow ActionChains when using Remote WebDriver (https://github.com/cobrateam/splinter/pull/738)

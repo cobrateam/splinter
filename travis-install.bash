@@ -13,14 +13,15 @@ fi
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
   sleep 1
 
-  wget https://goo.gl/s4o9Vx -O selenium-server.jar
+  wget https://selenium-release.storage.googleapis.com/3.10/selenium-server-standalone-3.10.0.jar -O selenium-server.jar
 	java -jar selenium-server.jar > /dev/null 2>&1 &
 	sleep 1
 fi
 
-if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ]; then
+if [ "${DRIVER}" = "tests/test_webdriver_chrome.py" ] || [ "${DRIVER}" = "tests/test_webdriver.py" ]; then
     sleep 1
 
     FILE=`mktemp`; wget "https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
+

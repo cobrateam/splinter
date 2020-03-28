@@ -4,7 +4,9 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import pytest
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 from splinter import Browser
 
@@ -55,33 +57,36 @@ class BaseBrowserTests(
     IsTextPresentTest,
 ):
     def test_can_open_page(self):
-        "should be able to visit, get title and quit"
-        title = self.browser.title
-        self.assertEqual("Example Title", title)
+        """should be able to visit, get title and quit"""
+        self.browser.visit(EXAMPLE_APP)
+        self.assertEqual("Example Title", self.browser.title)
 
     def test_can_back_on_history(self):
-        "should be able to back on history"
-        self.browser.visit("%s/iframe" % EXAMPLE_APP.rstrip("/"))
+        """should be able to back on history"""
+        self.browser.visit(EXAMPLE_APP)
+        self.browser.visit("{}iframe".format(EXAMPLE_APP))
         self.browser.back()
         self.assertEqual(EXAMPLE_APP, self.browser.url)
 
     def test_can_forward_on_history(self):
-        "should be able to forward history"
-        url = "%s/iframe" % EXAMPLE_APP.rstrip("/")
-        self.browser.visit(url)
+        """should be able to forward history"""
+        self.browser.visit(EXAMPLE_APP)
+        next_url = "{}iframe".format(EXAMPLE_APP)
+        self.browser.visit(next_url)
         self.browser.back()
         self.browser.forward()
-        self.assertEqual(url, self.browser.url)
+        self.assertEqual(next_url, self.browser.url)
 
     def test_should_have_html(self):
+        self.browser.visit(EXAMPLE_APP)
         html = self.browser.html
         self.assertIn("<title>Example Title</title>", html)
         self.assertIn('<h1 id="firstheader">Example Header</h1>', html)
 
     def test_should_reload_a_page(self):
-        title = self.browser.title
+        self.browser.visit(EXAMPLE_APP)
         self.browser.reload()
-        self.assertEqual("Example Title", title)
+        self.assertEqual("Example Title", self.browser.title)
 
     def test_should_have_url(self):
         "should have access to the url"
@@ -237,6 +242,11 @@ class WebDriverTests(
             self.assertEqual("This is an alert example.", alert.text)
             alert.accept()
 
+    def test_get_alert_return_none_if_no_alerts(self):
+        "should return None if no alerts available"
+        alert = self.browser.get_alert()
+        self.assertEqual(None, alert)
+
     def test_can_select_a_option_via_element_text(self):
         "should provide a way to select a option via element"
         self.assertFalse(self.browser.find_option_by_value("rj").selected)
@@ -253,3 +263,20 @@ class WebDriverTests(
 
     def test_execute_script_returns_result_if_present(self):
         assert self.browser.execute_script("return 42") == 42
+
+    def test_click_intercepted(self):
+        """Intercepted clicks should retry."""
+        self.browser.visit(EXAMPLE_APP + "click_intercepted")
+        self.browser.wait_time = 10
+        # Clicking this element adds a new element to the page.
+        self.browser.find_by_id("overlapped").click()
+        value = self.browser.find_by_id("added_container").value
+        assert "Added" == value
+        self.browser.wait_time = 2
+
+    def test_click_intercepted_fails(self):
+        """Intercepted clicks that never unblock should raise an error."""
+        self.browser.visit(EXAMPLE_APP + "click_intercepted")
+
+        with pytest.raises(WebDriverException) as e:
+            self.browser.find_by_id("overlapped2").click()

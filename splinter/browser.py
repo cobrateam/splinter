@@ -6,6 +6,15 @@
 
 import sys
 
+try:
+    from httplib import HTTPException
+except ImportError:
+    from http.client import HTTPException
+
+from urllib3.exceptions import MaxRetryError
+
+from selenium.common.exceptions import WebDriverException
+
 from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
@@ -43,7 +52,25 @@ except ImportError:
     pass
 
 
-def Browser(driver_name="firefox", *args, **kwargs):
+def get_driver(driver, retry_count=3, *args, **kwargs):
+    """Try to instantiate the driver.
+
+    Common selenium errors are caught and a retry attempt occurs.
+    This can mitigate issues running on Remote WebDriver.
+
+    """
+    err = None
+
+    for _ in range(retry_count):
+        try:
+            return driver(*args, **kwargs)
+        except (IOError, HTTPException, WebDriverException, MaxRetryError) as e:
+            err = e
+
+    raise err
+
+
+def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):
     """
     Returns a driver instance for the given name.
 
@@ -61,4 +88,5 @@ def Browser(driver_name="firefox", *args, **kwargs):
         driver = _DRIVERS[driver_name]
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
-    return driver(*args, **kwargs)
+
+    return get_driver(driver, *args, **kwargs)

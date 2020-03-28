@@ -80,6 +80,7 @@
   <body>
     <h1 id="firstheader">Example Header</h1>
     <h1 id="firstheader">Example Last Header</h1>
+    <button id="button-value">some value</button>
     <form action="name" method="GET">
         <label for="query">Query</label>
         <input type="text" name="q" />
@@ -135,6 +136,11 @@
     </form>
 
 
+    <form action="/redirected" method="POST">
+      <button type="submit" name="redirect" value="submit">Go</button>
+    </form>
+
+
     <form id='login'>
       First name:<br>
       <input type="text" name="firstname"><br>
@@ -182,6 +188,7 @@
     <div class="dragged">no</div>
     <div class="has-class-first has-class-middle has-class-end"></div>
     <div id="html-property" class="outer html classes">inner <div class="inner-html">inner text</div> html test</div>
+    <p id="html-property-with-breakline">\n     some text here\n</p>
     <a id="open-popup" href="javascript:poptastic('/popup')">Open pop-up window</a>
     <script>
       function poptastic(url) {
