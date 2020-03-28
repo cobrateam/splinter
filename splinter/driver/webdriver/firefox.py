@@ -61,19 +61,7 @@ class WebDriver(BaseWebDriver):
                 firefox_profile.add_extension(extension)
 
         if headless:
-            os.environ.update({"MOZ_HEADLESS": "1"})
-            if 'firefox_binary' in kwargs:
-                if isinstance(kwargs['firefox_binary'], six.string_types):
-                    binary = FirefoxBinary(kwargs['firefox_binary'])
-                else:
-                    binary = kwargs['firefox_binary']
-            else:
-                binary = FirefoxBinary()
-            binary.add_command_line_options("-headless")
-            kwargs["firefox_binary"] = binary
-        else:
-            if "MOZ_HEADLESS" in os.environ:
-                del os.environ["MOZ_HEADLESS"]
+            firefox_options.add_argument("--headless")
 
         if incognito:
             firefox_options.add_argument("-private")
