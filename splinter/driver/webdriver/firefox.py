@@ -13,7 +13,6 @@ from splinter.driver.webdriver import (
     WebDriverElement as WebDriverElement,
 )
 from splinter.driver.webdriver.cookie_manager import CookieManager
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 
 
