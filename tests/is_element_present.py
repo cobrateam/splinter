@@ -51,9 +51,10 @@ class IsElementPresentTest(object):
         self.assertTrue(self.browser.is_element_not_present_by_xpath("//h4"))
 
     def test_is_element_not_present_by_xpath_returns_false_if_element_is_present(self):
-        "should is element not present by xpath returns false if element is present"
+        """should is_element_not_present_by_xpath returns False if element is present"""
         self.browser.find_by_css(".add-async-element").click()
-        self.assertFalse(self.browser.is_element_not_present_by_xpath("//h4"))
+        self.browser.find_by_xpath("//h4")
+        assert not self.browser.is_element_not_present_by_xpath("//h4")
 
     def test_is_element_not_present_by_xpath_using_a_custom_wait_time(self):
         "should is element not present by xpath verify if element is not present using a custom wait time"
@@ -84,9 +85,10 @@ class IsElementPresentTest(object):
         self.assertTrue(self.browser.is_element_not_present_by_tag("h4", wait_time=3))
 
     def test_is_element_not_present_by_tag_returns_false_if_element_is_present(self):
-        "should is element not present by tag returns false if element is present"
+        """should is_element_not_present_by_tag returns False if element is present"""
         self.browser.find_by_css(".add-async-element").click()
-        self.assertFalse(self.browser.is_element_not_present_by_tag("h4"))
+        self.browser.find_by_tag("h4")
+        assert not self.browser.is_element_not_present_by_tag("h4")
 
     def test_is_element_present_by_text(self):
         "should is element present by text verify if element is present"
@@ -165,9 +167,11 @@ class IsElementPresentTest(object):
         )
 
     def test_is_element_not_present_by_id_returns_false_if_element_is_present(self):
-        "should is element not present by id returns False if element is present"
+        """should is_element_not_present_by_id returns False if element is present"""
         self.browser.find_by_css(".add-async-element").click()
-        self.assertFalse(self.browser.is_element_not_present_by_id("async-header"))
+        self.browser.find_by_id("async-header")
+        assert not self.browser.is_element_not_present_by_id("async-header")
+
 
     def test_is_element_present_by_name(self):
         "should is element present by name verify if element is present"
@@ -196,6 +200,7 @@ class IsElementPresentTest(object):
         )
 
     def test_is_element_not_present_by_name_returns_false_if_element_is_present(self):
-        "should is element not present by name returns false if element is present"
+        """should is_element_not_present_by_name returns False if element is present"""
         self.browser.find_by_css(".add-async-element").click()
-        self.assertFalse(self.browser.is_element_not_present_by_name("async-input"))
+        self.browser.find_by_name("async-input")
+        assert not self.browser.is_element_not_present_by_name("async-input")

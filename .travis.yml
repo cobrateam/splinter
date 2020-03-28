@@ -7,28 +7,26 @@ services:
   - xvfb
 before_install:
   - export DISPLAY=:99.0
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - mkdir geckodriver
-  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
   - ./travis-install.bash
 language: python
 addons:
   chrome: stable
-  firefox: "62.0"
+  firefox: "68.0"
 python:
   - "2.7"
   - "3.6"
   - "3.7"
-  - "3.8-dev"
+  - "3.8"
 env:
-  - DRIVER=tests/test_flaskclient.py
+  - DRIVER='tests/test_flaskclient.py tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py'
+  - DRIVER=tests/test_webdriver.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER=tests/test_webdriver_firefox.py
   - DRIVER=tests/test_webdriver_chrome.py
-  - DRIVER=tests/test_browser.py
-  - DRIVER=tests/test_element_list.py
-  - DRIVER=tests/test_request_handler.py
 matrix:
   include:
     - python: 2.7
@@ -39,7 +37,7 @@ matrix:
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
     - python: 3.7
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
-    - python: 3.8-dev
+    - python: 3.8
       env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
 install:
   - export PATH=$HOME:$PATH

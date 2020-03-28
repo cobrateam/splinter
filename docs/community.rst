@@ -37,8 +37,7 @@ Projects using splinter
 Blog posts
 ----------
 
-* `Django Full Stack Testing and BDD with Lettuce and Splinter <http://cilliano.com/blog/2011/02/07/django-bdd-with-lettuce-and-splinter/>`_
-* `Splinter: Python tool for acceptance tests on web applications <http://f.souza.cc/2011/05/splinter-python-tool-for-acceptance-tests-on-web-applications/>`_
+* `Django Full Stack Testing and BDD with Lettuce and Splinter <https://www.cilliano.com/2011/02/07/django-bdd-with-lettuce-and-splinter.html>`_
 
 Slides and talks
 ----------------

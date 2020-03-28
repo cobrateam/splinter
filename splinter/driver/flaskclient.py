@@ -6,6 +6,12 @@
 
 from __future__ import with_statement
 
+try:
+    from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
+except:
+    from urlparse import parse_qs, urlparse, urlunparse
+    from urllib import urlencode
+
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
 
@@ -57,6 +63,7 @@ class CookieManager(CookieManagerAPI):
             return cookies_dict == other_object
         return False
 
+
 class FlaskClient(LxmlDriver):
 
     driver_name = "flask"
@@ -83,17 +90,51 @@ class FlaskClient(LxmlDriver):
         self.status_code = StatusCode(self._response.status_code, "")
 
     def _do_method(self, method, url, data=None):
+
+        # Set the initial URL and client/HTTP method
         self._url = url
         func_method = getattr(self._browser, method.lower())
+
+        # Continue to make requests until a non 30X response is recieved
         while True:
             self._last_urls.append(url)
-            # flask doesn't expose redirect_chain, so we have to mark it
+
+            # If we're making a GET request set the data against the URL as a
+            # query.
+            if method.lower() == "get":
+
+                # Parse the existing URL and it's query
+                url_parts = urlparse(url)
+                url_params = parse_qs(url_parts.query)
+
+                # Update any existing query dictionary with the `data` argument
+                url_params.update(data or {})
+                url_parts = url_parts._replace(query=urlencode(url_params, doseq=True))
+
+                # Rebuild the URL
+                url = urlunparse(url_parts)
+
+                # As the `data` argument will be passed as a keyword argument to
+                # the `func_method` we set it `None` to prevent it populating
+                # `flask.request.form` on `GET` requests.
+                data = None
+
+            # Call the flask client
             self._response = func_method(
                 url, headers=self._custom_headers, data=data, follow_redirects=False
             )
+
+            # Implement more standard `302`/`303` behaviour
+            if self._response.status_code in (302, 303):
+                func_method = getattr(self._browser, "get")
+
+            # If the response was not in the `30X` range we're done
             if self._response.status_code not in (301, 302, 303, 305, 307):
                 break
+
+            # If the response was in the `30X` range get next URL to request
             url = self._response.headers["Location"]
+
         self._url = self._last_urls[-1]
         self._post_load()
 

@@ -166,9 +166,12 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         )
 
     def find_by_value(self, value):
-        return self.find_by_xpath(
+        elem = self.find_by_xpath(
             '//*[@value="%s"]' % value, original_find="value", original_selector=value
         )
+        if elem:
+            return elem
+        return self.find_by_xpath('//*[.="%s"]' % value)
 
     def find_by_text(self, text):
         xpath_str = _concat_xpath_from_str(text)

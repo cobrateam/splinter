@@ -1,0 +1,16 @@
+.. Copyright 2019 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.13.0.
+    :keywords: splinter 0.13.0, news
+
+whats's new in splinter 0.13.0?
+===============================
+
+* Patch Remote WebDriver to add retry attempts (https://github.com/cobrateam/splinter/pull/742)
+* Add driver attribute to WebDriverElement. This fixes an issue where mouse interaction fails on nested elements (https://github.com/cobrateam/splinter/pull/740)
+* Fix WebDriverElement.select and .select_by_text to search only inside the parent element (https://github.com/cobrateam/splinter/pull/729)
+* find_by with 0 second wait_time only checks once (https://github.com/cobrateam/splinter/pull/739)
+* Fix FlaskClient redirects (https://github.com/cobrateam/splinter/pull/721)
