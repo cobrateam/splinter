@@ -13,7 +13,6 @@ from splinter.driver.webdriver import (
     WebDriverElement as WebDriverElement,
 )
 from splinter.driver.webdriver.cookie_manager import CookieManager
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 
 
@@ -61,19 +60,7 @@ class WebDriver(BaseWebDriver):
                 firefox_profile.add_extension(extension)
 
         if headless:
-            os.environ.update({"MOZ_HEADLESS": "1"})
-            if 'firefox_binary' in kwargs:
-                if isinstance(kwargs['firefox_binary'], six.string_types):
-                    binary = FirefoxBinary(kwargs['firefox_binary'])
-                else:
-                    binary = kwargs['firefox_binary']
-            else:
-                binary = FirefoxBinary()
-            binary.add_command_line_options("-headless")
-            kwargs["firefox_binary"] = binary
-        else:
-            if "MOZ_HEADLESS" in os.environ:
-                del os.environ["MOZ_HEADLESS"]
+            firefox_options.add_argument("--headless")
 
         if incognito:
             firefox_options.add_argument("-private")
