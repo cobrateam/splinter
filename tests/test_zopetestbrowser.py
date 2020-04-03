@@ -8,16 +8,14 @@ import os
 import unittest
 import sys
 
+import six
+
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
 from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
-@unittest.skipIf(
-    sys.version_info[0] > 2,
-    "zope.testbrowser is not currently compatible with Python 3",
-)
 class ZopeTestBrowserDriverTest(
     BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase
 ):
@@ -45,8 +43,11 @@ class ZopeTestBrowserDriverTest(
         self.browser.find_by_name("upload").click()
 
         html = self.browser.html
-        self.assertIn("text/plain", html)
-        self.assertIn(open(file_path).read().encode("utf-8"), html)
+
+        assert "text/plain" in html
+
+        with open(file_path) as f:
+            assert f.read() in html
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
@@ -140,6 +141,6 @@ class ZopeTestBrowserDriverTest(
             "pangram_ru": u"В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
             "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
-        for key, text in non_ascii_encodings.iteritems():
+        for key, text in six.iteritems(non_ascii_encodings):
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])

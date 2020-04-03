@@ -4,8 +4,13 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import re
+from __future__ import unicode_literals
 
+import mimetypes
+import re
+import time
+
+import lxml.html
 from lxml.cssselect import CSSSelector
 from zope.testbrowser.browser import Browser, ListControl, SubmitControl
 from splinter.element_list import ElementList
@@ -14,10 +19,6 @@ from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.element_present import ElementPresentMixIn
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.cookie_manager import CookieManagerAPI
-
-import mimetypes
-import lxml.html
-import time
 
 
 class CookieManager(CookieManagerAPI):
@@ -99,7 +100,12 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
 
     @property
     def htmltree(self):
-        return lxml.html.fromstring(self.html.decode("utf-8"))
+        try:
+            html = self.html.decode("utf-8")
+        except AttributeError:
+            html = self.html
+
+        return lxml.html.fromstring(html)
 
     @property
     def title(self):
@@ -262,7 +268,8 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         filename = file_path.split("/")[-1]
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
-        control.add_file(open(file_path), content_type, filename)
+        with open(file_path, 'rb') as f:
+            control.add_file(f, content_type, filename)
 
     def _find_links_by_xpath(self, xpath):
         html = self.htmltree

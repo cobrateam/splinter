@@ -34,11 +34,17 @@ matrix:
         - DJANGO_VERSION=1.7.11 DRIVER=tests/test_djangoclient.py
         - DRIVER=tests/test_zopetestbrowser.py
     - python: 3.6
-      env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+      env:
+        - DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+        - DRIVER=tests/test_zopetestbrowser.py
     - python: 3.7
-      env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+      env:
+        - DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+        - DRIVER=tests/test_zopetestbrowser.py
     - python: 3.8
-      env: DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+      env:
+        - DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
+        - DRIVER=tests/test_zopetestbrowser.py
 install:
   - export PATH=$HOME:$PATH
   - make dependencies
