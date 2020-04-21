@@ -1,0 +1,20 @@
+.. Copyright 2020 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.14.0.
+    :keywords: splinter 0.14.0, news
+
+whats's new in splinter 0.14.0?
+===============================
+
+* Add FindLinks api to non-webdrivers (https://github.com/cobrateam/splinter/pull/762)
+* Add support for zope in python3 (https://github.com/cobrateam/splinter/pull/771)
+* Fix WebDriverElement.screenshot when parent is a WebDriverElement (https://github.com/cobrateam/splinter/pull/769)
+* Improve firefox headless support (https://github.com/cobrateam/splinter/pull/768)
+* Fix mouse out on elements in the left corner of the viewport (https://github.com/cobrateam/splinter/pull/766)
+* Fix fullscreen argument for firefox (https://github.com/cobrateam/splinter/pull/765)
+* Fix unexpected keyword argument 'original_find' (https://github.com/cobrateam/splinter/pull/758)
+* Fix incorrect error thrown when missing chrome/geckodriver (https://github.com/cobrateam/splinter/pull/749)
+* Make find_by_value works with button elements (https://github.com/cobrateam/splinter/pull/746)
