@@ -66,9 +66,9 @@ In order to find Google's search button, do:
 
 ::
 
-    button = browser.find_by_name('btnG')
+    button = browser.find_by_name('btnK')
 
-Note that this ``btnG`` was found looking at Google's page source code.
+Note that this ``btnK`` was found looking at Google's page source code.
 
 With the button in hands, we can then press it:
 
