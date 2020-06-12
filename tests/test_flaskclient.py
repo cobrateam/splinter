@@ -73,6 +73,21 @@ class FlaskClientDriverTest(
         with self.assertRaises(NotImplementedError):
             self.browser.find_by_name("query").first.clear()
 
+    def test_can_clear_textarea_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name("description").first.clear()
+
+    def test_can_clear_search_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name("search_keyword").first.clear()
+
+    def test_can_clear_url_content(self):
+        "flask should not be able to clear"
+        with self.assertRaises(NotImplementedError):
+            self.browser.find_by_name("url_input").first.clear()
+
     def test_cant_switch_to_frame(self):
         "flask should not be able to switch to frames"
         with self.assertRaises(NotImplementedError) as cm:

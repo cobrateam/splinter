@@ -732,10 +732,14 @@ class WebDriverElement(ElementAPI):
 
     def clear(self):
         if self._element.get_attribute("type") in [
-            "textarea",
-            "text",
+            "email",
+            "number",
             "password",
+            "search",
             "tel",
+            "text",
+            "textarea",
+            "url",
         ]:
             self._element.clear()
 
