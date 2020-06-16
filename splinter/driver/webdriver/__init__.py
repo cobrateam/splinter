@@ -414,10 +414,8 @@ class BaseWebDriver(DriverAPI):
         try:
             self.driver.find_element_by_tag_name("body").text.index(text)
             return True
-        except (NoSuchElementException, StaleElementReferenceException):
+        except (NoSuchElementException, StaleElementReferenceException, ValueError):
             pass
-        except ValueError:
-            return False
         return False
 
     def is_text_present(self, text, wait_time=None):
