@@ -48,8 +48,6 @@ Features
 * can execute javascript
 * works with ajax and async javascript
 
-:doc:`what's new in splinter? </news>`
-
 Getting started
 ---------------
 * :doc:`Why use Splinter </why>`
@@ -131,7 +129,7 @@ Get in touch and contribute
 .. toctree::
    :caption: Browsing and Interactions
    :hidden:
-      
+
    browser
    finding
    mouse-interaction
@@ -139,7 +137,7 @@ Get in touch and contribute
    matchers
    cookies
    screenshot
-      
+
 .. toctree::
    :caption: JavaScript
    :hidden:
@@ -160,12 +158,19 @@ Get in touch and contribute
 .. toctree::
    :caption: More
    :hidden:
-      
+
    http-status-code-and-exception
    http-proxies
    iframes-and-alerts
    api/index
    selenium-keys
+
+.. toctree::
+  :caption: Changelog
+  :maxdepth: 2
+  :glob:
+
+  news
 
 .. toctree::
    :caption: Get in touch and contribute
