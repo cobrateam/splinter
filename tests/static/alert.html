@@ -8,14 +8,23 @@
       $(document).ready(function(){
         $('.alerta').click(function() { alert('This is an alert example.'); });
 
-        $('.pergunta').click(function() { nome = prompt('What is your name?'); alert(nome); });
+        $('.pergunta').click(function() {
+            nome = prompt('What is your name?');
+            setTimeout(function(){ alert(nome); }, 2000);
+        });
 
         $('.confirmacao').click(function() {
+            var message;
             answer = confirm('Should I continue?');
-            if (answer)
-                alert("You say I should");
-            else
-                alert("You say I should not");
+
+            if (answer) {
+                message = "You say I should";
+            } else {
+                message = "You say I should not";
+            }
+            // Add sleep before 2nd alert appears, to prevent browser's
+            // popup spam warning messages.
+            setTimeout(function(){ alert(message); }, 2000);
         });
       })
     </script>
