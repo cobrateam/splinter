@@ -15,7 +15,7 @@ before_install:
 language: python
 addons:
   chrome: stable
-  firefox: "68.0"
+  firefox: latest
 python:
   - "2.7"
   - "3.6"

@@ -3,6 +3,7 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import time
 
 import pytest
 from selenium import webdriver
@@ -189,6 +190,9 @@ class WebDriverTests(
         alert.fill_with("Splinter")
         alert.accept()
 
+        # Wait for alert
+        time.sleep(2.5)
+
         response = self.browser.get_alert()
         self.assertEqual("Splinter", response.text)
         response.accept()
@@ -202,6 +206,9 @@ class WebDriverTests(
         self.assertEqual("Should I continue?", alert.text)
         alert.accept()
 
+        # Wait for alert
+        time.sleep(2.5)
+
         alert = self.browser.get_alert()
         self.assertEqual("You say I should", alert.text)
         alert.accept()
@@ -210,6 +217,10 @@ class WebDriverTests(
         alert = self.browser.get_alert()
         self.assertEqual("Should I continue?", alert.text)
         alert.dismiss()
+
+        # Wait for alert
+        time.sleep(2.5)
+
         alert = self.browser.get_alert()
         self.assertEqual("You say I should not", alert.text)
         alert.accept()
@@ -222,6 +233,9 @@ class WebDriverTests(
             self.assertEqual("Should I continue?", alert.text)
             alert.accept()
 
+        # Wait for alert
+        time.sleep(2.5)
+
         with self.browser.get_alert() as alert:
             self.assertEqual("You say I should", alert.text)
             alert.accept()
@@ -230,6 +244,10 @@ class WebDriverTests(
         with self.browser.get_alert() as alert:
             self.assertEqual("Should I continue?", alert.text)
             alert.dismiss()
+
+        # Wait for alert
+        time.sleep(2.5)
+
         with self.browser.get_alert() as alert:
             self.assertEqual("You say I should not", alert.text)
             alert.accept()
