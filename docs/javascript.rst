@@ -3,7 +3,7 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Executing javascript 
+    :description: Executing javascript
     :keywords: splinter, python, tutorial, javascript
 
 ++++++++++++++++++++

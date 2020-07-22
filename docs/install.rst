@@ -20,12 +20,12 @@ Download Python from http://www.python.org. If you’re using Linux or Mac OS X,
 Install splinter
 ================
 
-Basically, there are two ways to install Splinter:
+There are two ways to install Splinter:
 
-Install a stable release
-------------------------
+Stable release via pip
+----------------------
 
-If you're interested on an official and almost bug-free version, just run from the Terminal:
+If you're interested on the official and almost bug-free version, just run from the Terminal:
 
 
 .. highlight:: bash
@@ -36,8 +36,8 @@ If you're interested on an official and almost bug-free version, just run from t
 
 
 
-Install under-development source-code
--------------------------------------
+Under-development source-code
+-----------------------------
 
 Otherwise, if you want Splinter's latest-and-greatest features and aren't afraid of running under development code, run:
 

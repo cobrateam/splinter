@@ -3,7 +3,7 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Mouse interatcion.
+    :description: Mouse interaction.
     :keywords: splinter, python, tutorial, documentation, mouse interaction, mouseover, mouseout, double click, mouse events
 
 ++++++++++++++++++
@@ -33,7 +33,7 @@ event for mouse over and out:
         $(this).find('.subitem').hide();
     });
 
-You can use Splinter to fire the event programatically:
+You can use Splinter to fire the event programmatically:
 
 .. highlight:: python
 
