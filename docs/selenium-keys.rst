@@ -6,20 +6,22 @@
     :description: Selenium Keys
     :keywords: splinter, python, tutorial, documentation, selenium integration, selenium keys, keyboard events
 
-++++++++++++++++++
++++++++++++++
 Selenium Keys
-++++++++++++++++++
++++++++++++++
 
-With Splinter You can use selenium keys implementation.
-
-Here is a simple example:
+With Splinter's type() method, you can use Selenium's Keys implementation.
 
 .. highlight:: python
 
 ::
 
     from selenium.webdriver.common.keys import Keys
-    ElementAPI.type(Keys.RETURN)
+    from splinter import Browser
 
-Full list of all support keys can be found on official selenium documentation
+
+    browser = Browser()
+    browser.type(Keys.RETURN)
+
+The full list of all supported keys can be found at the official Selenium documentation:
 `selenium.webdriver.common.keys <https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html>`_
