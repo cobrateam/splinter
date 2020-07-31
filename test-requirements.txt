@@ -11,4 +11,4 @@ flake8==3.5.0
 six==1.11.0
 twine==1.11.0
 pytest==4.6.4
-Pillow==6.2.2
+Pillow==7.2.0
