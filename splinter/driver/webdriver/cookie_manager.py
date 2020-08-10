@@ -22,7 +22,7 @@ class CookieManager(CookieManagerAPI):
             for cookie in cookies:
                 for key, value in cookie.items():
                     self.driver.add_cookie({"name": key, "value": value})
-                return
+            return
         for key, value in cookies.items():
             self.driver.add_cookie({"name": key, "value": value})
 

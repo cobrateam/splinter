@@ -31,7 +31,7 @@ class CookieManager(CookieManagerAPI):
             for cookie in cookies:
                 for key, value in cookie.items():
                     self.driver.cookies[key] = value
-                return
+            return
         for key, value in cookies.items():
             self.driver.cookies[key] = value
 

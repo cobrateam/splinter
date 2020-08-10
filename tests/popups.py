@@ -20,6 +20,8 @@ class PopupWindowsTest(object):
         )
 
     def test_set_current_to_window_instance_sets_current_window(self):
+        self.browser.find_by_id("open-popup").click()
+
         last_current_window = self.browser.windows.current
         self.browser.windows.current = self.browser.windows.current.next
         self.assertNotEqual(self.browser.windows.current, last_current_window)
