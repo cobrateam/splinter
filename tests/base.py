@@ -81,8 +81,10 @@ class BaseBrowserTests(
 ):
     EXAMPLE_APP = EXAMPLE_APP
 
-    def get_browser(self, browser_name, **kwargs):
-        return get_browser(browser_name, **kwargs)
+    def get_new_browser(self):
+        """Get a new browser instance."""
+        driver_name = self.browser.driver_name.lower()
+        return get_browser(driver_name)
 
     def test_can_open_page(self):
         """should be able to visit, get title and quit"""
