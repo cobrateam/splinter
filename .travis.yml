@@ -2,32 +2,26 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-sudo: required
+language: python
+os: linux
+dist: xenial
 services:
   - xvfb
-before_install:
-  - export DISPLAY=:99.0
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
-  - ./travis-install.bash
-language: python
 addons:
   chrome: stable
   firefox: latest
-python:
-  - "2.7"
-  - "3.6"
-  - "3.7"
-  - "3.8"
 env:
   - DRIVER='tests/test_flaskclient.py tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py'
   - DRIVER=tests/test_webdriver.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER='-n 4 tests/test_webdriver_firefox.py'
   - DRIVER='-n 4 tests/test_webdriver_chrome.py'
-matrix:
+python:
+  - "2.7"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+jobs:
   include:
     - python: 2.7
       env:
@@ -45,10 +39,14 @@ matrix:
       env:
         - DJANGO_VERSION=2.0.6 DRIVER=tests/test_djangoclient.py
         - DRIVER=tests/test_zopetestbrowser.py
+before_install:
+  - export DISPLAY=:99.0
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C bin
+  - ./travis-install.bash
 install:
   - export PATH=$HOME:$PATH
   - make dependencies
 script:
   - pip install tox
   - tox -- ${DRIVER}
-dist: xenial
