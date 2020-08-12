@@ -18,6 +18,15 @@ def skipIfZope(f):
     return wrapper
 
 
+def skipIfDjango(f):
+    def wrapper(self, *args, **kwargs):
+        if self.__class__.__name__ == 'DjangoClientDriverTest':
+            return unittest.skip("skipping this test for django")
+        else:
+            f(self, *args, **kwargs)
+    return wrapper
+
+
 class FormElementsTest(object):
     def test_fill(self):
         self.browser.fill("query", "LT-CS-01/2018")
@@ -259,6 +268,7 @@ class FormElementsTest(object):
         value = self.browser.find_by_name("telephone").value
         self.assertFalse(value)
 
+    @skipIfDjango
     def test_can_clear_textarea_content(self):
         elem = self.browser.find_by_name("description")
         elem.fill("A box of widgets")
@@ -267,6 +277,7 @@ class FormElementsTest(object):
         elem.clear()
         assert "" == elem.value
 
+    @skipIfDjango
     def test_can_clear_search_content(self):
         elem = self.browser.find_by_name("search_keyword")
         elem.fill("widgets")
@@ -275,6 +286,7 @@ class FormElementsTest(object):
         elem.clear()
         assert "" == elem.value
 
+    @skipIfDjango
     def test_can_clear_url_content(self):
         elem = self.browser.find_by_name("url_input")
         elem.fill("http://widgets.com")
