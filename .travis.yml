@@ -42,7 +42,7 @@ jobs:
 before_install:
   - export DISPLAY=:99.0
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C bin
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C $HOME/bin
   - ./travis-install.bash
 install:
   - export PATH=$HOME:$PATH
