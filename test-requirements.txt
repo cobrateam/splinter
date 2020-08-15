@@ -1,5 +1,5 @@
 zope.testbrowser==5.5.1
-lxml==4.2.4
+lxml==4.5.2
 Flask==1.0.2
 selenium==3.141.0
 coverage==4.5.1
