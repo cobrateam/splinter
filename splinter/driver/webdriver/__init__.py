@@ -623,11 +623,12 @@ class BaseWebDriver(DriverAPI):
 
     def screenshot(self, name="", suffix=".png", full=False):
 
-        name = name or ""
+        filename = name or ""
 
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # don't hold the file
-        os.close(fd)
+        if not filename:
+            (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+            # don't hold the file
+            os.close(fd)
 
         if full:
             ori_window_size = self.driver.get_window_size()

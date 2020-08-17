@@ -5,6 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import tempfile
+import re
 
 
 class ScreenshotTest(object):
@@ -17,6 +18,10 @@ class ScreenshotTest(object):
         """Should add the prefix to the screenshot file name"""
         filename = self.browser.screenshot(name="foobar")
         assert "foobar" in filename
+
+    def test_take_screenshot_with_absolute_path_file(self):
+        filename = self.browser.screenshot(name='/tmp/foobar.png')
+        assert re.match(r"^/tmp/foobar\.png$", filename)
 
     def test_take_screenshot_with_suffix(self):
         """Should add the suffix to the screenshot file name"""
