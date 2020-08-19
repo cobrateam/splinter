@@ -6,11 +6,6 @@
 
 
 class CookiesTest(object):
-    def get_new_browser(self):
-        """Get a new browser instance."""
-        driver_name = self.browser.driver_name.lower()
-        return self.get_browser(driver_name)
-
     def test_create_and_access_a_cookie(self):
         """Should be able to create and access a cookie"""
         browser = self.get_new_browser()
