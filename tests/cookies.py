@@ -6,66 +6,127 @@
 
 
 class CookiesTest(object):
+    def get_new_browser(self):
+        """Get a new browser instance."""
+        driver_name = self.browser.driver_name.lower()
+        return self.get_browser(driver_name)
+
     def test_create_and_access_a_cookie(self):
-        "should be able to create and access a cookie"
-        self.browser.cookies.add({"sha": "zam"})
-        self.assertEqual(self.browser.cookies["sha"], "zam")
+        """Should be able to create and access a cookie"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.add({"sha": "zam"})
+
+        assert "zam" == browser.cookies["sha"]
+
+        browser.quit()
 
     def test_create_many_cookies_at_once_as_dict(self):
-        "should be able to create many cookies at once as dict"
+        """Should be able to create many cookies at once as dict"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
         cookies = {"sha": "zam", "foo": "bar"}
-        self.browser.cookies.add(cookies)
-        self.assertEqual(self.browser.cookies["sha"], "zam")
-        self.assertEqual(self.browser.cookies["foo"], "bar")
+        browser.cookies.add(cookies)
+
+        assert "zam" == browser.cookies["sha"]
+        assert "bar" == browser.cookies["foo"]
+
+        browser.quit()
 
     def test_create_many_cookies_at_once_as_list(self):
-        "should be able to create many cookies at once as list"
+        """Should be able to create many cookies at once as list"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
         cookies = [{"sha": "zam"}, {"foo": "bar"}]
-        self.browser.cookies.add(cookies)
-        self.assertEqual(self.browser.cookies["sha"], "zam")
-        self.assertEqual(self.browser.cookies["foo"], "bar")
+        browser.cookies.add(cookies)
+
+        assert "zam" == browser.cookies["sha"]
+        assert "bar" == browser.cookies["foo"]
+
+        browser.quit()
 
     def test_create_some_cookies_and_delete_them_all(self):
-        "should be able to delete all cookies"
-        self.browser.cookies.add({"whatever": "and ever"})
-        self.browser.cookies.add({"anothercookie": "im bored"})
-        self.browser.cookies.delete()
-        self.assertEqual(self.browser.cookies, {})
+        """Should be able to delete all cookies"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.add({"whatever": "and ever"})
+        browser.cookies.add({"anothercookie": "im bored"})
+        browser.cookies.delete()
+
+        assert {} == browser.cookies
+
+        browser.quit()
 
     def test_create_and_delete_a_cookie(self):
-        "should be able to create and destroy a cookie"
-        self.browser.cookies.delete()
-        self.browser.cookies.add({"cookie": "with milk"})
-        self.browser.cookies.delete("cookie")
-        self.assertEqual(self.browser.cookies, {})
+        """Should be able to create and destroy a cookie"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.delete()
+        browser.cookies.add({"cookie": "with milk"})
+        browser.cookies.delete("cookie")
+
+        assert {} == browser.cookies
+
+        browser.quit()
 
     def test_create_and_delete_many_cookies(self):
-        "should be able to create and destroy many cookies"
-        self.browser.cookies.delete()
-        self.browser.cookies.add({"acookie": "cooked"})
-        self.browser.cookies.add({"anothercookie": "uncooked"})
-        self.browser.cookies.add({"notacookie": "halfcooked"})
-        self.browser.cookies.delete("acookie", "notacookie")
-        self.assertEqual("uncooked", self.browser.cookies["anothercookie"])
+        """Should be able to create and destroy many cookies"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.delete()
+        browser.cookies.add({"acookie": "cooked"})
+        browser.cookies.add({"anothercookie": "uncooked"})
+        browser.cookies.add({"notacookie": "halfcooked"})
+        browser.cookies.delete("acookie", "notacookie")
+
+        assert "uncooked" == browser.cookies["anothercookie"]
+
+        browser.quit()
 
     def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
-        self.browser.cookies.delete()
-        self.browser.cookies.add({"foo": "bar"})
-        self.browser.cookies.delete("mwahahahaha")
-        self.assertEqual(self.browser.cookies, {"foo": "bar"})
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.delete()
+        browser.cookies.add({"foo": "bar"})
+        browser.cookies.delete("mwahahahaha")
+
+        {"foo": "bar"} == browser.cookies
+
+        browser.quit()
 
     def test_create_and_get_all_cookies(self):
-        "should be able to create some cookies and retrieve them all"
-        self.browser.cookies.delete()
-        self.browser.cookies.add({"taco": "shrimp"})
-        self.browser.cookies.add({"lavar": "burton"})
-        self.assertEqual(len(self.browser.cookies.all()), 2)
-        self.browser.cookies.delete()
-        self.assertEqual(self.browser.cookies.all(), {})
+        """Should be able to create some cookies and retrieve them all"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
+        browser.cookies.delete()
+        browser.cookies.add({"taco": "shrimp"})
+        browser.cookies.add({"lavar": "burton"})
+
+        assert 2 == len(browser.cookies.all())
+
+        browser.cookies.delete()
+
+        assert {} == browser.cookies.all()
+
+        browser.quit()
 
     def test_create_and_use_contains(self):
-        "should be able to create many cookies at once as dict"
+        """Should be able to create many cookies at once as dict"""
+        browser = self.get_new_browser()
+        browser.visit(self.EXAMPLE_APP)
+
         cookies = {"sha": "zam"}
-        self.browser.cookies.add(cookies)
-        self.assertIn("sha", self.browser.cookies)
-        self.assertNotIn("foo", self.browser.cookies)
+        browser.cookies.add(cookies)
+
+        assert "sha" in browser.cookies
+        assert "foo" not in browser.cookies
+
+        browser.quit()

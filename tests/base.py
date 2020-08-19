@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import time
+from six.moves.urllib import parse
 
 import pytest
 from selenium import webdriver
@@ -15,7 +16,7 @@ from .async_finder import AsyncFinderTests
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest
 from .element_does_not_exist import ElementDoestNotExistTest
-from .fake_webapp import EXAMPLE_APP
+from .fake_webapp import app, EXAMPLE_APP
 from .find_elements import FindElementsTest
 from .form_elements import FormElementsTest
 from .iframes import IFrameElementsTest
@@ -40,12 +41,33 @@ def get_browser(browser_name, **kwargs):
             options=options,
             **kwargs
         )
-    else:
+    elif browser_name == 'firefox':
         return Browser(
             "firefox",
             headless=True,
             **kwargs
         )
+
+    elif browser_name == 'remote':
+        return Browser("remote")
+
+    elif browser_name == 'django':
+        components = parse.urlparse(EXAMPLE_APP)
+        return Browser(
+            "django",
+            wait_time=0.1,
+            client_SERVER_NAME=components.hostname,
+            client_SERVER_PORT=components.port,
+        )
+
+    elif browser_name == 'flask':
+        return Browser("flask", app=app, wait_time=0.1)
+
+    elif browser_name == 'zope.testbrowser':
+        return Browser("zope.testbrowser", wait_time=0.1)
+
+
+    raise ValueError('Unknown browser name')
 
 
 class BaseBrowserTests(
@@ -57,6 +79,11 @@ class BaseBrowserTests(
     SlowlyTypeTest,
     IsTextPresentTest,
 ):
+    EXAMPLE_APP = EXAMPLE_APP
+
+    def get_browser(self, browser_name, **kwargs):
+        return get_browser(browser_name, **kwargs)
+
     def test_can_open_page(self):
         """should be able to visit, get title and quit"""
         self.browser.visit(EXAMPLE_APP)

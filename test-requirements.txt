@@ -1,5 +1,5 @@
 zope.testbrowser==5.5.1
-lxml==4.2.4
+lxml==4.5.2
 Flask==1.0.2
 selenium==3.141.0
 coverage==4.5.1
@@ -13,3 +13,4 @@ twine==1.11.0
 pytest==4.6.4
 Pillow==6.2.2; python_version < '3.5'
 Pillow==7.2.0; python_version >= '3.5'
+pytest-xdist==1.34.0
