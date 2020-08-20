@@ -11,5 +11,6 @@ flake8==3.5.0
 six==1.11.0
 twine==1.11.0
 pytest==4.6.4
-Pillow==6.2.2
+Pillow==6.2.2; python_version < '3.5'
+Pillow==7.2.0; python_version >= '3.5'
 pytest-xdist==1.34.0
