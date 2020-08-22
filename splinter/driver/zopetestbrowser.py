@@ -23,9 +23,6 @@ from splinter.cookie_manager import CookieManagerAPI
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, driver):
-        self.driver = driver
-
     def add(self, cookies):
         if isinstance(cookies, list):
             for cookie in cookies:

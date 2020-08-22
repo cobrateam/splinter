@@ -19,47 +19,44 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-    def __init__(self, browser_cookies):
-        self._cookies = browser_cookies
-
     def add(self, cookies):
         if isinstance(cookies, list):
             for cookie in cookies:
                 for key, value in cookie.items():
-                    self._cookies.set_cookie("localhost", key, value)
+                    self.driver.set_cookie("localhost", key, value)
             return
         for key, value in cookies.items():
-            self._cookies.set_cookie("localhost", key, value)
+            self.driver.set_cookie("localhost", key, value)
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    self._cookies.delete_cookie("localhost", cookie)
+                    self.driver.delete_cookie("localhost", cookie)
                 except KeyError:
                     pass
         else:
-            self._cookies.cookie_jar.clear()
+            self.driver.cookie_jar.clear()
 
     def all(self, verbose=False):
         cookies = {}
-        for cookie in self._cookies.cookie_jar:
+        for cookie in self.driver.cookie_jar:
             cookies[cookie.name] = cookie.value
         return cookies
 
     def __getitem__(self, item):
-        cookies = dict([(c.name, c) for c in self._cookies.cookie_jar])
+        cookies = dict([(c.name, c) for c in self.driver.cookie_jar])
         return cookies[item].value
 
     def __contains__(self, key):
-        for cookie in self._cookies.cookie_jar:
+        for cookie in self.driver.cookie_jar:
             if cookie.name == key:
                 return True
         return False
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict([(c.name, c.value) for c in self._cookies.cookie_jar])
+            cookies_dict = dict([(c.name, c.value) for c in self.driver.cookie_jar])
             return cookies_dict == other_object
         return False
 
