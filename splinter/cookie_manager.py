@@ -22,6 +22,9 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         >>> assert cookie_manager['name'] == 'Tony'
     """
 
+    def __init__(self, driver):
+        self.driver = driver
+
     def add(self, cookies):
         """
         Adds a cookie.
