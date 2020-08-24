@@ -54,6 +54,12 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         """
         raise NotImplementedError
 
+    def delete_all(self):
+        """
+        Delete all cookies.
+        """
+        raise NotImplementedError
+
     def all(self, verbose=False):
         """
         Returns all of the cookies.

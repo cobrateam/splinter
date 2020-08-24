@@ -31,7 +31,10 @@ class CookieManager(CookieManagerAPI):
                 except KeyError:
                     pass
         else:
-            self.driver.cookies.clear()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.cookies.clear()
 
     def all(self, verbose=False):
         cookies = {}

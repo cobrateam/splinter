@@ -28,7 +28,10 @@ class CookieManager(CookieManagerAPI):
             for cookie in cookies:
                 self.driver.delete_cookie(cookie)
         else:
-            self.driver.delete_all_cookies()
+            self.delete_all()
+
+    def delete_all(self):
+        self.driver.delete_all_cookies()
 
     def all(self, verbose=False):
         if not verbose:
