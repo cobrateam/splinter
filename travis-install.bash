@@ -6,10 +6,6 @@
 
 set -ev
 
-if [ "${DRIVER}" = "tests/test_djangoclient.py" ]; then
-  pip install -q Django==${DJANGO_VERSION}
-fi
-
 if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
   sleep 1
 
@@ -24,4 +20,3 @@ if [ "${DRIVER}" = "-n 4 tests/test_webdriver_chrome.py" ] || [ "${DRIVER}" = "t
     FILE=`mktemp`; wget "https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
     export PATH=$HOME:$PATH
 fi
-
