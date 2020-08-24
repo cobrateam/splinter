@@ -11,12 +11,11 @@ addons:
   chrome: stable
   firefox: latest
 env:
-  - DRIVER='tests/test_flaskclient.py tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py'
+  - DRIVER='tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py tests/test_djangoclient.py tests/test_flaskclient.py tests/test_zopetestbrowser.py'
   - DRIVER=tests/test_webdriver.py
   - DRIVER=tests/test_webdriver_remote.py
   - DRIVER='-n 4 tests/test_webdriver_firefox.py'
   - DRIVER='-n 4 tests/test_webdriver_chrome.py'
-  - DRIVER='tests/test_djangoclient.py tests/test_zopetestbrowser.py'
 python:
   - "2.7"
   - "3.6"
