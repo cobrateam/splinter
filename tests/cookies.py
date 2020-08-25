@@ -30,19 +30,6 @@ class CookiesTest(object):
 
         browser.quit()
 
-    def test_create_many_cookies_at_once_as_list(self):
-        """Should be able to create many cookies at once as list"""
-        browser = self.get_new_browser()
-        browser.visit(self.EXAMPLE_APP)
-
-        cookies = [{"sha": "zam"}, {"foo": "bar"}]
-        browser.cookies.add(cookies)
-
-        assert "zam" == browser.cookies["sha"]
-        assert "bar" == browser.cookies["foo"]
-
-        browser.quit()
-
     def test_create_some_cookies_and_delete_them_all(self):
         """Should be able to delete all cookies"""
         browser = self.get_new_browser()
