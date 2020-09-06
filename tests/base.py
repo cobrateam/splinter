@@ -91,6 +91,18 @@ class BaseBrowserTests(
         self.browser.visit(EXAMPLE_APP)
         self.assertEqual("Example Title", self.browser.title)
 
+
+    def test_can_open_page_in_new_tab(self):
+        """should be able to visit url in a new tab"""
+        self.browser.new_tab(EXAMPLE_APP)
+        self.browser.windows[1].is_current = True
+        self.assertEqual(EXAMPLE_APP, self.browser.url)
+        assert 2 == len(self.browser.windows)
+
+        self.browser.windows[1].close()
+
+
+
     def test_can_back_on_history(self):
         """should be able to back on history"""
         self.browser.visit(EXAMPLE_APP)

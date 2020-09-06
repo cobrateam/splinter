@@ -33,7 +33,6 @@ from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 
-
 if sys.version_info[0] > 2:
     _meth_func = "__func__"
     _func_name = "__name__"
@@ -41,12 +40,15 @@ else:
     _meth_func = "im_func"
     _func_name = "func_name"
 
+
 # Patch contextmanager onto Selenium's Alert
 def alert_enter(self):
     return self
 
+
 def alert_exit(self, type, value, traceback):
     pass
+
 
 Alert.__enter__ = alert_enter
 Alert.__exit__ = alert_exit
@@ -148,7 +150,6 @@ class Window(object):
 
 
 class Windows(object):
-
     """ A class representing all open browser windows """
 
     def __init__(self, browser):
@@ -209,8 +210,8 @@ def _find(self, finder, selector):
             elements = [elements]
 
     except (
-        NoSuchElementException,
-        StaleElementReferenceException,
+            NoSuchElementException,
+            StaleElementReferenceException,
     ):
         # This exception is sometimes thrown if the page changes
         # quickly
@@ -220,6 +221,7 @@ def _find(self, finder, selector):
         elem_list = [self.element_class(element, self) for element in elements]
 
     return elem_list
+
 
 def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
     """Wrapper for finding elements.
@@ -233,7 +235,7 @@ def find_by(self, finder, selector, original_find=None, original_query=None, wai
     elem_list = []
 
     func_name = getattr(getattr(finder, _meth_func), _func_name)
-    find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
+    find_by = original_find or func_name[func_name.rfind("_by_") + 4:]
     query = original_query or selector
 
     # Zero second wait time means only check once
@@ -285,6 +287,28 @@ class BaseWebDriver(DriverAPI):
 
     def visit(self, url):
         self.driver.get(url)
+
+    def new_tab(self, url):
+        if self.driver_name == 'Firefox':
+            self.driver.get('about:config')
+            self.driver.execute_script('document.getElementById("warningButton").click();')
+            self.driver.execute_script(
+                """
+                Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch)
+                    .setIntPref('browser.link.open_newwindow', 3);
+                """)
+
+        self.driver.execute_script("window.open('%s', '_blank');" % url)
+
+        if self.driver_name == 'Firefox':
+            self.driver.execute_script(
+                """
+                Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch)
+                    .setIntPref('browser.link.open_newwindow', 2);
+                """)
+            self.driver.get('about:blank')
 
     def back(self):
         self.driver.back()
@@ -534,7 +558,7 @@ class BaseWebDriver(DriverAPI):
             self.driver.find_elements_by_tag_name,
             tag,
             wait_time=wait_time,
-    )
+        )
 
     def find_by_value(self, value, wait_time=None):
         elem = self.find_by_xpath(
@@ -584,8 +608,8 @@ class BaseWebDriver(DriverAPI):
                 elements = self.find_by_name(name)
             element = elements.first
             if (
-                element["type"] in ["text", "password", "tel"]
-                or element.tag_name == "textarea"
+                    element["type"] in ["text", "password", "tel"]
+                    or element.tag_name == "textarea"
             ):
                 element.value = value
             elif element["type"] == "checkbox":
@@ -784,8 +808,8 @@ class WebDriverElement(ElementAPI):
             try:
                 return self._element.click()
             except(
-                ElementClickInterceptedException,
-                WebDriverException,
+                    ElementClickInterceptedException,
+                    WebDriverException,
             ) as e:
                 error = e
 
