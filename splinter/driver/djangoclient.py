@@ -12,10 +12,17 @@ from splinter.request_handler.status_code import StatusCode
 
 from .lxmldriver import LxmlDriver
 
+import warnings
+
 
 class CookieManager(CookieManagerAPI):
     def add(self, cookies):
         if isinstance(cookies, list):
+            warnings.warn(
+                'Using a list of cookies is deprecated.'
+                ' Version 0.16.0 will only accept one cookie at a time.',
+                FutureWarning,
+            )
             for cookie in cookies:
                 for key, value in cookie.items():
                     self.driver.cookies[key] = value
