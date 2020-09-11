@@ -89,4 +89,4 @@ def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
 
-    return get_driver(driver, *args, **kwargs)
+    return get_driver(driver, retry_count=retry_count, *args, **kwargs)

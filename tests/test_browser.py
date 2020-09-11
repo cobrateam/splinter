@@ -72,3 +72,29 @@ def test_local_driver_not_present(browser_name):
         Browser(browser_name, executable_path='failpath')
 
     assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
+
+
+def test_driver_retry_count():
+    """Checks that the retry count is being used"""
+    from splinter.browser import _DRIVERS
+    from splinter import Browser
+    global test_retry_count
+
+    def test_driver(*args, **kwargs):
+        global test_retry_count
+        test_retry_count += 1
+        raise IOError("test_retry_count: " + str(test_retry_count))
+    _DRIVERS["test_driver"] = test_driver
+
+    test_retry_count = 0
+    with pytest.raises(IOError) as e:
+        Browser("test_driver")
+    assert "test_retry_count: 3" == str(e.value)
+
+    test_retry_count = 0
+    with pytest.raises(IOError) as e:
+        Browser("test_driver", retry_count=10)
+    assert "test_retry_count: 10" == str(e.value)
+
+    del test_retry_count
+    del _DRIVERS["test_driver"]
