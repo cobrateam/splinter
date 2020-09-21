@@ -938,7 +938,7 @@ class WebDriverElement(ElementAPI):
         self.scroll_to()
         ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
-    def _full_screen():
+    def _full_screen(self):
         width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
         height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
         self.driver.set_window_size(width, height)
