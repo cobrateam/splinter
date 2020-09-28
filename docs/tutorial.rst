@@ -85,7 +85,7 @@ Note: Both steps presented above could be joined in a single line, such as:
 
 ::
 
-    browser.find_by_name('btnG').click()
+    browser.find_by_name('btnK').click()
 
 
 Find out that Splinter official website is in the search results
@@ -130,7 +130,7 @@ Finally, the source code will be:
     browser = Browser() # defaults to firefox
     browser.visit('http://google.com')
     browser.fill('q', 'splinter - python acceptance testing for web applications')
-    browser.find_by_name('btnG').click()
+    browser.find_by_name('btnK').click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
         print "Yes, the official website was found!"
