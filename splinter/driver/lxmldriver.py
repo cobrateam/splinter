@@ -82,7 +82,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         method = form.attrib.get("method", "get").lower()
         action = form.attrib.get("action", "")
         if action.strip() not in (".", ""):
-            url = urllib.parse.urljoin(self._url, action)
+            url = urljoin(self._url, action)
         else:
             url = self._url
         self._url = url
