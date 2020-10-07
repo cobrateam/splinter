@@ -8,10 +8,10 @@ import re
 import time
 import sys
 
-try
+try:
   from urllib.parse import urljoin
-except ImportError
-  form urlparse import urljoin
+except ImportError:
+  from urlparse import urljoin
 
 import lxml.etree
 import lxml.html
