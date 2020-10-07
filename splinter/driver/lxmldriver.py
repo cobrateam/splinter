@@ -7,7 +7,11 @@
 import re
 import time
 import sys
-import urllib.parse
+
+try
+  from urllib.parse import urljoin
+except ImportError
+  form urlparse import urljoin
 
 import lxml.etree
 import lxml.html
