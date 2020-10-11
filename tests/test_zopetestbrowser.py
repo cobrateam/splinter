@@ -10,6 +10,8 @@ import sys
 
 import six
 
+import pytest
+
 from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
@@ -159,3 +161,10 @@ class ZopeTestBrowserDriverTest(
         for key, text in six.iteritems(non_ascii_encodings):
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])
+
+    def test_fill_form_missing_values(self):
+        """Missing values should raise an error."""
+        with pytest.raises(NotImplementedError) as e:
+            self.browser.fill_form(
+                {"query": "new query", "missing_form": "doesn't exist"},
+            )

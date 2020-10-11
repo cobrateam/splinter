@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 import mimetypes
 import re
 import time
+import warnings
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -20,8 +21,6 @@ from splinter.driver.element_present import ElementPresentMixIn
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.cookie_manager import CookieManagerAPI
-
-import warnings
 
 
 class CookieManager(CookieManagerAPI):
@@ -240,27 +239,31 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
     def fill(self, name, value):
         self.find_by_name(name=name).first._control.value = value
 
-    def fill_form(self, field_values, form_id=None, name=None):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = self._browser
         if name or form_id:
             form = self._browser.getForm(name=name, id=form_id)
 
         for name, value in field_values.items():
-            control = form.getControl(name=name)
+            try:
+                control = form.getControl(name=name)
 
-            if control.type == "checkbox":
-                if value:
-                    control.value = control.options
+                if control.type == "checkbox":
+                    if value:
+                        control.value = control.options
+                    else:
+                        control.value = []
+                elif control.type == "radio":
+                    control.value = [
+                        option for option in control.options if option == value
+                    ]
+                elif control.type == "select":
+                    control.value = [value]
                 else:
-                    control.value = []
-            elif control.type == "radio":
-                control.value = [
-                    option for option in control.options if option == value
-                ]
-            elif control.type == "select":
-                control.value = [value]
-            else:
-                control.value = value
+                    control.value = value
+            except NotImplementedError as e:
+                if not ignore_missing:
+                    raise NotImplementedError(e)
 
     def choose(self, name, value):
         control = self._browser.getControl(name=name)

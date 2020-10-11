@@ -238,7 +238,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
     def fill(self, name, value):
         self.find_by_name(name=name).first.fill(value)
 
-    def fill_form(self, field_values, form_id=None, name=None):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = None
 
         if name is not None:
@@ -247,30 +247,34 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             form = self.find_by_id(form_id)
 
         for name, value in field_values.items():
-            if form:
-                element = form.find_by_name(name)
-                control = element.first._element
-            else:
-                element = self.find_by_name(name)
-                control = element.first._control
-            control_type = control.get("type")
-            if control_type == "checkbox":
-                if value:
-                    control.value = value  # control.options
+            try:
+                if form:
+                    element = form.find_by_name(name)
+                    control = element.first._element
                 else:
-                    control.value = []
-            elif control_type == "radio":
-                control.value = (
-                    value
-                )  # [option for option in control.options if option == value]
-            elif control_type == "select":
-                if isinstance(value, list):
+                    element = self.find_by_name(name)
+                    control = element.first._control
+                control_type = control.get("type")
+                if control_type == "checkbox":
+                    if value:
+                        control.value = value  # control.options
+                    else:
+                        control.value = []
+                elif control_type == "radio":
+                    control.value = (
+                        value
+                    )  # [option for option in control.options if option == value]
+                elif control_type == "select":
+                    if isinstance(value, list):
+                        control.value = value
+                    else:
+                        control.value = [value]
+                else:
+                    # text, textarea, password, tel
                     control.value = value
-                else:
-                    control.value = [value]
-            else:
-                # text, textarea, password, tel
-                control.value = value
+            except ElementDoesNotExist as e:
+                if not ignore_missing:
+                    raise ElementDoesNotExist(e)
 
     def choose(self, name, value):
         self.find_by_name(name).first._control.value = value
