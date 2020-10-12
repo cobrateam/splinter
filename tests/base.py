@@ -66,7 +66,6 @@ def get_browser(browser_name, **kwargs):
     elif browser_name == 'zope.testbrowser':
         return Browser("zope.testbrowser", wait_time=0.1)
 
-
     raise ValueError('Unknown browser name')
 
 
@@ -325,5 +324,5 @@ class WebDriverTests(
         """Intercepted clicks that never unblock should raise an error."""
         self.browser.visit(EXAMPLE_APP + "click_intercepted")
 
-        with pytest.raises(WebDriverException) as e:
+        with pytest.raises(WebDriverException):
             self.browser.find_by_id("overlapped2").click()

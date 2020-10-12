@@ -41,12 +41,15 @@ else:
     _meth_func = "im_func"
     _func_name = "func_name"
 
+
 # Patch contextmanager onto Selenium's Alert
 def alert_enter(self):
     return self
 
+
 def alert_exit(self, type, value, traceback):
     pass
+
 
 Alert.__enter__ = alert_enter
 Alert.__exit__ = alert_exit
@@ -221,6 +224,7 @@ def _find(self, finder, selector):
 
     return elem_list
 
+
 def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
     """Wrapper for finding elements.
 
@@ -233,7 +237,7 @@ def find_by(self, finder, selector, original_find=None, original_query=None, wai
     elem_list = []
 
     func_name = getattr(getattr(finder, _meth_func), _func_name)
-    find_by = original_find or func_name[func_name.rfind("_by_") + 4 :]
+    find_by = original_find or func_name[func_name.rfind("_by_") + 4:]
     query = original_query or selector
 
     # Zero second wait time means only check once
@@ -534,7 +538,7 @@ class BaseWebDriver(DriverAPI):
             self.driver.find_elements_by_tag_name,
             tag,
             wait_time=wait_time,
-    )
+        )
 
     def find_by_value(self, value, wait_time=None):
         elem = self.find_by_xpath(

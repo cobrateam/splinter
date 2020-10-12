@@ -163,7 +163,8 @@ class FlaskClientDriverTest(
 
     def test_redirection_on_post(self):
         """
-        when submitting a form that POSTs to /redirected, browser should be redirected to GET /redirected-location?come=get&some=true
+        when submitting a form that POSTs to /redirected,
+        browser should be redirected to GET /redirected-location?come=get&some=true
         """
         self.browser.find_by_name("redirect").click()
         self.assertIn("I just been redirected to this location", self.browser.html)

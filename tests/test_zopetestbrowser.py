@@ -6,7 +6,6 @@
 
 import os
 import unittest
-import sys
 
 import six
 
