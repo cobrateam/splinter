@@ -297,7 +297,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support filling fields by name." % self.driver_name
         )
 
-    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
+    def fill_form(self, field_values, form_id=None, name=None):
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
 
@@ -305,6 +305,12 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         radio and select.
 
         Checkboxes should be specified as a boolean in the dict.
+
+        Arguments:
+            field_values (dict): Values for all the fields in the form, in the pattern of {field name: field value} 
+            form_id (str): Id of the form to fill. Can be used instead of name.
+            name (str): Name of the form to fill.
+            ignore_missing (bool): Ignore missing keys in the dict.
         """
         raise NotImplementedError(
             "%s doesn't support filling forms with a dict." % self.driver_name
