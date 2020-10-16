@@ -33,6 +33,8 @@ from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 
+from splinter.exceptions import ElementDoesNotExist
+
 
 if sys.version_info[0] > 2:
     _meth_func = "__func__"
@@ -573,7 +575,7 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values, form_id=None, name=None):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = None
 
         if name is not None:
@@ -582,29 +584,33 @@ class BaseWebDriver(DriverAPI):
             form = self.find_by_id(form_id)
 
         for name, value in field_values.items():
-            if form:
-                elements = form.find_by_name(name)
-            else:
-                elements = self.find_by_name(name)
-            element = elements.first
-            if (
-                element["type"] in ["text", "password", "tel"]
-                or element.tag_name == "textarea"
-            ):
-                element.value = value
-            elif element["type"] == "checkbox":
-                if value:
-                    element.check()
+            try:
+                if form:
+                    elements = form.find_by_name(name)
                 else:
-                    element.uncheck()
-            elif element["type"] == "radio":
-                for field in elements:
-                    if field.value == value:
-                        field.click()
-            elif element._element.tag_name == "select":
-                element.select(value)
-            else:
-                element.value = value
+                    elements = self.find_by_name(name)
+                element = elements.first
+                if (
+                    element["type"] in ["text", "password", "tel"]
+                    or element.tag_name == "textarea"
+                ):
+                    element.value = value
+                elif element["type"] == "checkbox":
+                    if value:
+                        element.check()
+                    else:
+                        element.uncheck()
+                elif element["type"] == "radio":
+                    for field in elements:
+                        if field.value == value:
+                            field.click()
+                elif element._element.tag_name == "select":
+                    element.select(value)
+                else:
+                    element.value = value
+            except ElementDoesNotExist as e:
+                if not ignore_missing:
+                    raise ElementDoesNotExist(e)
 
     def type(self, name, value, slowly=False):
         element = self.find_by_name(name).first._element

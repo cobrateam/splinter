@@ -8,6 +8,10 @@ import time
 import re
 import unittest
 
+import pytest
+
+from splinter.exceptions import ElementDoesNotExist
+
 
 def skipIfZope(f):
     def wrapper(self, *args, **kwargs):
@@ -240,6 +244,24 @@ class FormElementsTest(object):
         )
         value = self.browser.find_by_name("firstname").value
         self.assertEqual("John", value)
+
+    def test_fill_form_missing_values(self):
+        """Missing values should raise an error."""
+        with pytest.raises(ElementDoesNotExist) as e:
+            self.browser.fill_form(
+                {"query": "new query", "missing_form": "doesn't exist"},
+            )
+
+        assert 'missing_form' in str(e.value)
+
+    def test_fill_form_missing_values_ignore_missing(self):
+        """Missing values are ignores when ignore_missing is True."""
+        self.browser.fill_form(
+            {"query": "new query", "missing_form": "doesn't exist"},
+            ignore_missing=True,
+        )
+        value = self.browser.find_by_name("query").value
+        assert "new query" == value
 
     def test_can_clear_text_field_content(self):
         self.browser.fill("query", "random query")
