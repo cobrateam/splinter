@@ -9,6 +9,8 @@ import re
 import time
 import sys
 
+from six import u as unicode
+
 import lxml.etree
 import lxml.html
 from lxml.cssselect import CSSSelector

@@ -6,7 +6,7 @@
 
 try:
     from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
-except:
+except ImportError:
     from urlparse import parse_qs, urlparse, urlunparse
     from urllib import urlencode
 

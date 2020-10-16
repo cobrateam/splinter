@@ -12,7 +12,7 @@ import time
 
 import lxml.html
 from lxml.cssselect import CSSSelector
-from zope.testbrowser.browser import Browser, ListControl, SubmitControl
+from zope.testbrowser.browser import Browser, ListControl
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 from splinter.driver import DriverAPI, ElementAPI

@@ -30,4 +30,5 @@ install:
   - export PATH=$HOME:$PATH
 script:
   - pip install tox
+  - tox -e lint
   - tox -- ${DRIVER}

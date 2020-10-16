@@ -57,5 +57,4 @@ def _recurse(text, split_on, wrapper, replacer, inner=False):
         if index != len(split_text) - 1:
             final_value += replacer
 
-
     return final_value
