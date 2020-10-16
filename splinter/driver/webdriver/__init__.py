@@ -23,7 +23,7 @@ from selenium.common.exceptions import (
     MoveTargetOutOfBoundsException,
 )
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as EC  # NOQA: N812
 from selenium.webdriver.support.ui import WebDriverWait
 
 from six import BytesIO
@@ -58,7 +58,7 @@ Alert.__exit__ = alert_exit
 Alert.fill_with = Alert.send_keys
 
 
-class switch_window:
+class switch_window:  # NOQA: N801
     def __init__(self, browser, window_handle):
         self.browser = browser
         self.window_handle = window_handle
