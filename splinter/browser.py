@@ -68,7 +68,7 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
     raise err
 
 
-def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):
+def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):  # NOQA: N802
     """
     Returns a driver instance for the given name.
 

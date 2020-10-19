@@ -65,7 +65,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                 continue
 
             if isinstance(v, lxml.html.MultipleSelectOptions):
-                data[k] = [val for val in v]
+                data[k] = list(v)
             else:
                 data[k] = v
 

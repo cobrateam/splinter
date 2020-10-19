@@ -24,8 +24,8 @@ class FlaskClientDriverTest(
         self.browser.visit(EXAMPLE_APP)
 
     @classmethod
-    def tearDownClass(self):
-        self.browser.quit()
+    def tearDownClass(cls):
+        cls.browser.quit()
 
     def test_should_support_with_statement(self):
         with Browser("flask", app=app) as internet:

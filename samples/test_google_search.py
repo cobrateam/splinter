@@ -17,11 +17,11 @@ class TestGoogleSearch(unittest.TestCase):
     def tearDownClass(cls):
         cls.browser.quit()
 
-    def test_visiting_google_com_returns_a_page_with_Google_in_title(self):
+    def test_visiting_google_com_returns_a_page_with_google_in_title(self):
         self.browser.visit("http://www.google.com/")
         self.assertIn("Google", self.browser.title)
 
-    def test_filling_Splinter_in_the_search_box_returns_Splinter_website(self):
+    def test_filling_splinter_in_the_search_box_returns_splinter_website(self):
         self.browser.visit("http://www.google.com/")
         self.browser.fill("q", "Splinter")
         search_button = self.browser.find_by_name("btnG").first

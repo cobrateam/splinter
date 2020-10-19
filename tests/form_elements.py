@@ -13,7 +13,7 @@ import pytest
 from splinter.exceptions import ElementDoesNotExist
 
 
-def skipIfZope(f):
+def skip_if_zope(f):
     def wrapper(self, *args, **kwargs):
         if self.__class__.__name__ == 'ZopeTestBrowserDriverTest':
             return unittest.skip("skipping this test for zope testbrowser")
@@ -22,7 +22,7 @@ def skipIfZope(f):
     return wrapper
 
 
-def skipIfDjango(f):
+def skip_if_django(f):
     def wrapper(self, *args, **kwargs):
         if self.__class__.__name__ == 'DjangoClientDriverTest':
             return unittest.skip("skipping this test for django")
@@ -43,14 +43,14 @@ class FormElementsTest(object):
         value = self.browser.find_by_name("q").value
         self.assertEqual("new query", value)
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
         self.browser.find_by_css("input.submit-input-no-name").click()
         self.assertEqual(
             self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
         )
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('input[name="submit-input-no-value"]').click()
         body_text = self.browser.find_by_xpath("/descendant-or-self::*").text.strip()
@@ -59,7 +59,7 @@ class FormElementsTest(object):
             repr(body_text),
         )
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
         self.browser.find_by_css("input.submit-input-empty").click()
         self.assertEqual(
@@ -73,12 +73,12 @@ class FormElementsTest(object):
             "submit-input: submit-input-value",
         )
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
         self.browser.find_by_css("button.submit-button-no-name").click()
         self.assertEqual(self.browser.find_by_xpath("/descendant-or-self::*").text, "")
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('button[name="submit-button-no-value"]').click()
         self.assertEqual(
@@ -86,14 +86,14 @@ class FormElementsTest(object):
             "submit-button-no-value:",
         )
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         self.browser.find_by_css("button.submit-button-empty").click()
         self.assertEqual(
             self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
         )
 
-    @skipIfZope
+    @skip_if_zope
     def test_clicking_submit_button_posts_button_value_if_value_present(self):
         self.browser.find_by_css('button[name="submit-button"]').click()
 
@@ -290,7 +290,7 @@ class FormElementsTest(object):
         value = self.browser.find_by_name("telephone").value
         self.assertFalse(value)
 
-    @skipIfDjango
+    @skip_if_django
     def test_can_clear_textarea_content(self):
         elem = self.browser.find_by_name("description")
         elem.fill("A box of widgets")
@@ -299,7 +299,7 @@ class FormElementsTest(object):
         elem.clear()
         assert "" == elem.value
 
-    @skipIfDjango
+    @skip_if_django
     def test_can_clear_search_content(self):
         elem = self.browser.find_by_name("search_keyword")
         elem.fill("widgets")
@@ -308,7 +308,7 @@ class FormElementsTest(object):
         elem.clear()
         assert "" == elem.value
 
-    @skipIfDjango
+    @skip_if_django
     def test_can_clear_url_content(self):
         elem = self.browser.find_by_name("url_input")
         elem.fill("http://widgets.com")

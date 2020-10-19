@@ -57,9 +57,9 @@ class CookieManager(CookieManagerAPI):
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict(
-                [(key, morsel.value) for key, morsel in self.driver.cookies.items()]
-            )
+            cookies_dict = {
+                key: morsel.value for key, morsel in self.driver.cookies.items()
+            }
             return cookies_dict == other_object
         return False
 

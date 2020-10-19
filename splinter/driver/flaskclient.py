@@ -53,7 +53,7 @@ class CookieManager(CookieManagerAPI):
         return cookies
 
     def __getitem__(self, item):
-        cookies = dict([(c.name, c) for c in self.driver.cookie_jar])
+        cookies = {c.name: c for c in self.driver.cookie_jar}
         return cookies[item].value
 
     def __contains__(self, key):
@@ -64,7 +64,7 @@ class CookieManager(CookieManagerAPI):
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = dict([(c.name, c.value) for c in self.driver.cookie_jar])
+            cookies_dict = {c.name: c.value for c in self.driver.cookie_jar}
             return cookies_dict == other_object
         return False
 
