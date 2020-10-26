@@ -8,7 +8,7 @@ argparse
 Django>=1.7.11; python_version < '3.0'
 Django>=2.0.6; python_version >= '3.0'
 flake8==3.8.4
-flake8-comprehensions==3.2.3; python_version >= '3.0'
+flake8-comprehensions==3.3.0; python_version >= '3.0'
 flake8-comprehensions==1.4.1; python_version < '3.0'
 flake8-multiline-containers==0.0.15; python_version >= '3.6'
 flake8-mutable==1.2.0
