@@ -32,8 +32,8 @@ from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
-
 from splinter.exceptions import ElementDoesNotExist
+from splinter.plugin_manager import plugins
 
 
 if sys.version_info[0] > 2:
@@ -290,6 +290,8 @@ class BaseWebDriver(DriverAPI):
 
         self.links = FindLinks(self)
 
+        self.hook = plugins.hook
+
     def __enter__(self):
         return self
 
@@ -314,6 +316,7 @@ class BaseWebDriver(DriverAPI):
 
     def visit(self, url):
         self.driver.get(url)
+        self.hook.splinter_after_visit(browser=self)
 
     def back(self):
         self.driver.back()
@@ -684,6 +687,8 @@ class BaseWebDriver(DriverAPI):
         ).first._element.click()
 
     def quit(self):
+        self.hook.splinter_before_quit(browser=self)
+
         try:
             self.driver.quit()
         except WebDriverException:
