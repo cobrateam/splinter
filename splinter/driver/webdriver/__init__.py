@@ -23,7 +23,7 @@ from selenium.common.exceptions import (
     MoveTargetOutOfBoundsException,
 )
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as EC  # NOQA: N812
 from selenium.webdriver.support.ui import WebDriverWait
 
 from six import BytesIO
@@ -32,6 +32,9 @@ from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
+
+from splinter.exceptions import ElementDoesNotExist
+
 
 if sys.version_info[0] > 2:
     _meth_func = "__func__"
@@ -55,7 +58,7 @@ Alert.__exit__ = alert_exit
 Alert.fill_with = Alert.send_keys
 
 
-class switch_window:
+class switch_window:  # NOQA: N801
     def __init__(self, browser, window_handle):
         self.browser = browser
         self.window_handle = window_handle
@@ -150,6 +153,7 @@ class Window(object):
 
 
 class Windows(object):
+
     """ A class representing all open browser windows """
 
     def __init__(self, browser):
@@ -210,8 +214,8 @@ def _find(self, finder, selector):
             elements = [elements]
 
     except (
-            NoSuchElementException,
-            StaleElementReferenceException,
+        NoSuchElementException,
+        StaleElementReferenceException,
     ):
         # This exception is sometimes thrown if the page changes
         # quickly
@@ -593,7 +597,7 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values, form_id=None, name=None):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = None
 
         if name is not None:
@@ -602,29 +606,33 @@ class BaseWebDriver(DriverAPI):
             form = self.find_by_id(form_id)
 
         for name, value in field_values.items():
-            if form:
-                elements = form.find_by_name(name)
-            else:
-                elements = self.find_by_name(name)
-            element = elements.first
-            if (
+            try:
+                if form:
+                    elements = form.find_by_name(name)
+                else:
+                    elements = self.find_by_name(name)
+                element = elements.first
+                if (
                     element["type"] in ["text", "password", "tel"]
                     or element.tag_name == "textarea"
-            ):
-                element.value = value
-            elif element["type"] == "checkbox":
-                if value:
-                    element.check()
+                ):
+                    element.value = value
+                elif element["type"] == "checkbox":
+                    if value:
+                        element.check()
+                    else:
+                        element.uncheck()
+                elif element["type"] == "radio":
+                    for field in elements:
+                        if field.value == value:
+                            field.click()
+                elif element._element.tag_name == "select":
+                    element.select(value)
                 else:
-                    element.uncheck()
-            elif element["type"] == "radio":
-                for field in elements:
-                    if field.value == value:
-                        field.click()
-            elif element._element.tag_name == "select":
-                element.select(value)
-            else:
-                element.value = value
+                    element.value = value
+            except ElementDoesNotExist as e:
+                if not ignore_missing:
+                    raise ElementDoesNotExist(e)
 
     def type(self, name, value, slowly=False):
         element = self.find_by_name(name).first._element
@@ -808,8 +816,8 @@ class WebDriverElement(ElementAPI):
             try:
                 return self._element.click()
             except(
-                    ElementClickInterceptedException,
-                    WebDriverException,
+                ElementClickInterceptedException,
+                WebDriverException,
             ) as e:
                 error = e
 
@@ -962,7 +970,7 @@ class WebDriverElement(ElementAPI):
         self.scroll_to()
         ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
-    def _full_screen():
+    def _full_screen(self):
         width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
         height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
         self.driver.set_window_size(width, height)

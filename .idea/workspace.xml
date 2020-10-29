@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9963230d-4100-4285-9f14-03c862f5af08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/test_xpath_concat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorial.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorial.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/test_google_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/samples/test_google_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/djangoclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/djangoclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/flaskclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/flaskclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/lxmldriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/lxmldriver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/webdriver/cookie_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/webdriver/cookie_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/webdriver/firefox.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/webdriver/firefox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/driver/zopetestbrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/driver/zopetestbrowser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splinter/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/splinter/meta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test-requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/cookies.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/cookies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/form_elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/form_elements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/is_element_present.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/is_element_present.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/popups.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/popups.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/screenshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/screenshot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_browser.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_browser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_djangoclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_djangoclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_flaskclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_flaskclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_zopetestbrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_zopetestbrowser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/xpath_concat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tox.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1h3dwPB5JGeU1shRsFTIJIltXvK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9963230d-4100-4285-9f14-03c862f5af08" name="Default Changelist" comment="" />
+      <created>1599243947030</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599243947030</updated>
+      <workItem from="1599243949219" duration="9874000" />
+      <workItem from="1599319606801" duration="32343000" />
+      <workItem from="1599420310050" duration="1112000" />
+      <workItem from="1599421646047" duration="30000" />
+      <workItem from="1599568400775" duration="842000" />
+      <workItem from="1599585814427" duration="12564000" />
+      <workItem from="1599749632364" duration="807000" />
+      <workItem from="1603990099601" duration="1634000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1398" height="200" key="GridCell.Tab.0.bottom" timestamp="1599419277522">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state width="1398" height="200" key="GridCell.Tab.0.bottom/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599419277522" />
+    <state width="1398" height="200" key="GridCell.Tab.0.center" timestamp="1599419277520">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state width="1398" height="200" key="GridCell.Tab.0.center/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599419277520" />
+    <state width="1398" height="200" key="GridCell.Tab.0.left" timestamp="1599419277518">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state width="1398" height="200" key="GridCell.Tab.0.left/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599419277518" />
+    <state width="1398" height="200" key="GridCell.Tab.0.right" timestamp="1599419277521">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state width="1398" height="200" key="GridCell.Tab.0.right/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599419277521" />
+    <state x="251" y="62" key="SettingsEditor" timestamp="1599319770823">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state x="251" y="62" key="SettingsEditor/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599319770823" />
+    <state x="520" y="288" key="scopes" timestamp="1599247401517">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state x="520" y="288" key="scopes/0.23.1440.800@0.23.1440.800" timestamp="1599247401517" />
+    <state x="385" y="147" width="670" height="676" key="search.everywhere.popup" timestamp="1599749758138">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state x="385" y="147" width="670" height="676" key="search.everywhere.popup/-1600.23.1600.877/0.23.1440.800@0.23.1440.800" timestamp="1599749758138" />
+    <state x="385" y="147" width="670" height="676" key="search.everywhere.popup/0.23.1440.800@0.23.1440.800" timestamp="1599602631859" />
+  </component>
+</project>
