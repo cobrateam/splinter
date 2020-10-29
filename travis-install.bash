@@ -14,7 +14,7 @@ if [ "${DRIVER}" = "tests/test_webdriver_remote.py" ]; then
 	sleep 1
 fi
 
-if [ "${DRIVER}" = "-n 4 tests/test_webdriver_chrome.py" ] || [ "${DRIVER}" = "tests/test_webdriver.py" ]; then
+if [ "${DRIVER}" = "-n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_request_handler.py tests/test_xpath_concat.py tests/test_zopetestbrowser.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py" ]; then
     sleep 1
 
     FILE=`mktemp`; wget "https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip" -qO $FILE && unzip $FILE chromedriver -d ~; rm $FILE; chmod 777 ~/chromedriver;
