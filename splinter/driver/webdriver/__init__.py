@@ -126,6 +126,29 @@ class Window(object):
 
     is_current = property(**is_current())
 
+    def new_tab(self, url):
+        """ Open new tab in current window """
+        if self._browser.driver.name == 'firefox':
+            self._browser.driver.get('about:config')
+            self._browser.driver.execute_script('document.getElementById("warningButton").click();')
+            self._browser.driver.execute_script(
+                """
+                Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch)
+                    .setIntPref('browser.link.open_newwindow', 3);
+                """)
+
+        self._browser.driver.execute_script("window.open('%s', '_blank');" % url)
+
+        if self._browser.driver.name == 'firefox':
+            self._browser.driver.execute_script(
+                """
+                Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch)
+                    .setIntPref('browser.link.open_newwindow', 2);
+                """)
+            self._browser.driver.back()
+
     def close(self):
         """ Close this window. If this window is active, switch to previous window """
         target = self.prev if (self.is_current and self.prev != self) else None
@@ -291,28 +314,6 @@ class BaseWebDriver(DriverAPI):
 
     def visit(self, url):
         self.driver.get(url)
-
-    def new_tab(self, url):
-        if self.driver_name == 'Firefox':
-            self.driver.get('about:config')
-            self.driver.execute_script('document.getElementById("warningButton").click();')
-            self.driver.execute_script(
-                """
-                Components.classes['@mozilla.org/preferences-service;1']
-                    .getService(Components.interfaces.nsIPrefBranch)
-                    .setIntPref('browser.link.open_newwindow', 3);
-                """)
-
-        self.driver.execute_script("window.open('%s', '_blank');" % url)
-
-        if self.driver_name == 'Firefox':
-            self.driver.execute_script(
-                """
-                Components.classes['@mozilla.org/preferences-service;1']
-                    .getService(Components.interfaces.nsIPrefBranch)
-                    .setIntPref('browser.link.open_newwindow', 2);
-                """)
-            self.driver.get('about:blank')
 
     def back(self):
         self.driver.back()
