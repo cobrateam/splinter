@@ -31,4 +31,4 @@ install:
 script:
   - pip install tox
   - tox -e lint
-  - tox -- ${DRIVER}
+  - tox -e tests -- ${DRIVER}
