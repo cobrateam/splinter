@@ -1034,3 +1034,4 @@ class WebDriverElement(ElementAPI):
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
+    
