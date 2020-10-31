@@ -9,7 +9,7 @@ import re
 import time
 import sys
 
-from six import u as unicode
+import six
 
 import lxml.etree
 import lxml.html
@@ -448,12 +448,12 @@ class LxmlControlElement(LxmlElement):
 
     def fill(self, value):
         parent_form = self._get_parent_form()
-        if sys.version_info[0] > 2:
-            parent_form.fields[self["name"]] = value
-        else:
-            if not isinstance(value, unicode):
+
+        if not sys.version_info[0] > 2:
+            if not isinstance(value, six.text_type):
                 value = value.decode("utf-8")
-            parent_form.fields[self["name"]] = value
+
+        parent_form.fields[self["name"]] = value
 
     def select(self, value):
         self._control.value = value
