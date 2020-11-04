@@ -171,6 +171,16 @@ class WebDriverTests(
         with self.assertRaises(NotImplementedError):
             self.browser.status_code
 
+    def test_can_open_page_in_new_tab(self):
+        """should be able to visit url in a new tab"""
+        self.browser.windows.current.new_tab(EXAMPLE_APP)
+        self.browser.windows[1].is_current = True
+        self.assertEqual(EXAMPLE_APP, self.browser.url)
+        assert 2 == len(self.browser.windows)
+
+        self.browser.windows[0].is_current = True
+        self.browser.windows[1].close()
+
     def test_can_execute_javascript(self):
         "should be able to execute javascript"
         self.browser.execute_script("$('body').empty()")

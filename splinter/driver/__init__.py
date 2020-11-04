@@ -69,6 +69,14 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         """
         raise NotImplementedError("%s doesn't visit any url." % self.driver_name)
 
+    def new_tab(self, url):
+        """
+        Visits a given URL in a new tab.
+
+        The ``url`` parameter is a string.
+        """
+        raise NotImplementedError("%s doesn't open a new tab." % self.driver_name)
+
     def back(self):
         """
         Back to the last URL in the browsing history.
