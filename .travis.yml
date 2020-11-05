@@ -18,6 +18,7 @@ python:
   - "3.6"
   - "3.7"
   - "3.8"
+  - "3.9"
 before_install:
   - export DISPLAY=:99.0
   - travis_retry wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
