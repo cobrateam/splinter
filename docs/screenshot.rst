@@ -30,6 +30,16 @@ Take a full view screenshot:
 
     browser = Browser()
     screenshot_path = browser.screenshot('absolute_path/your_screenshot.png', full=True)
+    
+Another beginner-friendly option is using the `save_screenshot` method of the `Browser's DriverAPI
+<https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html?highlight=save_screenshot#driverapi>`_.
+
+.. highlight:: python
+
+::
+
+    browser = Browser()
+    browser.driver.save_screenshot('screenshot.png')
 
 +++++++++++++++++++++++
 Take element screenshot
