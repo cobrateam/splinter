@@ -5,7 +5,8 @@
 # license that can be found in the LICENSE file.
 
 import unittest
-
+import operator
+import splinter
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 
@@ -102,3 +103,15 @@ class ElementListTest(unittest.TestCase):
         expected_message = 'no elements could be found with id "menu"'
         e = cm.exception
         self.assertEqual(expected_message, e.args[0])
+
+    def test_method_get(self):
+        """
+        should provide a \"get\" method
+        which provides access to HTML attributes' element list of the visited webpage
+        """
+        wd_ins = splinter.Browser()
+        wd_ins.visit('https://www.google.com/')
+        the_list = wd_ins.find_by_name('q').first
+        self.assertEqual('q', the_list.get('name'))
+        self.assertEqual('q', operator.itemgetter('name')(the_list))
+        self.assertEqual('q', the_list['name'])      

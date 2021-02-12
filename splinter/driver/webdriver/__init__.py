@@ -748,6 +748,9 @@ class WebDriverElement(ElementAPI):
     def _get_value(self):
         return self["value"] or self._element.text
 
+    def get(self,value):
+        return self[value]
+    
     def _set_value(self, value):
         if self._element.get_attribute("type") != "file":
             self._element.clear()
