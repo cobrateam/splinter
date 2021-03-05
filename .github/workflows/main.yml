@@ -60,7 +60,7 @@ jobs:
 
       - name: Install selenium server
         run: |
-          wget https://selenium-release.storage.googleapis.com/3.10/selenium-server-standalone-3.10.0.jar -O selenium-server.jar
+          wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -O selenium-server.jar
 
 
       - name: Run lint
