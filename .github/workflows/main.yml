@@ -61,12 +61,19 @@ jobs:
       - name: Install selenium server
         run: |
           wget https://selenium-release.storage.googleapis.com/3.10/selenium-server-standalone-3.10.0.jar -O selenium-server.jar
+
+
+      - name: Run lint
+        run: tox -e lint
+
+      - name: Run Selenium Remote tests
+        run: | 
+          sudo apt-get install xvfb
           java -jar selenium-server.jar > /dev/null 2>&1 &
+          sleep 1
+          xvfb-run --auto-servernum tox -e tests -- tests/test_webdriver_remote.py;
 
       # Runs a set of commands using the runners shell
       - name: Run tests
         run: |
-          sudo apt-get install xvfb
-          tox -e lint;
           tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_request_handler.py tests/test_xpath_concat.py tests/test_zopetestbrowser.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
-          xvfb-run --auto-servernum tox -e tests -- tests/test_webdriver_remote.py;
