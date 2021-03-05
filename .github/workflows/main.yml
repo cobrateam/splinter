@@ -72,7 +72,7 @@ jobs:
           echo "Start Selenium Server"
           java -jar selenium-server.jar > /dev/null 2>&1 &
           sleep 1
-          xvfb-run --servernum=99.0 tox -e tests -- tests/test_webdriver_remote.py;
+          xvfb-run --server-num=99.0 tox -e tests -- tests/test_webdriver_remote.py;
 
       # Runs a set of commands using the runners shell
       - name: Run tests
