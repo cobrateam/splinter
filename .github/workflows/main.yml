@@ -65,6 +65,8 @@ jobs:
         with:
           run: |
             pip install tox;
+            pip install -rlint-requirements.txt;
+            flake8;
           #tox -e lint;
           # tox -e tests -- tests/test_webdriver_remote.py;
           # tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_request_handler.py tests/test_xpath_concat.py tests/test_zopetestbrowser.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
