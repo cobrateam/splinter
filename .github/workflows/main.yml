@@ -48,9 +48,9 @@ jobs:
         with:
           java-version: 1.8
       
-      - uses: browser-actions/setup-geckodriver@latest
+    #  - uses: browser-actions/setup-geckodriver@latest
       
-      - uses: nanasess/setup-chromedriver@master
+     # - uses: nanasess/setup-chromedriver@master
 
       - name: Install test dependencies
         run: pip install tox
@@ -69,6 +69,7 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
+          export DISPLAY=:99
           echo "Start Selenium Server"
           java -jar selenium-server.jar > /dev/null 2>&1 &
           sleep 1
