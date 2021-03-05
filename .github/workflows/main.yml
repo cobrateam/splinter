@@ -48,8 +48,8 @@ jobs:
       
       - uses: nanasess/setup-chromedriver@master
 
-      # - name: Install test dependencies
-      #  run: pip install tox
+      - name: Install test dependencies
+        run: pip install tox
 
       - name: Set env
         run: echo "DISPLAY=:99.0" >> $GITHUB_ENV
@@ -63,7 +63,6 @@ jobs:
       - name: Run tests
         run: |
           sudo apt-get install xvfb
-          pip install tox
           tox -e lint;
           tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_request_handler.py tests/test_xpath_concat.py tests/test_zopetestbrowser.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
        # xvfb-run --auto-servernum tox -e tests -- tests/test_webdriver_remote.py;
