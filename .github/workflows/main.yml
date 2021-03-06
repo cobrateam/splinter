@@ -69,7 +69,8 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
-          ls -l /usr/bin/google-chrome
+          sudo chmod -x "/usr/bin/chromedriver"
+          sudo chmod -x "/usr/bin/google-chrome"
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
           echo "Start Selenium Server"
