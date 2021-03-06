@@ -69,14 +69,18 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
-          sudo chmod -x "/usr/local/share/chrome_driver"
-          sudo chmod -x "/usr/bin/google-chrome"
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
           echo "Start Selenium Server"
           java -jar selenium-server.jar > /dev/null 2>&1 &
           sleep 3
           xvfb-run --server-num=99.0 tox -e tests -- tests/test_webdriver_remote.py;
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: my-artifacts
+          path: /**.log
 
       # Runs a set of commands using the runners shell
       - name: Run tests
