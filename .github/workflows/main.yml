@@ -43,10 +43,10 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+     # - name: Set up JDK 1.8
+      #  uses: actions/setup-java@v1
+       # with:
+        #  java-version: 1.8
       
     #  - uses: browser-actions/setup-geckodriver@latest
       
@@ -69,7 +69,7 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
-          sudo chmod -x "/usr/bin/chromedriver"
+          sudo chmod -x "/usr/local/share/chrome_driver"
           sudo chmod -x "/usr/bin/google-chrome"
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
