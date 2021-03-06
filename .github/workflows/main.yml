@@ -69,7 +69,7 @@ jobs:
       # sudo apt-get install xvfb
        # sudo mv /usr/bin/firefox /usr/bin/firefox_old
 #Xvfb :99.0 -screen 0 800x600x24+32 &
-        - name: Run Selenium Remote tests
+      - name: Run Selenium Remote tests
         run: |
           sudo apt-get purge firefox
           wget http://ftp.mozilla.org/pub/firefox/releases/87.0b6/linux-$(uname -m)/en-US/firefox-87.0b6.tar.bz2
