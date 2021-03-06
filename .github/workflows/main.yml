@@ -69,6 +69,7 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
+          sudo apt-get install build-essential libssl-dev libffi-dev libsasl2-dev libldap2-dev
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
           echo "Start Selenium Server"
