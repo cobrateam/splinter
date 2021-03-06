@@ -18,6 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
+    # Java, Chrome, chromedriver, Firefox, geckodriver are installed by default on this machine.
     runs-on: ubuntu-latest
 
     strategy:
@@ -59,7 +60,6 @@ jobs:
 
       - name: Run Selenium Remote tests
         run: |          
-          sudo apt-get install build-essential libssl-dev libffi-dev libsasl2-dev libldap2-dev
           echo "Start Selenium Server"
           xvfb-run java -jar selenium-server.jar > /dev/null 2>&1 & sleep 3 & tox -e tests -- tests/test_webdriver_remote.py;
 
