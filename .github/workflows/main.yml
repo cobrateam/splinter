@@ -80,7 +80,7 @@ jobs:
         if: failure()
         with:
           name: my-artifacts
-          path: /**.log
+          path: geckodriver.log
 
       # Runs a set of commands using the runners shell
       - name: Run tests
