@@ -81,9 +81,10 @@ jobs:
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
           echo "Start Selenium Server"
+          Xvfb :99.0 -screen 0 800x600x24+32
           java -jar selenium-server.jar > /dev/null 2>&1 &
           sleep 3
-          xvfb-run --server-num=99.0 tox -e tests -- tests/test_webdriver_remote.py;
+          tox -e tests -- tests/test_webdriver_remote.py;
 
       - uses: actions/upload-artifact@v2
         if: failure()
