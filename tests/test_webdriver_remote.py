@@ -30,7 +30,7 @@ def selenium_server_is_running():
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope='class')
     def setup_browser(self, request):
-        request.cls.browser = Browser("remote")
+        request.cls.browser = Browser("remote", browser='chrome')
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
