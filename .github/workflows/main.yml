@@ -72,7 +72,7 @@ jobs:
           export PATH=$HOME:$PATH
           export DISPLAY=:99.0
           echo "Start Selenium Server"
-          java -Dselenium.LOGGER.level=WARNING -log webdriver-server.log -jar selenium-server.jar > /dev/null 2>&1 &
+          java -Dselenium.LOGGER.level=INFO -log webdriver-server.log -jar selenium-server.jar > /dev/null 2>&1 &
           sleep 3
           xvfb-run --server-num=99.0 tox -e tests -- tests/test_webdriver_remote.py;
 
