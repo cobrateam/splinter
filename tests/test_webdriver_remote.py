@@ -38,7 +38,8 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
 
         options = webdriver.firefox.options.Options()
         options.add_argument('--display=:99.0')
-        request.cls.browser = Browser("remote", options=options, firefox_binary=binary)
+        options.binary = binary
+        request.cls.browser = Browser("remote", options=options)
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
