@@ -14,6 +14,9 @@ from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+
 import pytest
 
 
@@ -30,9 +33,12 @@ def selenium_server_is_running():
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope='class')
     def setup_browser(self, request):
-        # options = webdriver.firefox.options.Options()
-        # options.add_argument('--display=99.0')
-        request.cls.browser = Browser("remote")
+        binary = FirefoxBinary()
+        binary.add_command_line_options('--display=:99.0')
+
+        options = webdriver.firefox.options.Options()
+        options.add_argument('--display=:99.0')
+        request.cls.browser = Browser("remote", options=options, firefox_binary=binary)
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
