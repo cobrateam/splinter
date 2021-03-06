@@ -80,7 +80,7 @@ jobs:
         if: failure()
         with:
           name: my-artifacts
-          path: /home/runner/work/splinter/splinter/geckodriver.log
+          path: /home/runner/work/**
 
       # Runs a set of commands using the runners shell
       - name: Run tests
