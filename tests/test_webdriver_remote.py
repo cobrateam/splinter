@@ -36,6 +36,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-gpu')
+        chrome_options.binary_location("/usr/bin/google-chrome")
         request.cls.browser = Browser("remote", browser='chrome', options=chrome_options)
         request.addfinalizer(request.cls.browser.quit)
 
