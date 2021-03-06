@@ -56,7 +56,7 @@ jobs:
         run: pip install tox
 
       - name: Set env
-        run: echo "DISPLAY=:0.0" >> $GITHUB_ENV
+        run: echo "DISPLAY=:99.0" >> $GITHUB_ENV
 
       - name: Install selenium server
         run: |
@@ -69,10 +69,11 @@ jobs:
       # sudo apt-get install xvfb
       - name: Run Selenium Remote tests
         run: |
-          export DISPLAY=:0.0
+          export PATH=$HOME:$PATH
+          export DISPLAY=:99.0
           echo "Start Selenium Server"
           java -jar selenium-server.jar > /dev/null 2>&1 &
-          sleep 1
+          sleep 3
           xvfb-run --server-num=99.0 tox -e tests -- tests/test_webdriver_remote.py;
 
       # Runs a set of commands using the runners shell
