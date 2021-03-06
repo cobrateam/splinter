@@ -14,6 +14,8 @@ from splinter import Browser
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests
 
+from selenium import webdriver
+
 import pytest
 
 
@@ -30,7 +32,11 @@ def selenium_server_is_running():
 class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope='class')
     def setup_browser(self, request):
-        request.cls.browser = Browser("remote", browser='chrome')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--disable-gpu')
+        request.cls.browser = Browser("remote", browser='chrome', options=chrome_options)
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
