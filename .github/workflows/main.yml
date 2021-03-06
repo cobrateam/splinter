@@ -53,21 +53,13 @@ jobs:
         run: |
           wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -O selenium-server.jar
 
-
+      # Lint before running unit tests
       - name: Run lint
         run: tox -e lint
 
-#Xvfb :99.0 -screen 0 800x600x24+32 &
-          # sudo apt-get purge firefox
-          # wget http://ftp.mozilla.org/pub/firefox/releases/87.0b6/linux-$(uname -m)/en-US/firefox-87.0b6.tar.bz2
-          # tar -xjf firefox-87.0b6.tar.bz2
-          # sudo mv firefox /opt/
-          #sudo ln -s /opt/firefox/firefox /usr/bin/firefox
       - name: Run Selenium Remote tests
         run: |          
           sudo apt-get install build-essential libssl-dev libffi-dev libsasl2-dev libldap2-dev
-          export PATH=$HOME:$PATH
-          export DISPLAY=:99.0
           echo "Start Selenium Server"
           xvfb-run java -jar selenium-server.jar > /dev/null 2>&1 & sleep 3 & tox -e tests -- tests/test_webdriver_remote.py;
 
