@@ -33,7 +33,7 @@ class RemoteBrowserTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope='class')
     def setup_browser(self, request):
         options = webdriver.firefox.options.Options()
-        options.add_argument('--display=:99.0')
+        options.add_argument('--display=99.0')
         request.cls.browser = Browser("remote", options=options)
         request.addfinalizer(request.cls.browser.quit)
 
