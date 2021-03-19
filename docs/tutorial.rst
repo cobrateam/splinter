@@ -98,9 +98,9 @@ After pressing the button, you can check if Splinter official website is among t
 ::
 
     if browser.is_text_present('splinter.readthedocs.io'):
-        print "Yes, found it! :)"
+        print("Yes, found it! :)")
     else:
-        print "No, didn't find it :("
+        print("No, didn't find it :(")
 
 
 In this case, we are just printing something. You might use assertions, if you're writing tests.
@@ -133,9 +133,9 @@ Finally, the source code will be:
     browser.find_by_name('btnK').click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
-        print "Yes, the official website was found!"
+        print("Yes, the official website was found!")
     else:
-        print "No, it wasn't found... We need to improve our SEO techniques"
+        print("No, it wasn't found... We need to improve our SEO techniques")
 
     browser.quit()
 
