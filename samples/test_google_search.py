@@ -23,13 +23,14 @@ class TestGoogleSearch(unittest.TestCase):
 
     def test_filling_splinter_in_the_search_box_returns_splinter_website(self):
         self.browser.visit("http://www.google.com/")
-        self.browser.fill("q", "Splinter")
-        search_button = self.browser.find_by_name("btnG").first
+        self.browser.fill("q", "splinter browser automation")
+        # Circa April 2021, there are two identical inputs for a google search. We want the second one.
+        search_button = self.browser.find_by_xpath('//input[@value="Google Search"]')[1]
         while not search_button.visible:
-            # waits for the JavaScript to put the button on the page
+            # Wait for the JavaScript to put the button on the page
             pass
         search_button.click()
-        self.assertTrue(self.browser.is_text_present("splinter.readthedocs.org"))
+        self.assertTrue(self.browser.is_text_present("https://splinter.readthedocs.io"))
 
 
 unittest.main()
