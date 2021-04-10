@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 import mimetypes
 import re
 import time
-import warnings
 
 import lxml.html
 from lxml.cssselect import CSSSelector

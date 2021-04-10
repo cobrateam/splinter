@@ -12,8 +12,6 @@ from splinter.request_handler.status_code import StatusCode
 
 from .lxmldriver import LxmlDriver
 
-import warnings
-
 
 class CookieManager(CookieManagerAPI):
     def add(self, cookie):

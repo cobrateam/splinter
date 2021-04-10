@@ -12,8 +12,6 @@ if sys.version_info[0] > 2:
 else:
     from urlparse import urlparse  # NOQA
 
-import warnings
-
 
 class CookieManager(CookieManagerAPI):
     def add(self, cookie):
