@@ -47,7 +47,7 @@ The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 
 ::
 
-    $ brew cask install chromedriver
+    $ brew install chromedriver
 
 
 Linux
