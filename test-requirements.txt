@@ -13,6 +13,6 @@ pytest==4.6.9; python_version < '3.0'
 pytest==6.2.4; python_version >= '3.0'
 pytest-xdist==1.34.0; python_version < '3.0'
 pytest-xdist==2.2.1; python_version >= '3.0'
-six==1.15.0
+six==1.16.0
 twine<2; python_version < '3.0'
 twine==3.4.1; python_version >= '3.0'
