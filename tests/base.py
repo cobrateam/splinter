@@ -28,11 +28,12 @@ from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
 from .html_snapshot import HTMLSnapshotTest
 from .type import SlowlyTypeTest
-from .popups import PopupWindowsTest
 
 
 def get_browser(browser_name, **kwargs):
-    if browser_name == 'chrome':
+    if browser_name in ['chrome', 'chrome_fullscreen']:
+        if browser_name == 'chrome_fullscreen':
+            kwargs['fullscreen'] = True
         options = webdriver.chrome.options.Options()
         options.add_argument("--disable-dev-shm-usage")
         return Browser(
@@ -41,7 +42,11 @@ def get_browser(browser_name, **kwargs):
             options=options,
             **kwargs
         )
-    elif browser_name == 'firefox':
+
+    elif browser_name in ['firefox', 'firefox_fullscreen']:
+        if browser_name == 'firefox_fullscreen':
+            kwargs['fullscreen'] = True
+
         return Browser(
             "firefox",
             headless=True,
@@ -163,7 +168,6 @@ class WebDriverTests(
     IsElementVisibleTest,
     AsyncFinderTests,
     MouseInteractionTest,
-    PopupWindowsTest,
     ScreenshotTest,
     HTMLSnapshotTest,
 ):
