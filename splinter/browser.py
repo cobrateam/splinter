@@ -4,6 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import sys
+
 try:
     from httplib import HTTPException
 except ImportError:
@@ -17,37 +19,42 @@ from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
 from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
+from splinter.plugin_manager import hookimpl, plugins
 
 
-_DRIVERS = {
-    "firefox": FirefoxWebDriver,
-    "remote": RemoteWebDriver,
-    "chrome": ChromeWebDriver,
-}
+@hookimpl
+def splinter_prepare_drivers(drivers):
+    """Called before drivers are initialized."""
+    drivers["firefox"] = FirefoxWebDriver
+    drivers["remote"] = RemoteWebDriver
+    drivers["chrome"] = ChromeWebDriver
+
+    try:
+        from splinter.driver.zopetestbrowser import ZopeTestBrowser
+
+        drivers["zope.testbrowser"] = ZopeTestBrowser
+    except ImportError:
+        pass
+
+    try:
+        import django  # noqa
+        from splinter.driver.djangoclient import DjangoClient
+
+        drivers["django"] = DjangoClient
+    except ImportError:
+        pass
+
+    try:
+        import flask  # noqa
+        from splinter.driver.flaskclient import FlaskClient
+        drivers['flask'] = FlaskClient
+    except ImportError:
+        pass
+
+    return drivers
 
 
-try:
-    from splinter.driver.zopetestbrowser import ZopeTestBrowser
-
-    _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
-except ImportError:
-    pass
-
-try:
-    import django  # noqa
-    from splinter.driver.djangoclient import DjangoClient
-
-    _DRIVERS["django"] = DjangoClient
-except ImportError:
-    pass
-
-try:
-    import flask  # noqa
-    from splinter.driver.flaskclient import FlaskClient
-
-    _DRIVERS["flask"] = FlaskClient
-except ImportError:
-    pass
+plugins.register(sys.modules[__name__])
 
 
 def get_driver(driver, retry_count=3, *args, **kwargs):
@@ -81,9 +88,11 @@ def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):  # NOQA: N80
     function will raise a :class:`splinter.exceptions.DriverNotFoundError`
     exception.
     """
+    drivers = {}
+    plugins.hook.splinter_prepare_drivers(drivers=drivers)
 
     try:
-        driver = _DRIVERS[driver_name]
+        driver = drivers[driver_name]
     except KeyError:
         raise DriverNotFoundError("No driver for %s" % driver_name)
 

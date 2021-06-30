@@ -4,5 +4,8 @@
 
 from splinter.browser import Browser  # NOQA
 
+from splinter.plugin_manager import hookimpl, plugins
 
 __version__ = "0.14.0"
+
+__all__ = ['hookimpl', 'plugins']
