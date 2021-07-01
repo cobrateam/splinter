@@ -25,9 +25,9 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
     def __init__(self, driver):
         self.driver = driver
 
-    def add(self, cookies):
+    def add(self, cookie):
         """
-        Adds a cookie.
+        Add a cookie.
 
         The ``cookie`` parameter is a ``dict`` where each key is an identifier
         for the cookie value (like any ``dict``).
