@@ -40,7 +40,7 @@ class WebDriver(BaseWebDriver):
         firefox_capabilities = DesiredCapabilities().FIREFOX
         firefox_capabilities["marionette"] = True
 
-        firefox_options = Options()
+        options = Options() if options is None else options
 
         if capabilities:
             for key, value in capabilities.items():
@@ -58,15 +58,15 @@ class WebDriver(BaseWebDriver):
                 firefox_profile.add_extension(extension)
 
         if headless:
-            firefox_options.add_argument("--headless")
+            options.add_argument("--headless")
 
         if incognito:
-            firefox_options.add_argument("-private")
+            options.add_argument("-private")
 
         self.driver = Firefox(
             firefox_profile,
             capabilities=firefox_capabilities,
-            options=firefox_options,
+            options=options,
             timeout=timeout,
             **kwargs
         )
