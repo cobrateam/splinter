@@ -20,6 +20,7 @@ class WebDriver(BaseWebDriver):
 
     def __init__(
         self,
+        options=None,
         profile=None,
         extensions=None,
         user_agent=None,
