@@ -41,7 +41,7 @@ class WebDriver(BaseWebDriver):
         firefox_capabilities = DesiredCapabilities().FIREFOX
         firefox_capabilities["marionette"] = True
 
-        options = Options() if options is None else options
+        options = options or Options()
 
         if capabilities:
             for key, value in capabilities.items():
