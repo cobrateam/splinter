@@ -8,7 +8,7 @@ argparse
 Django>=1.7.11; python_version < '3.0'
 Django>=2.0.6; python_version >= '3.0'
 Pillow==6.2.2; python_version < '3.5'
-Pillow==8.3.0; python_version >= '3.5'
+Pillow==8.3.1; python_version >= '3.5'
 pytest==4.6.9; python_version < '3.0'
 pytest==6.2.4; python_version >= '3.0'
 pytest-xdist==1.34.0; python_version < '3.0'
