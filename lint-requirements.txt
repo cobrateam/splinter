@@ -4,4 +4,4 @@ flake8-comprehensions==1.4.1; python_version < '3.0'
 flake8-multiline-containers==0.0.18; python_version >= '3.6'
 flake8-mutable==1.2.0
 mccabe==0.6.1
-pep8-naming==0.11.1
+pep8-naming==0.12.0
