@@ -5,6 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import os
+import time
 import unittest
 
 from splinter import Browser
@@ -169,6 +170,13 @@ class FlaskClientDriverTest(
         self.browser.find_by_name("redirect").click()
         self.assertIn("I just been redirected to this location", self.browser.html)
         self.assertIn("redirect-location?come=get&some=true", self.browser.url)
+
+    def test_cookies_extra_parameters(self):
+        """Cookie can be created with extra parameters."""
+        timestamp = int(time.time() + 120)
+        self.browser.cookies.add({'sha': 'zam'}, expires=timestamp)
+        cookie = {c.name: c for c in self.driver.cookie_jar}['sha']
+        assert timestamp == cookie.expires
 
 
 class FlaskClientDriverTestWithCustomHeaders(unittest.TestCase):

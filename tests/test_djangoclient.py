@@ -6,6 +6,7 @@
 
 import os
 import sys
+import time
 import unittest
 from six.moves.urllib import parse
 
@@ -154,6 +155,13 @@ class DjangoClientDriverTest(
         for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])
+
+    def test_cookies_extra_parameters(self):
+        """Cookie can be created with extra parameters."""
+        timestamp = int(time.time() + 120)
+        self.browser.cookies.add({'sha': 'zam'}, expires=timestamp)
+        cookie = self.browser._browser.cookies['sha']
+        assert timestamp == cookie['expires']
 
 
 class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):

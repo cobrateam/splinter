@@ -3,6 +3,7 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import time
 
 
 class CookiesTest(object):
@@ -112,3 +113,10 @@ class CookiesTest(object):
         assert "foo" not in browser.cookies
 
         browser.quit()
+
+    def test_cookies_extra_parameters(self):
+        """Cookie can be created with extra parameters."""
+        timestamp = int(time.time() + 120)
+        self.browser.cookies.add({'sha': 'zam'}, expiry=timestamp)
+        cookie = self.browser.driver.get_cookie('sha')
+        assert timestamp == cookie["expiry"]
