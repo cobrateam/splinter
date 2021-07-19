@@ -17,9 +17,12 @@ from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
-    def add(self, cookie):
+    def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            self.driver.set_cookie("localhost", key, value)
+            kwargs['server_name'] = "localhost"
+            kwargs['key'] = key
+            kwargs['value'] = value
+            self.driver.set_cookie(**kwargs)
 
     def delete(self, *cookies):
         if cookies:

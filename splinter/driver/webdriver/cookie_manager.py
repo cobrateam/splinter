@@ -14,9 +14,11 @@ else:
 
 
 class CookieManager(CookieManagerAPI):
-    def add(self, cookie):
+    def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            self.driver.add_cookie({"name": key, "value": value})
+            kwargs['name'] = key
+            kwargs['value'] = value
+            self.driver.add_cookie(kwargs)
 
     def delete(self, *cookies):
         if cookies:

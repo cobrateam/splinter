@@ -167,3 +167,10 @@ class ZopeTestBrowserDriverTest(
             self.browser.fill_form(
                 {"query": "new query", "missing_form": "doesn't exist"},
             )
+
+    def test_cookies_extra_parameters(self):
+        """Cookie can be created with extra parameters."""
+        comment = 'Ipsum lorem'
+        self.browser.cookies.add({'sha': 'zam'}, comment=comment)
+        cookie = self.browser._browser.cookies.getinfo('sha')
+        assert 'Ipsum%20lorem' == cookie['comment']
