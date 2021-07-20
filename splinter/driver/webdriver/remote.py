@@ -7,11 +7,8 @@
 from selenium.webdriver import Remote
 from selenium.webdriver.remote import remote_connection
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from splinter.driver.webdriver import (
-    BaseWebDriver,
-    WebDriverElement,
-)
-from splinter.driver.webdriver.cookie_manager import CookieManager
+
+from splinter.driver.webdriver import BaseWebDriver
 from splinter.driver.webdriver.remote_connection import patch_request
 
 # MonkeyPatch RemoteConnection
@@ -44,10 +41,6 @@ class WebDriver(BaseWebDriver):
 
         kwargs['desired_capabilities'] = caps
 
-        self.driver = Remote(command_executor, **kwargs)
+        driver = Remote(command_executor, **kwargs)
 
-        self.element_class = WebDriverElement
-
-        self._cookie_manager = CookieManager(self.driver)
-
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(driver, wait_time)

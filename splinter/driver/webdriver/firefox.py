@@ -6,11 +6,7 @@
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from splinter.driver.webdriver import (
-    BaseWebDriver,
-    WebDriverElement as WebDriverElement,
-)
-from splinter.driver.webdriver.cookie_manager import CookieManager
+from splinter.driver.webdriver import BaseWebDriver
 from selenium.webdriver.firefox.options import Options
 
 
@@ -56,7 +52,7 @@ class WebDriver(BaseWebDriver):
         if incognito:
             options.add_argument("-private")
 
-        self.driver = Firefox(
+        driver = Firefox(
             firefox_profile,
             options=options,
             **kwargs,
@@ -64,13 +60,9 @@ class WebDriver(BaseWebDriver):
 
         if extensions:
             for extension in extensions:
-                self.driver.install_addon(extension)
+                driver.install_addon(extension)
 
         if fullscreen:
-            self.driver.fullscreen_window()
+            driver.fullscreen_window()
 
-        self.element_class = WebDriverElement
-
-        self._cookie_manager = CookieManager(self.driver)
-
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(driver, wait_time)
