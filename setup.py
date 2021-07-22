@@ -31,6 +31,7 @@ setup(
         "zope.testbrowser": ["zope.testbrowser>=5.2.4", "lxml>=4.2.4", "cssselect"],
         "django": ["Django>=1.7.11", "lxml>=2.3.6", "cssselect", "six"],
         "flask": ["Flask>=1.0.2", "lxml>=2.3.6", "cssselect"],
+        "edge": ["msedge-selenium-tools"],
     },
     tests_require=["coverage", "flask"],
 )

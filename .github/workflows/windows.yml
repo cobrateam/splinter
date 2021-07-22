@@ -1,0 +1,41 @@
+name: CI-Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        include:
+          - PY_VER: py27
+            python-version: 2.7
+          - PY_VER: py39
+            python-version: 3.9
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{matrix.python-version}}
+
+      - name: Install test dependencies
+        run: pip install tox
+
+      - name: Set env
+        run: echo "DISPLAY=:99.0" >> $GITHUB_ENV
+
+      - name: Run tests for windows-only drivers
+        run: |
+          tox -e tests_windows -- -n 4 tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_edge_chromium.py;

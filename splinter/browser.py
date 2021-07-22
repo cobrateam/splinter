@@ -27,6 +27,14 @@ _DRIVERS = {
 
 
 try:
+    from splinter.driver.webdriver.edge import WebDriver as EdgeWebDriver
+
+    _DRIVERS["edge"] = EdgeWebDriver
+except ImportError:
+    pass
+
+
+try:
     from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
     _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
