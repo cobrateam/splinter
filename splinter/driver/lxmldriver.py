@@ -4,12 +4,12 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import os.path
 import re
 import time
 import sys
 
 import six
+from six.moves.urllib import parse
 
 import lxml.etree
 import lxml.html
@@ -79,8 +79,9 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
     def submit(self, form):
         method = form.attrib.get("method", "get").lower()
         action = form.attrib.get("action", "")
-        if action.strip() != ".":
-            url = os.path.join(self._url, action)
+
+        if action.strip() not in ['.', '']:
+            url = parse.urljoin(self._url, action)
         else:
             url = self._url
         self._url = url
