@@ -8,8 +8,7 @@ from splinter.meta import InheritedDocs
 
 
 class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
-    """
-    An API that specifies how a splinter driver deals with cookies.
+    """An API that specifies how a splinter driver deals with cookies.
 
     You can add cookies using the :meth:`add <CookieManagerAPI.add>` method,
     and remove one or all cookies using
@@ -26,43 +25,45 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         self.driver = driver
 
     def add(self, cookie, **kwargs):
-        """
-        Add a cookie.
+        """Add a cookie.
 
-        The ``cookie`` parameter is a ``dict`` where each key is an identifier
-        for the cookie value (like any ``dict``).
+        Extra arguments will be used to build the cookie.
 
-        Example of use:
+        Arguments:
+            cookie (dict): Each key is an identifier for the cookie value.
+
+        Examples:
 
             >>> cookie_manager.add({'name': 'Tony'})
+            >>> browser.cookies.add({'cookie_name': 'cookie_value'}, path='/cookiePath')
         """
         raise NotImplementedError
 
     def delete(self, *cookies):
-        """
-        Deletes one or more cookies. You can pass all the cookies identifier
-        that you want to delete.
+        """Delete one or more cookies.
 
-        If none identifier is provided, all cookies are deleted.
+        You can pass all the cookies identifier that you want to delete.
+
+        If identifiers are provided, all cookies are deleted.
+
+        Arguments:
+            cookies (list): Identifiers for each cookie to delete.
 
         Examples:
 
             >>> cookie_manager.delete() # deletes all cookies
-            >>> cookie_manager.delete('name', 'birthday',
-                                      'favorite_color') # deletes these three cookies
+            >>> cookie_manager.delete(
+                'name', 'birthday', 'favorite_color') # deletes these three cookies
             >>> cookie_manager.delete('name') # deletes one cookie
         """
         raise NotImplementedError
 
     def delete_all(self):
-        """
-        Delete all cookies.
-        """
+        """Delete all cookies."""
         raise NotImplementedError
 
     def all(self, verbose=False):
-        """
-        Returns all of the cookies.
+        """Get all of the cookies.
 
             **Note:** If you're using any webdriver and want more info about
             the cookie, set the `verbose` parameter to `True` (in other
@@ -74,6 +75,9 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
             >>> cookie_manager.add({'name': 'Tony'})
             >>> cookie_manager.all()
             [{'name': 'Tony'}]
+
+        Returns:
+            All the available cookies.
         """
         raise NotImplementedError
 

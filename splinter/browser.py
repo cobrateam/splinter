@@ -69,17 +69,20 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
 
 
 def Browser(driver_name="firefox", retry_count=3, *args, **kwargs):  # NOQA: N802
-    """
-    Returns a driver instance for the given name.
+    """Get a new driver instance.
 
-    When working with ``firefox``, it's possible to provide a profile name
-    and a list of extensions.
-
-    If you don't provide any driver_name, then ``firefox`` will be used.
+    Extra arguments will be sent to the driver instance.
 
     If there is no driver registered with the provided ``driver_name``, this
     function will raise a :class:`splinter.exceptions.DriverNotFoundError`
     exception.
+
+    Arguments:
+        driver_name (str): Name of the driver to use.
+        retry_count (int): Number of times to try and instantiate the driver.
+
+    Returns:
+        Driver instance
     """
 
     try:

@@ -25,9 +25,6 @@ class ElementList(object):
     """
 
     def __init__(self, list, driver=None, find_by=None, query=None):
-        """
-        Creates the list.
-        """
         self._container = []
         self._container.extend(list)
 
@@ -49,8 +46,9 @@ class ElementList(object):
 
     @property
     def first(self):
-        """
-        An alias to the first element of the list:
+        """An alias to the first element of the list.
+
+        Example:
 
             >>> assert element_list[0] == element_list.first
         """
@@ -58,16 +56,19 @@ class ElementList(object):
 
     @property
     def last(self):
-        """
-        An alias to the last element of the list:
+        """An alias to the last element of the list.
+
+        Example:
 
             >>> assert element_list[-1] == element_list.last
         """
         return self[-1]
 
     def is_empty(self):
-        """
-        Returns ``True`` if the list is empty.
+        """Check if the ElementList is empty.
+
+        Returns:
+            bool: True if the list is empty, else False
         """
         return len(self) == 0
 
