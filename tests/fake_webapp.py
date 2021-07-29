@@ -107,10 +107,10 @@ def post_form():
 def upload_file():
     if request.method == "POST":
         f = request.files["file"]
-        buffer = []
-        buffer.append("Content-type: %s" % f.content_type)
-        buffer.append("File content: %s" % f.stream.read())
-
+        buffer = [
+            "Content-type: {}".format(f.content_type),
+            "File content: {}".format(f.stream.read()),
+        ]
         return "|".join(buffer)
 
 
