@@ -70,7 +70,7 @@ def upload_file(request):
         f = request.FILES["file"]
         buffer = [
             "Content-type: {}".format(f.content_type),
-            "File content: {}".format(f.stream.read()),
+            "File content: {}".format(f.read()),
         ]
         return HttpResponse("|".join(buffer))
 
