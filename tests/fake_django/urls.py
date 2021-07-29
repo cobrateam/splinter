@@ -68,10 +68,10 @@ def request_headers(request):
 def upload_file(request):
     if request.method == "POST":
         f = request.FILES["file"]
-        buffer = []
-        buffer.append("Content-type: %s" % f.content_type)
-        buffer.append("File content: %s" % f.read())
-
+        buffer = [
+            "Content-type: {}".format(f.content_type),
+            "File content: {}".format(f.read()),
+        ]
         return HttpResponse("|".join(buffer))
 
 
