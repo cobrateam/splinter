@@ -335,8 +335,18 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            if finder(selector, wait_time=wait_time) and finder(selector, wait_time=wait_time).visible:
-                return True
+            try:
+                if finder(selector, wait_time=wait_time) and finder(selector, wait_time=wait_time).visible:
+                    return True
+            except NoSuchElementException:
+                # This exception will be thrown if the body tag isn't present
+                # This has occasionally been observed. Assume that the
+                # page isn't fully loaded yet
+                pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
+                pass
         return False
 
     def is_element_not_visible(self, finder, selector, wait_time=None):
@@ -344,9 +354,19 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            element = finder(selector, wait_time=0)
-            if not element or (element and not element.visible):
-                return True
+            try:
+                element = finder(selector, wait_time=0)
+                if not element or (element and not element.visible):
+                    return True
+            except NoSuchElementException:
+                # This exception will be thrown if the body tag isn't present
+                # This has occasionally been observed. Assume that the
+                # page isn't fully loaded yet
+                pass
+            except StaleElementReferenceException:
+                # This exception is sometimes thrown if the page changes
+                # quickly
+                pass
         return False
 
     def is_element_visible_by_css(self, css_selector, wait_time=None):
