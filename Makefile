@@ -8,10 +8,10 @@ clean:
 	@find . -name "*.pyc" -delete
 
 doc_dependencies:
-	@pip install -r doc-requirements.txt
+	@pip install -r requirements/doc.txt
 
 dependencies:
-	@pip install -r test-requirements.txt
+	@pip install -r requirements/test.txt
 
 doc: doc_dependencies
 	@cd docs && make clean && make html
