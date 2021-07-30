@@ -4,16 +4,19 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from flask import Flask, request, abort, Response, redirect, url_for
-from os import path
 from functools import wraps
+from io import open
+from os import path
 
+
+from flask import Flask, request, abort, Response, redirect, url_for
 
 this_folder = path.abspath(path.dirname(__file__))
 
 
 def read_static(static_name):
-    return open(path.join(this_folder, "static", static_name)).read()
+    file_path = path.join(this_folder, "static", static_name)
+    return open(file_path, encoding='utf8').read()
 
 
 EXAMPLE_APP = "http://127.0.0.1:5000/"
