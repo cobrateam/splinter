@@ -14,11 +14,9 @@ Firefox WebDriver
 
 Firefox WebDriver is provided by Selenium 2.0. To use it, you need to install Selenium 2.0 via pip:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ [sudo] pip install selenium
+    [sudo] pip install selenium
 
 
 It's important to note that you also need to have `Firefox <http://firefox.com>`_ and `geckodriver <https://github.com/mozilla/geckodriver/releases>`_ installed in your machine and available on `PATH` environment variable.
@@ -30,9 +28,7 @@ Using Firefox WebDriver
 To use the Firefox driver, all you need to do is pass the string ``firefox`` when you create
 the ``Browser`` instance:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox')
@@ -45,9 +41,7 @@ Using headless option for Firefox
 
 Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', headless=True)
@@ -58,9 +52,7 @@ Using incognito option for Firefox
 
 We can run Firefox as a private browser.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', incognito=True)
@@ -72,9 +64,7 @@ How to use a specific profile for Firefox
 You can specify a `Firefox profile <http://support.mozilla.com/en-US/kb/Profiles>`_ for using on ``Browser`` function
 using the ``profile`` keyword (passing the name of the profile as a ``str`` instance):
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', profile='my_profile')
@@ -86,9 +76,7 @@ How to use specific extensions for Firefox
 
 An extension for firefox is a .xpi archive. To use an extension in Firefox webdriver profile you need to give the path of the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', extensions=['extension1.xpi', 'extension2.xpi'])
@@ -98,9 +86,7 @@ If you give an extension, after you close the browser, the extension will be del
 How to use selenium capabilities for Firefox
 --------------------------------------------
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', capabilities={'acceptSslCerts': True})

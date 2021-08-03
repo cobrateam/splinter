@@ -6,21 +6,19 @@
     :description: How to use splinter with django.
     :keywords: splinter, python, tutorial, how to install, installation, django
 
-++++++++++++++++
++++++++++++++
 django client
-++++++++++++++++
++++++++++++++
 
 .. module:: splinter.driver.djangoclient
 
-To use the ``django`` driver, you need to install `django <http://pypi.python.org/pypi/django>`_, 
-`lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_. 
+To use the ``django`` driver, you need to install `django <http://pypi.python.org/pypi/django>`_,
+`lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_.
 You can install all of them in one step by running:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ pip install splinter[django]
+    pip install splinter[django]
 
 Using django client
 -------------------
@@ -28,9 +26,7 @@ Using django client
 To use the ``django`` driver, all you need to do is pass the string ``django`` when you create
 the ``Browser`` instance:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('django')

@@ -12,19 +12,15 @@ Chrome WebDriver
 
 Chrome WebDriver is provided by Selenium2. To use it, you need to install Selenium2 via pip:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ [sudo] pip install selenium
+    [sudo] pip install selenium
 
 It's important to note that you also need to have Google Chrome installed in your machine.
 
 Chrome can also be used from a custom path. To do this pass the executable path as a dictionary to the `**kwargs` argument. The dictionary should be set up with `executable_path` as the key and the value set to the path to the executable file.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     executable_path = {'executable_path':'</path/to/chrome>'}
@@ -43,11 +39,9 @@ Mac OS X
 
 The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ brew install chromedriver
+    brew install chromedriver
 
 
 Linux
@@ -62,17 +56,15 @@ directory and add that directory to the ``PATH``:
 Linux 64bits
 ============
 
-.. highlight:: bash
+.. code-block:: console
 
-::
+    cd $HOME/Downloads
+    wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+    unzip chromedriver_linux64.zip
 
-    $ cd $HOME/Downloads
-    $ wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-    $ unzip chromedriver_linux64.zip
-
-    $ mkdir -p $HOME/bin
-    $ mv chromedriver $HOME/bin
-    $ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+    mkdir -p $HOME/bin
+    mv chromedriver $HOME/bin
+    echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
 
 
 Windows
@@ -96,9 +88,7 @@ Using Chrome WebDriver
 To use the Chrome driver, all you need to do is pass the string ``chrome`` when you create
 the ``Browser`` instance:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('chrome')
@@ -113,21 +103,17 @@ Using headless option for Chrome
 Starting with Chrome 59, we can run Chrome as a headless browser.
 Make sure you read `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('chrome', headless=True)
 
 Using incognito option for Chrome
---------------------------------
+---------------------------------
 
 We can run Chrome as a incognito browser.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('chrome', incognito=True)
@@ -138,9 +124,7 @@ Using emulation mode in Chrome
 Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
 experimental emulation mode.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from selenium import webdriver
     from splinter import Browser

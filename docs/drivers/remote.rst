@@ -14,11 +14,9 @@ Remote WebDriver
 Remote WebDriver is provided by Selenium. To use it, you need to install
 Selenium via pip:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ [sudo] pip install selenium
+    [sudo] pip install selenium
 
 Setting up the Remote WebDriver
 -------------------------------
@@ -43,9 +41,7 @@ The following example uses `Sauce Labs`_ (a company that provides Selenium
 Remote WebDriver servers as a service) to request an Internet Explorer 9
 browser instance running on Windows 7.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     # Specify the server URL
     remote_server_url = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub'
