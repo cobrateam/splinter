@@ -12,25 +12,21 @@ Flask client
 
 .. module:: splinter.driver.flaskclient
 
-To use the ``flask`` driver, you need to install `Flask <https://pypi.python.org/pypi/Flask>`_, 
-`lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_. 
+To use the ``flask`` driver, you need to install `Flask <https://pypi.python.org/pypi/Flask>`_,
+`lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_.
 You can install all of them in one step by running:
 
-.. highlight:: bash
+.. code-block:: console
 
-::
-
-    $ pip install splinter[flask]
+    pip install splinter[flask]
 
 Using Flask client
--------------------
+------------------
 
 To use the ``flask`` driver, you'll need to pass the string ``flask`` and an app instances via the
 ``app`` keyword argument when you create the ``Browser`` instance:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
     browser = Browser('flask', app=app)
@@ -40,9 +36,7 @@ To use the ``flask`` driver, you'll need to pass the string ``flask`` and an app
 When visiting pages with the Flask client, you only need to provide a path rather than a full URL.
 For example:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     browser.visit('/my-path')
 
