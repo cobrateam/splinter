@@ -7,13 +7,15 @@
     :keywords: splinter, python, tutorial, how to install, installation, django
 
 +++++++++++++
-django client
+Django client
 +++++++++++++
 
 .. module:: splinter.driver.djangoclient
 
-To use the ``django`` driver, you need to install `django <http://pypi.python.org/pypi/django>`_,
-`lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_.
+To use the ``django`` driver, you need to install
+`django <http://pypi.python.org/pypi/django>`_,
+`lxml <https://pypi.python.org/pypi/lxml>`_ and
+`cssselect <http://pypi.python.org/pypi/cssselect>`_.
 You can install all of them in one step by running:
 
 .. code-block:: console

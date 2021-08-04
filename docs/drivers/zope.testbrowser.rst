@@ -12,7 +12,11 @@ zope.testbrowser
 
 .. module:: splinter.driver.zopetestbrowser
 
-To use the ``zope.testbrowser`` driver, you need to install `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_, `lxml <https://pypi.python.org/pypi/lxml>`_ and `cssselect <http://pypi.python.org/pypi/cssselect>`_. You can install all of them in one step by running:
+To use the ``zope.testbrowser`` driver, you need to install
+`zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_,
+`lxml <https://pypi.python.org/pypi/lxml>`_ and
+`cssselect <http://pypi.python.org/pypi/cssselect>`_.
+You can install all of them in one step by running:
 
 .. code-block:: console
 

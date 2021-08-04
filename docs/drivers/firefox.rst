@@ -3,7 +3,7 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: How to use splinter with Firefox webdriver
+    :description: How to use splinter with Firefox WebDriver
     :keywords: splinter, python, tutorial, how to install, installation, firefox, selenium
 
 +++++++++++++++++
@@ -12,7 +12,7 @@ Firefox WebDriver
 
 .. module:: splinter.driver.webdriver.firefox
 
-Firefox WebDriver is provided by Selenium 2.0. To use it, you need to install Selenium 2.0 via pip:
+Firefox WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
 
 .. code-block:: console
 
@@ -36,8 +36,8 @@ the ``Browser`` instance:
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 
-Using headless option for Firefox
------------------------------------
+Using headless option
+---------------------
 
 Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
 
@@ -47,8 +47,8 @@ Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
     browser = Browser('firefox', headless=True)
 
 
-Using incognito option for Firefox
-------------------------------------
+Using incognito option
+----------------------
 
 We can run Firefox as a private browser.
 
@@ -58,8 +58,8 @@ We can run Firefox as a private browser.
     browser = Browser('firefox', incognito=True)
 
 
-How to use a specific profile for Firefox
------------------------------------------
+How to use a specific profile
+-----------------------------
 
 You can specify a `Firefox profile <http://support.mozilla.com/en-US/kb/Profiles>`_ for using on ``Browser`` function
 using the ``profile`` keyword (passing the name of the profile as a ``str`` instance):
@@ -71,8 +71,8 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
-How to use specific extensions for Firefox
-------------------------------------------
+How to use specific extensions
+------------------------------
 
 An extension for firefox is a .xpi archive. To use an extension in Firefox webdriver profile you need to give the path of the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
 
@@ -83,8 +83,8 @@ An extension for firefox is a .xpi archive. To use an extension in Firefox webdr
 
 If you give an extension, after you close the browser, the extension will be deleted from the profile, even if is not a temporary one.
 
-How to use selenium capabilities for Firefox
---------------------------------------------
+How to use selenium capabilities
+--------------------------------
 
 .. code-block:: python
 
