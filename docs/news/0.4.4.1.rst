@@ -3,7 +3,7 @@
     :keywords: splinter 0.4.4.1, python, news, documentation, tutorial, web application
 
 whats's new in splinter 0.4.4.1?
-==============================
+================================
 
 Bugfixes
 --------

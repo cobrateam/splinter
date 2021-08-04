@@ -43,6 +43,6 @@ For example:
 API docs
 --------
 
-.. autoclass:: FlaskClient
+.. autoclass:: splinter.driver.flaskclient.FlaskClient
    :members:
    :inherited-members:

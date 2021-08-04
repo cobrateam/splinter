@@ -41,6 +41,6 @@ this you can call
 API docs
 --------
 
-.. autoclass:: ZopeTestBrowser
+.. autoclass:: splinter.driver.zopetestbrowser.ZopeTestBrowser
    :members:
    :inherited-members:
