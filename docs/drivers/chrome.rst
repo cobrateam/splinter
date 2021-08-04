@@ -3,14 +3,14 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: How to use splinter with Chrome webdriver
+    :description: How to use splinter with Chrome WebDriver
     :keywords: splinter, python, tutorial, how to install, installation, chrome, selenium
 
 ++++++++++++++++
 Chrome WebDriver
 ++++++++++++++++
 
-Chrome WebDriver is provided by Selenium2. To use it, you need to install Selenium2 via pip:
+Chrome WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
 
 .. code-block:: console
 
@@ -97,8 +97,8 @@ the ``Browser`` instance:
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 
-Using headless option for Chrome
---------------------------------
+Using headless option
+---------------------
 
 Starting with Chrome 59, we can run Chrome as a headless browser.
 Make sure you read `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
@@ -108,8 +108,8 @@ Make sure you read `google developers updates <https://developers.google.com/web
     from splinter import Browser
     browser = Browser('chrome', headless=True)
 
-Using incognito option for Chrome
----------------------------------
+Using incognito option
+----------------------
 
 We can run Chrome as a incognito browser.
 
@@ -118,8 +118,8 @@ We can run Chrome as a incognito browser.
     from splinter import Browser
     browser = Browser('chrome', incognito=True)
 
-Using emulation mode in Chrome
-------------------------------
+Using emulation mode
+--------------------
 
 Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
 experimental emulation mode.
