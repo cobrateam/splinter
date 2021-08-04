@@ -36,6 +36,6 @@ the ``Browser`` instance:
 API docs
 --------
 
-.. autoclass:: DjangoClient
+.. autoclass:: splinter.driver.djangoclient.DjangoClient
    :members:
    :inherited-members:

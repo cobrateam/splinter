@@ -7,7 +7,7 @@
     :keywords: splinter 0.12.0, news
 
 whats's new in splinter 0.12.0?
-==============================
+===============================
 
 * `find_by_text` now handle strings with quotation marks (https://github.com/cobrateam/splinter/issues/457)
 * `find_link_by` methods are now chainable (https://github.com/cobrateam/splinter/pull/699)

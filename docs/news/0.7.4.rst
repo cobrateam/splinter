@@ -27,7 +27,7 @@ whats's new in splinter 0.7.4?
 * support for clearing text field types
   (`#479 <https://github.com/cobrateam/splinter/pull/479>`_).
 * allow to pass a chrome Options instance to Browser
-  (``#494 <https://github.com/cobrateam/splinter/pull/494>`_).
+  (`#494 <https://github.com/cobrateam/splinter/pull/494>`_).
 * new click_link_by_id method
   (`#498 <https://github.com/cobrateam/splinter/pull/498>`_).
 

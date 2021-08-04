@@ -10,5 +10,5 @@ whats's new in splinter 0.7.7?
 ==============================
 
 * `fill_form` more robust by requiring form ID
-* support firefox `headless mode
+* support firefox `headless mode`
 * handle exceptions when calling quit on webdriver

@@ -7,7 +7,7 @@
     :keywords: splinter 0.10.0, news
 
 whats's new in splinter 0.10.0?
-==============================
+===============================
 
 * Scroll to elements before to execute action chains ()
 * Using `options` instead `firefox_options` to avoid warnings (https://github.com/cobrateam/splinter/pull/634)

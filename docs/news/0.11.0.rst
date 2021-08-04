@@ -7,7 +7,7 @@
     :keywords: splinter 0.11.0, news
 
 whats's new in splinter 0.11.0?
-==============================
+===============================
 
 * Browser.get_alert() returns Alert instead of a wrapper object
 * Add `browser.html_snapshot` method
