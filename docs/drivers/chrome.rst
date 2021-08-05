@@ -16,16 +16,12 @@ Chrome WebDriver is provided by Selenium. To use it, you need to install Seleniu
 
     [sudo] pip install selenium
 
-It's important to note that you also need to have Google Chrome installed in your machine.
+The following applications are also required:
 
-Chrome can also be used from a custom path. To do this pass the executable path as a dictionary to the `**kwargs` argument. The dictionary should be set up with `executable_path` as the key and the value set to the path to the executable file.
+  - `Google Chrome <http://google.com/chrome>`_
+  - `ChromeDriver <https://chromedriver.chromium.org/>`_
 
-.. code-block:: python
-
-    from splinter import Browser
-    executable_path = {'executable_path':'</path/to/chrome>'}
-
-    browser = Browser('chrome', **executable_path)
+Chromedriver must also be available on your operating system's `PATH` environment variable.
 
 Setting up Chrome WebDriver
 ---------------------------
@@ -141,6 +137,21 @@ experimental emulation mode.
 
 
 refer to `chrome driver documentation <https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation>`_
+
+Custom executable path
+++++++++++++++++++++++
+
+Chrome can also be used from a custom path.
+Pass the executable path as a dictionary to the `**kwargs` argument.
+The dictionary should be set up with `executable_path` as the key and
+the value set to the path to the executable file.
+
+.. code-block:: python
+
+    from splinter import Browser
+    executable_path = {'executable_path':'</path/to/chrome>'}
+
+    browser = Browser('chrome', **executable_path)
 
 
 API docs

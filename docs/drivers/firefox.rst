@@ -10,17 +10,18 @@
 Firefox WebDriver
 +++++++++++++++++
 
-.. module:: splinter.driver.webdriver.firefox
-
 Firefox WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
 
 .. code-block:: console
 
     [sudo] pip install selenium
 
+The following applications are also required:
 
-It's important to note that you also need to have `Firefox <http://firefox.com>`_ and `geckodriver <https://github.com/mozilla/geckodriver/releases>`_ installed in your machine and available on `PATH` environment variable.
-Once you have it installed, there is nothing you have to do, just use it :)
+  - `Mozilla Firefox <http://firefox.com>`_
+  - `Geckodriver <https://github.com/mozilla/geckodriver/releases>`_
+
+Geckodriver must also be available on your operating system's `PATH` environment variable.
 
 Using Firefox WebDriver
 -----------------------
@@ -100,6 +101,6 @@ You can pass any selenium `read-write DesiredCapabilities parameters <https://co
 API docs
 --------
 
-.. autoclass:: WebDriver
+.. autoclass:: splinter.driver.webdriver.firefox.WebDriver
    :members:
    :inherited-members:
