@@ -54,7 +54,7 @@ directory in the ``PATH`` (e.g. ``/usr/bin``). You can also extract it to any
 directory and add that directory to the ``PATH``:
 
 Linux 64bits
-============
+++++++++++++
 
 .. code-block:: console
 
@@ -97,29 +97,33 @@ the ``Browser`` instance:
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 
-Using headless option
----------------------
+Headless mode
++++++++++++++
 
-Starting with Chrome 59, we can run Chrome as a headless browser.
-Make sure you read `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
+Starting with Chrome 59, Chrome can run in a headless mode.
+Further Information: `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
+
+To use headless mode, pass the `headless` argument
+when creating a new Browser instance.
 
 .. code-block:: python
 
     from splinter import Browser
     browser = Browser('chrome', headless=True)
 
-Using incognito option
-----------------------
+Incognito mode
+++++++++++++++
 
-We can run Chrome as a incognito browser.
+To use Chrome's incognito mode, pass the `incognito` argument
+when creating a Browser instance.
 
 .. code-block:: python
 
     from splinter import Browser
     browser = Browser('chrome', incognito=True)
 
-Using emulation mode
---------------------
+Emulation mode
+++++++++++++++
 
 Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
 experimental emulation mode.

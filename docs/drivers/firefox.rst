@@ -35,31 +35,32 @@ the ``Browser`` instance:
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
+Headless mode
++++++++++++++
 
-Using headless option
----------------------
+Starting with Firefox 55, Firefox can run in a headless mode.
 
-Starting with Firefox 55, we can run Firefox as a headless browser in Linux.
+To use headless mode, pass the `headless` argument
+when creating a new Browser instance.
 
 .. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', headless=True)
 
+Incognito mode
+++++++++++++++
 
-Using incognito option
-----------------------
-
-We can run Firefox as a private browser.
+To use Firefox's incognito mode, pass the `incognito` argument
+when creating a Browser instance.
 
 .. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', incognito=True)
 
-
-How to use a specific profile
------------------------------
+Specify Profile
++++++++++++++++
 
 You can specify a `Firefox profile <http://support.mozilla.com/en-US/kb/Profiles>`_ for using on ``Browser`` function
 using the ``profile`` keyword (passing the name of the profile as a ``str`` instance):
@@ -71,20 +72,22 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
-How to use specific extensions
-------------------------------
+Firefox Extensions
+++++++++++++++++++
 
-An extension for firefox is a .xpi archive. To use an extension in Firefox webdriver profile you need to give the path of the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
+An extension for firefox is a .xpi archive.
+To use an extension in Firefox webdriver profile you need to give the path of
+the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
 
 .. code-block:: python
 
     from splinter import Browser
     browser = Browser('firefox', extensions=['extension1.xpi', 'extension2.xpi'])
 
-If you give an extension, after you close the browser, the extension will be deleted from the profile, even if is not a temporary one.
+After the browser is closed, extensions will be deleted from the profile, even if the profile is not a temporary one.
 
-How to use selenium capabilities
---------------------------------
+Selenium Capabilities
++++++++++++++++++++++
 
 .. code-block:: python
 
