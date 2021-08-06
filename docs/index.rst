@@ -150,6 +150,7 @@ Get in touch and contribute
 
    drivers/chrome
    drivers/firefox
+   drivers/edge
    drivers/remote
    drivers/zope.testbrowser
    drivers/django

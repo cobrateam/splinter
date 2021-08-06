@@ -8,8 +8,8 @@ from functools import wraps
 from io import open
 from os import path
 
-
 from flask import Flask, request, abort, Response, redirect, url_for
+
 
 this_folder = path.abspath(path.dirname(__file__))
 

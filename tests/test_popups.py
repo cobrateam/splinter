@@ -4,6 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import platform
+
 from .base import get_browser
 from .fake_webapp import EXAMPLE_APP
 
@@ -13,6 +15,9 @@ import pytest
 supported_browsers = [
     'chrome', 'firefox', 'chrome_fullscreen', 'firefox_fullscreen',
 ]
+
+if platform.system() == 'Windows':
+    supported_browsers = ['edge']
 
 
 @pytest.fixture

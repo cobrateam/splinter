@@ -1,4 +1,5 @@
 import os
+import platform
 
 from .base import get_browser
 from .fake_webapp import EXAMPLE_APP
@@ -7,6 +8,9 @@ import pytest
 
 
 supported_browsers = ['chrome', 'firefox']
+
+if platform.system() == 'Windows':
+    supported_browsers = ['edge']
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
@@ -33,4 +37,10 @@ def test_attach_file(request, browser_name):
 @pytest.mark.parametrize('browser_name', supported_browsers)
 def test_should_support_with_statement(browser_name):
     with get_browser(browser_name):
+        pass
+
+
+@pytest.mark.parametrize('browser_name', supported_browsers)
+def test_should_support_with_statement_fullscreen(browser_name):
+    with get_browser(browser_name, fullscreen=True):
         pass
