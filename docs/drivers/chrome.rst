@@ -10,6 +10,9 @@
 Chrome WebDriver
 ++++++++++++++++
 
+Installation
+------------
+
 Chrome WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
 
 .. code-block:: console
@@ -23,15 +26,8 @@ The following applications are also required:
 
 Chromedriver must also be available on your operating system's `PATH` environment variable.
 
-Setting up Chrome WebDriver
----------------------------
-
-In order to use `Google Chrome <http://google.com/chrome>`_ with Splinter, since we're using Selenium 2.3.x,
-you need to setup Chrome webdriver properly.
-
-
 Mac OS X
---------
+++++++++
 
 The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 
@@ -41,7 +37,7 @@ The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 
 
 Linux
------
++++++
 
 Go to the `download page on the Chromium project
 <https://sites.google.com/a/chromium.org/chromedriver/downloads>`_ and choose
@@ -64,7 +60,7 @@ Linux 64bits
 
 
 Windows
--------
++++++++
 
     **Note:** We don't provide official support for Windows, but you can try it by yourself.
 
@@ -78,10 +74,10 @@ If you don't know how to add an executable to the PATH on Windows, check these l
 * `How to manage environment variables in Windows 8 & 10 <https://www.computerhope.com/issues/ch000549.htm>`_
 
 
-Using Chrome WebDriver
-----------------------
+Usage
+-----
 
-To use the Chrome driver, all you need to do is pass the string ``chrome`` when you create
+To use the Chrome driver, pass the string ``chrome`` when you create
 the ``Browser`` instance:
 
 .. code-block:: python
@@ -124,6 +120,8 @@ Emulation mode
 Chrome options can be passed to customize Chrome's behaviour; it is then possible to leverage the
 experimental emulation mode.
 
+Further Information: `chrome driver documentation <https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation>`_
+
 .. code-block:: python
 
     from selenium import webdriver
@@ -131,12 +129,10 @@ experimental emulation mode.
 
     mobile_emulation = {"deviceName": "Google Nexus 5"}
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_experimental_option("mobileEmulation",
-                                           mobile_emulation)
+    chrome_options.add_experimental_option(
+      "mobileEmulation", mobile_emulation,
+    )
     browser = Browser('chrome', options=chrome_options)
-
-
-refer to `chrome driver documentation <https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation>`_
 
 Custom executable path
 ++++++++++++++++++++++

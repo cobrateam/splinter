@@ -10,6 +10,9 @@
 Flask client
 ++++++++++++
 
+Installation
+------------
+
 .. module:: splinter.driver.flaskclient
 
 To use the ``flask`` driver, you need to install
@@ -22,8 +25,8 @@ You can install all of them in one step by running:
 
     pip install splinter[flask]
 
-Using Flask client
-------------------
+Usage
+-----
 
 To use the ``flask`` driver, you'll need to pass the string ``flask`` and an app instances via the
 ``app`` keyword argument when you create the ``Browser`` instance:

@@ -11,6 +11,9 @@
 Remote WebDriver
 ++++++++++++++++
 
+Installation
+------------
+
 Remote WebDriver is provided by Selenium. To use it, you need to install
 Selenium via pip:
 
@@ -26,8 +29,8 @@ WebDriver server. Setting up one of these servers is beyond the scope of this
 document. However, some companies provide access to a `Selenium Grid`_ as a service.
 
 
-Using Remote WebDriver
-----------------------
+Usage
+-----
 
 To use the Remote WebDriver, use ``driver_name="remote"`` when you create the ``Browser`` instance.
 
