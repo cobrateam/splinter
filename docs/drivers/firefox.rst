@@ -10,6 +10,9 @@
 Firefox WebDriver
 +++++++++++++++++
 
+Installation
+------------
+
 Firefox WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
 
 .. code-block:: console
@@ -23,10 +26,19 @@ The following applications are also required:
 
 Geckodriver must also be available on your operating system's `PATH` environment variable.
 
-Using Firefox WebDriver
------------------------
+Mac OS X
+++++++++
 
-To use the Firefox driver, all you need to do is pass the string ``firefox`` when you create
+The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
+
+.. code-block:: console
+
+    brew install geckodriver
+
+Usage
+-----
+
+To use the Firefox driver, pass the string ``firefox`` when you create
 the ``Browser`` instance:
 
 .. code-block:: python
