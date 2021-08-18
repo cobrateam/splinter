@@ -51,3 +51,4 @@ API docs
 .. autoclass:: splinter.driver.flaskclient.FlaskClient
    :members:
    :inherited-members:
+   :exclude-members: execute_script, evaluate_script

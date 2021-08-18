@@ -44,3 +44,4 @@ API docs
 .. autoclass:: splinter.driver.djangoclient.DjangoClient
    :members:
    :inherited-members:
+   :exclude-members: execute_script, evaluate_script
