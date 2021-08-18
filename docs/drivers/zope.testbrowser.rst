@@ -51,3 +51,4 @@ API docs
 .. autoclass:: splinter.driver.zopetestbrowser.ZopeTestBrowser
    :members:
    :inherited-members:
+   :exclude-members: execute_script, evaluate_script
