@@ -25,7 +25,7 @@ class WebDriver(BaseWebDriver):
         **kwargs
     ):
 
-        options = Options() if options is None else options
+        options = options or Options()
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
