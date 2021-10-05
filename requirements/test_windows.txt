@@ -2,7 +2,7 @@ selenium==3.141.0
 coverage==5.5
 argparse
 Flask==1.1.4; python_version < '3.6'
-Flask==2.0.1; python_version >= '3.6'
+Flask==2.0.2; python_version >= '3.6'
 Pillow==6.2.2; python_version < '3.5'
 Pillow==8.3.2; python_version >= '3.5'
 pytest==4.6.9; python_version < '3.0'
