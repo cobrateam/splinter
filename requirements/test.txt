@@ -3,7 +3,7 @@ lxml==4.6.3
 Flask==1.1.4; python_version < '3.6'
 Flask==2.0.2; python_version >= '3.6'
 selenium==3.141.0
-coverage==5.5
+coverage==6.0
 cssselect>=1.0.3
 argparse
 Django>=1.7.11; python_version < '3.0'
