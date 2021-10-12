@@ -1,5 +1,5 @@
 flake8==3.9.2
-flake8-comprehensions==3.6.1; python_version >= '3.0'
+flake8-comprehensions==3.7.0; python_version >= '3.0'
 flake8-comprehensions==1.4.1; python_version < '3.0'
 flake8-multiline-containers==0.0.18; python_version >= '3.6'
 flake8-mutable==1.2.0
