@@ -1,0 +1,21 @@
+.. Copyright 2021 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.16.0.
+    :keywords: splinter 0.16.0, news
+
+whats's new in splinter 0.16.0?
+===============================
+
+* Pin Selenium < 4.0 (https://github.com/cobrateam/splinter/pull/930)
+* Add support for Microsoft Edge (https://github.com/cobrateam/splinter/pull/912)
+* Accept extra arguments for cookies (https://github.com/cobrateam/splinter/pull/895)
+* Fix lxmldriver url join when form action is empty (https://github.com/cobrateam/splinter/pull/900)
+* Use io.open() to fix encoding issues on some platforms (https://github.com/cobrateam/splinter/pull/904)
+* allow passing options to Firefox webdriver (https://github.com/cobrateam/splinter/pull/892)
+
+Backward incompatible changes
+-----------------------------
+* Remove sending a list of cookie dicts to CookieManager.add() (https://github.com/cobrateam/splinter/pull/799)
