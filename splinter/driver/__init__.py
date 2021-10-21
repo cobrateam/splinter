@@ -252,6 +252,32 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             "%s doesn't support finding options by text." % self.driver_name,
         )
 
+    def set_find_strategy(self, strategy):
+        """Change the strategy used by browser.find().
+
+        Arguments:
+            strategy (str): The strategy used for finding elements. Can be one of either:
+                'css', 'name', 'xpath'
+
+        Returns:
+            Browser: The current browser instance
+        """
+        raise NotImplementedError(f"{self.driver_name} doesn't support set_find_strategy()")
+
+    def find(self, locator):
+        """Find an element.
+
+        The default strategy used is 'name'. To change the strategy, see:
+        browser.set_find_strategy()
+
+        Arguments:
+            locator (str): The string used to locate an element.
+
+        Returns:
+            The found element
+        """
+        raise NotImplementedError(f"{self.driver_name} doesn't support find()")
+
     def is_text_present(self, text: str, wait_time: Optional[int] = None) -> bool:
         """Check if a piece of text is on the page.
 

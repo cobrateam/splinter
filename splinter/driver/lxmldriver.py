@@ -3,6 +3,7 @@
 # license that can be found in the LICENSE file.
 import re
 import time
+import warnings
 from typing import Optional
 from urllib import parse
 
@@ -39,6 +40,14 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         self.links = FindLinks(self)
 
         self.config = config or Config(user_agent=user_agent)
+
+        self._finder_methods = {
+            "name": self.find_by_name,
+            "xpath": self.find_by_xpath,
+            "css": self.find_by_css,
+        }
+
+        self._finder_method = "name"
 
     def __enter__(self):
         return self
@@ -240,8 +249,25 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             query=query,
         )
 
+    def set_find_strategy(self, strategy):
+        valid = self._finder_methods.get(strategy)
+
+        if not valid:
+            raise ValueError(f"{strategy} is not a valid strategy.")
+
+        self._finder_method = strategy
+
+        return self
+
+    def find(self, locator):
+        return self._finder_methods[self._finder_method](locator)
+
     def fill(self, name, value):
-        self.find_by_name(name=name).first.fill(value)
+        warnings.warn(
+            f"browser.fill({name}, {value}) is deprecated. Use browser.find({name}).fill({value}) instead.",
+            FutureWarning,
+        )
+        self.find(name).fill(value)
 
     def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = None
@@ -283,12 +309,18 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         self.find_by_name(name).first._control.value = value
 
     def check(self, name):
-        control = self.find_by_name(name).first._control
-        control.value = ["checked"]
+        warnings.warn(
+            f"browser.check({name}) is deprecated. Use browser.find({name}).check() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.check()
 
     def uncheck(self, name):
-        control = self.find_by_name(name).first._control
-        control.value = []
+        warnings.warn(
+            f"browser.uncheck({name}) is deprecated. Use browser.find({name}).uncheck() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.uncheck()
 
     def attach_file(self, name, file_path):
         control = self.find_by_name(name).first._control
@@ -461,6 +493,12 @@ class LxmlControlElement(LxmlElement):
     def _get_parent_form(self):
         parent_form = next(self._control.iterancestors("form"))
         return self.parent._forms.setdefault(parent_form._name(), parent_form)
+
+    def check(self):
+        self._control.value = ["checked"]
+
+    def uncheck(self):
+        self._control.value = []
 
 
 class LxmlOptionElement(LxmlElement):
