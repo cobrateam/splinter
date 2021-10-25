@@ -430,25 +430,24 @@ class BaseWebDriver(DriverAPI):
         except TimeoutException:
             return None
 
+    def _is_text_present(self, text):
+        try:
+            self.find_by_tag("body").text.index(text)
+            return True
+        except (NoSuchElementException, StaleElementReferenceException, ValueError):
+            # NoSuchElementException will be thrown if the body tag isn't present
+            # Can occur if the page isn't fully loaded yet.
+            # StaleElementReferenceException will be thrown if the page changes quickly
+            pass
+        return False
+
     def is_text_present(self, text, wait_time=None):
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                self.driver.find_element_by_tag_name("body").text.index(text)
+            if self._is_text_present(text):
                 return True
-            except ValueError:
-                pass
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
-                # This has occasionally been observed. Assume that the
-                # page isn't fully loaded yet
-                pass
-            except StaleElementReferenceException:
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
         return False
 
     def is_text_not_present(self, text, wait_time=None):
@@ -456,19 +455,8 @@ class BaseWebDriver(DriverAPI):
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            try:
-                self.driver.find_element_by_tag_name("body").text.index(text)
-            except ValueError:
+            if not self._is_text_present(text):
                 return True
-            except NoSuchElementException:
-                # This exception will be thrown if the body tag isn't present
-                # This has occasionally been observed. Assume that the
-                # page isn't fully loaded yet
-                pass
-            except StaleElementReferenceException:
-                # This exception is sometimes thrown if the page changes
-                # quickly
-                pass
         return False
 
     @contextmanager
