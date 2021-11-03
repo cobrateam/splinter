@@ -7,6 +7,7 @@
 import re
 import time
 import sys
+import warnings
 
 import six
 from six.moves.urllib import parse
@@ -225,18 +226,36 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
 
     def find_link_by_text(self, text):
-        return self._find_links_by_xpath("//a[text()='%s']" % text)
+        warnings.warn(
+            'browser.find_link_by_text is deprecated.'
+            ' Use browser.links.find_by_text instead.',
+            FutureWarning,
+        )
+        return self.links.find_by_text(text)
 
     def find_link_by_href(self, href):
-        return self._find_links_by_xpath("//a[@href='%s']" % href)
+        warnings.warn(
+            'browser.find_link_by_href is deprecated.'
+            ' Use browser.links.find_by_href instead.',
+            FutureWarning,
+        )
+        return self.links.find_by_href(href)
 
     def find_link_by_partial_href(self, partial_href):
-        return self._find_links_by_xpath("//a[contains(@href, '%s')]" % partial_href)
+        warnings.warn(
+            'browser.find_link_by_partial_href is deprecated.'
+            ' Use browser.links.find_by_partial_href instead.',
+            FutureWarning,
+        )
+        return self.links.find_by_partial_href(partial_href)
 
     def find_link_by_partial_text(self, partial_text):
-        return self._find_links_by_xpath(
-            "//a[contains(normalize-space(.), '%s')]" % partial_text
+        warnings.warn(
+            'browser.find_link_by_partial_text is deprecated.'
+            ' Use browser.links.find_by_partial_text instead.',
+            FutureWarning,
         )
+        return self.links.find_by_partial_text(partial_text)
 
     def fill(self, name, value):
         self.find_by_name(name=name).first.fill(value)
