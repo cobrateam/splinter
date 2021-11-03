@@ -1,4 +1,4 @@
-selenium==3.141.0
+selenium==4.0.0
 coverage==5.5
 argparse
 Flask==1.1.4; python_version < '3.6'
