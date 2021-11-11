@@ -1,5 +1,5 @@
 selenium==3.141.0
-coverage==5.5
+coverage==6.1.2
 argparse
 Flask==1.1.4; python_version < '3.6'
 Flask==2.0.2; python_version >= '3.6'
