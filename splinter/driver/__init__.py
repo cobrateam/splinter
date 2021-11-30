@@ -685,12 +685,16 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def screenshot(self, name=None, suffix=None):
+    def screenshot(self, name=None, suffix=None, full=False, unique_file=True):
         """Take a screenshot of the current page and save it locally.
 
         Arguments:
             name (str): File name for the screenshot.
             suffix (str): File extension for the screenshot.
+            full (bool): If the screenshot should be full screen or not.
+            unique_file (bool): If true, the filename will include a path to
+                the system temp directory and extra characters at the end to
+                ensure the file is unique.
         """
         raise NotImplementedError(
             "%s doesn't support taking screenshots." % self.driver_name
@@ -839,7 +843,7 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def screenshot(self):
+    def screenshot(self, name=None, suffix=None, full=False, unique_file=True):
         """Take screenshot of the element."""
         raise NotImplementedError
 
