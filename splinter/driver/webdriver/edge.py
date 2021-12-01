@@ -4,7 +4,14 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from msedge.selenium_tools import Edge, EdgeOptions
+# Selenium 3 compatibility
+try:
+    from msedge.selenium_tools import Edge
+    from msedge.selenium_tools import EdgeOptions as Options
+except ImportError:
+    from selenium.webdriver import Edge
+    from selenium.webdriver.edge.options import Options
+
 from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
 from splinter.driver.webdriver.cookie_manager import CookieManager
 
@@ -25,7 +32,7 @@ class WebDriver(BaseWebDriver):
         **kwargs
     ):
 
-        options = EdgeOptions() or options
+        options = Options() or options
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
