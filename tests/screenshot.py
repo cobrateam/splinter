@@ -4,10 +4,19 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import os
 import tempfile
 
 
 class ScreenshotTest(object):
+    def test_take_screenshot_no_unique_file(self):
+        """When the unique_file parameter is false,
+        Then the screenshot filename should match the name parameter exactly.
+        """
+        self.browser.screenshot(name='test_screenshot', unique_file=False)
+        expected_filepath = os.path.abspath('test_screenshot.png')
+        assert os.path.isfile(expected_filepath)
+
     def test_take_screenshot(self):
         """Should take a screenshot of the current page"""
         filename = self.browser.screenshot()

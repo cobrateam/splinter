@@ -654,13 +654,14 @@ class BaseWebDriver(DriverAPI):
     def uncheck(self, name):
         self.find_by_name(name).first.uncheck()
 
-    def screenshot(self, name="", suffix=".png", full=False):
+    def screenshot(self, name="", suffix=".png", full=False, unique_file=True):
 
-        name = name or ""
+        filename = '{}{}'.format(name, suffix)
 
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # don't hold the file
-        os.close(fd)
+        if unique_file:
+            (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+            # Don't hold the file
+            os.close(fd)
 
         if full:
             ori_window_size = self.driver.get_window_size()
@@ -976,12 +977,14 @@ class WebDriverElement(ElementAPI):
         height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
         self.driver.set_window_size(width, height)
 
-    def screenshot(self, name='', suffix='.png', full=False):
-        name = name or ''
+    def screenshot(self, name='', suffix='.png', full=False, unique_file=True):
 
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # don't hold the file
-        os.close(fd)
+        filename = '{}{}'.format(name, suffix)
+
+        if unique_file:
+            (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+            # don't hold the file
+            os.close(fd)
 
         if full:
             ori_window_size = self.driver.get_window_size()
