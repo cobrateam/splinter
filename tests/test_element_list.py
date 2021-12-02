@@ -89,13 +89,12 @@ def test_attribute_error_method_for_empty():
 
 def test_attribute_error_content():
     "should raise AttributeError with right content"
-    with pytest.raises(AttributeError) as cm:
+    with pytest.raises(AttributeError) as e:
         the_list = ElementList([Person(), Person()])
         the_list.talk()
 
     expected_message = "'ElementList' object has no attribute 'talk'"
-    e = cm.exception
-    assert expected_message == e.args[0]
+    assert expected_message == str(e.value)
 
 
 def test_not_found_exception_with_query_and_method():
@@ -103,10 +102,9 @@ def test_not_found_exception_with_query_and_method():
     should receive the find method
     and the query and use them in exception
     """
-    with pytest.raises(ElementDoesNotExist) as cm:
+    with pytest.raises(ElementDoesNotExist) as e:
         the_list = ElementList([], find_by="id", query="menu")
         the_list.first
 
     expected_message = 'no elements could be found with id "menu"'
-    e = cm.exception
-    assert expected_message == e.args[0]
+    assert expected_message == str(e.value)
