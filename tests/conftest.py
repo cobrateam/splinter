@@ -4,10 +4,7 @@ import os
 
 from multiprocessing import Process
 
-try:
-    from urllib import urlopen
-except ImportError:
-    from urllib.request import urlopen
+from urllib.request import urlopen
 
 from tests.fake_webapp import start_flask_app, EXAMPLE_APP
 
