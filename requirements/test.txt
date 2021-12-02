@@ -17,4 +17,4 @@ pytest-xdist==1.34.0; python_version < '3.0'
 pytest-xdist==2.4.0; python_version >= '3.0'
 six==1.16.0
 twine<2; python_version < '3.0'
-twine==3.6.0; python_version >= '3.0'
+twine==3.7.0; python_version >= '3.0'
