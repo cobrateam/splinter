@@ -1,14 +1,9 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-import six
-
-if six.PY2:
-    from django.core.urlresolvers import reverse
-else:
-    from django.urls import reverse
+from django.urls import reverse
 
 from tests.fake_webapp import (
     EXAMPLE_HTML,
@@ -60,7 +55,7 @@ def post_form(request):
 
 def request_headers(request):
     body = "\n".join(
-        "%s: %s" % (key, value) for key, value in six.iteritems(request.META)
+        "%s: %s" % (key, value) for key, value in request.META.items()
     )
     return HttpResponse(body)
 
@@ -123,7 +118,4 @@ urlpatterns = [
     url(r"^redirect-location", redirect_location, name="redirect_location"),
 ]
 
-if six.PY2:
-    urlpatterns.append(url(r"^admin/", include(admin.site.urls)))
-else:
-    urlpatterns.append(url(r"^admin/", admin.site.urls))
+urlpatterns.append(url(r"^admin/", admin.site.urls))

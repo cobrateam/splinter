@@ -7,8 +7,6 @@
 import os
 import unittest
 
-import six
-
 import pytest
 
 from splinter import Browser
@@ -157,7 +155,7 @@ class ZopeTestBrowserDriverTest(
             "pangram_ru": u"В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
             "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
-        for key, text in six.iteritems(non_ascii_encodings):
+        for key, text in non_ascii_encodings.items():
             link = self.browser.find_link_by_text(text)
             self.assertEqual(key, link["id"])
 

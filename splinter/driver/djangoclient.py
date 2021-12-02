@@ -4,8 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-import six
-from six.moves.urllib import parse
+from urllib import parse
 
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
@@ -64,7 +63,7 @@ class DjangoClient(LxmlDriver):
         self._custom_headers = kwargs.pop("custom_headers", {})
 
         client_kwargs = {}
-        for key, value in six.iteritems(kwargs):
+        for key, value in kwargs.items():
             if key.startswith("client_"):
                 client_kwargs[key.replace("client_", "")] = value
 

@@ -8,7 +8,7 @@ import os
 import sys
 import time
 import unittest
-from six.moves.urllib import parse
+from urllib import parse
 
 import django
 from splinter import Browser
