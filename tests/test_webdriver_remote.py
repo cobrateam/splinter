@@ -4,10 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-try:
-    from urllib import urlopen
-except ImportError:
-    from urllib.request import urlopen
+
+from urllib.request import urlopen
 import unittest
 
 from splinter import Browser

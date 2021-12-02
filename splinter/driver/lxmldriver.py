@@ -6,11 +6,9 @@
 
 import re
 import time
-import sys
 import warnings
 
-import six
-from six.moves.urllib import parse
+from urllib import parse
 
 import lxml.etree
 import lxml.html
@@ -468,11 +466,6 @@ class LxmlControlElement(LxmlElement):
 
     def fill(self, value):
         parent_form = self._get_parent_form()
-
-        if not sys.version_info[0] > 2:
-            if not isinstance(value, six.text_type):
-                value = value.decode("utf-8")
-
         parent_form.fields[self["name"]] = value
 
     def select(self, value):

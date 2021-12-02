@@ -26,8 +26,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC  # NOQA: N812
 from selenium.webdriver.support.ui import WebDriverWait
 
-from six import BytesIO
-
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
@@ -1011,7 +1009,7 @@ class WebDriverElement(ElementAPI):
 
         full_screen_png = self.driver.get_screenshot_as_png()
 
-        full_screen_bytes = BytesIO(full_screen_png)
+        full_screen_bytes = io.BytesIO(full_screen_png)
 
         im = Image.open(full_screen_bytes)
         im_width, im_height = im.size[0], im.size[1]

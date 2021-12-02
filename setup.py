@@ -20,17 +20,16 @@ setup(
     license="BSD",
     classifiers=[
         "License :: OSI Approved :: BSD License",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
     ]
-    + [("Programming Language :: Python :: %s" % x) for x in "2.7 3.6 3.7 3.8 3.9".split()],
+    + [("Programming Language :: Python :: %s" % x) for x in "3.6 3.7 3.8 3.9".split()],
     packages=find_packages(exclude=["docs", "tests", "samples"]),
     include_package_data=True,
-    install_requires=["selenium>=3.141.0,<4.0", "six"],
+    install_requires=["selenium>=3.141.0,<4.0"],
     extras_require={
-        "zope.testbrowser": ["zope.testbrowser>=5.2.4", "lxml>=4.2.4", "cssselect"],
-        "django": ["Django>=1.7.11", "lxml>=2.3.6", "cssselect", "six"],
-        "flask": ["Flask>=1.0.2", "lxml>=2.3.6", "cssselect"],
+        "zope.testbrowser": ["zope.testbrowser>=5.5.1", "lxml>=4.2.4", "cssselect"],
+        "django": ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"],
+        "flask": ["Flask>=2.0.2", "lxml>=4.2.4", "cssselect"],
         "edge": ["msedge-selenium-tools"],
     },
     tests_require=["coverage", "flask"],

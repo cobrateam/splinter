@@ -1,9 +1,5 @@
 import socket
-
-try:
-    from httplib import HTTPException
-except ImportError:
-    from http.client import HTTPException
+from http.client import HTTPException
 
 import urllib3
 from urllib3.exceptions import MaxRetryError

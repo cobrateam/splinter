@@ -4,10 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-try:
-    from httplib import HTTPException
-except ImportError:
-    from http.client import HTTPException
+
+from http.client import HTTPException
 
 from urllib3.exceptions import MaxRetryError
 

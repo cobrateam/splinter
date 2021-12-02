@@ -4,11 +4,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-try:
-    from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
-except ImportError:
-    from urlparse import parse_qs, urlparse, urlunparse
-    from urllib import urlencode
+
+from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
 
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode

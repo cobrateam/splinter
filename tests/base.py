@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 import time
 import os
-from six.moves.urllib import parse
+from urllib import parse
 
 import pytest
 from selenium import webdriver
