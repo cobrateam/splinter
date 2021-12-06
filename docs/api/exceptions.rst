@@ -16,6 +16,3 @@ Exceptions
 .. autoclass:: ElementDoesNotExist
 
 .. module:: splinter.request_handler.status_code
-
-.. autoclass:: HttpResponseError
-   :members:
