@@ -27,7 +27,7 @@ Sample code
         browser.visit(url)
         browser.fill('q', 'splinter - python acceptance testing for web applications')
         # Find and click the 'search' button
-        button = browser.find_by_name('btnG')
+        button = browser.find_by_value('Google Search')
         # Interact with elements
         button.click()
         if browser.is_text_present('splinter.readthedocs.io'):
