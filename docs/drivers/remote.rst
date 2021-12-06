@@ -11,15 +11,6 @@
 Remote WebDriver
 ++++++++++++++++
 
-Installation
-------------
-
-Remote WebDriver is provided by Selenium. To use it, you need to install
-Selenium via pip:
-
-.. code-block:: console
-
-    [sudo] pip install selenium
 
 Setting up the Remote WebDriver
 -------------------------------

@@ -10,21 +10,18 @@
 Firefox WebDriver
 +++++++++++++++++
 
-Installation
-------------
+Basic Requirements
+==================
 
-Firefox WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
-
-.. code-block:: console
-
-    [sudo] pip install selenium
-
-The following applications are also required:
+The following applications are required:
 
   - `Mozilla Firefox <http://firefox.com>`_
   - `Geckodriver <https://github.com/mozilla/geckodriver/releases>`_
 
 Geckodriver must also be available on your operating system's `PATH` environment variable.
+
+Installing Geckodriver
+======================
 
 Mac OS X
 ++++++++

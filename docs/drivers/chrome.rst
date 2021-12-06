@@ -10,21 +10,18 @@
 Chrome WebDriver
 ++++++++++++++++
 
-Installation
-------------
+Basic Requirements
+==================
 
-Chrome WebDriver is provided by Selenium. To use it, you need to install Selenium via pip:
-
-.. code-block:: console
-
-    [sudo] pip install selenium
-
-The following applications are also required:
+The following applications are required:
 
   - `Google Chrome <http://google.com/chrome>`_
   - `ChromeDriver <https://chromedriver.chromium.org/>`_
 
 Chromedriver must also be available on your operating system's `PATH` environment variable.
+
+Installing Chromedriver
+=======================
 
 Mac OS X
 ++++++++
