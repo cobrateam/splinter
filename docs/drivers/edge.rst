@@ -10,8 +10,15 @@
 Edge WebDriver
 ++++++++++++++
 
-Installation
-------------
+Basic Requirements
+==================
+
+The following applications are required:
+
+  - `Microsoft Edge <https://www.microsoft.com/edge>`_
+  - `Microsoft Edge Driver <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>`_
+
+Microsoft Edge Driver must also be available on your operating system's `PATH` environment variable.
 
 Microsoft Edge has extra requirements:
 
@@ -23,12 +30,8 @@ Using pip, they can be installed automatically:
 
     pip install splinter[edge]
 
-The following applications are also required:
-
-  - `Microsoft Edge <https://www.microsoft.com/edge>`_
-  - `Microsoft Edge Driver <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>`_
-
-Microsoft Edge Driver must also be available on your operating system's `PATH` environment variable.
+Installing Edgedriver
+=====================
 
 Mac OS X
 ++++++++
