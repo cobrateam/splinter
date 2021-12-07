@@ -1,9 +1,8 @@
-from django.conf.urls import url
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import re_path, reverse
 
 from tests.fake_webapp import (
     EXAMPLE_HTML,
@@ -100,22 +99,22 @@ def redirect_location(request):
 
 
 urlpatterns = [
-    url(r"^$", index),
-    url(r"^iframe$", iframed),
-    url(r"^alert$", alertd),
-    url(r"^type$", type),
-    url(r"^no_body$", no_body),
-    url(r"^name$", get_name),
-    url(r"^useragent$", get_user_agent),
-    url(r"^headers$", request_headers),
-    url(r"^upload$", upload_file),
-    url(r"^foo$", foo),
-    url(r"^query$", query_string),
-    url(r"^popup$", popup),
-    url(r"^authenticate$", auth_required),
-    url(r"^redirected", redirected),
-    url(r"^post", post_form),
-    url(r"^redirect-location", redirect_location, name="redirect_location"),
+    re_path(r"^$", index),
+    re_path(r"^iframe$", iframed),
+    re_path(r"^alert$", alertd),
+    re_path(r"^type$", type),
+    re_path(r"^no_body$", no_body),
+    re_path(r"^name$", get_name),
+    re_path(r"^useragent$", get_user_agent),
+    re_path(r"^headers$", request_headers),
+    re_path(r"^upload$", upload_file),
+    re_path(r"^foo$", foo),
+    re_path(r"^query$", query_string),
+    re_path(r"^popup$", popup),
+    re_path(r"^authenticate$", auth_required),
+    re_path(r"^redirected", redirected),
+    re_path(r"^post", post_form),
+    re_path(r"^redirect-location", redirect_location, name="redirect_location"),
 ]
 
-urlpatterns.append(url(r"^admin/", admin.site.urls))
+urlpatterns.append(re_path(r"^admin/", admin.site.urls))
