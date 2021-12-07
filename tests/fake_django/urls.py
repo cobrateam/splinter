@@ -117,4 +117,4 @@ urlpatterns = [
     re_path(r"^redirect-location", redirect_location, name="redirect_location"),
 ]
 
-urlpatterns.append(url(r"^admin/", admin.site.urls))
+urlpatterns.append(re_path(r"^admin/", admin.site.urls))
