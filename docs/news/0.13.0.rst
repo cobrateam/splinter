@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.13.0.
     :keywords: splinter 0.13.0, news
 
-whats's new in splinter 0.13.0?
-===============================
+What's New in Splinter 0.13.0?
+==============================
 
 * Patch Remote WebDriver to add retry attempts (https://github.com/cobrateam/splinter/pull/742)
 * Add driver attribute to WebDriverElement. This fixes an issue where mouse interaction fails on nested elements (https://github.com/cobrateam/splinter/pull/740)

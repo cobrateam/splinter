@@ -6,7 +6,7 @@
     :description: New splinter features on version 0.0.2.
     :keywords: splinter 0.0.2, python, news, documentation, tutorial, web application
 
-what's new in splinter 0.0.2?
+What's New in Splinter 0.0.2?
 =============================
 
 Features
@@ -52,4 +52,3 @@ Backward incompatible changes
 ::
 
 	browser.find_by_name('name').first
-

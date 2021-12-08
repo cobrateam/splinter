@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.7.7.
     :keywords: splinter 0.7.7, news
 
-whats's new in splinter 0.7.7?
-==============================
+What's New in Splinter 0.7.7?
+=============================
 
 * `fill_form` more robust by requiring form ID
 * support firefox `headless mode`

@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.9.0.
     :keywords: splinter 0.9.0, news
 
-whats's new in splinter 0.9.0?
-==============================
+What's New in Splinter 0.9.0?
+=============================
 
 * `phantomjs` support was removed (https://github.com/cobrateam/splinter/issues/592)
 * add options argument for chrome driver (https://github.com/cobrateam/splinter/pull/345)

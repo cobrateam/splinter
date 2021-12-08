@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.14.0.
     :keywords: splinter 0.14.0, news
 
-whats's new in splinter 0.14.0?
-===============================
+What's New in Splinter 0.14.0?
+==============================
 
 * Add FindLinks api to non-webdrivers (https://github.com/cobrateam/splinter/pull/762)
 * Add support for zope in python3 (https://github.com/cobrateam/splinter/pull/771)
