@@ -68,19 +68,19 @@ class FindElementsTest(object):
         self.assertEqual("default value", value)
 
     def test_finding_all_links_by_text(self):
-        link = self.browser.find_link_by_text("Link for Example.com")[0]
+        link = self.browser.links.find_by_text("Link for Example.com")[0]
         self.assertEqual("http://example.com/", link["href"])
 
     def test_finding_all_links_by_href(self):
-        link = self.browser.find_link_by_href("http://example.com/")[0]
+        link = self.browser.links.find_by_href("http://example.com/")[0]
         self.assertEqual("http://example.com/", link["href"])
 
     def test_finding_all_links_by_partial_href(self):
-        link = self.browser.find_link_by_partial_href("example.c")[0]
+        link = self.browser.links.find_by_partial_href("example.c")[0]
         self.assertEqual("http://example.com/", link["href"])
 
     def test_finding_all_links_by_partial_text(self):
-        link = self.browser.find_link_by_partial_text("FOO")[0]
+        link = self.browser.links.find_by_partial_text("FOO")[0]
         self.assertEqual("http://localhost:5000/foo", link["href"])
 
     def test_finding_last_element_by_css(self):
@@ -110,19 +110,19 @@ class FindElementsTest(object):
         self.assertEqual("default last value", value)
 
     def test_finding_last_link_by_text(self):
-        link = self.browser.find_link_by_text("Link for Example.com").last
+        link = self.browser.links.find_by_text("Link for Example.com").last
         self.assertEqual("http://example.com/last", link["href"])
 
     def test_finding_last_link_by_href(self):
-        link = self.browser.find_link_by_href("http://example.com/").last
+        link = self.browser.links.find_by_href("http://example.com/").last
         self.assertEqual("Link for last Example.com", link.text)
 
     def test_finding_link_by_partial_href(self):
-        link = self.browser.find_link_by_partial_href("example.c").last
+        link = self.browser.links.find_by_partial_href("example.c").last
         self.assertEqual("Link for last Example.com", link.text)
 
     def test_finding_last_link_by_partial_text(self):
-        link = self.browser.find_link_by_partial_text("FOO").last
+        link = self.browser.links.find_by_partial_text("FOO").last
         self.assertEqual("A wordier (and last) link to FOO", link.text)
 
     def test_finding_element_by_css_using_slice(self):
@@ -152,22 +152,22 @@ class FindElementsTest(object):
         self.assertEqual("default last value", value)
 
     def test_finding_link_by_text_using_slice(self):
-        link = self.browser.find_link_by_text("Link for Example.com")[-1]
+        link = self.browser.links.find_by_text("Link for Example.com")[-1]
         self.assertEqual("http://example.com/last", link["href"])
 
     def test_finding_link_by_href_using_slice(self):
         "should find link by href using slice"
-        link = self.browser.find_link_by_href("http://example.com/")[-1]
+        link = self.browser.links.find_by_href("http://example.com/")[-1]
         self.assertEqual("Link for last Example.com", link.text)
 
     def test_finding_links_by_text(self):
         "should find links by text"
-        link = self.browser.find_link_by_text("Link for Example.com")
+        link = self.browser.links.find_by_text("Link for Example.com")
         self.assertEqual("http://example.com/", link["href"])
 
     def test_finding_links_by_href(self):
         "should find links by href"
-        link = self.browser.find_link_by_href("http://example.com/")
+        link = self.browser.links.find_by_href("http://example.com/")
         self.assertEqual("http://example.com/", link["href"])
 
     def test_find_by_css_in_element_context(self):

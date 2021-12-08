@@ -7,7 +7,7 @@
 
 class ClickElementsTest(object):
     def test_click_links(self):
-        self.browser.find_link_by_text("FOO").click()
+        self.browser.links.find_by_text("FOO").click()
         self.assertIn("BAR!", self.browser.html)
 
     def test_click_element_by_css_selector(self):
