@@ -152,7 +152,7 @@ class BaseBrowserTests(
         self.assertEqual("firstheader", header["id"])
 
     def test_links_should_have_value_attribute(self):
-        foo = self.browser.find_link_by_href("http://localhost:5000/foo")
+        foo = self.browser.links.find_by_href("http://localhost:5000/foo")
         self.assertEqual("FOO", foo.value)
 
     def test_should_receive_browser_on_parent(self):
