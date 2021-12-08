@@ -27,7 +27,6 @@ class WebDriver(BaseWebDriver):
         profile_preferences=None,
         fullscreen=False,
         wait_time=2,
-        timeout=90,
         capabilities=None,
         headless=False,
         incognito=False,
@@ -45,7 +44,11 @@ class WebDriver(BaseWebDriver):
 
         if capabilities:
             for key, value in capabilities.items():
+                # Selenium 3
                 firefox_capabilities[key] = value
+
+                # Selenium 4
+                options.set_capability(key, value)
 
         if user_agent is not None:
             firefox_profile.set_preference("general.useragent.override", user_agent)
@@ -68,7 +71,6 @@ class WebDriver(BaseWebDriver):
             firefox_profile,
             capabilities=firefox_capabilities,
             options=options,
-            timeout=timeout,
             **kwargs
         )
 

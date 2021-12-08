@@ -20,6 +20,18 @@ The following applications are required:
 
 Chromedriver must also be available on your operating system's `PATH` environment variable.
 
+Dependencies
+++++++++++++
+
+To use Chrome, the python bindings for Selenium 3 or Selenium 4 must be installed.
+
+When splinter is installed via pip, the `selenium3` or `selenium4` extra argument can be provided.
+This will automatically install the latest version of Selenium 3 or Selenium 4, respectively.
+
+.. code-block:: bash
+
+    python -m pip install splinter[selenium3]
+
 Installing Chromedriver
 =======================
 
