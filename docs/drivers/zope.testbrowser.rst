@@ -10,20 +10,23 @@
 zope.testbrowser
 ++++++++++++++++
 
-Installation
+Dependencies
 ------------
 
 .. module:: splinter.driver.zopetestbrowser
 
-To use the ``zope.testbrowser`` driver, you need to install
+To use the ``zope.testbrowser``, the following must be installed:
+
 `zope.testbrowser <http://pypi.python.org/pypi/zope.testbrowser>`_,
-`lxml <https://pypi.python.org/pypi/lxml>`_ and
+`lxml <https://pypi.python.org/pypi/lxml>`_,
 `cssselect <http://pypi.python.org/pypi/cssselect>`_.
-You can install all of them in one step by running:
 
-.. code-block:: console
+When splinter is installed via pip, the `zope.testbrowser` extra argument can be provided.
+This will automatically install Flask.
 
-    pip install splinter[zope.testbrowser]
+.. code-block:: bash
+
+    python -m pip install splinter[zope.testbrowser]
 
 Usage
 -----

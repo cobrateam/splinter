@@ -6,24 +6,27 @@
     :description: How to use splinter with Flask.
     :keywords: splinter, python, tutorial, how to install, installation, Flask
 
-++++++++++++
-Flask client
-++++++++++++
++++++
+Flask
++++++
 
-Installation
+Dependencies
 ------------
 
 .. module:: splinter.driver.flaskclient
 
-To use the ``flask`` driver, you need to install
+To use the ``flask`` driver, the following must be installed:
+
 `Flask <https://pypi.python.org/pypi/Flask>`_,
-`lxml <https://pypi.python.org/pypi/lxml>`_ and
+`lxml <https://pypi.python.org/pypi/lxml>`_,
 `cssselect <http://pypi.python.org/pypi/cssselect>`_.
-You can install all of them in one step by running:
 
-.. code-block:: console
+When splinter is installed via pip, the `flask` extra argument can be provided.
+This will automatically install Flask.
 
-    pip install splinter[flask]
+.. code-block:: bash
+
+    python -m pip install splinter[flask]
 
 Usage
 -----

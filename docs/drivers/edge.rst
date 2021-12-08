@@ -10,8 +10,8 @@
 Edge WebDriver
 ++++++++++++++
 
-Basic Requirements
-==================
+External Requirements
+=====================
 
 The following applications are required:
 
@@ -20,15 +20,18 @@ The following applications are required:
 
 Microsoft Edge Driver must also be available on your operating system's `PATH` environment variable.
 
+Dependencies
+++++++++++++
+
 Microsoft Edge has extra requirements:
 
     - `msedge-selenium-tools <https://github.com/microsoft/edge-selenium-tools>`_
 
 Using pip, they can be installed automatically:
 
-.. code-block:: console
+.. code-block:: bash
 
-    pip install splinter[edge]
+    python -m pip install splinter[edge]
 
 Installing Edgedriver
 =====================
