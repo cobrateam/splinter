@@ -156,7 +156,7 @@ class ZopeTestBrowserDriverTest(
             "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
         for key, text in non_ascii_encodings.items():
-            link = self.browser.find_link_by_text(text)
+            link = self.browser.links.find_by_text(text)
             self.assertEqual(key, link["id"])
 
     def test_fill_form_missing_values(self):

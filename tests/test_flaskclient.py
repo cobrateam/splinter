@@ -159,7 +159,7 @@ class FlaskClientDriverTest(
             "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
         for key, text in non_ascii_encodings.items():
-            link = self.browser.find_link_by_text(text)
+            link = self.browser.links.find_by_text(text)
             self.assertEqual(key, link["id"])
 
     def test_redirection_on_post(self):
