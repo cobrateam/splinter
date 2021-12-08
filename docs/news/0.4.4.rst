@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.4.4.
     :keywords: splinter 0.4.4, python, news, documentation, tutorial, web application
 
-whats's new in splinter 0.4.4?
-==============================
+What's New in Splinter 0.4.4?
+=============================
 
 Features
 --------

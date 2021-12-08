@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.16.0.
     :keywords: splinter 0.16.0, news
 
-whats's new in splinter 0.16.0?
-===============================
+What's New in Splinter 0.16.0?
+==============================
 
 * Pin Selenium < 4.0 (https://github.com/cobrateam/splinter/pull/930)
 * Add support for Microsoft Edge (https://github.com/cobrateam/splinter/pull/912)

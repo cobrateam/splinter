@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.7.5.
     :keywords: splinter 0.7.5, news
 
-whats's new in splinter 0.7.5?
-==============================
+What's New in Splinter 0.7.5?
+=============================
 
 * Timeout settings for Firefox driver
 * Remove default icognito mode in Chrome driver

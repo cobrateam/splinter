@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.8.0.
     :keywords: splinter 0.8.0, news
 
-whats's new in splinter 0.8.0?
-==============================
+What's New in Splinter 0.8.0?
+=============================
 
 * add support for Firefox incognito mode (https://github.com/cobrateam/splinter/pull/578)
 * allow return value for `execute_script` to be returned (https://github.com/cobrateam/splinter/pull/585)

@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.5.5.
     :keywords: splinter 0.5.5, python, news, documentation, tutorial, web application
 
-whats's new in splinter 0.5.5?
-==============================
+What's New in Splinter 0.5.5?
+=============================
 
 Improvements
 ------------
