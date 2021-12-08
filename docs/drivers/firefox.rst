@@ -10,8 +10,8 @@
 Firefox WebDriver
 +++++++++++++++++
 
-Basic Requirements
-==================
+External Requirements
+=====================
 
 The following applications are required:
 
