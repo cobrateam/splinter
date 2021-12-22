@@ -4,4 +4,4 @@ argparse
 Django>=2.0.6
 Pillow==8.4.0
 pytest==6.2.5
-pytest-xdist==2.4.0
+pytest-xdist==2.5.0
