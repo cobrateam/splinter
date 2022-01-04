@@ -102,7 +102,7 @@ class Window(object):
         return Window(self._browser, prev_handle)
 
     @property  # NOQA: A003
-    def next(self):
+    def next(self):  # NOQA: A003
         """ Return the next window """
         next_index = (self.index + 1) % len(self._browser.driver.window_handles)
         next_handle = self._browser.driver.window_handles[next_index]
