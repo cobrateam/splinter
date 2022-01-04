@@ -23,8 +23,8 @@ class FindElementsTest(object):
 
     def test_finding_by_value(self):
         value = self.browser.find_by_value("M").value
-        id = self.browser.find_by_id("gender-m")
-        self.assertEqual(id.value, value)
+        element = self.browser.find_by_id("gender-m")
+        self.assertEqual(element.value, value)
 
     def test_finding_by_value_in_btn_elements(self):
         value = self.browser.find_by_value("some value").value

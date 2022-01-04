@@ -24,7 +24,7 @@ class ElementList(object):
         >>> element_list[0] # raises ElementDoesNotExist
     """
 
-    def __init__(self, list, driver=None, find_by=None, query=None):
+    def __init__(self, list, driver=None, find_by=None, query=None):  # NOQA: A002
         self._container = []
         self._container.extend(list)
 

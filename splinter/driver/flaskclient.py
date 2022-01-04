@@ -34,7 +34,7 @@ class CookieManager(CookieManagerAPI):
     def delete_all(self):
         self.driver.cookie_jar.clear()
 
-    def all(self, verbose=False):
+    def all(self, verbose=False):  # NOQA: A003
         cookies = {}
         for cookie in self.driver.cookie_jar:
             cookies[cookie.name] = cookie.value

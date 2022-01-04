@@ -80,7 +80,7 @@ def alertd():
     return EXAMPLE_ALERT_HTML
 
 
-@app.route("/type")
+@app.route("/type")  # NOQA: A001
 def type():
     return EXAMPLE_TYPE_HTML
 
