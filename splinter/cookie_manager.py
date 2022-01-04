@@ -62,7 +62,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         """Delete all cookies."""
         raise NotImplementedError
 
-    def all(self, verbose=False):
+    def all(self, verbose=False):  # NOQA: A003
         """Get all of the cookies.
 
             **Note:** If you're using any webdriver and want more info about

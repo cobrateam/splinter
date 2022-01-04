@@ -47,7 +47,7 @@ def alert_enter(self):
     return self
 
 
-def alert_exit(self, type, value, traceback):
+def alert_exit(self, type, value, traceback):  # NOQA: A002
     pass
 
 
@@ -65,7 +65,7 @@ class switch_window:  # NOQA: N801
         self.current_window_handle = self.browser.driver.current_window_handle
         self.browser.driver.switch_to.window(self.window_handle)
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, type, value, traceback):  # NOQA: A002
         if self.current_window_handle in self.browser.driver.window_handles:
             self.browser.driver.switch_to.window(self.current_window_handle)
 
@@ -101,8 +101,8 @@ class Window(object):
         prev_handle = self._browser.driver.window_handles[prev_index]
         return Window(self._browser, prev_handle)
 
-    @property
-    def next(self):
+    @property  # NOQA: A003
+    def next(self):  # NOQA: A003
         """ Return the next window """
         next_index = (self.index + 1) % len(self._browser.driver.window_handles)
         next_handle = self._browser.driver.window_handles[next_index]
@@ -413,10 +413,10 @@ class BaseWebDriver(DriverAPI):
     def is_element_not_present_by_text(self, text, wait_time=None):
         return self.is_element_not_present(self.find_by_text, text, wait_time)
 
-    def is_element_present_by_id(self, id, wait_time=None):
+    def is_element_present_by_id(self, id, wait_time=None):  # NOQA: A002
         return self.is_element_present(self.find_by_id, id, wait_time)
 
-    def is_element_not_present_by_id(self, id, wait_time=None):
+    def is_element_not_present_by_id(self, id, wait_time=None):  # NOQA: A002
         return self.is_element_not_present(self.find_by_id, id, wait_time)
 
     def get_alert(self, wait_time=None):
@@ -583,7 +583,7 @@ class BaseWebDriver(DriverAPI):
             wait_time=wait_time,
         )
 
-    def find_by_id(self, id, wait_time=None):
+    def find_by_id(self, id, wait_time=None):  # NOQA: A002
         return self.find_by(
             self.driver.find_element_by_id,
             id,
@@ -633,7 +633,7 @@ class BaseWebDriver(DriverAPI):
                 if not ignore_missing:
                     raise ElementDoesNotExist(e)
 
-    def type(self, name, value, slowly=False):
+    def type(self, name, value, slowly=False):  # NOQA: A003
         element = self.find_by_name(name).first._element
         if slowly:
             return TypeIterator(element, value)
@@ -682,7 +682,7 @@ class BaseWebDriver(DriverAPI):
             '//select[@name="%s"]/option[text()="%s"]' % (name, text)
         ).first._element.click()
 
-    def quit(self):
+    def quit(self):  # NOQA: A003
         try:
             self.driver.quit()
         except WebDriverException:
@@ -796,7 +796,7 @@ class WebDriverElement(ElementAPI):
     def select_by_text(self, text):
         self.select(text=text)
 
-    def type(self, value, slowly=False):
+    def type(self, value, slowly=False):  # NOQA: A003
         if slowly:
             return TypeIterator(self._element, value)
 

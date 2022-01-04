@@ -30,7 +30,7 @@ def alertd(request):
     return HttpResponse(EXAMPLE_ALERT_HTML)
 
 
-def type(request):
+def type(request):  # NOQA: A001
     return HttpResponse(EXAMPLE_TYPE_HTML)
 
 

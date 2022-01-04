@@ -30,7 +30,7 @@ class CookieManager(CookieManagerAPI):
     def delete_all(self):
         self.driver.delete_all_cookies()
 
-    def all(self, verbose=False):
+    def all(self, verbose=False):  # NOQA: A003
         if not verbose:
             cleaned_cookies = {}
             cookies = self.driver.get_cookies()

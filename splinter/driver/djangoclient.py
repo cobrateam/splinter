@@ -32,7 +32,7 @@ class CookieManager(CookieManagerAPI):
     def delete_all(self):
         self.driver.cookies.clear()
 
-    def all(self, verbose=False):
+    def all(self, verbose=False):  # NOQA: A003
         cookies = {}
         for key, value in self.driver.cookies.items():
             cookies[key] = value

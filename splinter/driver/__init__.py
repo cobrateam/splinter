@@ -175,7 +175,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by name." % self.driver_name
         )
 
-    def find_by_id(self, id):
+    def find_by_id(self, id):  # NOQA: A002
         """Find an element on the current page by its id.
 
         Even when only one element is find, this method returns an instance of
@@ -316,7 +316,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def type(self, name, value, slowly=False):
+    def type(self, name, value, slowly=False):  # NOQA: A003
         """Type a value into an element.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
@@ -465,13 +465,13 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         """
         return self.find_link_by_partial_text(partial_text).first.click()
 
-    def click_link_by_id(self, id):
+    def click_link_by_id(self, id):  # NOQA: A002
         """
         Clicks in a link by id.
         """
         return self.find_by_id(id).first.click()
 
-    def quit(self):
+    def quit(self):  # NOQA: A003
         """Quit the browser, closing its windows (if it has one)."""
         raise NotImplementedError("%s doesn't support quit" % self.driver_name)
 
@@ -655,7 +655,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_id(self, id, wait_time=None):
+    def is_element_present_by_id(self, id, wait_time=None):  # NOQA: A002
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -670,7 +670,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_id(self, id, wait_time=None):
+    def is_element_not_present_by_id(self, id, wait_time=None):  # NOQA: A002
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -815,7 +815,7 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def type(self, value, slowly=False):
+    def type(self, value, slowly=False):  # NOQA: A003
         """
         Type the ``value`` in the field.
 

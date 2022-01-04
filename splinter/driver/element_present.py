@@ -37,8 +37,8 @@ class ElementPresentMixIn(object):
     def is_element_not_present_by_text(self, text, wait_time=None):
         return not self.is_element_present_by_text(text, wait_time)
 
-    def is_element_present_by_id(self, id, wait_time=None):
+    def is_element_present_by_id(self, id, wait_time=None):  # NOQA: A002
         return bool(self.find_by_id(id))
 
-    def is_element_not_present_by_id(self, id, wait_time=None):
+    def is_element_not_present_by_id(self, id, wait_time=None):  # NOQA: A002
         return not self.is_element_present_by_id(id, wait_time)

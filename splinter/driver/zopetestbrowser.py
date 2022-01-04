@@ -46,7 +46,7 @@ class CookieManager(CookieManagerAPI):
     def delete_all(self):
         self.driver.cookies.clearAll()
 
-    def all(self, verbose=False):
+    def all(self, verbose=False):  # NOQA: A003
         cookies = {}
         for key, value in self.driver.cookies.items():
             cookies[key] = value
@@ -99,7 +99,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
     def reload(self):
         self._browser.reload()
 
-    def quit(self):
+    def quit(self):  # NOQA: A003
         pass
 
     @property
@@ -384,7 +384,7 @@ class ZopeTestBrowserElement(ElementAPI):
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
         return self.find_by_xpath(xpath_str)
 
-    def find_by_id(self, id):
+    def find_by_id(self, id):  # NOQA: A002
         elements = self._element.cssselect("#%s" % id)
         return ElementList([self.__class__(element, self) for element in elements])
 

@@ -51,10 +51,10 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         data = {}
 
         for key in form.inputs.keys():
-            input = form.inputs[key]
-            if getattr(input, "type", "") == "submit":
+            form_input = form.inputs[key]
+            if getattr(form_input, "type", "") == "submit":
                 try:
-                    form.remove(input)
+                    form.remove(form_input)
                 # Issue 595: throws ValueError: Element not child of this node
                 except ValueError:
                     pass
@@ -69,8 +69,8 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                 data[k] = v
 
         for key in form.inputs.keys():
-            input = form.inputs[key]
-            if getattr(input, "type", "") == "file" and key in data:
+            form_input = form.inputs[key]
+            if getattr(form_input, "type", "") == "file" and key in data:
                 data[key] = open(data[key], "rb")
 
         return data
@@ -107,7 +107,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
     def reload(self):
         self.visit(self._url)
 
-    def quit(self):
+    def quit(self):  # NOQA: A003
         pass
 
     @property
@@ -395,7 +395,7 @@ class LxmlElement(ElementAPI):
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
         return self.find_by_xpath(xpath_str)
 
-    def find_by_id(self, id):
+    def find_by_id(self, id):  # NOQA: A002
         elements = self._element.cssselect("#%s" % id)
         return ElementList([self.__class__(element, self) for element in elements])
 
