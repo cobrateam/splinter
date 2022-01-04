@@ -1,5 +1,18 @@
-.. image:: https://secure.travis-ci.org/cobrateam/splinter.svg?branch=master
-   :target: http://travis-ci.org/cobrateam/splinter
+.. image:: https://img.shields.io/pypi/v/splinter.svg
+    :target: https://pypi.org/project/splinter
+    :alt: PyPI
+
+.. image:: https://img.shields.io/pypi/pyversions/splinter.svg
+    :alt: PyPI - Python Version
+    :target: https://github.com/cobrateam/splinter
+
+.. image:: https://img.shields.io/github/license/cobrateam/splinter.svg
+   :alt: GitHub
+   :target: https://github.com/cobrateam/splinter/blob/master/LICENSE
+
+.. image:: https://github.com/cobrateam/splinter/workflows/CI/badge.svg
+   :target: https://github.com/cobrateam/splinter/actions/workflows/main.yml
+   :alt: Build status
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++
 splinter - python tool for testing web applications
@@ -35,12 +48,14 @@ First steps
 ===========
 
 * `Installation <https://splinter.readthedocs.io/en/latest/install.html>`_
+
 * `Quick tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
 Splinter open source project
 ============================
 
 * `Community <https://splinter.readthedocs.io/en/latest/community.html>`_
+
 * `Contribute <https://splinter.readthedocs.io/en/latest/contribute.html>`_
 
 Documentation
@@ -48,18 +63,35 @@ Documentation
 
 * `Splinter documentation <https://splinter.readthedocs.io>`_
 
-External links
+Pytest Plugins
 ==============
-* `Django Full Stack Testing and BDD with Lettuce and Splinter <https://www.cilliano.com/2011/02/07/django-bdd-with-lettuce-and-splinter.html>`_
 
-* `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
+* `pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
+
+Page Objects
+============
+
+Support for page objects is available through the following package:
+
+* `Stere <https://stere.readthedocs.io/>`_
+
+Deprecated projects:
+++++++++++++++++++++
+
+* `PyPOM <http://pypom.readthedocs.io/>`_, A base page object model for use with Selenium or Splinter functional tests.
+
+* `pypom_form <http://pypom-form.readthedocs.io>`_, A PyPOM based package that provides declarative schema based form interaction for page object models compatible with Splinter.
+
+Other Projects Using Splinter
+=============================
 
 * `salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
 
 * `behave-django <https://github.com/behave/behave-django>`_, BDD testing in Django using `Behave <https://github.com/behave/behave/>`_. Works well with splinter.
 
-* `pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
 
-* `PyPOM <http://pypom.readthedocs.io/>`_, PyPOM, or Python Page Object Model, is a Python library that provides a base page object model for use with Selenium or Splinter functional tests.
+Presentations & Tutorials
+=========================
+* `Django Full Stack Testing and BDD with Lettuce and Splinter <https://www.cilliano.com/2011/02/07/django-bdd-with-lettuce-and-splinter.html>`_
 
-* `pypom_form <http://pypom-form.readthedocs.io>`_, is a PyPOM based package that provides declarative schema based form interaction for page object models compatible with Splinter.
+* `Testes de aceitação com Lettuce e Splinter (pt-br) <http://www.slideshare.net/franciscosouza/testes-de-aceitao-com-lettuce-e-splinter?from=ss_embed>`_
