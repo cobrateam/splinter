@@ -23,6 +23,12 @@ setup(
         "Programming Language :: Python :: 3",
     ]
     + [("Programming Language :: Python :: %s" % x) for x in "3.6 3.7 3.8 3.9".split()],
+    project_urls={
+        "Documentation": "https://splinter.readthedocs.io/",
+        "Changelog": "https://github.com/cobrateam/splinter/tree/master/docs/news",
+        "Source": "https://github.com/cobrateam/splinter/",
+        "Tracker": "https://github.com/cobrateam/splinter/issues",
+    },
     packages=find_packages(exclude=["docs", "tests", "samples"]),
     include_package_data=True,
     install_requires=[],
