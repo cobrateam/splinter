@@ -7,7 +7,7 @@
 from .fake_webapp import EXAMPLE_APP
 
 
-class MouseInteractionTest(object):
+class MouseInteractionTest:
     def test_mouse_over(self):
         "Should be able to perform a mouse over on an element"
         self.browser.visit(EXAMPLE_APP)
@@ -34,13 +34,18 @@ class MouseInteractionTest(object):
         self.assertTrue(self.browser.is_element_not_present_by_id("what-is-your-name"))
 
     def test_double_click(self):
-        "double click should shows a hidden element"
+        """Test: WebDriverElement.double_click()
+
+        When an element has an action activated by a double click
+        Then using the double_click() method will trigger it
+        """
         self.browser.visit(EXAMPLE_APP)
+
         button = self.browser.find_by_css(".db-button")
         button.double_click()
-        element = self.browser.find_by_css(".should-be-visible-after-double-click")
-        self.assertTrue(element.visible)
-        self.assertTrue(self.browser.is_element_not_present_by_id("what-is-your-name"))
+
+        assert browser.is_element_visible_by_css(".should-be-visible-after-double-click")
+        assert self.browser.is_element_not_present_by_id("what-is-your-name")
 
     def test_right_click(self):
         "should be able to perform a right click on an element"
