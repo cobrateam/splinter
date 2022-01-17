@@ -16,14 +16,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - PY_VER: py36
-            python-version: 3.6
           - PY_VER: py37
             python-version: 3.7
           - PY_VER: py38
             python-version: 3.8
           - PY_VER: py39
             python-version: 3.9
+          - PY_VER: py310
+            python-version: '3.10'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -56,6 +56,8 @@ jobs:
             python-version: 3.8
           - PY_VER: py39
             python-version: 3.9
+          - PY_VER: py310
+            python-version: '3.10'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

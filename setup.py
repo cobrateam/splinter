@@ -3,18 +3,23 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import os
+
 from setuptools import setup, find_packages
-import codecs
 
 
-README = codecs.open("README.rst", encoding="utf-8").read()
+def read(filename):
+    path = os.path.join(os.path.dirname(__file__), filename)
+    with open(path, 'r') as f:
+        return f.read()
+
 
 setup(
     name="splinter",
     version="0.17.0",
     url="https://github.com/cobrateam/splinter",
     description="browser abstraction for web acceptance testing",
-    long_description=README,
+    long_description=read('README.rst'),
     author="CobraTeam",
     author_email="andrewsmedina@gmail.com",
     license="BSD",
@@ -22,7 +27,7 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",
     ]
-    + [("Programming Language :: Python :: %s" % x) for x in "3.6 3.7 3.8 3.9".split()],
+    + [("Programming Language :: Python :: %s" % x) for x in "3.7 3.8 3.9 3.10".split()],
     project_urls={
         "Documentation": "https://splinter.readthedocs.io/",
         "Changelog": "https://github.com/cobrateam/splinter/tree/master/docs/news",
