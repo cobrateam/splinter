@@ -8,7 +8,6 @@ import os
 from setuptools import setup, find_packages
 
 
-
 def read(filename):
     path = os.path.join(os.path.dirname(__file__), filename)
     with open(path, 'r') as f:
