@@ -35,17 +35,26 @@ class FirefoxBrowserFullScreenTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
+@pytest.mark.doit
 def test_firefox_create_instance_with_extension(request):
-    """Test: Load an extension via selenium."""
+    """Test: Load an extension via selenium.
+
+    The dummy extension should add a red border to any web page.
+    """
     extension_path = os.path.join(
         os.path.abspath(os.path.dirname(__file__)),
         'dummy_extension',
-        'borderify.xpi',
+        'borderify-1.0-an+fx.xpi',
     )
+
     browser = get_browser('firefox', extensions=[extension_path])
     request.addfinalizer(browser.quit)
 
-    assert "Borderify@1.0" in os.listdir(browser.driver.profile.extensionsDir)
+    browser.visit(EXAMPLE_APP)
+
+    elem = browser.find_by_css('body')
+    style = elem._element.get_attribute('style')
+    assert "border: 5px solid red;" == style
 
 
 def test_preference_set(request):
