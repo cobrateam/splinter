@@ -35,14 +35,17 @@ class FirefoxBrowserFullScreenTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
-def test_create_a_firefox_instance_with_extension(request):
+def test_firefox_create_instance_with_extension(request):
+    """Test: Load an extension via selenium."""
     extension_path = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), "firebug.xpi"
+        os.path.abspath(os.path.dirname(__file__)),
+        'dummy_extension',
+        'borderify.xpi',
     )
     browser = get_browser('firefox', extensions=[extension_path])
     request.addfinalizer(browser.quit)
-    "should be able to load an extension"
-    assert "firebug@software.joehewitt.com" in os.listdir(browser.driver.profile.extensionsDir)
+
+    assert "Borderify@1.0" in os.listdir(browser.driver.profile.extensionsDir)
 
 
 def test_preference_set(request):
