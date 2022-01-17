@@ -44,7 +44,7 @@ class MouseInteractionTest:
         button = self.browser.find_by_css(".db-button")
         button.double_click()
 
-        assert browser.is_element_visible_by_css(".should-be-visible-after-double-click")
+        assert self.browser.is_element_visible_by_css(".should-be-visible-after-double-click")
         assert self.browser.is_element_not_present_by_id("what-is-your-name")
 
     def test_right_click(self):
