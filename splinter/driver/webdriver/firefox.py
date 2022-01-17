@@ -30,10 +30,10 @@ class WebDriver(BaseWebDriver):
     ):
 
         firefox_profile = FirefoxProfile(profile)
-        firefox_profile.set_preference("extensions.logging.enabled", False)
-        firefox_profile.set_preference("network.dns.disableIPv6", False)
 
         options = options or Options()
+        options.set_preference("extensions.logging.enabled", False)
+        options.set_preference("network.dns.disableIPv6", False)
 
         if capabilities:
             for key, value in capabilities.items():
@@ -44,7 +44,7 @@ class WebDriver(BaseWebDriver):
 
         if profile_preferences:
             for key, value in profile_preferences.items():
-                firefox_profile.set_preference(key, value)
+                options.set_preference(key, value)
 
         if headless:
             options.add_argument("--headless")
