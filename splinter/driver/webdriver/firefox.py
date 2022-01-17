@@ -44,7 +44,7 @@ class WebDriver(BaseWebDriver):
                 options.set_capability(key, value)
 
         if user_agent is not None:
-            firefox_profile.set_preference("general.useragent.override", user_agent)
+            options.set_preference("general.useragent.override", user_agent)
 
         if profile_preferences:
             for key, value in profile_preferences.items():
