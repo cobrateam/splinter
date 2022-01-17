@@ -533,7 +533,7 @@ class BaseWebDriver(DriverAPI):
     def find_by_css(self, css_selector, wait_time=None):
         return self.find_by(
             self.driver.find_elements,
-            finder_kwargs={'by': By.CSS, 'value': css_selector},
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': css_selector},
             original_find="css",
             original_query=css_selector,
             wait_time=wait_time,
@@ -856,7 +856,7 @@ class WebDriverElement(ElementAPI):
     def find_by_css(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.CSS, 'value': selector},
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
             original_find="css",
             wait_time=wait_time,
         )
@@ -891,7 +891,7 @@ class WebDriverElement(ElementAPI):
 
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.CSS, 'value': selector},
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
             original_find="value",
             original_query=value,
             wait_time=wait_time,
