@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from selenium.webdriver import DesiredCapabilities, Firefox
+from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from splinter.driver.webdriver import (
     BaseWebDriver,
@@ -37,17 +37,10 @@ class WebDriver(BaseWebDriver):
         firefox_profile.set_preference("extensions.logging.enabled", False)
         firefox_profile.set_preference("network.dns.disableIPv6", False)
 
-        firefox_capabilities = DesiredCapabilities().FIREFOX
-        firefox_capabilities["marionette"] = True
-
         options = options or Options()
 
         if capabilities:
             for key, value in capabilities.items():
-                # Selenium 3
-                firefox_capabilities[key] = value
-
-                # Selenium 4
                 options.set_capability(key, value)
 
         if user_agent is not None:
@@ -69,9 +62,8 @@ class WebDriver(BaseWebDriver):
 
         self.driver = Firefox(
             firefox_profile,
-            capabilities=firefox_capabilities,
             options=options,
-            **kwargs
+            **kwargs,
         )
 
         if fullscreen:
