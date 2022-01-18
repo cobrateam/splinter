@@ -12,8 +12,7 @@ except ImportError:
     from selenium.webdriver import Edge
     from selenium.webdriver.edge.options import Options
 
-from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
-from splinter.driver.webdriver.cookie_manager import CookieManager
+from splinter.driver.webdriver import BaseWebDriver
 
 
 class WebDriver(BaseWebDriver):
@@ -49,10 +48,6 @@ class WebDriver(BaseWebDriver):
 
         options.use_chromium = chromium
 
-        self.driver = Edge(options=options, **kwargs)
+        driver = Edge(options=options, **kwargs)
 
-        self.element_class = WebDriverElement
-
-        self._cookie_manager = CookieManager(self.driver)
-
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(driver, wait_time)
