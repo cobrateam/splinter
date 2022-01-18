@@ -62,7 +62,7 @@ class switch_window:  # NOQA: N801
             self.browser.driver.switch_to.window(self.current_window_handle)
 
 
-class Window(object):
+class Window:
     """ A class representing a browser window """
 
     def __init__(self, browser, name):
@@ -165,7 +165,7 @@ class Window(object):
         return "<Window %s: %s>" % (self.name, self.url)
 
 
-class Windows(object):
+class Windows:
 
     """ A class representing all open browser windows """
 

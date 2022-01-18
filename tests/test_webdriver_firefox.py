@@ -35,7 +35,6 @@ class FirefoxBrowserFullScreenTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
-@pytest.mark.doit
 def test_firefox_create_instance_with_extension(request):
     """Test: Load an extension via selenium.
 
