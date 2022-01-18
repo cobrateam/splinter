@@ -657,7 +657,6 @@ class BaseWebDriver(DriverAPI):
         self.find_by_name(name).first.uncheck()
 
     def screenshot(self, name="", suffix=".png", full=False, unique_file=True):
-
         filename = '{}{}'.format(name, suffix)
 
         if unique_file:
@@ -673,6 +672,19 @@ class BaseWebDriver(DriverAPI):
 
         if full:
             self.recover_screen(ori_window_size)
+
+        return filename
+
+    def html_snapshot(self, name="", suffix=".html", encoding='utf-8', unique_file=True):
+        filename = '{}{}'.format(name, suffix)
+
+        if unique_file:
+            (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
+            # Don't hold the file
+            os.close(fd)
+
+        with io.open(filename, 'w', encoding=encoding) as f:
+            f.write(self.html)
 
         return filename
 
@@ -701,19 +713,6 @@ class BaseWebDriver(DriverAPI):
         width = size.get('width')
         height = size.get('height')
         self.driver.set_window_size(width, height)
-
-    def html_snapshot(self, name="", suffix=".html", encoding='utf-8'):
-        """Write the current html to a file."""
-        name = name or ""
-
-        (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
-        # Don't hold the file
-        os.close(fd)
-
-        with io.open(filename, 'w', encoding=encoding) as f:
-            f.write(self.html)
-
-        return filename
 
     @property
     def cookies(self):

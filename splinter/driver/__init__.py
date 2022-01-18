@@ -695,9 +695,37 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             unique_file (bool): If true, the filename will include a path to
                 the system temp directory and extra characters at the end to
                 ensure the file is unique.
+
+        Returns:
+            str: Full file name of the created screenshot.
         """
         raise NotImplementedError(
             "%s doesn't support taking screenshots." % self.driver_name
+        )
+
+    def html_snapshot(
+        self,
+        name: str = "",
+        suffix: str = ".html",
+        encoding: str = 'utf-8',
+        unique_file: bool = True,
+    ) -> str:
+        """Write the current html to a file.
+
+        Arguments:
+            name (str): File name.
+            suffix (str): File extension.
+            encoding (str): File encoding.
+            unique_file (str): If true, the filename will include a path to
+                the system temp directory and extra characters at the end to
+                ensure the file is unique.
+
+        Returns:
+            str: Full file name of the created html snapshot.
+        """
+
+        raise NotImplementedError(
+            f"{self.driver_name} doesn't support taking screenshots."
         )
 
     @property
