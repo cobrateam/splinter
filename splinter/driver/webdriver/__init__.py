@@ -7,7 +7,6 @@
 import io
 import os
 import re
-import sys
 import tempfile
 import time
 from contextlib import contextmanager
@@ -23,6 +22,7 @@ from selenium.common.exceptions import (
     MoveTargetOutOfBoundsException,
 )
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC  # NOQA: N812
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -32,14 +32,6 @@ from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 
 from splinter.exceptions import ElementDoesNotExist
-
-
-if sys.version_info[0] > 2:
-    _meth_func = "__func__"
-    _func_name = "__name__"
-else:
-    _meth_func = "im_func"
-    _func_name = "func_name"
 
 
 # Patch contextmanager onto Selenium's Alert
@@ -215,22 +207,24 @@ class Windows(object):
         )
 
 
-def _find(self, finder, selector):
+def _find(self, finder, finder_kwargs=None):
     """Search for elements. Returns a list of results.
 
     Arguments:
         finder: The function to use for the element search.
-        selector: The search query.
+        finder_kwargs: Keyword Arguments for the finder function.
 
     Returns:
         list
 
     """
+    finder_kwargs = finder_kwargs or {}
+
     elements = None
     elem_list = []
 
     try:
-        elements = finder(selector)
+        elements = finder(**finder_kwargs)
         if not isinstance(elements, list):
             elements = [elements]
 
@@ -248,7 +242,14 @@ def _find(self, finder, selector):
     return elem_list
 
 
-def find_by(self, finder, selector, original_find=None, original_query=None, wait_time=None):
+def find_by(
+    self,
+    finder,
+    finder_kwargs=None,
+    original_find: str = None,
+    original_query: str = None,
+    wait_time: int = None,
+):
     """Wrapper for finding elements.
 
     Must be attached to a class.
@@ -259,19 +260,19 @@ def find_by(self, finder, selector, original_find=None, original_query=None, wai
     """
     elem_list = []
 
-    func_name = getattr(getattr(finder, _meth_func), _func_name)
+    func_name = getattr(getattr(finder, "__func__"), "__name__")
     find_by = original_find or func_name[func_name.rfind("_by_") + 4:]
-    query = original_query or selector
+    query = original_query or finder_kwargs.get('value')
 
     # Zero second wait time means only check once
     if wait_time == 0:
-        elem_list = _find(self, finder, selector)
+        elem_list = _find(self, finder, finder_kwargs)
     else:
         wait_time = wait_time or self.wait_time
         end_time = time.time() + wait_time
 
         while time.time() < end_time:
-            elem_list = _find(self, finder, selector)
+            elem_list = _find(self, finder, finder_kwargs)
 
             if elem_list:
                 break
@@ -531,8 +532,8 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_css(self, css_selector, wait_time=None):
         return self.find_by(
-            self.driver.find_elements_by_css_selector,
-            css_selector,
+            self.driver.find_elements,
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': css_selector},
             original_find="css",
             original_query=css_selector,
             wait_time=wait_time,
@@ -542,8 +543,8 @@ class BaseWebDriver(DriverAPI):
         original_find = original_find or "xpath"
         original_query = original_query or xpath
         return self.find_by(
-            self.driver.find_elements_by_xpath,
-            xpath,
+            self.driver.find_elements,
+            finder_kwargs={'by': By.XPATH, 'value': xpath},
             original_find=original_find,
             original_query=original_query,
             wait_time=wait_time,
@@ -551,15 +552,17 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_name(self, name, wait_time=None):
         return self.find_by(
-            self.driver.find_elements_by_name,
-            name,
+            self.driver.find_elements,
+            finder_kwargs={'by': By.NAME, 'value': name},
+            original_find='name',
             wait_time=wait_time,
         )
 
     def find_by_tag(self, tag, wait_time=None):
         return self.find_by(
-            self.driver.find_elements_by_tag_name,
-            tag,
+            self.driver.find_elements,
+            finder_kwargs={'by': By.TAG_NAME, 'value': tag},
+            original_find='tag_name',
             wait_time=wait_time,
         )
 
@@ -585,8 +588,9 @@ class BaseWebDriver(DriverAPI):
 
     def find_by_id(self, id, wait_time=None):  # NOQA: A002
         return self.find_by(
-            self.driver.find_element_by_id,
-            id,
+            self.driver.find_element,
+            finder_kwargs={'by': By.ID, 'value': id},
+            original_find='id',
             wait_time=wait_time,
         )
 
@@ -851,16 +855,16 @@ class WebDriverElement(ElementAPI):
 
     def find_by_css(self, selector, wait_time=None):
         return self.find_by(
-            self._element.find_elements_by_css_selector,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
             original_find="css",
             wait_time=wait_time,
         )
 
     def find_by_xpath(self, selector, wait_time=None, original_find="xpath", original_query=None):
         return self.find_by(
-            self._element.find_elements_by_xpath,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.XPATH, 'value': selector},
             original_find=original_find,
             original_query=original_query,
             wait_time=wait_time,
@@ -868,25 +872,26 @@ class WebDriverElement(ElementAPI):
 
     def find_by_name(self, selector, wait_time=None):
         return self.find_by(
-            self._element.find_elements_by_name,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.NAME, 'value': selector},
             original_find="name",
             wait_time=wait_time,
         )
 
     def find_by_tag(self, selector, wait_time=None):
         return self.find_by(
-            self._element.find_elements_by_tag_name,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.TAG_NAME, 'value': selector},
             original_find="tag",
             wait_time=wait_time,
         )
 
     def find_by_value(self, value, wait_time=None):
         selector = '[value="{}"]'.format(value)
+
         return self.find_by(
-            self._element.find_elements_by_css_selector,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
             original_find="value",
             original_query=value,
             wait_time=wait_time,
@@ -895,9 +900,10 @@ class WebDriverElement(ElementAPI):
     def find_by_text(self, text, wait_time=None):
         # Add a period to the xpath to search only inside the parent.
         xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+
         return self.find_by(
-            self._element.find_elements_by_xpath,
-            xpath_str,
+            self._element.find_elements,
+            finder_kwargs={'by': By.XPATH, 'value': xpath_str},
             original_find="text",
             original_query=text,
             wait_time=wait_time,
@@ -905,8 +911,8 @@ class WebDriverElement(ElementAPI):
 
     def find_by_id(self, selector, wait_time=None):
         return self.find_by(
-            self._element.find_elements_by_id,
-            selector,
+            self._element.find_elements,
+            finder_kwargs={'by': By.ID, 'value': selector},
             original_find="id",
             wait_time=wait_time,
         )
