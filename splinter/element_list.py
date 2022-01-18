@@ -7,7 +7,7 @@
 from splinter.exceptions import ElementDoesNotExist
 
 
-class ElementList(object):
+class ElementList:
     """
     List of elements. Each member of the list is (usually) an instance
     of :class:`ElementAPI <splinter.driver.ElementAPI>`.

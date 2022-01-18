@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 
-class FindLinks(object):
+class FindLinks:
     """Contains methods for finding links in a parent.
 
     Accessed through the browser object or an element via the links attribute.

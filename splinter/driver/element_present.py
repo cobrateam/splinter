@@ -1,4 +1,4 @@
-class ElementPresentMixIn(object):
+class ElementPresentMixIn:
     """ Support is_element_present_by_* methods for non-javascript drivers. """
 
     def is_element_present_by_css(self, css_selector, wait_time=None):
