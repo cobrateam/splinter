@@ -8,7 +8,7 @@ import os
 import tempfile
 
 
-class ScreenshotTest(object):
+class ScreenshotTest:
     def test_take_screenshot_no_unique_file(self):
         """When the unique_file parameter is false,
         Then the screenshot filename should match the name parameter exactly.
