@@ -6,8 +6,7 @@
 
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
-from splinter.driver.webdriver import BaseWebDriver, WebDriverElement
-from splinter.driver.webdriver.cookie_manager import CookieManager
+from splinter.driver.webdriver import BaseWebDriver
 
 
 class WebDriver(BaseWebDriver):
@@ -40,10 +39,6 @@ class WebDriver(BaseWebDriver):
             options.add_argument("--headless")
             options.add_argument("--disable-gpu")
 
-        self.driver = Chrome(options=options, **kwargs)
+        driver = Chrome(options=options, **kwargs)
 
-        self.element_class = WebDriverElement
-
-        self._cookie_manager = CookieManager(self.driver)
-
-        super(WebDriver, self).__init__(wait_time)
+        super(WebDriver, self).__init__(driver, wait_time)

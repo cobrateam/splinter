@@ -30,7 +30,7 @@ from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
-
+from splinter.driver.webdriver.cookie_manager import CookieManager
 from splinter.exceptions import ElementDoesNotExist
 
 
@@ -284,10 +284,16 @@ class BaseWebDriver(DriverAPI):
     driver = None
     find_by = find_by
 
-    def __init__(self, wait_time=2):
+    def __init__(self, driver=None, wait_time=2):
         self.wait_time = wait_time
 
         self.links = FindLinks(self)
+
+        self.driver = driver
+
+        self.element_class = WebDriverElement
+
+        self._cookie_manager = CookieManager(self.driver)
 
     def __enter__(self):
         return self
