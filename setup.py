@@ -8,15 +8,29 @@ import os
 from setuptools import setup, find_packages
 
 
-def read(filename):
+def read(filename: str) -> str:
     path = os.path.join(os.path.dirname(__file__), filename)
     with open(path, 'r') as f:
         return f.read()
 
 
+def get_version_data() -> dict:
+    data = {}
+
+    path = os.path.join(os.path.dirname(__file__), 'splinter', 'version.py')
+
+    with open(path) as fp:
+        exec(fp.read(), data)
+
+    return data
+
+
+version_data = get_version_data()
+
+
 setup(
     name="splinter",
-    version="0.17.0",
+    version=version_data['__version__'],
     url="https://github.com/cobrateam/splinter",
     description="browser abstraction for web acceptance testing",
     long_description=read('README.rst'),

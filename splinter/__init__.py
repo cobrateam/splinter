@@ -3,6 +3,4 @@
 # license that can be found in the LICENSE file.
 
 from splinter.browser import Browser  # NOQA
-
-
-__version__ = "0.16.0"
+from splinter.version import __version_info__, __version__  # NOQA
