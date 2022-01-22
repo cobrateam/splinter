@@ -10,7 +10,7 @@ from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
 
 
-class Person(object):
+class Person:
     """Very simple class, just for tests"""
 
     def __init__(self):

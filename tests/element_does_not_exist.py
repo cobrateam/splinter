@@ -7,7 +7,7 @@
 from splinter.exceptions import ElementDoesNotExist
 
 
-class ElementDoestNotExistTest(object):
+class ElementDoestNotExistTest:
     def test_element_query_should_raises_when_element_first_doest_exists(self):
         with self.assertRaises(ElementDoesNotExist):
             self.browser.find_by_css(".element-that-dont-exists").first

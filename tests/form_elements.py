@@ -31,7 +31,7 @@ def skip_if_django(f):
     return wrapper
 
 
-class FormElementsTest(object):
+class FormElementsTest:
     def test_fill(self):
         self.browser.fill("query", "LT-CS-01/2018")
         value = self.browser.find_by_name("query").value

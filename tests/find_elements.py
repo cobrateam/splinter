@@ -8,7 +8,7 @@ from splinter.driver import ElementAPI
 from splinter.element_list import ElementList
 
 
-class FindElementsTest(object):
+class FindElementsTest:
     def test_finding_by_css(self):
         value = self.browser.find_by_css("h1").value
         self.assertEqual("Example Header", value)

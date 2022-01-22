@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class IFrameElementsTest(object):
+class IFrameElementsTest:
     def test_can_work_on_iframes_by_name(self):
         """can work on iframes and switch back to the page"""
         with self.browser.get_iframe("iframemodal-name") as frame:

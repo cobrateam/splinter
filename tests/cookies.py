@@ -6,7 +6,7 @@
 import time
 
 
-class CookiesTest(object):
+class CookiesTest:
     def test_create_and_access_a_cookie(self):
         """Should be able to create and access a cookie"""
         browser = self.get_new_browser()

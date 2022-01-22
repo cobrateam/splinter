@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class IsElementPresentNoJSTest(object):
+class IsElementPresentNoJSTest:
     def test_is_element_present_by_css(self):
         "should is element present by css verify if element is present"
         self.assertTrue(self.browser.is_element_present_by_css("h1"))
