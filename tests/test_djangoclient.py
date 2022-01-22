@@ -9,6 +9,8 @@ import sys
 import time
 import unittest
 
+import pytest
+
 import django
 from splinter import Browser
 from .base import BaseBrowserTests, get_browser
