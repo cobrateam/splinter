@@ -83,6 +83,28 @@ class FindElementsTest:
         link = self.browser.links.find_by_partial_text("FOO")[0]
         self.assertEqual("http://localhost:5000/foo", link["href"])
 
+    def test_find_links_by_partial_text_nested_elements(self):
+        """
+        When text is split in multiple child elements of a parent link element
+        Then the parent link element is found
+        """
+        expected = "http://localhost:5000/nested"
+
+        link = self.browser.links.find_by_partial_text("Nested text")[0]
+        assert expected == link['href']
+
+        link = self.browser.links.find_by_partial_text("in a link")[0]
+        assert expected == link['href']
+
+        link = self.browser.links.find_by_partial_text("Nested text in")[0]
+        assert expected == link['href']
+
+        link = self.browser.links.find_by_partial_text("text in a link")[0]
+        assert expected == link['href']
+
+        link = self.browser.links.find_by_partial_text("Nested text in a link")[0]
+        assert expected == link['href']
+
     def test_finding_last_element_by_css(self):
         value = self.browser.find_by_css("h1").last.value
         self.assertEqual("Example Last Header", value)
