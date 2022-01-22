@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class IsElementPresentTest(object):
+class IsElementPresentTest:
     def test_is_element_present_by_css(self):
         "should is element present by css verify if element is present"
         self.browser.find_by_css(".add-async-element").click()

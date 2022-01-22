@@ -7,7 +7,7 @@
 from .fake_webapp import EXAMPLE_APP
 
 
-class SlowlyTypeTest(object):
+class SlowlyTypeTest:
     def test_simple_type(self):
         "should provide a away to change field value using type method"
         self.browser.visit(EXAMPLE_APP)

@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class ClickElementsTest(object):
+class ClickElementsTest:
     def test_click_links(self):
         self.browser.links.find_by_text("FOO").click()
         self.assertIn("BAR!", self.browser.html)

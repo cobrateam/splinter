@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class IsElementVisibleTest(object):
+class IsElementVisibleTest:
     def test_is_element_visible_by_css(self):
         "should is element visible by css verify if element is visible"
         self.browser.find_by_css(".show-invisible-element").click()

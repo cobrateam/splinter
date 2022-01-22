@@ -8,11 +8,10 @@ import os
 import sys
 import time
 import unittest
-from urllib import parse
 
 import django
 from splinter import Browser
-from .base import BaseBrowserTests
+from .base import BaseBrowserTests, get_browser
 from .fake_webapp import EXAMPLE_APP
 from .is_element_present_nojs import IsElementPresentNoJSTest
 
@@ -27,22 +26,14 @@ django.setup()
 class DjangoClientDriverTest(
     BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase
 ):
-    @classmethod
-    def setUpClass(cls):
-        components = parse.urlparse(EXAMPLE_APP)
-        cls.browser = Browser(
-            "django",
-            wait_time=0.1,
-            client_SERVER_NAME=components.hostname,
-            client_SERVER_PORT=components.port,
-        )
+    @pytest.fixture(autouse=True, scope='class')
+    def setup_browser(self, request):
+        request.cls.browser = get_browser('django')
+        request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self):
         self.browser.visit(EXAMPLE_APP)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
     def test_should_support_with_statement(self):
         with Browser("django") as internet:

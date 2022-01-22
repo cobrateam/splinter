@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 
-class ElementTest(object):
+class ElementTest:
     def test_element_has_class_when_element_has_the_class_as_first_class(self):
         self.assertTrue(
             self.browser.find_by_css(".has-class-first").has_class("has-class-first")

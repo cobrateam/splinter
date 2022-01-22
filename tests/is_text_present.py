@@ -6,7 +6,7 @@
 from .fake_webapp import EXAMPLE_APP
 
 
-class IsTextPresentTest(object):
+class IsTextPresentTest:
     def test_is_text_present(self):
         "should verify if text is present"
         self.assertTrue(self.browser.is_text_present("Example Header"))
