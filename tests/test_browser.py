@@ -6,7 +6,6 @@
 
 
 import builtins
-import unittest
 from importlib import reload
 
 from splinter.exceptions import DriverNotFoundError
@@ -15,54 +14,48 @@ from selenium.common.exceptions import WebDriverException
 
 import pytest
 
-from .fake_webapp import EXAMPLE_APP
+
+def patch_driver(pattern):
+    old_import = builtins.__import__
+
+    def custom_import(name, *args, **kwargs):
+        if pattern in name:
+            return None
+        return old_import(name, *args, **kwargs)
+
+    builtins.__import__ = custom_import
+
+    return old_import
 
 
-class BrowserTest(unittest.TestCase):
-    def patch_driver(self, pattern):
-        self.old_import = builtins.__import__
+def unpatch_driver(module, old_import):
+    builtins.__import__ = old_import
+    reload(module)
 
-        def custom_import(name, *args, **kwargs):
-            if pattern in name:
-                return None
-            return self.old_import(name, *args, **kwargs)
 
-        builtins.__import__ = custom_import
+def test_browser_can_still_be_imported_from_splinters_browser_module():
+    from splinter.browser import Browser  # NOQA
 
-    def unpatch_driver(self, module):
-        builtins.__import__ = self.old_import
-        reload(module)
 
-    def browser_can_change_user_agent(self, webdriver):
+def test_browser_should_work_even_without_zope_testbrowser():
+    old_import = patch_driver("zope")
+    from splinter import browser
+
+    reload(browser)
+    assert None is browser._DRIVERS['zope.testbrowser']
+
+    unpatch_driver(browser, old_import)
+
+
+def test_browser_should_raise_an_exception_when_driver_is_not_found():
+    with pytest.raises(DriverNotFoundError):
         from splinter import Browser
 
-        browser = Browser(driver_name=webdriver, user_agent="iphone")
-        browser.visit(EXAMPLE_APP + "useragent")
-        result = "iphone" in browser.html
-        browser.quit()
-
-        return result
-
-    def test_brower_can_still_be_imported_from_splinters_browser_module(self):
-        from splinter.browser import Browser  # NOQA
-
-    def test_should_work_even_without_zope_testbrowser(self):
-        self.patch_driver("zope")
-        from splinter import browser
-
-        reload(browser)
-        self.assertNotIn("zope.testbrowser", browser._DRIVERS)
-        self.unpatch_driver(browser)
-
-    def test_should_raise_an_exception_when_browser_driver_is_not_found(self):
-        with self.assertRaises(DriverNotFoundError):
-            from splinter import Browser
-
-            Browser("unknown-driver")
+        Browser("unknown-driver")
 
 
 @pytest.mark.parametrize('browser_name', ['chrome', 'firefox'])
-def test_local_driver_not_present(browser_name):
+def test_browser_local_driver_not_present(browser_name):
     """When chromedriver/geckodriver are not present on the system."""
     from splinter import Browser
 
@@ -72,7 +65,7 @@ def test_local_driver_not_present(browser_name):
     assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
 
 
-def test_driver_retry_count():
+def test_browser_driver_retry_count():
     """Checks that the retry count is being used"""
     from splinter.browser import _DRIVERS
     from splinter import Browser
@@ -96,3 +89,19 @@ def test_driver_retry_count():
 
     del test_retry_count
     del _DRIVERS["test_driver"]
+
+
+def test_browser_log_missing_drivers(caplog):
+    """Missing drivers are logged at the debug level."""
+    import logging
+    caplog.set_level(logging.DEBUG)
+    old_import = patch_driver("flask")
+    from splinter import browser
+
+    reload(browser)
+    unpatch_driver(browser, old_import)
+
+    assert 1 == len(caplog.records)
+    record = caplog.records[0]
+    assert record.levelname == 'DEBUG'
+    assert 'Import Warning' in record.message
