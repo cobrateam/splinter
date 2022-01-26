@@ -1,5 +1,5 @@
 Flask==2.0.2
-coverage==6.2
+coverage==6.3
 argparse
 Django>=2.0.6
 Pillow==9.0.0
