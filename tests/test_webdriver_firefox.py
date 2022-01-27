@@ -66,11 +66,14 @@ def test_preference_set(request):
     browser = get_browser('firefox', profile_preferences=preferences)
     request.addfinalizer(browser.quit)
 
-    preferences = browser.driver.profile.default_preferences
-    assert "dom.max_script_run_time" in preferences
+    try:
+        preferences = browser.driver.profile.default_preferences
+        assert "dom.max_script_run_time" in preferences
 
-    value = preferences.get("dom.max_script_run_time")
-    assert int(value) == 360
+        value = preferences.get("dom.max_script_run_time")
+        assert int(value) == 360
+    except:  # NOQA
+        raise Exception(browser.driver.capabilities)
 
 
 def test_capabilities_set(request):
