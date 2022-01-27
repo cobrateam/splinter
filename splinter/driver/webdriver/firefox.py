@@ -8,7 +8,6 @@ from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 
 from splinter.driver.webdriver import BaseWebDriver
-from splinter.driver.webdriver.cookie_manager import CookieManager
 
 
 class WebDriver(BaseWebDriver):
