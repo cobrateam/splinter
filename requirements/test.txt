@@ -3,5 +3,5 @@ coverage==6.3.2
 argparse
 Django>=2.0.6
 Pillow==9.0.1
-pytest==7.0.1
+pytest==7.1.0
 pytest-xdist==2.5.0
