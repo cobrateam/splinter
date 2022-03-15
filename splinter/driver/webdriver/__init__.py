@@ -1007,18 +1007,9 @@ class WebDriverElement(ElementAPI):
                                       'Please use "pip install Pillow" install it.')
 
         full_screen_png = self.driver.get_screenshot_as_png()
-
         full_screen_bytes = io.BytesIO(full_screen_png)
 
         im = Image.open(full_screen_bytes)
-        im_width, im_height = im.size[0], im.size[1]
-        window_size = self.driver.get_window_size()
-        window_width = window_size['width']
-
-        ratio = im_width * 1.0 / window_width
-        height_ratio = im_height / ratio
-
-        im = im.resize((int(window_width), int(height_ratio)))
 
         location = self._element.location
         x, y = location['x'], location['y']
