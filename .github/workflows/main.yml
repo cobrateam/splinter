@@ -106,4 +106,4 @@ jobs:
 
       - name: Run Selenium 4 tests
         run: |
-          tox -e tests_selenium4 -- -n 4 tests/test_browser.py tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
+          tox -e tests_selenium4 -- -n 4 tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;

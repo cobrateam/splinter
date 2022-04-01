@@ -5,55 +5,69 @@
 # license that can be found in the LICENSE file.
 
 
+import logging
+
 from http.client import HTTPException
 
 from urllib3.exceptions import MaxRetryError
 
 from selenium.common.exceptions import WebDriverException
 
-from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
-from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
-from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
 from splinter.exceptions import DriverNotFoundError
 
 
 _DRIVERS = {
-    "firefox": FirefoxWebDriver,
-    "remote": RemoteWebDriver,
-    "chrome": ChromeWebDriver,
+    'chrome': None,
+    'edge': None,
+    'firefox': None,
+    'remote': None,
+    'django': None,
+    'flask': None,
+    'zope.testbrowser': None,
 }
+
+try:
+    from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
+    from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
+    from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
+
+    _DRIVERS['chrome'] = ChromeWebDriver
+    _DRIVERS['firefox'] = FirefoxWebDriver
+    _DRIVERS['remote'] = RemoteWebDriver
+except ImportError as e:
+    logging.debug(f'Import Warning: {e}')
 
 
 try:
     from splinter.driver.webdriver.edge import WebDriver as EdgeWebDriver
 
     _DRIVERS["edge"] = EdgeWebDriver
-except ImportError:
-    pass
+except ImportError as e:
+    logging.debug(f'Import Warning: {e}')
 
 
 try:
     from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
     _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
-except ImportError:
-    pass
+except ImportError as e:
+    logging.debug(f'Import Warning: {e}')
 
 try:
     import django  # noqa
     from splinter.driver.djangoclient import DjangoClient
 
     _DRIVERS["django"] = DjangoClient
-except ImportError:
-    pass
+except ImportError as e:
+    logging.debug(f'Import Warning: {e}')
 
 try:
     import flask  # noqa
     from splinter.driver.flaskclient import FlaskClient
 
     _DRIVERS["flask"] = FlaskClient
-except ImportError:
-    pass
+except ImportError as e:
+    logging.debug(f'Import Warning: {e}')
 
 
 def get_driver(driver, retry_count=3, *args, **kwargs):
