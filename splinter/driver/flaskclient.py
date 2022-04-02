@@ -82,7 +82,7 @@ class FlaskClient(LxmlDriver):
             pass
         self.status_code = StatusCode(self._response.status_code, "")
 
-    def _do_method(self, method, url, data=None):
+    def _do_method(self, method, url, data=None, record_url=True):
 
         # Set the initial URL and client/HTTP method
         self._url = url
@@ -90,7 +90,11 @@ class FlaskClient(LxmlDriver):
 
         # Continue to make requests until a non 30X response is recieved
         while True:
-            self._last_urls.append(url)
+            if record_url:
+                self._last_url_index += 1
+                # Going to a new URL always crops the url history
+                self._last_urls = self._last_urls[:self._last_url_index]
+                self._last_urls.append(url)
 
             # If we're making a GET request set the data against the URL as a
             # query.
@@ -128,7 +132,7 @@ class FlaskClient(LxmlDriver):
             # If the response was in the `30X` range get next URL to request
             url = self._response.headers["Location"]
 
-        self._url = self._last_urls[-1]
+        self._url = url
         self._post_load()
 
     def submit_data(self, form):

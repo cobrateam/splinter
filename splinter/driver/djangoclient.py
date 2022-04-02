@@ -105,12 +105,18 @@ class DjangoClient(LxmlDriver):
             extra.update(self._custom_headers)
         return extra
 
-    def _do_method(self, method, url, data=None):
+    def _do_method(self, method, url, data=None, record_url=True):
         self._url = url
         extra = self._set_extra_params(url)
         func_method = getattr(self._browser, method.lower())
         self._response = func_method(url, data=data, follow=True, **extra)
-        self._last_urls.append(url)
+
+        if record_url:
+            self._last_url_index += 1
+            # Going to a new URL always crops the url history
+            self._last_urls = self._last_urls[:self._last_url_index]
+            self._last_urls.append(url)
+
         self._handle_redirect_chain()
         self._post_load()
 

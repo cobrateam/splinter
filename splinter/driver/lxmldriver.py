@@ -29,6 +29,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         self.wait_time = wait_time
         self._history = []
         self._last_urls = []
+        self._last_url_index = -1  # Empty
         self._forms = {}
 
         self.links = FindLinks(self)
@@ -95,14 +96,14 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
 
     def back(self):
-        self._last_urls.insert(0, self.url)
-        self.visit(self._last_urls[1])
+        if self._last_url_index >= 1:
+            self._last_url_index -= 1
+            self._do_method("get", self._last_urls[self._last_url_index], record_url=False)
 
     def forward(self):
-        try:
-            self.visit(self._last_urls.pop())
-        except IndexError:
-            pass
+        if (self._last_url_index >= 0) and (self._last_url_index < len(self._last_urls) - 1):
+            self._last_url_index += 1
+            self._do_method("get", self._last_urls[self._last_url_index], record_url=False)
 
     def reload(self):
         self.visit(self._url)

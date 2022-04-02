@@ -7,6 +7,9 @@ from multiprocessing import Process
 from urllib.request import urlopen
 
 from tests.fake_webapp import start_flask_app, EXAMPLE_APP
+from tests.get_browser import get_browser
+
+import pytest
 
 
 class Env(object):
@@ -64,3 +67,12 @@ def pytest_configure(config):
 
 def pytest_unconfigure(config):
     stop_server()
+
+
+@pytest.fixture
+def get_new_browser(request):
+    def new_browser(browser_name):
+        browser = get_browser(browser_name)
+        request.addfinalizer(browser.quit)
+        return browser
+    return new_browser

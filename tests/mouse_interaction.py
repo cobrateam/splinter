@@ -52,9 +52,11 @@ class MouseInteractionTest:
         self.browser.visit(EXAMPLE_APP)
         element = self.browser.find_by_css(".right-clicable")
         element.right_click()
-        self.assertEqual(
-            self.browser.find_by_css(".right-clicable").text, "right clicked"
-        )
+
+        result_1 = self.browser.find_by_text("right clicked", wait_time=5).text
+        result_2 = self.browser.find_by_css(".right-clicable").text
+
+        assert result_1 == result_2 == "right clicked"
 
     def test_drag_and_drop(self):
         """
