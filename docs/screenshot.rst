@@ -34,12 +34,6 @@ Take a full view screenshot:
 +++++++++++++++++++++++
 Take element screenshot
 +++++++++++++++++++++++
-To use this function, install the Pillow dependency:
-
-::
-
-    pip install Pillow
-
 If the element is in the current view:
 
 .. highlight:: python
@@ -48,7 +42,8 @@ If the element is in the current view:
 
     browser = Browser()
     browser.visit('http://example.com')
-    screenshot_path = browser.find_by_xpath('xpath_rule').first.screenshot('absolute_path/your_screenshot.png')
+    element = browser.find_by_xpath('xpath_rule').first
+    screenshot_path = element.screenshot('absolute_path/your_screenshot.png')
 
 If the element is not in the current view:
 
@@ -58,7 +53,8 @@ If the element is not in the current view:
 
     browser = Browser()
     browser.visit('http://example.com')
-    screenshot_path = browser.find_by_xpath('xpath_rule').first.screenshot('absolute_path/your_screenshot.png', full=True)
+    element = browser.find_by_xpath('xpath_rule').first
+    screenshot_path = element.screenshot('absolute_path/your_screenshot.png', full=True)
 
 
 ++++++++++++++++++
