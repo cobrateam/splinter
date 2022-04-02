@@ -3,24 +3,20 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import platform
 import time
-import os
-from urllib import parse
 
 import pytest
-from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
 
-from splinter import Browser
+from selenium.common.exceptions import WebDriverException
 
 from .async_finder import AsyncFinderTests
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest
 from .element_does_not_exist import ElementDoestNotExistTest
-from .fake_webapp import app, EXAMPLE_APP
+from .fake_webapp import EXAMPLE_APP
 from .find_elements import FindElementsTest
 from .form_elements import FormElementsTest
-from .iframes import IFrameElementsTest
 from .element import ElementTest
 from .is_element_present import IsElementPresentTest
 from .is_element_visible import IsElementVisibleTest
@@ -29,59 +25,15 @@ from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
 from .html_snapshot import HTMLSnapshotTest
 from .type import SlowlyTypeTest
+from .get_browser import get_browser
 
 
-def get_browser(browser_name, **kwargs):
-    if browser_name in ['chrome', 'chrome_fullscreen']:
-        if browser_name == 'chrome_fullscreen':
-            kwargs['fullscreen'] = True
-        options = webdriver.chrome.options.Options()
-        options.add_argument("--disable-dev-shm-usage")
+supported_browsers = [
+    'chrome', 'firefox', 'chrome_fullscreen', 'firefox_fullscreen',
+]
 
-        return Browser(
-            "chrome",
-            headless=True,
-            options=options,
-            **kwargs
-        )
-
-    elif browser_name in ['firefox', 'firefox_fullscreen']:
-        if browser_name == 'firefox_fullscreen':
-            kwargs['fullscreen'] = True
-
-        return Browser(
-            "firefox",
-            headless=True,
-            **kwargs
-        )
-
-    elif browser_name == 'remote':
-        return Browser("remote")
-
-    elif browser_name == 'django':
-        components = parse.urlparse(EXAMPLE_APP)
-        return Browser(
-            "django",
-            wait_time=0.1,
-            client_SERVER_NAME=components.hostname,
-            client_SERVER_PORT=components.port,
-        )
-
-    elif browser_name == 'flask':
-        return Browser("flask", app=app, wait_time=0.1)
-
-    elif browser_name == 'zope.testbrowser':
-        return Browser("zope.testbrowser", wait_time=0.1)
-
-    elif browser_name == 'edge':
-        # Github Actions Windows EdgeDriver path
-        driver_path = os.getenv('EDGEWEBDRIVER')
-        if driver_path:
-            kwargs['executable_path'] = driver_path + '\msedgedriver.exe'  # NOQA
-
-        return Browser('edge', headless=True, **kwargs)
-
-    raise ValueError('Unknown browser name')
+if platform.system() == 'Windows':
+    supported_browsers = ['edge']
 
 
 class BaseBrowserTests(
@@ -172,7 +124,6 @@ class BaseBrowserTests(
 
 class WebDriverTests(
     BaseBrowserTests,
-    IFrameElementsTest,
     ElementDoestNotExistTest,
     IsElementPresentTest,
     IsElementVisibleTest,
