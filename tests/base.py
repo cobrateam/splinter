@@ -20,7 +20,6 @@ from .element import ElementTest
 from .is_element_present import IsElementPresentTest
 from .is_element_visible import IsElementVisibleTest
 from .is_text_present import IsTextPresentTest
-from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
 from .type import SlowlyTypeTest
 from .get_browser import get_browser
@@ -131,7 +130,6 @@ class WebDriverTests(
     ElementDoestNotExistTest,
     IsElementPresentTest,
     IsElementVisibleTest,
-    MouseInteractionTest,
     ScreenshotTest,
 ):
     def test_status_code(self):
