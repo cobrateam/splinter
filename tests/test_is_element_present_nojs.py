@@ -111,7 +111,7 @@ def test_is_element_not_present_by_tag_returns_false_if_element_is_present(get_n
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    assert browser.is_element_not_present_by_tag("h1")
+    assert not browser.is_element_not_present_by_tag("h1")
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
