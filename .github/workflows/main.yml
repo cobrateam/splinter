@@ -61,11 +61,13 @@ jobs:
           echo "Start Selenium Server"
           xvfb-run java -jar selenium-server.jar > /dev/null 2>&1 & sleep 3 & tox -e tests -- tests/test_webdriver_remote.py;
 
-      # Runs a set of commands using the runners shell
-      - name: Run tests
+      - name: Run non-driver tests
         run: |
-          tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_request_handler.py tests/test_xpath_concat.py tests/test_zopetestbrowser.py tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
+          tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_zopetestbrowser.py tests/test_request_handler.py tests/test_xpath_concat.py
 
+      - name: Run Selenium tests
+        run: |
+          tox -e tests -- -n 4 tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
 
   selenium4:
     runs-on: ubuntu-latest
@@ -106,4 +108,4 @@ jobs:
 
       - name: Run Selenium 4 tests
         run: |
-          tox -e tests_selenium4 -- -n 4 tests/test_webdriver.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
+          tox -e tests_selenium4 -- -n 4 tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;

@@ -10,7 +10,6 @@ import pytest
 
 from selenium.common.exceptions import WebDriverException
 
-from .async_finder import AsyncFinderTests
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest
 from .element_does_not_exist import ElementDoestNotExistTest
@@ -23,7 +22,6 @@ from .is_element_visible import IsElementVisibleTest
 from .is_text_present import IsTextPresentTest
 from .mouse_interaction import MouseInteractionTest
 from .screenshot import ScreenshotTest
-from .html_snapshot import HTMLSnapshotTest
 from .type import SlowlyTypeTest
 from .get_browser import get_browser
 
@@ -65,13 +63,19 @@ class BaseBrowserTests(
         self.assertEqual(EXAMPLE_APP, self.browser.url)
 
     def test_can_forward_on_history(self):
-        """should be able to forward history"""
-        self.browser.visit(EXAMPLE_APP)
-        next_url = "{}iframe".format(EXAMPLE_APP)
-        self.browser.visit(next_url)
-        self.browser.back()
-        self.browser.forward()
-        self.assertEqual(next_url, self.browser.url)
+        """User can forward history"""
+        next_url = f"{EXAMPLE_APP}iframe"
+
+        browser = self.get_new_browser()
+
+        browser.visit(EXAMPLE_APP)
+        browser.visit(next_url)
+        browser.back()
+
+        browser.forward()
+        assert next_url == browser.url
+
+        browser.quit()
 
     def test_should_have_html(self):
         self.browser.visit(EXAMPLE_APP)
@@ -127,10 +131,8 @@ class WebDriverTests(
     ElementDoestNotExistTest,
     IsElementPresentTest,
     IsElementVisibleTest,
-    AsyncFinderTests,
     MouseInteractionTest,
     ScreenshotTest,
-    HTMLSnapshotTest,
 ):
     def test_status_code(self):
         with self.assertRaises(NotImplementedError):

@@ -5,19 +5,9 @@
 # license that can be found in the LICENSE file.
 
 from .base import supported_browsers
-from .get_browser import get_browser
 from .fake_webapp import EXAMPLE_APP
 
 import pytest
-
-
-@pytest.fixture
-def get_new_browser(request):
-    def new_browser(browser_name):
-        browser = get_browser(browser_name)
-        request.addfinalizer(browser.quit)
-        return browser
-    return new_browser
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
