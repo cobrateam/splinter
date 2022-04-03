@@ -15,7 +15,6 @@ import django
 from splinter import Browser
 from .base import BaseBrowserTests, get_browser
 from .fake_webapp import EXAMPLE_APP
-from .is_element_present_nojs import IsElementPresentNoJSTest
 
 
 sys.path.append("tests/fake_django")
@@ -26,7 +25,7 @@ django.setup()
 
 
 class DjangoClientDriverTest(
-    BaseBrowserTests, IsElementPresentNoJSTest, unittest.TestCase
+    BaseBrowserTests, unittest.TestCase
 ):
     @pytest.fixture(autouse=True, scope='class')
     def setup_browser(self, request):
