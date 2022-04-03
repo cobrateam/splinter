@@ -987,7 +987,7 @@ class WebDriverElement(ElementAPI):
             ori_window_size = self.driver.get_window_size()
             self._full_screen()
 
-        target = self.screenshot_as_png()
+        self._element.screenshot(filename)
 
         if full:
             # Restore screen size
@@ -995,42 +995,7 @@ class WebDriverElement(ElementAPI):
             height = ori_window_size.get('height')
             self.driver.set_window_size(width, height)
 
-        target.save(filename)
-
         return filename
-
-    def screenshot_as_png(self):
-        try:
-            from PIL import Image
-        except ImportError:
-            raise NotImplementedError('Element screenshot need the Pillow dependency. '
-                                      'Please use "pip install Pillow" install it.')
-
-        full_screen_png = self.driver.get_screenshot_as_png()
-
-        full_screen_bytes = io.BytesIO(full_screen_png)
-
-        im = Image.open(full_screen_bytes)
-        im_width, im_height = im.size[0], im.size[1]
-        window_size = self.driver.get_window_size()
-        window_width = window_size['width']
-
-        ratio = im_width * 1.0 / window_width
-        height_ratio = im_height / ratio
-
-        im = im.resize((int(window_width), int(height_ratio)))
-
-        location = self._element.location
-        x, y = location['x'], location['y']
-
-        pic_size = self._element.size
-        w, h = pic_size['width'], pic_size['height']
-
-        box = x, y, x + w, y + h
-        box = [int(i) for i in box]
-        target = im.crop(box)
-
-        return target
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
