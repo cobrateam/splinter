@@ -1,4 +1,4 @@
-Flask==2.0.3
+Flask==2.1.1
 coverage==6.3.2
 argparse
 Django>=2.0.6
