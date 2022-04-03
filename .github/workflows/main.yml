@@ -63,7 +63,7 @@ jobs:
 
       - name: Run non-driver tests
         run: |
-          tox -e tests -- -n 4 tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_zopetestbrowser.py tests/test_request_handler.py tests/test_xpath_concat.py
+          tox -e tests -- -n 4 tests/test_is_element_present_nojs.py tests/test_browser.py tests/test_djangoclient.py tests/test_element_list.py tests/test_flaskclient.py tests/test_zopetestbrowser.py tests/test_request_handler.py tests/test_xpath_concat.py
 
       - name: Run Selenium tests
         run: |
