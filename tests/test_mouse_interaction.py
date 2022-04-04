@@ -1,6 +1,7 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import time
 
 from .base import supported_browsers
 from .fake_webapp import EXAMPLE_APP
@@ -74,6 +75,7 @@ def test_right_click(browser_name, get_new_browser):
     element = browser.find_by_css(".right-clicable")
     element.right_click()
 
+    time.sleep(2)
     result_1 = browser.find_by_text("right clicked", wait_time=5).text
     result_2 = browser.find_by_css(".right-clicable").text
 
