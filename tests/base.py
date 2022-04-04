@@ -18,7 +18,6 @@ from .find_elements import FindElementsTest
 from .form_elements import FormElementsTest
 from .element import ElementTest
 from .is_element_present import IsElementPresentTest
-from .is_element_visible import IsElementVisibleTest
 from .is_text_present import IsTextPresentTest
 from .type import SlowlyTypeTest
 from .get_browser import get_browser
@@ -128,7 +127,6 @@ class WebDriverTests(
     BaseBrowserTests,
     ElementDoestNotExistTest,
     IsElementPresentTest,
-    IsElementVisibleTest,
 ):
     def test_status_code(self):
         with self.assertRaises(NotImplementedError):
