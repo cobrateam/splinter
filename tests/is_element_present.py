@@ -143,7 +143,8 @@ class IsElementPresentTest:
     def test_is_element_present_by_id(self):
         "should is element present by id verify if element is present"
         self.browser.find_by_css(".add-async-element").click()
-        self.assertTrue(self.browser.is_element_present_by_id("async-header"))
+        result = self.browser.is_element_present_by_id("async-header", wait_time=5)
+        assert result
 
     def test_is_element_present_by_id_using_a_custom_wait_time(self):
         "should is element present by id verify if element is present using a custom wait time"

@@ -3,6 +3,7 @@
 # Copyright 2015 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import time
 
 from .base import supported_browsers
 from .fake_webapp import EXAMPLE_APP
@@ -14,9 +15,18 @@ import pytest
 def test_lists_all_windows_as_window_instances(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
+
     browser.find_by_id("open-popup").click()
 
-    assert 2 == len(browser.windows)
+    # Wait for popup to open
+    windows_count = 0
+    timeout = time.time() + 10
+    while time.time() <= timeout:
+        windows_count = len(browser.windows)
+        if 2 == windows_count:
+            break
+
+    assert 2 == windows_count
 
     for window, handle in zip(
         browser.windows, browser.driver.window_handles
