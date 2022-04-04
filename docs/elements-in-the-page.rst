@@ -41,7 +41,7 @@ IMPORTANT: These methods return the first element always.
 
 ::
 
-    browser.click_link_by_href('http://www.the_site.com/my_link')
+    browser.links.find_by_href('http://www.the_site.com/my_link').click()
 
 or
 
@@ -49,7 +49,7 @@ or
 
 ::
 
-    browser.click_link_by_partial_href('my_link')
+    browser.links.find_by_partial_href('my_link').click()
 
 or
 
@@ -57,7 +57,7 @@ or
 
 ::
 
-    browser.click_link_by_text('my link')
+    browser.links.find_by_text('my link').click()
 
 or
 
@@ -65,15 +65,7 @@ or
 
 ::
 
-    browser.click_link_by_partial_text('part of link text')
-
-or
-
-.. highlight:: python
-
-::
-
-    browser.click_link_by_id('link_id')
+    browser.links.find_by_partial_text('part of link text').click()
 
 
 Clicking buttons
@@ -86,14 +78,6 @@ You can click in buttons. Splinter follows any redirects, and submits forms asso
 ::
 
     browser.find_by_name('send').first.click()
-
-or
-
-.. highlight:: python
-
-::
-
-    browser.find_link_by_text('my link').first.click()
 
 
 Interacting with forms
@@ -184,4 +168,3 @@ You can invoke any ``Element`` method on ``ElementList`` and it will be proxied 
 
     assert browser.find_by_css('a.banner').first.visible
     assert browser.find_by_css('a.banner').visible
-

@@ -17,23 +17,3 @@ class ClickElementsTest:
     def test_click_input_by_css_selector(self):
         self.browser.find_by_css('input[name="send"]').click()
         self.assertIn("My name is: Master Splinter", self.browser.html)
-
-    def test_click_link_by_href(self):
-        self.browser.click_link_by_href("http://localhost:5000/foo")
-        self.assertIn("BAR!", self.browser.html)
-
-    def test_click_link_by_partial_href(self):
-        self.browser.click_link_by_partial_href("5000/foo")
-        self.assertIn("BAR!", self.browser.html)
-
-    def test_click_link_by_text(self):
-        self.browser.click_link_by_text("FOO")
-        self.assertIn("BAR!", self.browser.html)
-
-    def test_click_link_by_partial_text(self):
-        self.browser.click_link_by_partial_text("wordier")
-        self.assertIn("BAR!", self.browser.html)
-
-    def test_click_link_by_id(self):
-        self.browser.click_link_by_id("foo")
-        self.assertIn("BAR!", self.browser.html)
