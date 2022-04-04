@@ -224,57 +224,6 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by tag." % self.driver_name
         )
 
-    def find_link_by_href(self, href):
-        """Find all elements of a given tag in current page.
-
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
-
-        Arguments:
-            href (str): href to use in the search query.
-        """
-        raise NotImplementedError(
-            "%s doesn't support finding links by href." % self.driver_name
-        )
-
-    def find_link_by_partial_href(self, partial_href):
-        """
-        Find links by looking for a partial ``str`` in their href attribute.
-
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
-
-        Arguments:
-            partial_href (str): partial_href to use in the search query.
-        """
-        raise NotImplementedError(
-            "%s doesn't support finding links by partial href." % self.driver_name
-        )
-
-    def find_link_by_text(self, text):
-        """
-        Find links by querying for their text.
-
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
-
-        Arguments:
-            text (str): text to use in the search query.
-        """
-        raise NotImplementedError(
-            "%s doesn't support finding links by text." % self.driver_name
-        )
-
-    def find_link_by_partial_text(self, partial_text):
-        """
-        Find links by looking for a partial ``str`` in their text.
-
-        Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
-
-        Arguments:
-            partial_text (str): partial_text to use in the search query.
-        """
-        raise NotImplementedError(
-            "%s doesn't support finding links by partial text." % self.driver_name
-        )
-
     def find_option_by_value(self, value):
         """
         Find ``<option>`` elements by their value.
@@ -432,44 +381,6 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support selecting options in 'select' element."
             % self.driver_name
         )
-
-    def click_link_by_href(self, href):
-        """Click in a link by its ``href`` attribute.
-
-        Arguments:
-            href (str): href of the element to click.
-        """
-        return self.find_link_by_href(href).first.click()
-
-    def click_link_by_partial_href(self, partial_href):
-        """Click in a link by looking for partial content of ``href`` attribute.
-
-        Arguments:
-            partial_href (str): href of the element to click.
-        """
-        return self.find_link_by_partial_href(partial_href).first.click()
-
-    def click_link_by_text(self, text):
-        """Click in a link by its text.
-
-        Arguments:
-            text (str): text of the element to click.
-        """
-        return self.find_link_by_text(text).first.click()
-
-    def click_link_by_partial_text(self, partial_text):
-        """Click in a link by partial content of its text.
-
-        Arguments:
-            partial_text (str): text of the element to click.
-        """
-        return self.find_link_by_partial_text(partial_text).first.click()
-
-    def click_link_by_id(self, id):  # NOQA: A002
-        """
-        Clicks in a link by id.
-        """
-        return self.find_by_id(id).first.click()
 
     def quit(self):  # NOQA: A003
         """Quit the browser, closing its windows (if it has one)."""
