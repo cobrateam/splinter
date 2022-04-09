@@ -259,8 +259,7 @@ def find_by(
     """
     elem_list = []
 
-    func_name = getattr(getattr(finder, "__func__"), "__name__")
-    find_by = original_find or func_name[func_name.rfind("_by_") + 4:]
+    find_by = original_find or finder_kwargs['by']
     query = original_query or finder_kwargs.get('value')
 
     # Zero second wait time means only check once
@@ -500,8 +499,7 @@ class BaseWebDriver(DriverAPI):
             wait_time=wait_time,
         )
 
-    def find_by_xpath(self, xpath, original_find=None, original_query=None, wait_time=None):
-        original_find = original_find or "xpath"
+    def find_by_xpath(self, xpath, original_find="xpath", original_query=None, wait_time=None):
         original_query = original_query or xpath
         return self.find_by(
             self.driver.find_elements,
@@ -695,6 +693,37 @@ class TypeIterator(object):
             yield key
 
 
+class ShadowRootElement(ElementAPI):
+    find_by = find_by
+
+    def __init__(self, element, parent):
+        self._element = element
+        self.parent = parent
+
+        self.driver = self.parent.driver
+        self.wait_time = self.parent.wait_time
+        self.element_class = self.parent.element_class
+
+    def _find(self, by: By, selector, wait_time=None):
+        return self.find_by(
+            self._element.find_elements,
+            finder_kwargs={'by': by, 'value': selector},
+            wait_time=wait_time,
+        )
+
+    def find_by_css(self, selector, wait_time=None):
+        return self._find(By.CSS_SELECTOR, selector, wait_time)
+
+    def find_by_id(self, selector, wait_time=None):
+        return self._find(By.ID, selector, wait_time)
+
+    def find_by_name(self, selector, wait_time=None):
+        return self._find(By.NAME, selector, wait_time)
+
+    def find_by_tag(self, selector, wait_time=None):
+        return self._find(By.TAG_NAME, selector, wait_time)
+
+
 class WebDriverElement(ElementAPI):
     find_by = find_by
 
@@ -717,6 +746,9 @@ class WebDriverElement(ElementAPI):
         self._element.send_keys(value)
 
     value = property(_get_value, _set_value)
+
+    def __getitem__(self, attr):
+        return self._element.get_attribute(attr)
 
     @property
     def text(self):
@@ -951,5 +983,7 @@ class WebDriverElement(ElementAPI):
 
         return filename
 
-    def __getitem__(self, attr):
-        return self._element.get_attribute(attr)
+    @property
+    def shadow_root(self) -> ShadowRootElement:
+        shadow_root = self._element.shadow_root
+        return ShadowRootElement(shadow_root, self)

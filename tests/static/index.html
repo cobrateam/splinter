@@ -21,6 +21,17 @@
     <script type="text/javascript" src="/static/jquery.min.js"></script>
     <script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript">
+        function addShadowRoot() {
+            var elem = document.getElementById('has_shadow_root');
+            var shadow = elem.attachShadow({mode: 'open'});
+
+            shadow.innerHTML = '<div id="text_in_shadow_root" name="text_in_shadow_root_name">Inside a shadow root</div>'
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            addShadowRoot();
+        }, false);
+
         $(document).ready(function() {
             $(".draggable").draggable();
             $(".droppable").droppable({
@@ -206,5 +217,7 @@
     <a id="pangram_ja" href="http://localhost:5000/ja">天 地 星 空</a>
     <a id="pangram_ru" href="http://localhost:5000/ru">В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!</a>
     <a id="pangram_eo" href="http://localhost:5000/eo">Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.</a>
+
+    <div id='has_shadow_root'></div>
   </body>
 </html>
