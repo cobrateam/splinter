@@ -883,24 +883,16 @@ class WebDriverElement(ElementAPI):
         )
 
     def scroll_to(self):
-        """
-        Scroll to the current element.
-        """
+        """Scroll to the current element."""
         self.driver.execute_script("arguments[0].scrollIntoView(true);", self._element)
 
     def mouse_over(self):
-        """
-        Performs a mouse over the element.
-
-        """
+        """Perform a mouse over the element."""
         self.scroll_to()
         ActionChains(self.driver).move_to_element(self._element).perform()
 
     def mouse_out(self):
-        """
-        Performs a mouse out the element.
-
-        """
+        """Perform a mouse out the element."""
         self.scroll_to()
         size = self._element.size
 
@@ -909,30 +901,25 @@ class WebDriverElement(ElementAPI):
             ActionChains(self.driver).move_to_element_with_offset(
                 self._element, -10, -10).click().perform()
         except MoveTargetOutOfBoundsException:
-            ActionChains(self.driver).move_to_element_with_offset(
-                self._element, size['width'] + 10, 10).click().perform()
+            try:
+                ActionChains(self.driver).move_to_element_with_offset(
+                    self._element, size['width'] + 10, 10).click().perform()
+            except MoveTargetOutOfBoundsException:
+                ActionChains(self.driver).move_to_element_with_offset(
+                    self._element, 10, size['height'] + 10).click().perform()
 
     def double_click(self):
-        """
-        Performs a double click in the element.
-
-        """
+        """Perform a double click in the element."""
         self.scroll_to()
         ActionChains(self.driver).double_click(self._element).perform()
 
     def right_click(self):
-        """
-        Performs a right click in the element.
-
-        """
+        """Perform a right click in the element."""
         self.scroll_to()
         ActionChains(self.driver).context_click(self._element).perform()
 
     def drag_and_drop(self, droppable):
-        """
-        Performs drag a element to another elmenet.
-
-        """
+        """Drag an element to another element."""
         self.scroll_to()
         ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
 
