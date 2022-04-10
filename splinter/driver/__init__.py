@@ -675,6 +675,11 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
     value = property(_get_value, _set_value)
 
     @property
+    def shadow_root(self):
+        """Get the shadow root of an element's shadow DOM."""
+        raise NotImplementedError
+
+    @property
     def text(self):
         """
         String of all of the text within the element.  HTML tags are stripped.

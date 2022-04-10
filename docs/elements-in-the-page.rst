@@ -168,3 +168,17 @@ You can invoke any ``Element`` method on ``ElementList`` and it will be proxied 
 
     assert browser.find_by_css('a.banner').first.visible
     assert browser.find_by_css('a.banner').visible
+
+
+Get the shadow root of an element
+---------------------------------
+
+The `shadow_root` property provides access to the ShadowRootElement object.
+ShadowRootElement implements the `find_by_<x>` methods.
+
+.. highlight:: python
+
+::
+
+    shadow_root = browser.find_by_css('a.my-website').first.shadow_root
+    elements = shadow_root.find_by_css('.my-elements')
