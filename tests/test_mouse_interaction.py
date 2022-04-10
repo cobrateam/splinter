@@ -15,11 +15,13 @@ def test_mouse_over(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    browser.find_by_css(".add-element-mouseover").mouse_over()
+    element = browser.find_by_css(".add-element-mouseover")
+    element.mouse_over()
 
     assert browser.is_element_present_by_id("what-is-your-name", wait_time=5)
 
-    browser.find_by_css(".add-element-mouseover").mouse_out()
+    element = browser.find_by_css(".add-element-mouseover")
+    element.mouse_out()
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
