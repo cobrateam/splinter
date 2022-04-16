@@ -36,6 +36,8 @@ the ``dataCollection`` attribute.
 for the (innermost) input tag containing all the strings in the same order
 they occur in the input list. 
 
+.. highlight:: python
+
 ::
     
     from splinter import Browser, DataCollector
@@ -53,6 +55,8 @@ they occur in the input list.
     print(obj.dataCollection) #5
 
 The print command outputs all data collected as a dictionary, like the following
+
+.. highlight:: python
 
 ::
     
