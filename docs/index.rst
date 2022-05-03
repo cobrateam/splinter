@@ -26,7 +26,7 @@ Sample code
         browser.visit("http://www.google.com")
 
         # Find and fill out the search form.
-        browser.find_by_name('q').fill(splinter - python acceptance testing for web applications')
+        browser.find_by_name('q').fill('splinter - python acceptance testing for web applications')
 
         # Find and click the 'search' button.
         button = browser.find_by_name('btnK').click()
