@@ -42,6 +42,33 @@ The other arguments match Selenium's `Remote WebDriver`_ arguments.
 `Desired Capabilities`_ will be set automatically based on Selenium's defaults.
 These can be expanded and/or replaced by providing your own.
 
+The following example uses `LambdaTest`_ (a company that provides Selenium
+Remote WebDriver servers as a service) to request an Chrome version 99
+browser instance running on Windows 11.
+
+.. code-block:: python
+
+    # Specify the server URL
+    remote_server_url = 'http://YOUR_LT_USERNAME:YOUR_LT_ACCESS_KEY@@hub.lambdatest.com/wd/hub'
+
+    with Browser(
+        driver_name="remote",
+        browser='Chrome',
+        command_executor=remote_server_url,
+        desired_capabilities = {
+           'platform': 'Windows 11',
+           'version': '99.0',
+           'name': 'Test of Chrome 99 on WINDOWS',
+        },
+        keep_alive=True,
+    ) as browser:
+       
+        browser.visit("https://www.lambdatest.com/selenium-playground/")
+        browser.find_by_text('Simple Form Demo').first.click()
+
+
+
+
 The following example uses `Sauce Labs`_ (a company that provides Selenium
 Remote WebDriver servers as a service) to request an Internet Explorer 9
 browser instance running on Windows 7.
@@ -70,5 +97,6 @@ browser instance running on Windows 7.
 
 .. _Desired Capabilities: https://selenium.dev/selenium/docs/api/py/webdriver/selenium.webdriver.common.desired_capabilities.html
 .. _Selenium Grid: https://selenium.dev/documentation/en/grid/
+.. _LambdaTest: https://www.lambdatest.com/
 .. _Sauce Labs: https://saucelabs.com
 .. _Remote WebDriver: https://selenium.dev/selenium/docs/api/py/webdriver_remote/selenium.webdriver.remote.webdriver.html
