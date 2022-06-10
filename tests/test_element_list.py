@@ -108,3 +108,12 @@ def test_not_found_exception_with_query_and_method():
 
     expected_message = 'no elements could be found with id "menu"'
     assert expected_message == str(e.value)
+
+
+def test_elementlist_repr():
+    """repr() of ElementList is identical to repr() of the internal container.
+    """
+    the_list = [Person(), Person()]
+    elementlist = ElementList(the_list)
+
+    assert repr(elementlist) == repr(the_list)
