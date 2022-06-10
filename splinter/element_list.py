@@ -8,17 +8,18 @@ from splinter.exceptions import ElementDoesNotExist
 
 
 class ElementList:
-    """
-    List of elements. Each member of the list is (usually) an instance
+    """Collection of elements.
+
+    Each member of the collection is by default an instance
     of :class:`ElementAPI <splinter.driver.ElementAPI>`.
 
-    Beyond the traditional list methods, the ``ElementList`` provides some
+    Beyond the traditional list methods, ``ElementList`` provides some
     other methods, listed below.
 
     There is a peculiar behavior on ElementList: you never get an
-    ``IndexError``. Instead, you can an :class:`ElementDoesNotExist
+    ``IndexError``. Instead, you get an :class:`ElementDoesNotExist
     <splinter.exceptions.ElementDoesNotExist>` exception when trying to
-    access an inexistent item in the list:
+    access a non-existent item:
 
         >>> element_list = ElementList([])
         >>> element_list[0] # raises ElementDoesNotExist
@@ -64,7 +65,7 @@ class ElementList:
         """
         return self[-1]
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Check if the ElementList is empty.
 
         Returns:
@@ -92,3 +93,7 @@ class ElementList:
     def __len__(self):
         """__len__ checks the internal container."""
         return len(self._container)
+
+    def __repr__(self):
+        """Return the repr of the internal container."""
+        return repr(self._container)
