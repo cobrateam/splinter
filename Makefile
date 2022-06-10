@@ -16,18 +16,6 @@ dependencies:
 doc: doc_dependencies
 	@cd docs && make clean && make html
 
-release:
-	@sed -ic -e s/`cat VERSION`/$(version)/ setup.py docs/conf.py splinter/__init__.py
-	@echo $(version) > VERSION
-	@git add setup.py docs/conf.py VERSION splinter/__init__.py
-	@git commit -m "setup: bump to $(version)"
-	@git tag $(version)
-	@git push --tags
-	@git push origin master
-	@rm dist/*
-	@python setup.py sdist bdist_wheel
-	@twine upload dist/*
-
 which = 'tests'
 
 test: dependencies clean
