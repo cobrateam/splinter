@@ -10,7 +10,7 @@ What's New in Splinter 0.18.0?
 ==============================
 
 Added:
-* WebDriverElement() now implement the `shadow_root` property. This returns a ShadowRootElement() object to interact with the shadow root of an element.
+* WebDriverElement() now implements the `shadow_root` property. This returns a ShadowRootElement() object to interact with the shadow root of an element.
 * Failed driver imports are logged at the debug level instead of silently ignored
 * `browser.html_snapshot()` now takes the optional `unique_file` argument. Setting this to False will disable the addition of random characters to the filename.
 
