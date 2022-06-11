@@ -4,6 +4,8 @@ on:
     tags:
       - "*"
 
+  workflow_dispatch:
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -20,7 +22,7 @@ jobs:
 
       - run: python setup.py sdist bdist_wheel
 
-      - run: twine upload dist/*
+      - run: twine upload --skip-existing dist/*
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
