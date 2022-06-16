@@ -11,8 +11,6 @@ from http.client import HTTPException
 
 from urllib3.exceptions import MaxRetryError
 
-from selenium.common.exceptions import WebDriverException
-
 from splinter.exceptions import DriverNotFoundError
 
 
@@ -78,12 +76,24 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
 
     """
     err = None
+    handle_excs = ()
 
     for _ in range(retry_count):
         try:
             return driver(*args, **kwargs)
-        except (IOError, HTTPException, WebDriverException, MaxRetryError) as e:
-            err = e
+        except Exception as e:
+            if not handle_excs:
+                handle_excs = (IOError, HTTPException, MaxRetryError)
+                try:
+                    from selenium.common.exceptions import WebDriverException
+                except ImportError:
+                    pass
+                else:
+                    handle_excs += (WebDriverException,)
+            if isinstance(e, handle_excs):
+                err = e
+            else:
+                raise
 
     raise err
 
