@@ -26,6 +26,8 @@ _DRIVERS = {
     'zope.testbrowser': None,
 }
 
+LOG = logging.getLogger(__name__)
+
 try:
     from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
     from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
@@ -35,7 +37,7 @@ try:
     _DRIVERS['firefox'] = FirefoxWebDriver
     _DRIVERS['remote'] = RemoteWebDriver
 except ImportError as e:
-    logging.debug(f'Import Warning: {e}')
+    LOG.debug(f'Import Warning: {e}')
 
 
 try:
@@ -43,7 +45,7 @@ try:
 
     _DRIVERS["edge"] = EdgeWebDriver
 except ImportError as e:
-    logging.debug(f'Import Warning: {e}')
+    LOG.debug(f'Import Warning: {e}')
 
 
 try:
@@ -51,7 +53,7 @@ try:
 
     _DRIVERS["zope.testbrowser"] = ZopeTestBrowser
 except ImportError as e:
-    logging.debug(f'Import Warning: {e}')
+    LOG.debug(f'Import Warning: {e}')
 
 try:
     import django  # noqa
@@ -59,7 +61,7 @@ try:
 
     _DRIVERS["django"] = DjangoClient
 except ImportError as e:
-    logging.debug(f'Import Warning: {e}')
+    LOG.debug(f'Import Warning: {e}')
 
 try:
     import flask  # noqa
@@ -67,7 +69,7 @@ try:
 
     _DRIVERS["flask"] = FlaskClient
 except ImportError as e:
-    logging.debug(f'Import Warning: {e}')
+    LOG.debug(f'Import Warning: {e}')
 
 
 def get_driver(driver, retry_count=3, *args, **kwargs):
