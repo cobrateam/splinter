@@ -11,9 +11,14 @@ from http.client import HTTPException
 
 from urllib3.exceptions import MaxRetryError
 
-from selenium.common.exceptions import WebDriverException
-
 from splinter.exceptions import DriverNotFoundError
+
+driver_exceptions = (IOError, HTTPException, MaxRetryError)
+try:
+    from selenium.common.exceptions import WebDriverException
+    driver_exceptions += (WebDriverException,)
+except ImportError as e:
+    logging.debug(f"Import Warning: {e}")
 
 
 _DRIVERS = {
@@ -82,7 +87,7 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
     for _ in range(retry_count):
         try:
             return driver(*args, **kwargs)
-        except (IOError, HTTPException, WebDriverException, MaxRetryError) as e:
+        except driver_exceptions as e:
             err = e
 
     raise err
