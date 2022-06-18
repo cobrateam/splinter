@@ -13,12 +13,15 @@ from urllib3.exceptions import MaxRetryError
 
 from splinter.exceptions import DriverNotFoundError
 
+logger = logging.getLogger(__name__)
+
 driver_exceptions = (IOError, HTTPException, MaxRetryError)
+
 try:
     from selenium.common.exceptions import WebDriverException
     driver_exceptions += (WebDriverException,)
 except ImportError as e:
-    logging.debug(f"Import Warning: {e}")
+    logger.debug(f"Import Warning: {e}")
 
 
 _DRIVERS = {
@@ -30,8 +33,6 @@ _DRIVERS = {
     'flask': None,
     'zope.testbrowser': None,
 }
-
-logger = logging.getLogger(__name__)
 
 try:
     from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
