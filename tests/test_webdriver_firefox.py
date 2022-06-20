@@ -74,7 +74,7 @@ def test_preference_set(request):
         assert int(value) == 360
     except:  # NOQA
         browser.visit("about:config")
-        raise Exception(elem, browser.html)
+        raise Exception(browser.html)
 
 
 def test_capabilities_set(request):
