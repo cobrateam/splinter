@@ -73,7 +73,8 @@ def test_preference_set(request):
         value = preferences.get("dom.max_script_run_time")
         assert int(value) == 360
     except:  # NOQA
-        raise Exception(browser.driver.capabilities)
+        browser.visit("about:config")
+        raise Exception(elem, browser.html)
 
 
 def test_capabilities_set(request):
