@@ -3,14 +3,9 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import sys
+from urllib.parse import urlparse
 
 from splinter.cookie_manager import CookieManagerAPI
-
-if sys.version_info[0] > 2:
-    from urllib.parse import urlparse
-else:
-    from urlparse import urlparse  # NOQA
 
 
 class CookieManager(CookieManagerAPI):
