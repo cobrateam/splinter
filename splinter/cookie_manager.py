@@ -24,7 +24,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
     def __init__(self, driver):
         self.driver = driver
 
-    def add(self, cookie, **kwargs):
+    def add(self, cookie, **kwargs) -> None:
         """Add a cookie.
 
         Extra arguments will be used to build the cookie.
@@ -39,7 +39,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def delete(self, *cookies):
+    def delete(self, *cookies) -> None:
         """Delete one or more cookies.
 
         You can pass all the cookies identifier that you want to delete.
@@ -58,11 +58,11 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def delete_all(self):
+    def delete_all(self) -> None:
         """Delete all cookies."""
         raise NotImplementedError
 
-    def all(self, verbose=False):  # NOQA: A003
+    def all(self, verbose: bool = False):  # NOQA: A003
         """Get all of the cookies.
 
             **Note:** If you're using any webdriver and want more info about
