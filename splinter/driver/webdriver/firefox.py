@@ -5,9 +5,9 @@
 # license that can be found in the LICENSE file.
 
 from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from splinter.driver.webdriver import BaseWebDriver
 from selenium.webdriver.firefox.options import Options
+
+from splinter.driver.webdriver import BaseWebDriver
 
 
 class WebDriver(BaseWebDriver):
@@ -29,11 +29,11 @@ class WebDriver(BaseWebDriver):
         **kwargs
     ):
 
-        firefox_profile = FirefoxProfile(profile)
-        firefox_profile.set_preference("extensions.logging.enabled", False)
-        firefox_profile.set_preference("network.dns.disableIPv6", False)
-
         options = options or Options()
+        if profile:
+            options.set_preference("profile", profile)
+        options.set_preference("extensions.logging.enabled", False)
+        options.set_preference("network.dns.disableIPv6", False)
 
         if capabilities:
             for key, value in capabilities.items():
@@ -44,7 +44,7 @@ class WebDriver(BaseWebDriver):
 
         if profile_preferences:
             for key, value in profile_preferences.items():
-                firefox_profile.set_preference(key, value)
+                options.set_preference(key, value)
 
         if headless:
             options.add_argument("--headless")
@@ -53,7 +53,6 @@ class WebDriver(BaseWebDriver):
             options.add_argument("-private")
 
         driver = Firefox(
-            firefox_profile,
             options=options,
             **kwargs,
         )
