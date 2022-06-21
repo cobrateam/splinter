@@ -60,24 +60,18 @@ def test_firefox_create_instance_with_extension(request):
 
 def test_preference_set(request):
     preferences = {
-        "dom.max_script_run_time": 360,
+        "dom.max_script_run_time": 213,
         "devtools.inspector.enabled": True,
     }
     browser = get_browser('firefox', profile_preferences=preferences)
     request.addfinalizer(browser.quit)
 
-    try:
-        preferences = browser.driver.profile.default_preferences
-        assert "dom.max_script_run_time" in preferences
-
-        value = preferences.get("dom.max_script_run_time")
-        assert int(value) == 360
-    except:  # NOQA
-        browser.visit("about:config")
-        browser.find_by_id("warningButton").click()
-        browser.find_by_id("about-config-search").fill("dom.max_script_run_time")
-        elem = browser.find_by_xpath("//table[@id='prefs']/tr[1]")
-        raise Exception(elem.html)
+    # Rip the preferences out of firefox's config page
+    browser.visit("about:config")
+    browser.find_by_id("warningButton").click()
+    browser.find_by_id("about-config-search").fill("dom.max_script_run_time")
+    elem = browser.find_by_xpath("//table[@id='prefs']/tr[1]/td[1]/span/span")
+    assert elem.value == "213"
 
 
 def test_capabilities_set(request):
