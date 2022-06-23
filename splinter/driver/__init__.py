@@ -294,7 +294,12 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             "%s doesn't support filling fields by name." % self.driver_name
         )
 
-    def fill_form(self, field_values: dict[str, str], form_id:Optional[str] = None, name: Optional[str] = None) -> None:
+    def fill_form(
+        self,
+        field_values: dict[str, str],
+        form_id: Optional[str] = None,
+        name: Optional[str] = None,
+    ) -> None:
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
 
@@ -785,7 +790,13 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):  # type: ignore
         """
         raise NotImplementedError
 
-    def screenshot(self, name: Optional[str] = None, suffix: Optional[str] = None, full: bool = False, unique_file: bool = True) -> str:
+    def screenshot(
+        self,
+        name: Optional[str] = None,
+        suffix: Optional[str] = None,
+        full: bool = False,
+        unique_file: bool = True,
+    ) -> str:
         """Take a screenshot of the element."""
         raise NotImplementedError
 
