@@ -6,7 +6,7 @@
 
 
 class InheritedDocs(type):
-    def __new__(mcs, class_name: str, bases: tuple, dict: dict) -> type:  # NOQA: N804, A002
+    def __new__(mcs, class_name: str, bases: tuple, dict: dict):  # NOQA: N804, A002
         """Metaclass that forces inheritance of docstrings."""
         items_to_patch = [
             (k, v) for k, v in dict.items() if not k.startswith("__") and not v.__doc__
