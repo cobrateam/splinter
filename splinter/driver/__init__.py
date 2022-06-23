@@ -8,15 +8,19 @@
 This module contains the basic API for splinter drivers and elements.
 """
 
+from typing import Any, Optional, Type
+
 from splinter.meta import InheritedDocs
+from splinter.element_list import ElementList
+from splinter.cookie_manager import CookieManagerAPI
 
 
-class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
+class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
     """
     Basic driver API class.
     """
 
-    driver_name = ''
+    driver_name: str = ''
 
     @property
     def title(self) -> str:
@@ -25,13 +29,13 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support access to the title." % self.driver_name
         )
 
-    def __enter__(self):
+    def __enter__(self) -> Any:
         """Context manager to use the browser safely."""
         raise NotImplementedError(
             "%s doesn't support use by 'with' statement." % self.driver_name
         )
 
-    def __exit__(self):
+    def __exit__(self) -> None:
         """Context manager to use the browser safely."""
         raise NotImplementedError(
             "%s doesn't support use by 'with' statement." % self.driver_name
@@ -91,21 +95,21 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support reloading the page." % self.driver_name
         )
 
-    def get_alert(self):
+    def get_alert(self) -> Any:
         """Change the context for working with alerts and prompts.
 
         For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
         """
         raise NotImplementedError("%s doesn't support alerts." % self.driver_name)
 
-    def get_iframe(self, name):
+    def get_iframe(self, name: Any) -> Any:
         """Change the context for working with iframes.
 
         For more details, check the :doc:`docs about iframes, alerts and prompts </iframes-and-alerts>`
         """
         raise NotImplementedError("%s doesn't support frames." % self.driver_name)
 
-    def execute_script(self, script: str, *args):
+    def execute_script(self, script: str, *args: str) -> Any:
         """Execute a piece of JavaScript in the browser.
 
         Arguments:
@@ -119,7 +123,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support execution of arbitrary JavaScript." % self.driver_name
         )
 
-    def evaluate_script(self, script: str, *args):
+    def evaluate_script(self, script: str, *args: str) -> Any:
         """
         Similar to :meth:`execute_script <DriverAPI.execute_script>` method.
 
@@ -136,7 +140,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support evaluation of arbitrary JavaScript." % self.driver_name
         )
 
-    def find_by_css(self, css_selector: str):
+    def find_by_css(self, css_selector: str) -> ElementList:
         """
         Return an instance of :class:`ElementList <splinter.element_list.ElementList>`,
         using a CSS selector to query the current page content.
@@ -149,7 +153,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by css selector." % self.driver_name
         )
 
-    def find_by_xpath(self, xpath: str):
+    def find_by_xpath(self, xpath: str) -> ElementList:
         """
         Return an instance of :class:`ElementList <splinter.element_list.ElementList>`,
         using a xpath selector to query the current page content.
@@ -162,7 +166,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by xpath selector." % self.driver_name
         )
 
-    def find_by_name(self, name: str):
+    def find_by_name(self, name: str) -> ElementList:
         """Find elements on the current page by their name.
 
         Return an instance of :class:`ElementList <splinter.element_list.ElementList>`.
@@ -175,7 +179,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by name." % self.driver_name
         )
 
-    def find_by_id(self, id: str):  # NOQA: A002
+    def find_by_id(self, id: str) -> ElementList:  # NOQA: A002
         """Find an element on the current page by its id.
 
         Even when only one element is find, this method returns an instance of
@@ -188,7 +192,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by id." % self.driver_name
         )
 
-    def find_by_value(self, value: str):
+    def find_by_value(self, value: str) -> ElementList:
         """Find elements on the current page by their value.
 
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
@@ -200,7 +204,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by value." % self.driver_name
         )
 
-    def find_by_text(self, text: str):
+    def find_by_text(self, text: str) -> ElementList:
         """Find elements on the current page by their text.
 
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
@@ -212,7 +216,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by text." % self.driver_name
         )
 
-    def find_by_tag(self, tag: str):
+    def find_by_tag(self, tag: str) -> ElementList:
         """Find all elements of a given tag in current page.
 
         Returns an instance of :class:`ElementList <splinter.element_list.ElementList>`
@@ -224,7 +228,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding elements by tag." % self.driver_name
         )
 
-    def find_option_by_value(self, value: str):
+    def find_option_by_value(self, value: str) -> ElementList:
         """
         Find ``<option>`` elements by their value.
 
@@ -237,7 +241,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding options by value." % self.driver_name
         )
 
-    def find_option_by_text(self, text: str):
+    def find_option_by_text(self, text: str) -> ElementList:
         """
         Finds ``<option>`` elements by their text.
 
@@ -250,7 +254,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support finding options by text." % self.driver_name
         )
 
-    def is_text_present(self, text: str, wait_time=None) -> bool:
+    def is_text_present(self, text: str, wait_time: Optional[int] = None) -> bool:
         """Check if a piece of text is on the page.
 
         Arguments:
@@ -265,7 +269,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def type(self, name: str, value: str, slowly: bool = False):  # NOQA: A003
+    def type(self, name: str, value: str, slowly: bool = False) -> str:  # NOQA: A003
         """Type a value into an element.
 
         It's useful to test javascript events like keyPress, keyUp, keyDown, etc.
@@ -279,7 +283,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support typing on fields by name." % self.driver_name
         )
 
-    def fill(self, name: str, value: str):
+    def fill(self, name: str, value: str) -> None:
         """Fill the field identified by ``name`` with the content specified by ``value``.
 
         Arguments:
@@ -290,7 +294,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             "%s doesn't support filling fields by name." % self.driver_name
         )
 
-    def fill_form(self, field_values, form_id=None, name=None):
+    def fill_form(self, field_values: dict[str, str], form_id:Optional[str] = None, name: Optional[str] = None) -> None:
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
 
@@ -386,7 +390,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         """Quit the browser, closing its windows (if it has one)."""
         raise NotImplementedError("%s doesn't support quit" % self.driver_name)
 
-    def is_element_present_by_css(self, css_selector: str, wait_time=None) -> bool:
+    def is_element_present_by_css(self, css_selector: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -401,7 +405,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_css(self, css_selector: str, wait_time=None) -> bool:
+    def is_element_not_present_by_css(self, css_selector: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -416,7 +420,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_xpath(self, xpath: str, wait_time=None) -> bool:
+    def is_element_present_by_xpath(self, xpath: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -431,7 +435,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_xpath(self, xpath: str, wait_time=None) -> bool:
+    def is_element_not_present_by_xpath(self, xpath: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -446,7 +450,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_tag(self, tag: str, wait_time=None) -> bool:
+    def is_element_present_by_tag(self, tag: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -461,7 +465,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_tag(self, tag: str, wait_time=None) -> bool:
+    def is_element_not_present_by_tag(self, tag: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -476,7 +480,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_name(self, name: str, wait_time=None) -> bool:
+    def is_element_present_by_name(self, name: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -491,7 +495,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_name(self, name: str, wait_time=None) -> bool:
+    def is_element_not_present_by_name(self, name: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -506,7 +510,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_value(self, value: str, wait_time=None) -> bool:
+    def is_element_present_by_value(self, value: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -521,7 +525,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_value(self, value: str, wait_time=None) -> bool:
+    def is_element_not_present_by_value(self, value: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -536,7 +540,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_text(self, text: str, wait_time=None) -> bool:
+    def is_element_present_by_text(self, text: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -551,7 +555,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_text(self, text: str, wait_time=None) -> bool:
+    def is_element_not_present_by_text(self, text: str, wait_time: Optional[int] = None) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -566,7 +570,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_present_by_id(self, id: str, wait_time=None) -> bool:  # NOQA: A002
+    def is_element_present_by_id(self, id: str, wait_time: Optional[int] = None) -> bool:  # NOQA: A002
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -581,7 +585,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
             % self.driver_name
         )
 
-    def is_element_not_present_by_id(self, id: str, wait_time=None) -> bool:  # NOQA: A002
+    def is_element_not_present_by_id(self, id: str, wait_time: Optional[int] = None) -> bool:  # NOQA: A002
         """Verify if an element is not present in the current page.
 
         Arguments:
@@ -598,11 +602,11 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
 
     def screenshot(
         self,
-        name=None,
-        suffix=None,
+        name: Optional[str] = None,
+        suffix: Optional[str] = None,
         full: bool = False,
         unique_file: bool = True,
-    ):
+    ) -> str:
         """Take a screenshot of the current page and save it locally.
 
         Arguments:
@@ -646,7 +650,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         )
 
     @property
-    def cookies(self):
+    def cookies(self) -> Type[CookieManagerAPI]:
         """
         A :class:`CookieManager <splinter.cookie_manager.CookieManagerAPI>` instance.
 
@@ -657,7 +661,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):
         )
 
 
-class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
+class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):  # type: ignore
     """
     Basic element API class.
 
@@ -671,10 +675,10 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
     You can also interact with the instance using the methods and properties listed below.
     """
 
-    def _get_value(self):
+    def _get_value(self) -> str:
         raise NotImplementedError
 
-    def _set_value(self, value):
+    def _set_value(self, value: str) -> None:
         raise NotImplementedError
 
     #: Value of the element, usually a form element
@@ -730,7 +734,7 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """Get the visibility status of the element."""
         raise NotImplementedError
 
-    def has_class(self, class_name) -> bool:
+    def has_class(self, class_name: str) -> bool:
         """
         Indicates whether the element has the given class.
         """
@@ -771,7 +775,7 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def select(self, value, slowly=False):
+    def select(self, value: str, slowly: bool = False) -> None:
         """
         Select an ``<option>`` element in the element using the ``value`` of the ``<option>``.
 
@@ -781,9 +785,9 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):
         """
         raise NotImplementedError
 
-    def screenshot(self, name=None, suffix=None, full: bool = False, unique_file: bool = True):
+    def screenshot(self, name: Optional[str] = None, suffix: Optional[str] = None, full: bool = False, unique_file: bool = True) -> str:
         """Take a screenshot of the element."""
         raise NotImplementedError
 
-    def __getitem__(self, attribute):
+    def __getitem__(self, attribute: str) -> Any:
         raise NotImplementedError

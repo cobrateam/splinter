@@ -6,6 +6,7 @@
 
 
 import logging
+from typing import Callable, Union
 
 from http.client import HTTPException
 
@@ -24,7 +25,7 @@ except ImportError as e:
     logger.debug(f"Import Warning: {e}")
 
 
-_DRIVERS = {
+_DRIVERS: dict[str, Union[Callable, None]] = {
     'chrome': None,
     'edge': None,
     'firefox': None,
