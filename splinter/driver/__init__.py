@@ -296,7 +296,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
 
     def fill_form(
         self,
-        field_values: dict[str, str],
+        field_values,
         form_id: Optional[str] = None,
         name: Optional[str] = None,
     ) -> None:

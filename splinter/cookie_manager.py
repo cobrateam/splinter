@@ -24,7 +24,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # ty
     def __init__(self, driver):
         self.driver = driver
 
-    def add(self, cookie: dict[str, str], **kwargs) -> None:
+    def add(self, cookie, **kwargs) -> None:
         """Add a cookie.
 
         Extra arguments will be used to build the cookie.
