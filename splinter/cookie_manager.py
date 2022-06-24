@@ -7,7 +7,7 @@
 from splinter.meta import InheritedDocs
 
 
-class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):
+class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # type: ignore
     """An API that specifies how a splinter driver deals with cookies.
 
     You can add cookies using the :meth:`add <CookieManagerAPI.add>` method,
