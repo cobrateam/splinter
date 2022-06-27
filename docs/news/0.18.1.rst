@@ -1,0 +1,17 @@
+.. Copyright 2022 splinter authors. All rights reserved.
+   Use of this source code is governed by a BSD-style
+   license that can be found in the LICENSE file.
+
+.. meta::
+    :description: New splinter features on version 0.18.1.
+    :keywords: splinter 0.18.1, news
+
+What's New in Splinter 0.18.1?
+==============================
+
+Changed:
+* Set Firefox preferences through options instead of FirefoxProfile
+
+Fixed:
+* Use dedicated logger in browser.py to avoid clobbing other Python logging
+* Removed required selenium import for error handling, making it possible to use splinter without installing selenium (as long as a selenium driver isn't used)
