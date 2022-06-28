@@ -60,7 +60,7 @@ jobs:
         run: |
           echo "Start Selenium Server"
           xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
-          timeout 30 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
+          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
           echo "Selenium server is ready, running tests"
           tox -e tests -- tests/test_webdriver_remote.py
 
