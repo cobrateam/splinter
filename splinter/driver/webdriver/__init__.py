@@ -902,8 +902,8 @@ class WebDriverElement(ElementAPI):
                 except StaleElementReferenceException:
                     return False
 
-                if not result:
-                    return True
+                if result:
+                    return False
 
             return True
 

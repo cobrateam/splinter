@@ -45,7 +45,6 @@ try:
 except ImportError as e:
     logger.debug(f'Import Warning: {e}')
 
-
 try:
     from splinter.driver.webdriver.edge import WebDriver as EdgeWebDriver
 
