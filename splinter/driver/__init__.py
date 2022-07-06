@@ -736,7 +736,33 @@ class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):  # type: ignore
 
     @property
     def visible(self) -> bool:
-        """Get the visibility status of the element."""
+        """Get the current visibility status of the element.
+
+        Returns:
+            bool
+        """
+        raise NotImplementedError
+
+    def is_visible(self, wait_time: Optional[int] = None) -> bool:
+        """Check if an element is visible within the given wait time.
+
+        Arguments:
+            wait_time (int): Time in seconds to check for the element.
+
+        Returns:
+            bool
+        """
+        raise NotImplementedError
+
+    def is_not_visible(self, wait_time: Optional[int] = None) -> bool:
+        """Check if an element is not visible within the given wait time.
+
+        Arguments:
+            wait_time (int): Time in seconds to check for the element.
+
+        Returns:
+            bool
+        """
         raise NotImplementedError
 
     def has_class(self, class_name: str) -> bool:

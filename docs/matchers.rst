@@ -94,14 +94,43 @@ There's also the negative forms of these methods, as in ``is_text_present``:
 Checking the visibility of elements
 -----------------------------------
 
-There are two methods to check if the element is visible or hidden in the current page using either the selector type ``css`` or ``xpath``. It
-returns ``True`` if the element is visible and ``False`` if the element in not visible.
+Elements have two methods to check visibility.
 
 .. highlight:: python
 
 ::
 
-    browser.is_element_visible_by_css('h5')
-    browser.is_element_visible_by_css('h5', wait_time=10)
-    browser.is_element_visible_by_xpath('//h5')
+    browser.find_by_css('h5').is_visible()
 
+    browser.find_by_css('h5').is_not_visible()
+
+
+Unlike an element's `visible` attribute, which returns the current visibility status, these methods will poll the browser for a specified number of seconds looking for the desired state.
+
+ Both methods:
+
+  - Take an optional `wait_time` argument. If not specified, the browser's default wait_time will be used.
+  - Return a boolean.
+
+
+The difference between:
+
+.. highlight:: python
+
+::
+
+    result = not browser.find_by_css('h5').is_visible()
+
+and:
+
+.. highlight:: python
+
+::
+
+    result = browser.find_by_css('h5').is_not_visible()
+
+is when the method will return a value.
+`not element.is_visible()` will look for a specified number of seconds for the element to be visible, eventually returning False.
+`element.is_not_visible()` will look for a specified number of seconds for the element to not be visible, returning False the moment the condition is met.
+
+As a result, `element.is_not_visible()` will always be faster than `not element.is_visible()`

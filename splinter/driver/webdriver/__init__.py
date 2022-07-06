@@ -9,7 +9,9 @@ import os
 import re
 import tempfile
 import time
+import warnings
 from contextlib import contextmanager
+from typing import Optional
 
 from selenium.webdriver.common.alert import Alert
 from selenium.common.exceptions import (
@@ -31,6 +33,7 @@ from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 from splinter.driver.webdriver.cookie_manager import CookieManager
 from splinter.exceptions import ElementDoesNotExist
+from splinter.retry import _retry
 
 
 # Patch contextmanager onto Selenium's Alert
@@ -236,7 +239,7 @@ def _find(self, finder, finder_kwargs=None):
         pass
 
     if elements:
-        elem_list = [self.element_class(element, self) for element in elements]
+        elem_list = [self.element_class(element, self, finder_kwargs) for element in elements]
 
     return elem_list
 
@@ -288,6 +291,7 @@ class BaseWebDriver(DriverAPI):
         self.links = FindLinks(self)
 
         self.driver = driver
+        self._find_elements = self.driver.find_elements
 
         self.element_class = WebDriverElement
 
@@ -333,36 +337,37 @@ class BaseWebDriver(DriverAPI):
     def evaluate_script(self, script, *args):
         return self.driver.execute_script("return %s" % script, *args)
 
-    def is_element_visible(self, finder, selector, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if finder(selector, wait_time=wait_time) and finder(selector, wait_time=wait_time).visible:
-                return True
-        return False
-
-    def is_element_not_visible(self, finder, selector, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            element = finder(selector, wait_time=0)
-            if not element or (element and not element.visible):
-                return True
-        return False
-
     def is_element_visible_by_css(self, css_selector, wait_time=None):
-        return self.is_element_visible(self.find_by_css, css_selector, wait_time)
+        warnings.warn(
+            f'browser.is_element_visible_by_css({css_selector}, {wait_time}) is deprecated.'
+            f' Use browser.find_by_css({css_selector}).is_visible({wait_time}) instead.',
+            FutureWarning,
+        )
+        return self.find_by_css(css_selector, wait_time).is_visible(wait_time)
 
     def is_element_not_visible_by_css(self, css_selector, wait_time=None):
-        return self.is_element_not_visible(self.find_by_css, css_selector, wait_time)
+        warnings.warn(
+            f'browser.is_element_not_visible_by_css({css_selector}, {wait_time}) is deprecated.'
+            f' Use browser.find_by_css({css_selector}).is_not_visible({wait_time}) instead.',
+            FutureWarning,
+        )
+        return self.find_by_css(css_selector, wait_time).is_not_visible(wait_time)
 
     def is_element_visible_by_xpath(self, xpath, wait_time=None):
-        return self.is_element_visible(self.find_by_xpath, xpath, wait_time)
+        warnings.warn(
+            f'browser.is_element_visible_by_xpath({xpath}, {wait_time}) is deprecated.'
+            f' Use browser.find_by_xpath({xpath}).is_visible({wait_time}) instead.',
+            FutureWarning,
+        )
+        return self.find_by_xpath(xpath, wait_time).is_visible(wait_time)
 
     def is_element_not_visible_by_xpath(self, xpath, wait_time=None):
-        return self.is_element_not_visible(self.find_by_xpath, xpath, wait_time)
+        warnings.warn(
+            f'browser.is_element_not_visible_by_xpath({xpath}, {wait_time}) is deprecated.'
+            f' Use browser.find_by_xpath({xpath}).is_not_visible({wait_time}) instead.',
+            FutureWarning,
+        )
+        return self.find_by_xpath(xpath, wait_time).is_not_visible(wait_time)
 
     def is_element_present(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -727,9 +732,12 @@ class ShadowRootElement(ElementAPI):
 class WebDriverElement(ElementAPI):
     find_by = find_by
 
-    def __init__(self, element, parent):
+    def __init__(self, element, parent, finder_kwargs):
         self._element = element
         self.parent = parent
+
+        self._find_elements = self._element.find_elements
+        self._finder_kwargs = finder_kwargs
 
         self.driver = self.parent.driver
         self.wait_time = self.parent.wait_time
@@ -844,6 +852,74 @@ class WebDriverElement(ElementAPI):
     @property
     def outer_html(self):
         return self["outerHTML"]
+
+    def _refresh_element(self, wait_time: [Optional[int]] = None):
+        """Search for the element and update the internal reference.
+
+        Returns:
+            WebDriverElement
+
+        Raises:
+            ElementDoesNotExist
+        """
+        element_list = self.find_by(
+            self.parent._find_elements,
+            finder_kwargs=self._finder_kwargs,
+            original_find=self._finder_kwargs['by'],
+            wait_time=wait_time,
+        )
+
+        # Ensure the correct element is picked and replace old element
+        for elem in element_list:
+            new_element = elem._element
+
+            if new_element == self._element:
+                self._element = new_element
+                return self
+
+        raise ElementDoesNotExist("Element was removed from DOM.")
+
+    def is_visible(self, wait_time=None):
+        wait_time = wait_time or self.wait_time
+
+        def search() -> bool:
+            # Element is refreshed to account for changes to the page.
+            self._refresh_element(wait_time=0)
+
+            try:
+                result = self.visible
+            # StaleElementReferenceException occurs if element is found
+            # but changes before visible is checked
+            except StaleElementReferenceException:
+                return False
+
+            if result:
+                return True
+
+            return False
+
+        return _retry(search, timeout=wait_time)
+
+    def is_not_visible(self, wait_time=None):
+        wait_time = wait_time or self.wait_time
+
+        def search() -> bool:
+            # Element is refreshed to account for changes to the page.
+            self._refresh_element(wait_time=0)
+
+            try:
+                result = self.visible
+            # StaleElementReferenceException occurs if element is found
+            # but changes before visible is checked
+            except StaleElementReferenceException:
+                return False
+
+            if result:
+                return False
+
+            return True
+
+        return _retry(search, timeout=wait_time)
 
     def find_by_css(self, selector, wait_time=None):
         return self.find_by(
