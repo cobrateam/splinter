@@ -853,36 +853,48 @@ class WebDriverElement(ElementAPI):
     def outer_html(self):
         return self["outerHTML"]
 
-    def _refresh_element(self, wait_time: [Optional[int]] = None) -> ElementList:
-        """Get a new element object from selenium.
+    def _refresh_element(self, wait_time: [Optional[int]] = None):
+        """Search for the element and update the internal reference.
 
         Returns:
-            ElementList
+            WebDriverElement
+
+        Raises:
+            ElementDoesNotExist
         """
-        element = self.find_by(
+        element_list = self.find_by(
             self.parent._find_elements,
             finder_kwargs=self._finder_kwargs,
             original_find=self._finder_kwargs['by'],
             wait_time=wait_time,
         )
-        return element
+
+        # Ensure the correct element is picked and replace old element
+        for elem in element_list:
+            new_element = elem._element
+
+            if new_element == self._element:
+                self._element = new_element
+                return self
+
+        raise ElementDoesNotExist("Element was removed from DOM.")
 
     def is_visible(self, wait_time=None):
         wait_time = wait_time or self.wait_time
 
         def search() -> bool:
-            # The element is freshly searched for to account for changes to the page.
-            element = self._refresh_element(wait_time=0)
-            if element:
-                try:
-                    result = element.visible
-                # StaleElementReferenceException occurs if element is found
-                # but changes before visible is checked
-                except StaleElementReferenceException:
-                    return False
+            # Element is refreshed to account for changes to the page.
+            self._refresh_element(wait_time=0)
 
-                if result:
-                    return True
+            try:
+                result = self.visible
+            # StaleElementReferenceException occurs if element is found
+            # but changes before visible is checked
+            except StaleElementReferenceException:
+                return False
+
+            if result:
+                return True
 
             return False
 
@@ -892,18 +904,18 @@ class WebDriverElement(ElementAPI):
         wait_time = wait_time or self.wait_time
 
         def search() -> bool:
-            # The element is freshly searched for to account for changes to the page.
-            element = self._refresh_element(wait_time=0)
-            if element:
-                try:
-                    result = element.visible
-                # StaleElementReferenceException occurs if element is found
-                # but changes before visible is checked
-                except StaleElementReferenceException:
-                    return False
+            # Element is refreshed to account for changes to the page.
+            self._refresh_element(wait_time=0)
 
-                if result:
-                    return False
+            try:
+                result = self.visible
+            # StaleElementReferenceException occurs if element is found
+            # but changes before visible is checked
+            except StaleElementReferenceException:
+                return False
+
+            if result:
+                return False
 
             return True
 
