@@ -42,7 +42,7 @@ class CookieManager(CookieManagerAPI):
                     pass
         else:
             warnings.warn(
-                'Deleting all cookies via CookieManager.delete() with no arguments ',
+                'Deleting all cookies via CookieManager.delete() with no arguments '
                 'has been deprecated. use CookieManager.delete_all().',
                 FutureWarning,
             )
