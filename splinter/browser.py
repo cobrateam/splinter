@@ -8,14 +8,16 @@
 import logging
 
 from http.client import HTTPException
+from typing import Type, Union
 
 from urllib3.exceptions import MaxRetryError
 
+from splinter.driver import DriverAPI
 from splinter.exceptions import DriverNotFoundError
 
 logger = logging.getLogger(__name__)
 
-driver_exceptions = (IOError, HTTPException, MaxRetryError)
+driver_exceptions: tuple[Type[Exception], ...] = (IOError, HTTPException, MaxRetryError)
 
 try:
     from selenium.common.exceptions import WebDriverException
@@ -24,7 +26,7 @@ except ImportError as e:
     logger.debug(f"Import Warning: {e}")
 
 
-_DRIVERS = {
+_DRIVERS: dict[str, Union[None, Type[DriverAPI]]] = {
     'chrome': None,
     'edge': None,
     'firefox': None,

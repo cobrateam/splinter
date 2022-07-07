@@ -853,7 +853,7 @@ class WebDriverElement(ElementAPI):
     def outer_html(self):
         return self["outerHTML"]
 
-    def _refresh_element(self, wait_time: [Optional[int]] = None):
+    def _refresh_element(self, wait_time: Optional[int] = None):
         """Search for the element and update the internal reference.
 
         Returns:
