@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 import mimetypes
 import re
 import time
+import warnings
 
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -40,6 +41,11 @@ class CookieManager(CookieManagerAPI):
                 except KeyError:
                     pass
         else:
+            warnings.warn(
+                'Deleting all cookies via CookieManager.delete() with no arguments '
+                'has been deprecated. use CookieManager.delete_all().',
+                FutureWarning,
+            )
             self.delete_all()
 
     def delete_all(self):

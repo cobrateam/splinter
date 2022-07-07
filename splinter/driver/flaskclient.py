@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-
+import warnings
 from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
 
 from splinter.cookie_manager import CookieManagerAPI
@@ -29,6 +29,11 @@ class CookieManager(CookieManagerAPI):
                 except KeyError:
                     pass
         else:
+            warnings.warn(
+                'Deleting all cookies via CookieManager.delete() with no arguments '
+                'has been deprecated. use CookieManager.delete_all().',
+                FutureWarning,
+            )
             self.delete_all()
 
     def delete_all(self):

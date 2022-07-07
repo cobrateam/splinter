@@ -3,6 +3,7 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import warnings
 from urllib.parse import urlparse
 
 from splinter.cookie_manager import CookieManagerAPI
@@ -20,6 +21,11 @@ class CookieManager(CookieManagerAPI):
             for cookie in cookies:
                 self.driver.delete_cookie(cookie)
         else:
+            warnings.warn(
+                'Deleting all cookies via CookieManager.delete() with no arguments '
+                'has been deprecated. use CookieManager.delete_all().',
+                FutureWarning,
+            )
             self.delete_all()
 
     def delete_all(self):

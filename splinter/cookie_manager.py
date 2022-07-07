@@ -44,14 +44,11 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # ty
 
         You can pass all the cookies identifier that you want to delete.
 
-        If identifiers are provided, all cookies are deleted.
-
         Arguments:
             cookies (list): Identifiers for each cookie to delete.
 
         Examples:
 
-            >>> cookie_manager.delete() # deletes all cookies
             >>> cookie_manager.delete(
                 'name', 'birthday', 'favorite_color') # deletes these three cookies
             >>> cookie_manager.delete('name') # deletes one cookie
