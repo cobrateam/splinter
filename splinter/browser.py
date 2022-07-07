@@ -8,7 +8,7 @@
 import logging
 
 from http.client import HTTPException
-from typing import Type, Tuple, Union
+from typing import Dict, Tuple, Type, Union
 
 from urllib3.exceptions import MaxRetryError
 
@@ -26,7 +26,7 @@ except ImportError as e:
     logger.debug(f"Import Warning: {e}")
 
 
-_DRIVERS: dict[str, Union[None, Type[DriverAPI]]] = {
+_DRIVERS: Dict[str, Union[None, Type[DriverAPI]]] = {
     'chrome': None,
     'edge': None,
     'firefox': None,
