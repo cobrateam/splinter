@@ -8,7 +8,7 @@
 import logging
 
 from http.client import HTTPException
-from typing import Type, Union
+from typing import Type, Tuple, Union
 
 from urllib3.exceptions import MaxRetryError
 
@@ -17,7 +17,7 @@ from splinter.exceptions import DriverNotFoundError
 
 logger = logging.getLogger(__name__)
 
-driver_exceptions: tuple[Type[Exception], ...] = (IOError, HTTPException, MaxRetryError)
+driver_exceptions: Tuple[Type[Exception], ...] = (IOError, HTTPException, MaxRetryError)
 
 try:
     from selenium.common.exceptions import WebDriverException
