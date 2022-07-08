@@ -12,7 +12,7 @@ from splinter.driver.webdriver import BaseWebDriver
 from splinter.driver.webdriver.remote_connection import patch_request
 
 # MonkeyPatch RemoteConnection
-remote_connection.RemoteConnection._request = patch_request
+remote_connection.RemoteConnection._request = patch_request  # type: ignore
 
 
 class WebDriver(BaseWebDriver):
