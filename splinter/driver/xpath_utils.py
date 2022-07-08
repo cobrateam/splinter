@@ -1,8 +1,11 @@
-def _concat_xpath_from_str(text):
+def _concat_xpath_from_str(text: str) -> str:
     """Take a string and splice it into an xpath concat locator.
 
     Arguments:
         text (str): Text block to scan.
+
+    Returns:
+        str
     """
     concat_text = _recurse(
         text,
@@ -13,7 +16,13 @@ def _concat_xpath_from_str(text):
     return '//*[text()=concat({} "")]'.format(concat_text)
 
 
-def _recurse(text, split_on, wrapper, replacer, inner=False):
+def _recurse(
+    text: str,
+    split_on: str,
+    wrapper: str,
+    replacer: str,
+    inner=False,
+) -> str:
     """Take a string, split it, then build a new string from the parts.
 
     The position of the character used to split the original string will be
