@@ -25,7 +25,7 @@ class ElementList:
         >>> element_list[0] # raises ElementDoesNotExist
     """
 
-    def __init__(self, list, driver=None, find_by=None, query=None):  # NOQA: A002
+    def __init__(self, list, driver=None, find_by=None, query=None) -> None:  # NOQA: A002
         self._container = []
         self._container.extend(list)
 
@@ -90,10 +90,10 @@ class ElementList:
         for item in self._container:
             yield item
 
-    def __len__(self):
+    def __len__(self) -> int:
         """__len__ checks the internal container."""
         return len(self._container)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return the repr of the internal container."""
         return repr(self._container)

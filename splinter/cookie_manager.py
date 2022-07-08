@@ -21,7 +21,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # ty
         >>> assert cookie_manager['name'] == 'Tony'
     """
 
-    def __init__(self, driver):
+    def __init__(self, driver) -> None:
         self.driver = driver
 
     def add(self, cookie, **kwargs) -> None:
@@ -39,7 +39,7 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # ty
         """
         raise NotImplementedError
 
-    def delete(self, *cookies) -> None:
+    def delete(self, *cookies: str) -> None:
         """Delete one or more cookies.
 
         You can pass all the cookies identifier that you want to delete.
@@ -81,5 +81,5 @@ class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # ty
     def __getitem__(self, item):
         raise NotImplementedError
 
-    def __eq__(self, other_object):
+    def __eq__(self, other_object) -> bool:
         raise NotImplementedError
