@@ -25,7 +25,7 @@ class IsTextPresentTest:
         self.assertTrue(self.browser.is_text_not_present("Text that not exist"))
 
     def test_is_text_not_present_and_should_return_false(self):
-        "should verify if text is not prasent and return false"
+        "should verify if text is not present and return false"
         self.assertFalse(self.browser.is_text_not_present("Example Header"))
 
     def test_is_text_not_present_and_should_wait_time(self):
