@@ -93,7 +93,7 @@ class FlaskClient(LxmlDriver):
         self._url = url
         func_method = getattr(self._browser, method.lower())
 
-        # Continue to make requests until a non 30X response is recieved
+        # Continue to make requests until a non 30X response is received
         while True:
             if record_url:
                 self._last_url_index += 1
