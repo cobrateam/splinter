@@ -819,7 +819,7 @@ class WebDriverElement(ElementAPI):
         while time.time() < end_time:
             try:
                 return self._element.click()
-            except(
+            except (
                 ElementClickInterceptedException,
                 WebDriverException,
             ) as e:
