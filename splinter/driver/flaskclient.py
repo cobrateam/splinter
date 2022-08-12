@@ -128,6 +128,7 @@ class FlaskClient(LxmlDriver):
 
             # Implement more standard `302`/`303` behaviour
             if self._response.status_code in (302, 303):
+                data = None
                 func_method = getattr(self._browser, "get")
 
             # If the response was not in the `30X` range we're done
