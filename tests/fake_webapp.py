@@ -29,6 +29,7 @@ EXAMPLE_NO_BODY_HTML = read_static("no-body.html")
 EXAMPLE_REDIRECT_LOCATION_HTML = read_static("redirect-location.html")
 EXAMPLE_MOUSE_HTML = read_static("mouse.html")
 EXAMPLE_CLICK_INTERCEPTED_HTML = read_static("click_intercepted.html")
+BUFFER = []
 
 # Functions for http basic auth.
 # Taken verbatim from http://flask.pocoo.org/snippets/8/
@@ -110,11 +111,10 @@ def post_form():
 def upload_file():
     if request.method == "POST":
         f = request.files["file"]
-        buffer = [
-            "Content-type: {}".format(f.content_type),
-            "File content: {}".format(f.stream.read()),
-        ]
-        return "|".join(buffer)
+        BUFFER.append("Content-type: {}".format(f.content_type))
+        BUFFER.append("File content: {}".format(f.stream.read()))
+        return redirect(url_for('upload_file'))
+    return "|".join(BUFFER)
 
 
 @app.route("/headers", methods=["GET"])
