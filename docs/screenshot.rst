@@ -6,9 +6,9 @@
     :description: Take screenshot
     :keywords: splinter, python, tutorial, screenshot
 
-+++++++++++++++
-Take screenshot
-+++++++++++++++
+++++++++++
+Screenshot
+++++++++++
 
 Splinter can take a screenshot of the current view:
 
@@ -31,9 +31,9 @@ Take a full view screenshot:
     browser = Browser()
     screenshot_path = browser.screenshot('absolute_path/your_screenshot.png', full=True)
 
-+++++++++++++++++++++++
-Take element screenshot
-+++++++++++++++++++++++
+
+Element Screenshot
+++++++++++++++++++
 If the element is in the current view:
 
 .. highlight:: python
@@ -57,9 +57,9 @@ If the element is not in the current view:
     screenshot_path = element.screenshot('absolute_path/your_screenshot.png', full=True)
 
 
-++++++++++++++++++
-Take html snapshot
-++++++++++++++++++
++++++++++++++
+HTML Snapshot
++++++++++++++
 Splinter can also take a snapshot of the current HTML:
 
 .. highlight:: python

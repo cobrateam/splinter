@@ -9,60 +9,50 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :caption: Getting Started
-   :hidden:
-
-   why
-   install
-   tutorial
-
-.. toctree::
-   :caption: Browsing and Interactions
-   :hidden:
-
-   browser
-   finding
-   mouse-interaction
-   elements-in-the-page
-   matchers
-   cookies
-   screenshot
-
-.. toctree::
-   :caption: JavaScript
-   :hidden:
-
-   javascript
-
-.. toctree::
-   :caption: Drivers
-   :hidden:
-
-   drivers/chrome
-   drivers/firefox
-   drivers/edge
-   drivers/remote
-   drivers/zope.testbrowser
-   drivers/django
-   drivers/flask
-
-.. toctree::
-   :caption: More
-   :hidden:
-
-   http-status-code-and-exception
-   http-proxies
-   iframes-and-alerts
-   api/index
-   selenium-keys
-
-.. toctree::
-  :caption: Changelog
-  :hidden:
+  :caption: User Guide
   :maxdepth: 2
-  :glob:
 
+  why
   news
+  install
+  tutorial
+
+.. toctree::
+  :caption: Browsing and Interactions
+  :maxdepth: 2
+
+  browser
+  finding
+  elements-in-the-page
+  mouse-interaction
+  matchers
+  cookies
+  screenshot
+  javascript
+
+
+.. toctree::
+  :caption: Drivers
+  :hidden:
+
+  drivers/chrome
+  drivers/firefox
+  drivers/edge
+  drivers/remote
+  drivers/zope.testbrowser
+  drivers/django
+  drivers/flask
+
+.. toctree::
+  :caption: More
+  :hidden:
+
+  selenium-keys
+  iframes-and-alerts
+  http-status-code-and-exception
+  http-proxies
+  api/index
+
 
 .. toctree::
   :caption: Community

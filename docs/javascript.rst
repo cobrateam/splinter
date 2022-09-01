@@ -6,9 +6,9 @@
     :description: Executing javascript
     :keywords: splinter, python, tutorial, javascript
 
-++++++++++++++++++++
-Executing javascript
-++++++++++++++++++++
+++++++++++++++++++
+Execute JavaScript
+++++++++++++++++++
 
 You can easily execute JavaScript, in drivers which support it:
 
@@ -27,7 +27,7 @@ You can return the result of the script:
     browser.evaluate_script("4+4") == 8
 
 
-Example: manipulating text fields with JavaScript
+Example: Manipulate text fields with JavaScript
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
 Some text input actions cannot be "typed" thru ``browser.fill()``, like new lines and tab characters. Below is en example how to work around this using ``browser.execute_script()``. This is also much faster than ``browser.fill()`` as there is no simulated key typing delay, making it suitable for longer texts.
