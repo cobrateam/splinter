@@ -4,7 +4,7 @@
 
 .. meta::
     :description: Find the CobraTeam and Splinter communities.
-    :keywords: splinter, python, cobrateam, community, atdd, tests, acceptance tests, web applications
+    :keywords: splinter, python, cobrateam, community, web applications
 
 +++++++++++++++++++
 Community Resources
@@ -21,7 +21,7 @@ IRC channel
 
 #cobrateam channel on irc.freenode.net - chat with other splinter users and developers
 
-Ticket System
+Issue Tracker
 =============
 
-`ticket system <https://github.com/cobrateam/splinter/issues>`_ - report bugs and make feature requests
+Use our `issue tracker <https://github.com/cobrateam/splinter/issues>`_ to report bugs and make feature requests.

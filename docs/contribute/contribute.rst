@@ -3,8 +3,8 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Find how to contribute with splinter.
-    :keywords: splinter, python, contribution, open source, testing, web application, atdd
+    :description: Find how to contribute to splinter.
+    :keywords: splinter, python, contribution, open source, testing, web application
 
 ++++++++++++
 Contributing
