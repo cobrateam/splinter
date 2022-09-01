@@ -37,7 +37,7 @@ Install tox from the command line:
 Linter
 ======
 
-Splinter enforces code standards using various linting tools. They can be from tox:
+Splinter enforces code standards using various linting tools. They can be run from tox:
 
 .. highlight:: bash
 
