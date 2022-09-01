@@ -6,9 +6,9 @@
     :description: Splinter tutorial, learn how to test your web applications
     :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
 
-+++++++++++++++++
-Splinter Tutorial
-+++++++++++++++++
+++++++++
+Tutorial
+++++++++
 
 Before starting, make sure Splinter is :doc:`installed </install>`
 
@@ -138,4 +138,3 @@ Finally, the source code will be:
         print("No, it wasn't found... We need to improve our SEO techniques")
 
     browser.quit()
-

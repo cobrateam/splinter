@@ -6,15 +6,15 @@
     :description: Setting up your development environment for Splinter.
     :keywords: splinter, open source, python, contribute, development environment
 
-++++++++++++++++++++++++++++++++++++++++++++++++
-Setting up your splinter development environment
-++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++
+Development Environment Setup
++++++++++++++++++++++++++++++
 
 Setting up a splinter development environment is a really easy task. Once you have some
 basic development tools on your machine, you can set up the entire environment with just one command.
 
-Basic development tools
-=======================
+Basic Tools
+===========
 
 Let's deal with those tools first.
 
