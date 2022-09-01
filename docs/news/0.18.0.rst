@@ -6,21 +6,27 @@
     :description: New splinter features on version 0.18.0.
     :keywords: splinter 0.18.0, news
 
-What's New in Splinter 0.18.0?
-==============================
+[0.18.0]
+========
 
-Added:
+Added
+-----
+
 * WebDriverElement() now implements the `shadow_root` property. This returns a ShadowRootElement() object to interact with the shadow root of an element.
 * Failed driver imports are logged at the debug level instead of silently ignored
 * `browser.html_snapshot()` now takes the optional `unique_file` argument. Setting this to False will disable the addition of random characters to the filename.
 
-Changed:
+Changed
+-------
+
 * repr(ElementList()) now returns the repr of the internal container.
 * Driver.find_link_by_<x> methods have been removed. Use Driver.links.find_by_<x>.
 * Screenshot taken by WebDriverElement.screenshot() now implements Selenium's element screenshot instead of cropping a full page screenshot.
 * Flask/Django's back/forward methods more accurately store browsing history
 * Official Python 3.6 support has been removed
 
-Fixed:
+Fixed
+-----
+
 * 0.17.0 would report as 0.16.0. 0.18.0 reports correctly.
 * When using Firefox, extensions can now be installed

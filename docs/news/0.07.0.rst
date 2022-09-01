@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.7.0.
     :keywords: splinter 0.7.0, python, django, news, documentation, tutorial, web application
 
-What's New in Splinter 0.7.0?
-=============================
+[0.7.0]
+=======
 
 Features
 --------

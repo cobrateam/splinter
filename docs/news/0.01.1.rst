@@ -6,7 +6,7 @@
     :description: New splinter features on version 0.1.1.
     :keywords: splinter 0.1.1, python, news, documentation, tutorial, web application
 
-What's New in Splinter 0.1.1?
-=============================
+[0.1.1]
+=======
 
 - compatibility with Firefox 5
