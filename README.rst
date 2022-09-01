@@ -14,15 +14,26 @@
    :target: https://github.com/cobrateam/splinter/actions/workflows/main.yml
    :alt: Build status
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++
-splinter - python tool for testing web applications
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++
+splinter
+++++++++
 
-splinter is an open source tool for testing web applications using Python.
-It lets you automate browser actions, such as visiting URLs and interacting with their items.
+Splinter is a Python framework that provides a simple and consistent interface for web application automation.
 
-Sample code
------------
+* `Documentation <https://splinter.readthedocs.io>`_
+
+* `Changelog <https://splinter.readthedocs.io/en/latest/news.html>`_
+
+Key features:
+
+- Easy to learn: The API is designed to be intuitive and quick to pick up.
+- Faster to code: Automate browser interactions quickly and reliably without fighting the tool.
+- Powerful: Designed for real world use cases, it guards against common automation quirks.
+- Flexible: Access to lower level tools is never hidden. Break out into raw Selenium at any time.
+- Robust: Support is available for multiple automation drivers (Selenium, Django, Flask, ZopeTestBrowser).
+
+Example
+-------
 
 .. code:: python
 
@@ -42,7 +53,6 @@ Sample code
 
 **Note:** if you don't provide any driver argument to the ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
 
-`Changelog <https://splinter.readthedocs.io/en/latest/news.html>`_
 
 First steps
 ===========
@@ -51,22 +61,12 @@ First steps
 
 * `Quick tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
-Splinter open source project
-============================
-
-* `Community <https://splinter.readthedocs.io/en/latest/community.html>`_
-
-* `Contribute <https://splinter.readthedocs.io/en/latest/contribute.html>`_
-
-Documentation
-=============
-
-* `Splinter documentation <https://splinter.readthedocs.io>`_
 
 Pytest Plugins
 ==============
 
 * `pytest-splinter <http://pytest-splinter.readthedocs.io>`_, Splinter plugin for the `py.test <http://docs.pytest.org>`_ runner.
+
 
 Page Objects
 ============
@@ -75,14 +75,8 @@ Support for page objects is available through the following package:
 
 * `Stere <https://stere.readthedocs.io/>`_
 
-Deprecated projects:
-++++++++++++++++++++
 
-* `PyPOM <http://pypom.readthedocs.io/>`_, A base page object model for use with Selenium or Splinter functional tests.
-
-* `pypom_form <http://pypom-form.readthedocs.io>`_, A PyPOM based package that provides declarative schema based form interaction for page object models compatible with Splinter.
-
-Other Projects Using Splinter
+Projects Using Splinter
 =============================
 
 * `salad <https://github.com/salad/salad>`_, a nice mix of great BDD ingredients (splinter + `lettuce <http://lettuce.it>`_ integration)
@@ -93,3 +87,11 @@ Other Projects Using Splinter
 Presentations & Tutorials
 =========================
 * `Django Full Stack Testing and BDD with Lettuce and Splinter <https://www.cilliano.com/2011/02/07/django-bdd-with-lettuce-and-splinter.html>`_
+
+
+Splinter open source project
+============================
+
+* `Community <https://splinter.readthedocs.io/en/latest/community.html>`_
+
+* `Contribute <https://splinter.readthedocs.io/en/latest/contribute.html>`_
