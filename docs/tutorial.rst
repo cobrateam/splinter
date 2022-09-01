@@ -194,8 +194,8 @@ When you've finished testing, close your browser using ``browser.quit``:
     button_element.click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
-        print("Yes, found it! :)")
+        print("Yes, the official website was found!")
     else:
-        print("No, didn't find it :(")
+        print("No, it wasn't found... We need to improve our SEO techniques")
 
     browser.quit()
