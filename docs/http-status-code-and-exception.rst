@@ -6,9 +6,9 @@
     :description: Dealing with HTTP status code and HTTP exceptions with Splinter
     :keywords: splinter, python, tutorial, documentation, exception, http error, status code
 
-++++++++++++++++++++++++++++++++++++++++++++
-Dealing with HTTP status code and exceptions
-++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++
+HTTP Status Code and Exceptions
++++++++++++++++++++++++++++++++
 
 **Note:** After 0.8 version the `webdriver` (firefox, chrome) based drivers does not support http error
 handling.

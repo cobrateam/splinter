@@ -4,7 +4,7 @@
 
 .. meta::
     :description: Splinter tutorial, learn how to test your web applications
-    :keywords: splinter, python, tutorial, documentation, web application, tests, atdd, tdd, acceptance tests
+    :keywords: splinter, python, tutorial, documentation, web application
 
 ++++++++
 Tutorial
@@ -20,82 +20,150 @@ This tutorial provides a simple example, teaching step by step how to:
 Create a Browser instance
 =========================
 
-First of all, import ``Browser`` class and instantiate it.
+Import the ``Browser`` class and instantiate it:
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from splinter import Browser
+
+
     browser = Browser()
 
-**Note:** if you don't provide any driver argument to the ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
+
+**Note:** if you don't provide any argument to the ``Browser`` function, ``firefox`` will be used (`Browser function documentation <https://splinter.readthedocs.io/en/latest/api/driver-and-element-api.html>`_).
 
 
-Visit Google website
-====================
+Visit a website
+===============
 
-Visit any website using the ``browser.visit`` method. Let's go to Google search page:
+Navigate to any website using the ``browser.visit()`` method.
 
-.. highlight:: python
+Let's go to Google:
 
-::
+.. code-block:: python
+    :emphasize-lines: 6
+
+    from splinter import Browser
+
+
+    browser = Browser()
 
     browser.visit('http://google.com')
 
 
-Input search text
-=================
+Find an element
+===============
 
-After a page is loaded, you can perform actions, such as clicking, filling text input, checking radio and checkbox. Let's fill Google's search field with ``splinter - python acceptance testing for web applications``:
+After a page is loaded, you can perform actions, such as clicking, filling text input, checking radio and checkboxes.
 
-.. highlight:: python
+To do that, first you must find the correct element:
 
-::
+.. code-block:: python
+    :emphasize-lines: 7
 
-    browser.fill('q', 'splinter - python acceptance testing for web applications')
+    from splinter import Browser
 
-Press the search button
-=======================
+
+    browser = Browser()
+
+    browser.visit('http://google.com')
+    input_element = browser.find_by_name('q')
+
+
+Input text
+==========
+
+Let's fill Google's search element with ``splinter - python acceptance testing for web applications``:
+
+.. code-block:: python
+    :emphasize-lines: 8
+
+    from splinter import Browser
+
+
+    browser = Browser()
+
+    browser.visit('http://google.com')
+    input_element = browser.find_by_name('q')
+    input_element.fill('splinter - python acceptance testing for web applications')
+
+
+Click a button
+==============
 
 Tell Splinter which button should be pressed. A button - or any other element - can be identified using its css, xpath, id, tag or name.
 
 In order to find Google's search button, do:
 
-.. highlight:: python
+.. code-block:: python
+    :emphasize-lines: 10
 
-::
-
-    button = browser.find_by_name('btnK')
-
-Note that this ``btnK`` was found looking at Google's page source code.
-
-With the button in hands, we can then press it:
-
-.. highlight:: python
-
-::
-
-    button.click()
+    from splinter import Browser
 
 
-Note: Both steps presented above could be joined in a single line, such as:
+    browser = Browser()
 
-.. highlight:: python
+    browser.visit('http://google.com')
+    input_element = browser.find_by_name('q')
+    input_element.fill('splinter - python acceptance testing for web applications')
 
-::
+    button_element = browser.find_by_name('btnK')
 
+
+**Note** The name ``btnK`` was found by inspecting Google's search page source code.
+
+With the button identified, we can then click it:
+
+.. code-block:: python
+    :emphasize-lines: 11
+
+    from splinter import Browser
+
+
+    browser = Browser()
+
+    browser.visit('http://google.com')
+    input_element = browser.find_by_name('q')
+    input_element.fill('splinter - python acceptance testing for web applications')
+
+    button_element = browser.find_by_name('btnK')
+    button_element.click()
+
+
+**Note:** Both steps presented above could be joined in a single line, such as:
+
+.. code-block:: python
+    :emphasize-lines: 7,8
+
+    from splinter import Browser
+
+
+    browser = Browser()
+
+    browser.visit('http://google.com')
+    browser.find_by_name('q').fill('splinter - python acceptance testing for web applications')
     browser.find_by_name('btnK').click()
 
 
-Find out that Splinter official website is in the search results
-================================================================
+Check for results
+=================
 
 After pressing the button, you can check if Splinter official website is among the search responses. This can be done like this:
 
-.. highlight:: python
+.. code-block:: python
+    :emphasize-lines: 13,14,15,16
 
-::
+    from splinter import Browser
+
+
+    browser = Browser()
+
+    browser.visit('http://google.com')
+    input_element = browser.find_by_name('q')
+    input_element.fill('splinter - python acceptance testing for web applications')
+
+    button_element = browser.find_by_name('btnK')
+    button_element.click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
         print("Yes, found it! :)")
@@ -110,31 +178,24 @@ Close the browser
 
 When you've finished testing, close your browser using ``browser.quit``:
 
-.. highlight:: python
-
-::
-
-    browser.quit()
-
-All together
-============
-
-Finally, the source code will be:
-
-.. highlight:: python
-
-::
+.. code-block:: python
+    :emphasize-lines: 18
 
     from splinter import Browser
 
-    browser = Browser() # defaults to firefox
+
+    browser = Browser()
+
     browser.visit('http://google.com')
-    browser.fill('q', 'splinter - python acceptance testing for web applications')
-    browser.find_by_name('btnK').click()
+    input_element = browser.find_by_name('q')
+    input_element.fill('splinter - python acceptance testing for web applications')
+
+    button_element = browser.find_by_name('btnK')
+    button_element.click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
-        print("Yes, the official website was found!")
+        print("Yes, found it! :)")
     else:
-        print("No, it wasn't found... We need to improve our SEO techniques")
+        print("No, didn't find it :(")
 
     browser.quit()

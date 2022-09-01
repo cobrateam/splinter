@@ -3,12 +3,12 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Cookie manipulation
+    :description: Cookies
     :keywords: splinter, python, tutorial, documentation, cookies
 
-++++++++++++++++++++
-Cookies manipulation
-++++++++++++++++++++
+++++++++++++++
+Handle Cookies
+++++++++++++++
 
 It is possible to manipulate cookies using the `cookies` attribute from a
 `Browser` instance. The `cookies` attribute is an instance of the `CookieManager`

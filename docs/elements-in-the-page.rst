@@ -6,12 +6,12 @@
     :description: Dealing with elements in the page.
     :keywords: splinter, python, tutorial, documentation, forms, click links, get value
 
-+++++++++++++++++++++++++++++++++++++
-Interacting with elements in the page
-+++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++
+Interact with Elements
+++++++++++++++++++++++
 
-Get value of an element
------------------------
+Get value
+---------
 
 In order to retrieve an element's value, use the ``value`` property:
 

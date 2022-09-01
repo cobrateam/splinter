@@ -6,9 +6,9 @@
     :description: Finding elements
     :keywords: splinter, python, tutorial, find, selectors
 
-++++++++++++++++
-Finding elements
-++++++++++++++++
++++++++++++++
+Find Elements
++++++++++++++
 
 Splinter provides 6 methods for finding elements in the page, one for each
 selector type: ``css``, ``xpath``, ``tag``, ``name``, ``id``, ``value``,
@@ -47,8 +47,8 @@ element:
     last_found = browser.find_by_name('name').last
 
 
-Get element using index
-=======================
+Get Element by Index
+====================
 
 You also can use an index to get the desired element in the list of found
 elements:
@@ -59,8 +59,8 @@ elements:
 
     second_found = browser.find_by_name('name')[1]
 
-All elements and ``find_by_id``
-===============================
+About ``browser.find_by_id()``
+==============================
 
 A web page should have only one id, so the ``find_by_id`` method returns always
 a list with just one element.
@@ -103,6 +103,7 @@ found element.
 
     divs = browser.find_by_tag("div")
     within_elements = divs.first.find_by_name("name")
+
 
 ``ElementDoesNotExist`` exception
 =================================
