@@ -4,3 +4,4 @@ argparse
 Django>=2.0.6
 pytest==7.1.2
 pytest-xdist==2.5.0
+zope.testbrowser==5.6.1

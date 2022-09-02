@@ -47,6 +47,22 @@ def test_browser_should_work_even_without_zope_testbrowser():
     unpatch_driver(browser, old_import)
 
 
+def test_browser_message_on_missing_driver():
+    old_import = patch_driver("zope")
+    from splinter import browser
+
+    reload(browser)
+
+    with pytest.raises(DriverNotFoundError) as e:
+        from splinter import Browser
+
+        Browser("zope.testbrowser")
+
+    assert 'Driver for zope.testbrowser was not found.' == str(e.value)
+
+    unpatch_driver(browser, old_import)
+
+
 def test_browser_should_raise_an_exception_when_driver_is_not_found():
     with pytest.raises(DriverNotFoundError):
         from splinter import Browser
