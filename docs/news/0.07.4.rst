@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.7.4.
     :keywords: splinter 0.7.4, news
 
-What's New in Splinter 0.7.4?
-=============================
+[0.7.4]
+=======
 
 
 * support Selenium 2.53.6

@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.3.
     :keywords: splinter 0.3, python, news, documentation, tutorial, web application
 
-What's New in Splinter 0.3?
-===========================
+[0.3.0]
+=======
 
 Features
 --------

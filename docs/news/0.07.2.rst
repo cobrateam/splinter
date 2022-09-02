@@ -6,7 +6,7 @@
     :description: New splinter features on version 0.7.2.
     :keywords: splinter 0.7.2, news
 
-What's New in Splinter 0.7.2?
-=============================
+[0.7.2]
+=======
 
 * fix Python 3 compatibility, improving enconding/decoding in `browser.title` and `browser.html` - `#380 <https://github.com/cobrateam/splinter/pull/380>`_

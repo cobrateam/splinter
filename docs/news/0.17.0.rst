@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.17.0.
     :keywords: splinter 0.17.0, news
 
-What's New in Splinter 0.17.0?
-==============================
+[0.17.0]
+========
 
 * Added parameter to DriverAPI.screenshot and ElementAPI.screenshot to indicate if unique filename should be ensured (https://github.com/cobrateam/splinter/pull/949)
 * Added Selenium 4 support

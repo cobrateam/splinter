@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.7.3.
     :keywords: splinter 0.7.3, news
 
-What's New in Splinter 0.7.3?
-=============================
+[0.7.3]
+=======
 
 * support selenium 2.47.1
 * add `select_by_text` method

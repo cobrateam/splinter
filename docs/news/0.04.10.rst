@@ -6,8 +6,8 @@
     :description: New splinter features on version 0.4.10.
     :keywords: splinter 0.4.10, python, news, documentation, tutorial, web application
 
-What's New in Splinter 0.4.10?
-==============================
+[0.4.10]
+========
 
 This version does not work with firefox 17.
 
