@@ -10,40 +10,6 @@
 Firefox WebDriver
 +++++++++++++++++
 
-External Requirements
-=====================
-
-The following applications are required:
-
-  - `Mozilla Firefox <http://firefox.com>`_
-  - `Geckodriver <https://github.com/mozilla/geckodriver/releases>`_
-
-Geckodriver must also be available on your operating system's `PATH` environment variable.
-
-Dependencies
-++++++++++++
-
-To use Firefox, the python bindings for Selenium 3 or Selenium 4 must be installed.
-
-When splinter is installed via pip, the `selenium3` or `selenium4` extra argument can be provided.
-This will automatically install the latest version of Selenium 3 or Selenium 4, respectively.
-
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3]
-
-Installing Geckodriver
-======================
-
-Mac OS X
-++++++++
-
-The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
-
-.. code-block:: console
-
-    brew install geckodriver
 
 Usage
 -----

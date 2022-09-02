@@ -1,5 +1,5 @@
 +++++++++++++++++
-Why use Splinter?
+Why Use Splinter?
 +++++++++++++++++
 
 Splinter is an abstraction layer on top of existing browser automation tools

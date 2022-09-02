@@ -9,17 +9,25 @@
 .. include:: ../README.rst
 
 .. toctree::
-  :caption: User Guide
-  :maxdepth: 2
+  :caption: Overview
+  :hidden:
 
   why
   news
-  install
   tutorial
 
 .. toctree::
+  :caption: Installation Guide
+  :hidden:
+
+  install/install
+  install/driver_install
+  install/external
+
+
+.. toctree::
   :caption: Browsing and Interactions
-  :maxdepth: 2
+  :hidden:
 
   browser
   finding
@@ -29,10 +37,15 @@
   cookies
   screenshot
   javascript
+  selenium-keys
+  iframes-and-alerts
+  http-status-code-and-exception
+  http-proxies
+  api/index
 
 
 .. toctree::
-  :caption: Drivers
+  :caption: Driver APIs
   :hidden:
 
   drivers/chrome
@@ -42,16 +55,6 @@
   drivers/zope.testbrowser
   drivers/django
   drivers/flask
-
-.. toctree::
-  :caption: More
-  :hidden:
-
-  selenium-keys
-  iframes-and-alerts
-  http-status-code-and-exception
-  http-proxies
-  api/index
 
 
 .. toctree::
