@@ -1,24 +1,72 @@
 +++++++++++++++++
-Why use Splinter?
+Why Use Splinter?
 +++++++++++++++++
 
-Splinter is an abstraction layer on top of existing browser automation tools
-such as `Selenium`_ and `zope.testbrowser`_. It has a :doc:`high-level API
-</api/index>` that makes it easy to write automated tests of web applications.
 
-For example, to fill out a form field with Splinter::
+Splinter is used to write web browser automation scripts.
 
-    browser.fill('username', 'janedoe')
+The project has two primary goals:
 
-In Selenium, the equivalent code would be::
+* Provide a :doc:`common, high-level API </api/index>` on top of existing
+  browser automation tools such as `Selenium`_. The API is an abstraction layer
+  that is human-friendly and designed for easy, efficient scripting.
 
-    elem = browser.find_element.by_name('username')
-    elem.send_keys('janedoe')
+* Provide built-in functionality to handle common pain points with browser automation.
 
-Because Splinter is an abstraction layer, it supports multiple web automation
-backends. With Splinter, you can use the same test code to do browser-based
-testing with Selenium as the backend and "headless" testing (no GUI) with
-zope.testbrowser as the backend.
+
+Example
+~~~~~~~
+
+The following code will type text into an input element:
+
+
+Written in Splinter:
+
+.. code-block:: python
+
+    from splinter import Browser
+
+    browser = Browser('chrome')
+    browser.visit('http://cowabunga.tubular.awesome')
+
+    element = browser.find_by_css('.username')
+    element.fill('Michaelangelo')
+
+
+Written in Selenium:
+
+.. code-block:: python
+
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+
+    driver = webdriver.Chrome()
+    driver.get('http://cowabunga.tubular.awesome')
+
+    element = driver.find_elements(by=By.CSS_SELECTOR, value='.username')
+    element.send_keys('Michaelangelo')
+
+
+Splinter's API provides a clean interface, but there's more going on here:
+
+.. code-block:: python
+    :emphasize-lines: 6
+
+    from splinter import Browser
+
+    browser = Browser('chrome')
+    browser.visit('http://cowabunga.tubular.awesome')
+
+    element = browser.find_by_css('.username')
+    element.fill('Michaelangelo')
+
+
+Under the hood, Splinter will wait for an element to be in a safe state for interaction.
+This prevents common errors where elements may be found before the web application is ready.
+
+Splinter supports multiple web automation back-ends. You can use the same code
+for web browser testing with Selenium as the back-end and
+"headless" testing (no GUI) with zope.testbrowser as the backend.
 
 Splinter has drivers for browser-based testing on:
 
