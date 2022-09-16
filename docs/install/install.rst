@@ -6,9 +6,9 @@
     :description: Install guide for splinter
     :keywords: splinter, python, tutorial, how to install, installation
 
-++++++++++++++++++
-Installation Guide
-++++++++++++++++++
+++++++++++++++++
+Install Splinter
+++++++++++++++++
 
 Basic Requirements
 ==================
@@ -27,12 +27,12 @@ To install the latest release, run the following command in the terminal:
 	   python -m pip install splinter
 
 
-Installing Driver Dependencies
-------------------------------
+Install With Driver Dependencies
+--------------------------------
 
 pip can be given extra arguments to automatically install driver dependencies.
 
-The `Drivers` section of the documentation has more information for each driver.
+The `Install Drivers` section of the documentation has more information for each driver.
 
 .. highlight:: bash
 
@@ -41,8 +41,8 @@ The `Drivers` section of the documentation has more information for each driver.
   $ python -m pip install splinter[django]
 
 
-Source Code
-===========
+From Source Code
+================
 
 Splinter's source code is hosted on `GitHub <https://github.com/cobrateam/splinter>`_.
 You can clone the repository using `git <https://git-scm.com/>`_:

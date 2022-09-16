@@ -10,23 +10,7 @@
 Django
 ++++++
 
-Dependencies
-------------
-
 .. module:: splinter.driver.djangoclient
-
-To use the ``django`` driver, the following must be installed:
-
-`django <http://pypi.python.org/pypi/django>`_,
-`lxml <https://pypi.python.org/pypi/lxml>`_,
-`cssselect <http://pypi.python.org/pypi/cssselect>`_.
-
-When splinter is installed via pip, the `django` extra argument can be provided.
-This will automatically install Django.
-
-.. code-block:: bash
-
-    python -m pip install splinter[django]
 
 Usage
 -----

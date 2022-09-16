@@ -10,54 +10,6 @@
 Edge WebDriver
 ++++++++++++++
 
-External Requirements
-=====================
-
-The following applications are required:
-
-  - `Microsoft Edge <https://www.microsoft.com/edge>`_
-  - `Microsoft Edge Driver <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>`_
-
-Microsoft Edge Driver must also be available on your operating system's `PATH` environment variable.
-
-Dependencies
-++++++++++++
-
-To use Edge, the python bindings for Selenium 3 or Selenium 4 must be installed.
-
-When splinter is installed via pip, the `selenium3` or `selenium4` extra argument can be provided.
-This will automatically install the latest version of Selenium 3 or Selenium 4, respectively.
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3]
-
-When using Selenium 3, Edge also has the following dependency:
-
-    - `msedge-selenium-tools <https://github.com/microsoft/edge-selenium-tools>`_
-
-Using pip, it can be installed automatically as well:
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3, edge]
-
-Installing Edgedriver
-=====================
-
-Mac OS X
-++++++++
-
-Modern versions of Edge (79+) are available for Mac OS X.
-However, no versions of Edge Legacy are available.
-
-
-Linux
-+++++
-
-Neither version of Edge is available for Linux, and thus Edge WebDriver
-cannot be used on Linux systems.
-
 
 Usage
 -----

@@ -11,17 +11,6 @@
 Remote WebDriver
 ++++++++++++++++
 
-Dependencies
-++++++++++++
-
-To use Remote WebDriver, the python bindings for Selenium 3 or Selenium 4 must be installed.
-
-When splinter is installed via pip, the `selenium3` or `selenium4` extra argument can be provided.
-This will automatically install the latest version of Selenium 3 or Selenium 4, respectively.
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3]
 
 Setting up the Remote WebDriver
 -------------------------------
@@ -62,7 +51,7 @@ browser instance running on Windows 11.
         },
         keep_alive=True,
     ) as browser:
-       
+
         browser.visit("https://www.lambdatest.com/selenium-playground/")
         browser.find_by_text('Simple Form Demo').first.click()
 

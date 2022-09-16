@@ -10,23 +10,9 @@
 Flask
 +++++
 
-Dependencies
-------------
 
 .. module:: splinter.driver.flaskclient
 
-To use the ``flask`` driver, the following must be installed:
-
-`Flask <https://pypi.python.org/pypi/Flask>`_,
-`lxml <https://pypi.python.org/pypi/lxml>`_,
-`cssselect <http://pypi.python.org/pypi/cssselect>`_.
-
-When splinter is installed via pip, the `flask` extra argument can be provided.
-This will automatically install Flask.
-
-.. code-block:: bash
-
-    python -m pip install splinter[flask]
 
 Usage
 -----
