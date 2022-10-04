@@ -558,8 +558,8 @@ class BaseWebDriver(DriverAPI):
             wait_time=wait_time,
         )
 
-    def fill(self, name, value):
-        field = self.find_by_name(name).first
+    def fill(self, xpath, value):
+        field = self.find_by_xpath(xpath).first
         field.value = value
 
     attach_file = fill
