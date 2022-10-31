@@ -1,6 +1,6 @@
 flake8==5.0.4
 flake8-builtins==2.0.0
-flake8-comprehensions==3.10.0
+flake8-comprehensions==3.10.1
 flake8-multiline-containers==0.0.19
 flake8-mutable==1.2.0
 pep8-naming==0.13.2
