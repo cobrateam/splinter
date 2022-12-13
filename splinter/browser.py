@@ -28,6 +28,7 @@ except ImportError as e:
 
 _DRIVERS: Dict[str, Union[None, Type[DriverAPI]]] = {
     'chrome': None,
+    'undetected_chrome': None,
     'edge': None,
     'firefox': None,
     'remote': None,
@@ -38,10 +39,12 @@ _DRIVERS: Dict[str, Union[None, Type[DriverAPI]]] = {
 
 try:
     from splinter.driver.webdriver.chrome import WebDriver as ChromeWebDriver
+    from splinter.driver.webdriver.undetected_chrome import WebDriver as undetected_ChromeWebDriver
     from splinter.driver.webdriver.firefox import WebDriver as FirefoxWebDriver
     from splinter.driver.webdriver.remote import WebDriver as RemoteWebDriver
 
     _DRIVERS['chrome'] = ChromeWebDriver
+    _DRIVERS['undetected_chrome'] = undetected_ChromeWebDriver
     _DRIVERS['firefox'] = FirefoxWebDriver
     _DRIVERS['remote'] = RemoteWebDriver
 except ImportError as e:
