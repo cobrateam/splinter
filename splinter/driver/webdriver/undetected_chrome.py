@@ -5,7 +5,6 @@
 # license that can be found in the LICENSE file.
 
 import undetected_chromedriver as uc
-from selenium.webdriver.chrome.options import Options
 from splinter.driver.webdriver import BaseWebDriver
 
 
@@ -24,7 +23,7 @@ class WebDriver(BaseWebDriver):
         **kwargs
     ):
 
-        options = options or Options()
+        options = uc.ChromeOptions()
 
         if user_agent is not None:
             options.add_argument("--user-agent=" + user_agent)
@@ -39,7 +38,6 @@ class WebDriver(BaseWebDriver):
             options.add_argument("--headless")
             options.add_argument("--disable-gpu")
 
-        # driver = Chrome(options=options, **kwargs)
-        driver = uc.Chrome()
+        driver = uc.Chrome(options=options, **kwargs)
 
         super(WebDriver, self).__init__(driver, wait_time)
