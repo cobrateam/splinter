@@ -17,7 +17,8 @@ def test_webdriver_local_driver_not_present(browser_name):
     with pytest.raises(Exception) as e:  # (WebDriverException) as e:
         Browser(browser_name, executable_path='failpath')
 
-    raise Exception(type(e))
+    raise Exception(e.type, e.value)
+    #assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
