@@ -8,7 +8,11 @@ import time
 
 import pytest
 
-from selenium.common.exceptions import WebDriverException
+try:
+    from selenium.common.exceptions import WebDriverException
+except ModuleNotFoundError:
+    pass
+
 
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest

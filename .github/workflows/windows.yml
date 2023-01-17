@@ -42,7 +42,7 @@ jobs:
 
       - name: Run tests for windows-only drivers
         run: |
-          tox -e tests_windows -- -n 4 tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_edge_chromium.py;
+          tox -e tests_windows_selenium3 -- -n 4 tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_edge_chromium.py;
 
   selenium4:
     runs-on: windows-latest
