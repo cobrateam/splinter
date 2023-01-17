@@ -4,13 +4,9 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-# Selenium 3 compatibility
-try:
-    from msedge.selenium_tools import Edge
-    from msedge.selenium_tools import EdgeOptions as Options
-except ImportError:
-    from selenium.webdriver import Edge
-    from selenium.webdriver.edge.options import Options
+
+from selenium.webdriver import Edge
+from selenium.webdriver.edge.options import Options
 
 from splinter.driver.webdriver import BaseWebDriver
 

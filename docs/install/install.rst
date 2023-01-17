@@ -13,9 +13,7 @@ Install Splinter
 Basic Requirements
 ==================
 
-Splinter officially supports Python versions 3.6+ for Selenium 3, Django, Flask, and zope.testbrowser.
-
-For Selenium 4, Python versions 3.7+ are supported.
+Splinter officially supports Python versions 3.7 and up.
 
 Latest version via pip
 ======================

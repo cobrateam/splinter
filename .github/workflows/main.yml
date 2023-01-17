@@ -47,62 +47,13 @@ jobs:
 
       - name: Run tests
         run: |
-          tox -e tests -- -n 4 tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py tests/test_xpath_concat.py 
+          tox -e tests -- -n 4 tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py tests/test_xpath_concat.py
 
       - name: Run non-webdriver driver tests
         run: |
           tox -e tests -- -n 4 tests/test_flaskclient.py tests/test_zopetestbrowser.py tests/test_djangoclient.py tests/test_is_element_present_nojs.py
 
-  # This workflow contains a single job called "build"
-  selenium3:
-    # The type of runner that the job will run on
-    # Java, Chrome, chromedriver, Firefox, geckodriver are installed by default on this machine.
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        include:
-          - PY_VER: py37
-            python-version: 3.7
-          - PY_VER: py38
-            python-version: 3.8
-          - PY_VER: py39
-            python-version: 3.9
-          - PY_VER: py310
-            python-version: "3.10"
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{matrix.python-version}}
-
-      - name: Install test dependencies
-        run: pip install tox
-
-      - name: Set env
-        run: echo "DISPLAY=:99.0" >> $GITHUB_ENV
-
-      - name: Install selenium server
-        run: |
-          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.3.0/selenium-server-4.3.0.jar -O selenium-server.jar
-
-      - name: Run Selenium Remote tests
-        run: |
-          echo "Start Selenium Server"
-          xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
-          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
-          echo "Selenium server is ready, running tests"
-          tox -e tests_selenium3 -- tests/test_webdriver_remote.py
-
-      - name: Run Selenium tests
-        run: |
-          tox -e tests_selenium3 -- -n 4 tests/test_element_is_visible.py tests/test_screenshot.py tests/test_mouse_interaction.py tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
-
-  selenium4:
+  selenium:
     runs-on: ubuntu-latest
 
     strategy:
@@ -137,8 +88,11 @@ jobs:
       - name: Run Selenium Remote tests
         run: |
           echo "Start Selenium Server"
-          xvfb-run java -jar selenium-server.jar > /dev/null 2>&1 & sleep 3 & tox -e tests_selenium4 -- tests/test_webdriver_remote.py;
+          xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
+          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
+          echo "Selenium server is ready, running tests"
+          tox -e tests_selenium -- tests/test_webdriver_remote.py
 
-      - name: Run Selenium 4 tests
+      - name: Run Selenium tests
         run: |
-          tox -e tests_selenium4 -- -n 4 tests/test_element_is_visible.py tests/test_screenshot.py tests/test_shadow_root.py tests/test_mouse_interaction.py tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
+          tox -e tests_selenium -- -n 4 tests/test_element_is_visible.py tests/test_screenshot.py tests/test_shadow_root.py tests/test_mouse_interaction.py tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
