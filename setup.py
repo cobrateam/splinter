@@ -59,7 +59,7 @@ setup(
         "flask": ["Flask>=2.0.2", "lxml>=4.2.4", "cssselect"],
         "edge": ["msedge-selenium-tools"],
         "selenium3": ["selenium>=3.141.0,<4.0"],
-        "selenium4": ["selenium>=4.1.0,<5.0"],
+        "selenium4": ["selenium>=4.1.0,<4.2.0"],
     },
     tests_require=["coverage", "flask"],
 )

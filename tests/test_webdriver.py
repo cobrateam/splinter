@@ -1,6 +1,6 @@
 import os
 
-# from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import WebDriverException
 
 from .base import supported_browsers
 from .get_browser import get_browser
@@ -14,11 +14,10 @@ def test_webdriver_local_driver_not_present(browser_name):
     """When chromedriver/geckodriver are not present on the system."""
     from splinter import Browser
 
-    with pytest.raises(Exception) as e:  # (WebDriverException) as e:
+    with pytest.raises(WebDriverException) as e:
         Browser(browser_name, executable_path='failpath')
 
-    raise Exception(e.type, e.value)
-    #assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
+    assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
 
 
 @pytest.mark.parametrize('browser_name', supported_browsers)
