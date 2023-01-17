@@ -50,7 +50,9 @@ setup(
     },
     packages=find_packages(exclude=["docs", "tests", "samples"]),
     include_package_data=True,
-    install_requires=[],
+    install_requires=[
+        "urllib3 >=1.26.14,<2.0"
+    ],
     extras_require={
         "zope.testbrowser": ["zope.testbrowser>=5.5.1", "lxml>=4.2.4", "cssselect"],
         "django": ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"],

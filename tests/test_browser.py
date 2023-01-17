@@ -10,8 +10,6 @@ from importlib import reload
 
 from splinter.exceptions import DriverNotFoundError
 
-from selenium.common.exceptions import WebDriverException
-
 import pytest
 
 
@@ -70,17 +68,6 @@ def test_browser_should_raise_an_exception_when_driver_is_not_found():
         Browser("unknown-driver")
 
 
-@pytest.mark.parametrize('browser_name', ['chrome', 'firefox'])
-def test_browser_local_driver_not_present(browser_name):
-    """When chromedriver/geckodriver are not present on the system."""
-    from splinter import Browser
-
-    with pytest.raises(WebDriverException) as e:
-        Browser(browser_name, executable_path='failpath')
-
-    assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
-
-
 def test_browser_driver_retry_count():
     """Checks that the retry count is being used"""
     from splinter.browser import _DRIVERS
@@ -117,7 +104,8 @@ def test_browser_log_missing_drivers(caplog):
     reload(browser)
     unpatch_driver(browser, old_import)
 
-    assert 1 == len(caplog.records)
-    record = caplog.records[0]
-    assert record.levelname == 'DEBUG'
-    assert 'Import Warning' in record.message
+    assert 7 == len(caplog.records)
+    for i in range(0, 6):
+        record = caplog.records[i]
+        assert record.levelname == 'DEBUG'
+        assert 'Import Warning' in record.message

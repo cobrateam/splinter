@@ -1,7 +1,11 @@
 import os
 from urllib import parse
 
-from selenium import webdriver
+# Catch for when non-webdriver set of tests are run.
+try:
+    from selenium import webdriver
+except ModuleNotFoundError:
+    pass
 
 from splinter import Browser
 
