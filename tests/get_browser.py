@@ -60,7 +60,7 @@ def get_browser(browser_name, **kwargs):
         driver_path = os.getenv('EDGEWEBDRIVER')
         if driver_path:
             from selenium.webdriver.edge.service import Service as EdgeService
-            service = EdgeService(executable_path=driver_path + '\msedgedriver.exe')
+            service = EdgeService(executable_path=f'{driver_path}\msedgedriver.exe')  # NOQA
 
         return Browser('edge', headless=True, service=service, **kwargs)
 
