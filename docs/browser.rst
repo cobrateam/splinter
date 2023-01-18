@@ -4,13 +4,13 @@
 
 .. meta::
     :description: Browser
-    :keywords: splinter, python, tutorial, browser, firefox, chrome, zope.testbrowser
+    :keywords: splinter, python, tutorial, browser
 
 +++++++
 Browser
 +++++++
 
-To use splinter you need to create a Browser instance:
+To use Splinter, you must create a Browser instance:
 
 .. highlight:: python
 
@@ -19,7 +19,7 @@ To use splinter you need to create a Browser instance:
     from splinter import Browser
     browser = Browser()
 
-Or, you can use it by a ``context manager``, through the ``with`` statement:
+Alternatively, you can use a context manager using the ``with`` statement:
 
 .. highlight:: python
 
@@ -29,26 +29,25 @@ Or, you can use it by a ``context manager``, through the ``with`` statement:
     with Browser() as b:
         # stuff using the browser
 
-This last example will create a new browser window and close it when the cursor
-reaches the code outside the ``with`` statement, automatically.
+This will automatically close the browser before executing the code outside the ``with`` statement.
 
-splinter supports the following drivers:
-* :doc:`Chrome </drivers/chrome>`
-* :doc:`Firefox </drivers/firefox>`
-* :doc:`Browsers on remote machines </drivers/remote>`
+``Browser()`` takes the following names, each mapped to a different driver:
+
+* :doc:`chrome </drivers/chrome>`
+* :doc:`firefox </drivers/firefox>`
+* :doc:`edge </drivers/edge>`
+* :doc:`remote </drivers/remote>`
 * :doc:`zope.testbrowser </drivers/zope.testbrowser>`
-* :doc:`Django client </drivers/django>`
-* :doc:`Flask client </drivers/flask>`
+* :doc:`django </drivers/django>`
+* :doc:`flask </drivers/flask>`
 
-The following examples create new Browser instances for specific drivers:
-  
+For example:
+
 .. highlight:: python
 
 ::
 
     browser = Browser('chrome')
-    browser = Browser('firefox')
-    browser = Browser('zope.testbrowser')
 
 =============================
 Navigating with Browser.visit
