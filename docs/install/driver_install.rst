@@ -14,34 +14,16 @@ Drivers
 Selenium-based Drivers
 ======================
 
-To use ``chrome``, ``fireFox``, ``edge``, or ``remote``, the python bindings for Selenium 3 or Selenium 4 must be installed.
+To use ``chrome``, ``fireFox``, ``edge``, or ``remote``, the python bindings for Selenium must be installed.
 
-When splinter is installed via pip, the `selenium3` or `selenium4` extra argument can be provided.
-This will automatically install the latest version of Selenium 3 or Selenium 4, respectively.
-
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3]
+When splinter is installed via pip, the `selenium` extra argument can be provided.
+This will automatically install the latest version of Selenium.
 
 
 .. code-block:: bash
 
-    python -m pip install splinter[selenium4]
+    python -m pip install splinter[selenium]
 
-
-Microsoft Edge
-==============
-
-When using Selenium 3, ``edge`` also has the following dependency:
-
-    - `msedge-selenium-tools <https://github.com/microsoft/edge-selenium-tools>`_
-
-Using pip, it can be installed automatically as well:
-
-.. code-block:: bash
-
-    python -m pip install splinter[selenium3, edge]
 
 
 Django

@@ -28,15 +28,13 @@ Edge Options
 Selenium Options can be passed to customize Edge's behaviour through the
 ``EdgeOptions`` object
 
-It must be imported from the ``msedge-selenium-tools`` package.
-
 .. code-block:: python
 
-    from msedge.selenium_tools import EdgeOptions
+    from selenium.webdriver.edge.options import Options
     from splinter import Browser
 
     mobile_emulation = {"deviceName": "Google Nexus 5"}
-    edge_options = EdgeOptions()
+    edge_options = Options()
     browser = Browser('edge', options=edge_options)
 
 Headless mode
@@ -69,11 +67,11 @@ it is then possible to leverage the experimental emulation mode.
 
 .. code-block:: python
 
-    from msedge.selenium_tools import EdgeOptions
+    from selenium.webdriver.edge.options import Options
     from splinter import Browser
 
     mobile_emulation = {"deviceName": "Google Nexus 5"}
-    edge_options = EdgeOptions()
+    edge_options = Options()
     edge_options.add_experimental_option(
       "mobileEmulation", mobile_emulation,
     )
