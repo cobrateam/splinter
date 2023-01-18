@@ -83,7 +83,7 @@ jobs:
 
       - name: Install selenium server
         run: |
-          wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -O selenium-server.jar
+          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.3.0/selenium-server-4.3.0.jar -O selenium-server.jar
 
       - name: Run Selenium Remote tests
         run: |
