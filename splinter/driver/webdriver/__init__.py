@@ -9,7 +9,6 @@ import os
 import re
 import tempfile
 import time
-import warnings
 from contextlib import contextmanager
 from typing import Optional
 
@@ -336,38 +335,6 @@ class BaseWebDriver(DriverAPI):
 
     def evaluate_script(self, script, *args):
         return self.driver.execute_script("return %s" % script, *args)
-
-    def is_element_visible_by_css(self, css_selector, wait_time=None):
-        warnings.warn(
-            f'browser.is_element_visible_by_css({css_selector}, {wait_time}) is deprecated.'
-            f' Use browser.find_by_css({css_selector}).is_visible({wait_time}) instead.',
-            FutureWarning,
-        )
-        return self.find_by_css(css_selector, wait_time).is_visible(wait_time)
-
-    def is_element_not_visible_by_css(self, css_selector, wait_time=None):
-        warnings.warn(
-            f'browser.is_element_not_visible_by_css({css_selector}, {wait_time}) is deprecated.'
-            f' Use browser.find_by_css({css_selector}).is_not_visible({wait_time}) instead.',
-            FutureWarning,
-        )
-        return self.find_by_css(css_selector, wait_time).is_not_visible(wait_time)
-
-    def is_element_visible_by_xpath(self, xpath, wait_time=None):
-        warnings.warn(
-            f'browser.is_element_visible_by_xpath({xpath}, {wait_time}) is deprecated.'
-            f' Use browser.find_by_xpath({xpath}).is_visible({wait_time}) instead.',
-            FutureWarning,
-        )
-        return self.find_by_xpath(xpath, wait_time).is_visible(wait_time)
-
-    def is_element_not_visible_by_xpath(self, xpath, wait_time=None):
-        warnings.warn(
-            f'browser.is_element_not_visible_by_xpath({xpath}, {wait_time}) is deprecated.'
-            f' Use browser.find_by_xpath({xpath}).is_not_visible({wait_time}) instead.',
-            FutureWarning,
-        )
-        return self.find_by_xpath(xpath, wait_time).is_not_visible(wait_time)
 
     def is_element_present(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
