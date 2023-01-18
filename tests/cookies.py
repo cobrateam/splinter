@@ -38,7 +38,7 @@ class CookiesTest:
 
         browser.cookies.add({"whatever": "and ever"})
         browser.cookies.add({"anothercookie": "im bored"})
-        browser.cookies.delete()
+        browser.cookies.delete_all()
 
         assert {} == browser.cookies
 
@@ -49,7 +49,7 @@ class CookiesTest:
         browser = self.get_new_browser()
         browser.visit(self.EXAMPLE_APP)
 
-        browser.cookies.delete()
+        browser.cookies.delete_all()
         browser.cookies.add({"cookie": "with milk"})
         browser.cookies.delete("cookie")
 
@@ -62,7 +62,7 @@ class CookiesTest:
         browser = self.get_new_browser()
         browser.visit(self.EXAMPLE_APP)
 
-        browser.cookies.delete()
+        browser.cookies.delete_all()
         browser.cookies.add({"acookie": "cooked"})
         browser.cookies.add({"anothercookie": "uncooked"})
         browser.cookies.add({"notacookie": "halfcooked"})
@@ -76,7 +76,7 @@ class CookiesTest:
         browser = self.get_new_browser()
         browser.visit(self.EXAMPLE_APP)
 
-        browser.cookies.delete()
+        browser.cookies.delete_all()
         browser.cookies.add({"foo": "bar"})
         browser.cookies.delete("mwahahahaha")
 
@@ -89,13 +89,13 @@ class CookiesTest:
         browser = self.get_new_browser()
         browser.visit(self.EXAMPLE_APP)
 
-        browser.cookies.delete()
+        browser.cookies.delete_all()
         browser.cookies.add({"taco": "shrimp"})
         browser.cookies.add({"lavar": "burton"})
 
         assert 2 == len(browser.cookies.all())
 
-        browser.cookies.delete()
+        browser.cookies.delete_all()
 
         assert {} == browser.cookies.all()
 
