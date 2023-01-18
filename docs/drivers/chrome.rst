@@ -71,20 +71,34 @@ Further Information: `chrome driver documentation <https://sites.google.com/a/ch
     )
     browser = Browser('chrome', options=chrome_options)
 
-Custom executable path
-++++++++++++++++++++++
+Service
++++++++
 
-Chrome can also be used from a custom path.
-Pass the executable path as a dictionary to the `**kwargs` argument.
-The dictionary should be set up with `executable_path` as the key and
-the value set to the path to the executable file.
+Selenium uses the Service class to manage chromedriver.
+An instance of this class can be given directly to Splinter.
 
 .. code-block:: python
 
     from splinter import Browser
-    executable_path = {'executable_path':'</path/to/chrome>'}
+    from selenium.webdriver.chrome.service import Service
 
-    browser = Browser('chrome', **executable_path)
+    my_service = Service()
+    browser = Browser('chrome', service=my_service)
+
+
+Custom executable path
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Service object can be used to specify the path to chromedriver.
+For example:
+
+.. code-block:: python
+
+    from splinter import Browser
+    from selenium.webdriver.chrome.service import Service
+
+    my_service = Service(executable_path='</path/to/chromedriver>')
+    browser = Browser('chrome', service=my_service)
 
 
 API docs

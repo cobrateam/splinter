@@ -3,9 +3,12 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
+import warnings
+from typing import Optional
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 
 from splinter.driver.webdriver import BaseWebDriver
 
@@ -26,8 +29,23 @@ class WebDriver(BaseWebDriver):
         capabilities=None,
         headless=False,
         incognito=False,
+        service: Optional[Service] = None,
         **kwargs
     ):
+
+        if 'executable_path' in kwargs:
+            warnings.warn(
+                (
+                    "Webdriver's executable_path argument has been deprecated."
+                    "Please pass in a selenium Service object instead."
+                ),
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            if service is None:
+                service = Service(executable_path=kwargs['executable_path'])
+            else:
+                service.executable_path = kwargs['executable_path']
 
         options = options or Options()
         if profile:
@@ -54,6 +72,7 @@ class WebDriver(BaseWebDriver):
 
         driver = Firefox(
             options=options,
+            service=service,
             **kwargs,
         )
 

@@ -56,10 +56,12 @@ def get_browser(browser_name, **kwargs):
 
     elif browser_name == 'edge':
         # Github Actions Windows EdgeDriver path
+        service = None
         driver_path = os.getenv('EDGEWEBDRIVER')
         if driver_path:
-            kwargs['executable_path'] = driver_path + '\msedgedriver.exe'  # NOQA
+            from selenium.webdriver.edge.service import Service as EdgeService
+            service = EdgeService(executable_path=f'{driver_path}\msedgedriver.exe')  # NOQA
 
-        return Browser('edge', headless=True, **kwargs)
+        return Browser('edge', headless=True, service=service, **kwargs)
 
     raise ValueError('Unknown browser name')

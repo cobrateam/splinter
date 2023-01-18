@@ -48,6 +48,36 @@ when creating a Browser instance.
     from splinter import Browser
     browser = Browser('firefox', incognito=True)
 
+Service
++++++++
+
+Selenium uses the Service class to manage geckodriver.
+An instance of this class can be given directly to Splinter.
+
+.. code-block:: python
+
+    from splinter import Browser
+    from selenium.webdriver.firefox.service import Service
+
+    my_service = Service()
+    browser = Browser('firefox', service=my_service)
+
+
+Custom executable path
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Service object can be used to specify the path to geckodriver.
+For example:
+
+.. code-block:: python
+
+    from splinter import Browser
+    from selenium.webdriver.firefox.service import Service
+
+    my_service = Service(executable_path='</path/to/geckodriver>')
+    browser = Browser('firefox', service=my_service)
+
+
 Specify Profile
 +++++++++++++++
 

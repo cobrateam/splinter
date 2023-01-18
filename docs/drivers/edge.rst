@@ -77,20 +77,35 @@ it is then possible to leverage the experimental emulation mode.
     )
     browser = Browser('edge', options=edge_options)
 
-Custom executable path
-++++++++++++++++++++++
+Service
++++++++
 
-Edge can also be used from a custom path.
-Pass the executable path as a dictionary to the `**kwargs` argument.
-The dictionary should be set up with `executable_path` as the key and
-the value set to the path to the executable file.
+Selenium uses the Service class to manage edgedriver.
+An instance of this class can be given directly to Splinter.
 
 .. code-block:: python
 
     from splinter import Browser
-    executable_path = {'executable_path':'</path/to/edge>'}
+    from selenium.webdriver.chrome.service import Service
 
-    browser = Browser('edge', **executable_path)
+    my_service = Service()
+    browser = Browser('chrome', service=my_service)
+
+
+Custom executable path
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Service object can be used to specify the path to edgedriver.
+For example:
+
+.. code-block:: python
+
+    from splinter import Browser
+    from selenium.webdriver.edge.service import Service
+
+    my_service = Service(executable_path='</path/to/edgedriver>')
+    browser = Browser('edge', service=my_service)
+
 
 Edge Legacy
 +++++++++++
