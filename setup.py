@@ -41,7 +41,7 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",
     ]
-    + [("Programming Language :: Python :: %s" % x) for x in "3.7 3.8 3.9 3.10".split()],
+    + [("Programming Language :: Python :: %s" % x) for x in "3.7 3.8 3.9 3.10 3.11".split()],
     project_urls={
         "Documentation": "https://splinter.readthedocs.io/",
         "Changelog": "https://github.com/cobrateam/splinter/tree/master/docs/news",
@@ -57,7 +57,7 @@ setup(
         "zope.testbrowser": ["zope.testbrowser>=5.5.1", "lxml>=4.2.4", "cssselect"],
         "django": ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"],
         "flask": ["Flask>=2.0.2", "lxml>=4.2.4", "cssselect"],
-        "selenium": ["selenium>=4.1.0,<4.2.0"],
+        "selenium": ["selenium>=4.1.0,<4.3.0"],
     },
     tests_require=["coverage", "flask"],
 )
