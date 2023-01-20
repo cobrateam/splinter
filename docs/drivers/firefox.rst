@@ -24,29 +24,6 @@ the ``Browser`` instance:
 
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
-Headless mode
-+++++++++++++
-
-Starting with Firefox 55, Firefox can run in a headless mode.
-
-To use headless mode, pass the `headless` argument
-when creating a new Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('firefox', headless=True)
-
-Incognito mode
-++++++++++++++
-
-To use Firefox's incognito mode, pass the `incognito` argument
-when creating a Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('firefox', incognito=True)
 
 Service
 +++++++
@@ -91,19 +68,6 @@ using the ``profile`` keyword (passing the name of the profile as a ``str`` inst
 
 If you don't specify a profile, a new temporary profile will be created (and deleted when you ``close`` the browser).
 
-Firefox Extensions
-++++++++++++++++++
-
-An extension for firefox is a .xpi archive.
-To use an extension in Firefox webdriver profile you need to give the path of
-the extension, using the extensions keyword (passing the extensions as a ``list`` instance):
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('firefox', extensions=['extension1.xpi', 'extension2.xpi'])
-
-After the browser is closed, extensions will be deleted from the profile, even if the profile is not a temporary one.
 
 Selenium Capabilities
 +++++++++++++++++++++

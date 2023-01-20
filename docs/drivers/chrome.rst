@@ -26,30 +26,6 @@ the ``Browser`` instance:
 
 **Note:** if you have trouble with ``$HOME/.bash_profile``, you can try ``$HOME/.bashrc``.
 
-Headless mode
-+++++++++++++
-
-Starting with Chrome 59, Chrome can run in a headless mode.
-Further Information: `google developers updates <https://developers.google.com/web/updates/2017/05/nic59#headless>`_
-
-To use headless mode, pass the `headless` argument
-when creating a new Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('chrome', headless=True)
-
-Incognito mode
-++++++++++++++
-
-To use Chrome's incognito mode, pass the `incognito` argument
-when creating a Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('chrome', incognito=True)
 
 Emulation mode
 ++++++++++++++

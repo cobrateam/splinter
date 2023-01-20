@@ -3,9 +3,10 @@
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
+from typing import Optional
 from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
 
+from splinter.config import Config
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
 
@@ -58,7 +59,14 @@ class FlaskClient(LxmlDriver):
 
     driver_name = "flask"
 
-    def __init__(self, app, user_agent=None, wait_time=2, custom_headers=None):
+    def __init__(
+        self,
+        app,
+        user_agent=None,
+        wait_time=2,
+        custom_headers=None,
+        config: Optional[Config] = None,
+    ):
         app.config["TESTING"] = True
         self._browser = app.test_client()
         self._cookie_manager = CookieManager(self._browser)

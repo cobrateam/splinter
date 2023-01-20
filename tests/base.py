@@ -13,6 +13,7 @@ try:
 except ModuleNotFoundError:
     pass
 
+from splinter.config import Config
 
 from .click_elements import ClickElementsTest
 from .cookies import CookiesTest
@@ -276,11 +277,14 @@ class WebDriverTests(
 
     def test_should_be_able_to_change_user_agent(self):
         driver_name = self.browser.driver_name.lower()
-        browser = get_browser(driver_name, user_agent="iphone")
+
+        config = Config(user_agent="iphone")
+        browser = get_browser(driver_name, config=config)
         browser.visit(EXAMPLE_APP + "useragent")
-        result = "iphone" in browser.html
+
+        assert "iphone" in browser.html
+
         browser.quit()
-        self.assertTrue(result)
 
     def test_execute_script_returns_result_if_present(self):
         assert self.browser.execute_script("return 42") == 42

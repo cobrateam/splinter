@@ -9,6 +9,8 @@ import unittest
 
 import pytest
 
+from splinter.config import Config
+
 from .fake_webapp import EXAMPLE_APP
 from .base import WebDriverTests, get_browser
 
@@ -46,7 +48,8 @@ def test_firefox_create_instance_with_extension(request):
         'borderify-1.0-an+fx.xpi',
     )
 
-    browser = get_browser('firefox', extensions=[extension_path])
+    config = Config(extensions=[extension_path])
+    browser = get_browser('firefox', config=config)
     request.addfinalizer(browser.quit)
 
     browser.visit(EXAMPLE_APP)

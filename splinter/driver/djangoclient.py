@@ -3,9 +3,10 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
+from typing import Optional
 from urllib import parse
 
+from splinter.config import Config
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
 
@@ -55,7 +56,13 @@ class DjangoClient(LxmlDriver):
 
     driver_name = "django"
 
-    def __init__(self, user_agent=None, wait_time=2, **kwargs):
+    def __init__(
+        self,
+        user_agent=None,
+        wait_time=2,
+        config: Optional[Config] = None,
+        **kwargs,
+    ):
         from django.test.client import Client
 
         self._custom_headers = kwargs.pop("custom_headers", {})
@@ -66,9 +73,10 @@ class DjangoClient(LxmlDriver):
                 client_kwargs[key.replace("client_", "")] = value
 
         self._browser = Client(**client_kwargs)
-        self._user_agent = user_agent
+
         self._cookie_manager = CookieManager(self._browser)
-        super(DjangoClient, self).__init__(wait_time=wait_time)
+
+        super(DjangoClient, self).__init__(wait_time=wait_time, user_agent=user_agent, config=config)
 
     def __enter__(self):
         return self
@@ -97,7 +105,7 @@ class DjangoClient(LxmlDriver):
             extra.update({"SERVER_NAME": components.hostname})
         if components.port:
             extra.update({"SERVER_PORT": components.port})
-        if self._user_agent:
+        if self.config.user_agent:
             extra.update({"User-Agent": self._user_agent})
         if self._custom_headers:
             extra.update(self._custom_headers)

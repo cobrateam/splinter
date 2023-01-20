@@ -30,6 +30,7 @@
   :hidden:
 
   browser
+  config
   finding
   elements-in-the-page
   mouse-interaction

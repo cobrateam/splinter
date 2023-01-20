@@ -37,27 +37,6 @@ Selenium Options can be passed to customize Edge's behaviour through the
     edge_options = Options()
     browser = Browser('edge', options=edge_options)
 
-Headless mode
-+++++++++++++
-
-To use headless mode, pass the `headless` argument
-when creating a new Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('edge', headless=True)
-
-Incognito mode
-++++++++++++++
-
-To use Edge's incognito mode, pass the `incognito` argument
-when creating a Browser instance.
-
-.. code-block:: python
-
-    from splinter import Browser
-    browser = Browser('edge', incognito=True)
 
 Emulation mode
 ++++++++++++++
