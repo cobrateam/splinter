@@ -10,6 +10,8 @@ from selenium.webdriver import Edge
 from selenium.webdriver.edge.options import Options
 from selenium.webdriver.edge.service import Service
 
+from splinter.config import Config
+from splinter.driver.webdriver.setup import _setup_edge
 from splinter.driver.webdriver import BaseWebDriver
 
 
@@ -27,6 +29,7 @@ class WebDriver(BaseWebDriver):
         headless=False,
         chromium=True,
         service: Optional[Service] = None,
+        config: Optional[Config] = None,
         **kwargs
     ):
 
@@ -44,23 +47,27 @@ class WebDriver(BaseWebDriver):
             else:
                 service.executable_path = kwargs['executable_path']
 
+        if True in [fullscreen, incognito, headless] or user_agent:
+            warnings.warn(
+                (
+                    "Sending fullscreen, incognito, headless, user_agent to the browser object has been deprecated."
+                    "Please pass in a Splinter Config object instead."
+                    "See: https://splinter.readthedocs.io/en/latest/config.html for more details"
+                ),
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
         options = Options() or options
-
-        if user_agent is not None:
-            options.add_argument("--user-agent=" + user_agent)
-
-        if incognito:
-            options.add_argument("--incognito")
-
-        if fullscreen:
-            options.add_argument("--kiosk")
-
-        if headless:
-            options.add_argument("--headless")
-            options.add_argument("--disable-gpu")
-
         options.use_chromium = chromium
 
-        driver = Edge(options=options, service=service, **kwargs)
+        self.config = config or Config(
+            fullscreen=fullscreen,
+            headless=headless,
+            incognito=incognito,
+            user_agent=user_agent,
+        )
+
+        driver = _setup_edge(Edge, config=self.config, options=options, service=service, **kwargs)
 
         super(WebDriver, self).__init__(driver, wait_time)

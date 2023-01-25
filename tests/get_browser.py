@@ -8,31 +8,35 @@ except ModuleNotFoundError:
     pass
 
 from splinter import Browser
+from splinter.config import Config
 
 from .fake_webapp import app, EXAMPLE_APP
 
 
-def get_browser(browser_name, **kwargs):
+def get_browser(browser_name, config=None, **kwargs):
+    config = config or Config()
+    config.headless = True
+
     if browser_name in ['chrome', 'chrome_fullscreen']:
         if browser_name == 'chrome_fullscreen':
-            kwargs['fullscreen'] = True
+            config.fullscreen = True
         options = webdriver.chrome.options.Options()
         options.add_argument("--disable-dev-shm-usage")
 
         return Browser(
             "chrome",
-            headless=True,
             options=options,
+            config=config,
             **kwargs
         )
 
     elif browser_name in ['firefox', 'firefox_fullscreen']:
         if browser_name == 'firefox_fullscreen':
-            kwargs['fullscreen'] = True
+            config.fullscreen = True
 
         return Browser(
             "firefox",
-            headless=True,
+            config=config,
             **kwargs
         )
 
@@ -62,6 +66,6 @@ def get_browser(browser_name, **kwargs):
             from selenium.webdriver.edge.service import Service as EdgeService
             service = EdgeService(executable_path=f'{driver_path}\msedgedriver.exe')  # NOQA
 
-        return Browser('edge', headless=True, service=service, **kwargs)
+        return Browser('edge', service=service, config=config, **kwargs)
 
     raise ValueError('Unknown browser name')

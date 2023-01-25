@@ -79,7 +79,7 @@ except ImportError as e:
     logger.debug(f'Import Warning: {e}')
 
 
-def get_driver(driver, retry_count=3, *args, **kwargs):
+def get_driver(driver, retry_count=3, config=None, *args, **kwargs):
     """Try to instantiate the driver.
 
     Common selenium errors are caught and a retry attempt occurs.
@@ -90,14 +90,14 @@ def get_driver(driver, retry_count=3, *args, **kwargs):
 
     for _ in range(retry_count):
         try:
-            return driver(*args, **kwargs)
+            return driver(config=config, *args, **kwargs)
         except driver_exceptions as e:
             err = e
 
     raise err
 
 
-def Browser(driver_name: str = "firefox", retry_count: int = 3, *args, **kwargs):  # NOQA: N802
+def Browser(driver_name: str = "firefox", retry_count: int = 3, config=None, *args, **kwargs):  # NOQA: N802
     """Get a new driver instance.
 
     Extra arguments will be sent to the driver instance.
@@ -122,4 +122,4 @@ def Browser(driver_name: str = "firefox", retry_count: int = 3, *args, **kwargs)
     if driver is None:
         raise DriverNotFoundError(f'Driver for {driver_name} was not found.')
 
-    return get_driver(driver, retry_count=retry_count, *args, **kwargs)
+    return get_driver(driver, retry_count=retry_count, config=config, *args, **kwargs)

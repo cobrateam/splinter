@@ -3,15 +3,17 @@
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 import re
 import time
 
+from typing import Optional
 from urllib import parse
 
 import lxml.etree
 import lxml.html
 from lxml.cssselect import CSSSelector
+
+from splinter.config import Config
 from splinter.driver import DriverAPI, ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.element_present import ElementPresentMixIn
@@ -24,7 +26,12 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
     _response = ""
     _url = ""
 
-    def __init__(self, user_agent=None, wait_time=2):
+    def __init__(
+        self,
+        user_agent=None,
+        wait_time=2,
+        config: Optional[Config] = None,
+    ):
         self.wait_time = wait_time
         self._history = []
         self._last_urls = []
@@ -32,6 +39,8 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         self._forms = {}
 
         self.links = FindLinks(self)
+
+        self.config = config or Config(user_agent=user_agent)
 
     def __enter__(self):
         return self

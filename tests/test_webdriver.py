@@ -53,3 +53,15 @@ def test_attach_file(request, browser_name):
 def test_should_support_with_statement(browser_name):
     with get_browser(browser_name):
         pass
+
+
+@pytest.mark.parametrize('browser_name', supported_browsers)
+def test_browser_config(request, browser_name):
+    """Splinter's drivers get the Config object when it's passed through the Browser function."""
+    from splinter import Config
+
+    config = Config(user_agent="agent_smith")
+    browser = get_browser(browser_name, config=config)
+    request.addfinalizer(browser.quit)
+
+    assert browser.config.user_agent == 'agent_smith'
