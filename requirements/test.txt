@@ -3,5 +3,5 @@ coverage==7.1.0
 argparse
 Django>=2.0.6
 pytest==7.2.1
-pytest-xdist==3.1.0
+pytest-xdist==3.2.0
 zope.testbrowser==5.6.1
