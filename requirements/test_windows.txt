@@ -1,4 +1,4 @@
-Flask==2.2.2
+Flask==2.2.3
 coverage==7.1.0
 argparse
 pytest==7.2.1
