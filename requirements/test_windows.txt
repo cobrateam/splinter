@@ -1,5 +1,5 @@
 Flask==2.2.3
 coverage==7.2.1
 argparse
-pytest==7.2.1
+pytest==7.2.2
 pytest-xdist==3.2.0
