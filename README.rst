@@ -57,7 +57,7 @@ Example
 Getting Started
 ===============
 
-* `Installation <https://splinter.readthedocs.io/en/latest/install.html>`_
+* `Installation <https://splinter.readthedocs.io/en/latest/install/install.html>`_
 
 * `Tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
