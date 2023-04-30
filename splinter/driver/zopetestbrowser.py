@@ -243,9 +243,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                     control.value = [value]
                 else:
                     control.value = value
-            except NotImplementedError as e:
+            except LookupError:
                 if not ignore_missing:
-                    raise NotImplementedError(e)
+                    raise
 
     def choose(self, name, value):
         control = self._browser.getControl(name=name)

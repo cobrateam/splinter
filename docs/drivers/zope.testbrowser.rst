@@ -25,13 +25,6 @@ the ``Browser`` instance:
     from splinter import Browser
     browser = Browser('zope.testbrowser')
 
-By default ``zope.testbrowser`` respects any robots.txt preventing access to a lot of sites. If you want to circumvent
-this you can call
-
-.. code-block:: python
-
-    browser = Browser('zope.testbrowser', ignore_robots=True)
-
 **Note:** if you don't provide any driver to ``Browser`` function, ``firefox`` will be used.
 
 API docs
