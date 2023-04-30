@@ -160,7 +160,7 @@ class ZopeTestBrowserDriverTest(
 
     def test_fill_form_missing_values(self):
         """Missing values should raise an error."""
-        with pytest.raises(NotImplementedError):
+        with pytest.raises(LookupError):
             self.browser.fill_form(
                 {"query": "new query", "missing_form": "doesn't exist"},
             )
