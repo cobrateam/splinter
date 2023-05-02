@@ -1,5 +1,5 @@
 Flask==2.2.3
-werkzeug==2.2.3
+werkzeug==2.3.3
 coverage==7.2.5
 argparse
 Django>=2.0.6
