@@ -3,6 +3,6 @@ werkzeug==2.2.3
 coverage==7.2.7
 argparse
 Django>=2.0.6
-pytest==7.3.2
+pytest==7.4.0
 pytest-xdist==3.3.1
 zope.testbrowser==6.0
