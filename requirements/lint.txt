@@ -1,4 +1,4 @@
-flake8==5.0.4
+flake8==6.1.0
 flake8-builtins==2.1.0
 flake8-comprehensions==3.13.0
 flake8-multiline-containers==0.0.19
