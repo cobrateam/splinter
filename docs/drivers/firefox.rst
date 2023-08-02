@@ -55,6 +55,23 @@ For example:
     browser = Browser('firefox', service=my_service)
 
 
+Custom binary path
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Service object can be used to specify the binary path.
+For example:
+
+.. code-block:: python
+
+    from selenium import webdriver
+
+    firefox_options = webdriver.firefox.options.Options()
+    firefox_options.binary_location = "/path/to/canary"
+    browser = Browser('firefox', options=firefox_options)
+
+
+
+
 Specify Profile
 +++++++++++++++
 

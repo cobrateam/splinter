@@ -76,6 +76,21 @@ For example:
     my_service = Service(executable_path='</path/to/chromedriver>')
     browser = Browser('chrome', service=my_service)
 
+Custom binary path
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Service object can be used to specify the binary path.
+For example:
+
+.. code-block:: python
+
+    from selenium import webdriver
+
+    chrome_options = webdriver.chrome.options.Options()
+    chrome_options.binary_location = "/path/to/canary"
+    browser = Browser('chrome', options=chrome_options)
+
+
 
 API docs
 --------
