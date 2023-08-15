@@ -41,10 +41,6 @@ jobs:
       - name: Install test dependencies
         run: pip install tox
 
-      # Lint before running unit tests
-      - name: Run lint
-        run: tox -e lint
-
       - name: Run tests
         run: |
           tox -e tests -- -n 4 tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py tests/test_xpath_concat.py
@@ -59,8 +55,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - PY_VER: py37
-            python-version: 3.7
           - PY_VER: py38
             python-version: 3.8
           - PY_VER: py39
@@ -101,8 +95,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - PY_VER: py37
-            python-version: 3.7
           - PY_VER: py38
             python-version: 3.8
           - PY_VER: py39
@@ -125,3 +117,24 @@ jobs:
       - name: Run Selenium tests
         run: |
           tox -e tests_selenium -- -n 4 tests/test_element_is_visible.py tests/test_screenshot.py tests/test_shadow_root.py tests/test_mouse_interaction.py tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: install pre-commit
+        run: pip install pre-commit
+
+      - name: pre-commit cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}"
+          restore-keys: "pre-commit-"
+
+      - run: pre-commit run --all-files --show-diff-on-failure
