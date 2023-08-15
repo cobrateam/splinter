@@ -43,7 +43,7 @@ def test_attach_file(request, browser_name):
     assert "text/plain" in html
 
     with open(file_path) as f:
-        assert str(f.read().encode("utf-8")) in html
+        assert str(f.read()) in html
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)

@@ -61,7 +61,7 @@ def upload_file(request):
         f = request.FILES["file"]
         buffer = [
             f"Content-type: {f.content_type}",
-            f"File content: {f.read()}",
+            f"File content: {f.read().decode('utf-8')}",
         ]
         return HttpResponse("|".join(buffer))
 

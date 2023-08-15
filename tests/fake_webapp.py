@@ -113,7 +113,7 @@ def upload_file():
     if request.method == "POST":
         f = request.files["file"]
         BUFFER.append(f"Content-type: {f.content_type}")
-        BUFFER.append(f"File content: {f.stream.read()}")
+        BUFFER.append(f"File content: {f.stream.read().decode('utf-8')}")
         return redirect(url_for("upload_file"))
     return "|".join(BUFFER)
 
