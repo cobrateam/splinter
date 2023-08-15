@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import re
 import time
-
 from typing import Optional
 from urllib import parse
 
@@ -14,9 +11,10 @@ import lxml.html
 from lxml.cssselect import CSSSelector
 
 from splinter.config import Config
-from splinter.driver import DriverAPI, ElementAPI
-from splinter.driver.find_links import FindLinks
+from splinter.driver import DriverAPI
+from splinter.driver import ElementAPI
 from splinter.driver.element_present import ElementPresentMixIn
+from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
@@ -50,7 +48,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def _do_method(self, action, url, data=None):
         raise NotImplementedError(
-            "%s doesn't support doing http methods." % self.driver_name
+            "%s doesn't support doing http methods." % self.driver_name,
         )
 
     def visit(self, url):
@@ -88,7 +86,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         method = form.attrib.get("method", "get").lower()
         action = form.attrib.get("action", "")
 
-        if action.strip() not in ['.', '']:
+        if action.strip() not in [".", ""]:
             url = parse.urljoin(self._url, action)
         else:
             url = self._url
@@ -100,18 +98,28 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def submit_data(self, form):
         raise NotImplementedError(
-            "%s doesn't support submitting then getting the data." % self.driver_name
+            "%s doesn't support submitting then getting the data." % self.driver_name,
         )
 
     def back(self):
         if self._last_url_index >= 1:
             self._last_url_index -= 1
-            self._do_method("get", self._last_urls[self._last_url_index], record_url=False)
+            self._do_method(
+                "get",
+                self._last_urls[self._last_url_index],
+                record_url=False,
+            )
 
     def forward(self):
-        if (self._last_url_index >= 0) and (self._last_url_index < len(self._last_urls) - 1):
+        if (self._last_url_index >= 0) and (
+            self._last_url_index < len(self._last_urls) - 1
+        ):
             self._last_url_index += 1
-            self._do_method("get", self._last_urls[self._last_url_index], record_url=False)
+            self._do_method(
+                "get",
+                self._last_urls[self._last_url_index],
+                record_url=False,
+            )
 
     def reload(self):
         self.visit(self._url)
@@ -135,7 +143,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
     @property
     def html(self):
         raise NotImplementedError(
-            "%s doesn't support getting the html of the response." % self.driver_name
+            "%s doesn't support getting the html of the response." % self.driver_name,
         )
 
     @property
@@ -147,7 +155,9 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = LxmlControlElement(element.getparent(), self)
         return ElementList(
-            [LxmlOptionElement(element, control)], find_by="value", query=value
+            [LxmlOptionElement(element, control)],
+            find_by="value",
+            query=value,
         )
 
     def find_option_by_text(self, text):
@@ -155,14 +165,14 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = LxmlControlElement(element.getparent(), self)
         return ElementList(
-            [LxmlOptionElement(element, control)], find_by="text", query=text
+            [LxmlOptionElement(element, control)],
+            find_by="text",
+            query=text,
         )
 
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
-        return self.find_by_xpath(
-            xpath, original_find="css", original_query=selector
-        )
+        return self.find_by_xpath(xpath, original_find="css", original_query=selector)
 
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         html = self.htmltree
@@ -187,13 +197,13 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
 
     def find_by_tag(self, tag):
-        return self.find_by_xpath(
-            "//%s" % tag, original_find="tag", original_query=tag
-        )
+        return self.find_by_xpath("//%s" % tag, original_find="tag", original_query=tag)
 
     def find_by_value(self, value):
         elem = self.find_by_xpath(
-            '//*[@value="%s"]' % value, original_find="value", original_query=value
+            '//*[@value="%s"]' % value,
+            original_find="value",
+            original_query=value,
         )
         if elem:
             return elem
@@ -258,9 +268,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                     else:
                         control.value = []
                 elif control_type == "radio":
-                    control.value = (
-                        value
-                    )  # [option for option in control.options if option == value]
+                    control.value = value  # [option for option in control.options if option == value]
                 elif control_type == "select":
                     if isinstance(value, list):
                         control.value = value
@@ -369,7 +377,7 @@ class LxmlElement(ElementAPI):
 
     def find_by_text(self, text):
         # Add a period to the xpath to search only inside the parent.
-        xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+        xpath_str = f".{_concat_xpath_from_str(text)}"
         return self.find_by_xpath(xpath_str)
 
     def find_by_id(self, id):  # NOQA: A002
@@ -390,7 +398,11 @@ class LxmlElement(ElementAPI):
 
     @property
     def html(self):
-        return re.match(r"^<[^<>]+>(.*)</[^<>]+>$", self.outer_html, re.MULTILINE | re.DOTALL).group(1)
+        return re.match(
+            r"^<[^<>]+>(.*)</[^<>]+>$",
+            self.outer_html,
+            re.MULTILINE | re.DOTALL,
+        ).group(1)
 
     def has_class(self, class_name):
         return len(self._element.find_class(class_name)) > 0
@@ -398,11 +410,11 @@ class LxmlElement(ElementAPI):
 
 class LxmlLinkElement(LxmlElement):
     def __init__(self, element, parent):
-        super(LxmlLinkElement, self).__init__(element, parent)
+        super().__init__(element, parent)
         self._browser = parent
 
     def __getitem__(self, attr):
-        return super(LxmlLinkElement, self).__getitem__(attr)
+        return super().__getitem__(attr)
 
     def click(self):
         return self._browser.visit(self["href"])
@@ -436,7 +448,7 @@ class LxmlControlElement(LxmlElement):
             if name:
                 value = self._control.get("value", "")
                 parent_form.append(
-                    lxml.html.Element("input", name=name, value=value, type="hidden")
+                    lxml.html.Element("input", name=name, value=value, type="hidden"),
                 )
 
         return self.parent.submit_data(parent_form)

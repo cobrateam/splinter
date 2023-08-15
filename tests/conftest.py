@@ -1,21 +1,19 @@
-import sys
-
 import os
-
+import sys
 from multiprocessing import Process
-
 from urllib.request import urlopen
-
-from tests.fake_webapp import start_flask_app, EXAMPLE_APP
-from tests.get_browser import get_browser
 
 import pytest
 
+from tests.fake_webapp import EXAMPLE_APP
+from tests.fake_webapp import start_flask_app
+from tests.get_browser import get_browser
 
-class Env(object):
+
+class Env:
     def __init__(self):
         self.process = None
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 5000
 
 
@@ -29,7 +27,7 @@ def wait_until_start():
             if results.code == 404:
                 raise Exception("%s returned unexpected 404" % EXAMPLE_APP)
             break
-        except IOError:
+        except OSError:
             pass
 
 
@@ -39,7 +37,7 @@ def wait_until_stop():
             results = urlopen(EXAMPLE_APP)
             if results.code == 404:
                 break
-        except IOError:
+        except OSError:
             break
 
 
@@ -75,4 +73,5 @@ def get_new_browser(request):
         browser = get_browser(browser_name)
         request.addfinalizer(browser.quit)
         return browser
+
     return new_browser

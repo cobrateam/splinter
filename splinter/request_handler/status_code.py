@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
 
-class StatusCode(object):
+class StatusCode:
     def __init__(self, status_code: int, reason: str) -> None:
         #: A message for the response (example: Success)
         self.reason = reason
@@ -19,7 +17,7 @@ class StatusCode(object):
         return not self.__eq__(other)
 
     def __str__(self) -> str:
-        return "{} - {}".format(self.code, self.reason)
+        return f"{self.code} - {self.reason}"
 
     def is_success(self) -> bool:
         """

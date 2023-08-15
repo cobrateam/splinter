@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # splinter documentation build configuration file, created by
 # sphinx-quickstart on Sat Jan  8 23:31:41 2011.
@@ -10,12 +9,10 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.insert(0, os.path.abspath('.'))
-
 import os
 import sys
 from datetime import datetime
@@ -47,8 +44,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"Splinter"
-copyright = u"{}, cobrateam".format(datetime.now().year)
+project = "Splinter"
+copyright = f"{datetime.now().year}, cobrateam"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -109,7 +106,7 @@ if not os.environ.get("READTHEDOCS", None):
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    'collapse_navigation': False,
+    "collapse_navigation": False,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -192,7 +189,7 @@ htmlhelp_basename = "splinterdoc"
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ("index", "splinter.tex", u"splinter Documentation", u"andrews medina", "manual")
+    ("index", "splinter.tex", "splinter Documentation", "andrews medina", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -223,4 +220,4 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "splinter", u"splinter Documentation", [u"andrews medina"], 1)]
+man_pages = [("index", "splinter", "splinter Documentation", ["andrews medina"], 1)]

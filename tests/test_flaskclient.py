@@ -1,21 +1,17 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 import os
 import time
 import unittest
 
-from splinter import Browser
 from .base import BaseBrowserTests
-from .fake_webapp import app, EXAMPLE_APP
+from .fake_webapp import app
+from .fake_webapp import EXAMPLE_APP
+from splinter import Browser
 
 
-class FlaskClientDriverTest(
-    BaseBrowserTests, unittest.TestCase
-):
+class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("flask", app=app, wait_time=0.1)
@@ -34,14 +30,15 @@ class FlaskClientDriverTest(
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), "mockfile.txt"
+            os.path.abspath(os.path.dirname(__file__)),
+            "mockfile.txt",
         )
         self.browser.attach_file("file", file_path)
         self.browser.find_by_name("upload").click()
 
         html = self.browser.html
         self.assertIn("text/plain", html)
-        self.assertIn(open(file_path, "rb").read().decode("utf-8"), html)
+        self.assertIn(open(file_path).read(), html)
 
     def test_serialize_select_mutiple(self):
         "should serialize a select with multiple values into a list"
@@ -152,10 +149,10 @@ class FlaskClientDriverTest(
     def test_finding_all_links_by_non_ascii_text(self):
         "should find links by non ascii text"
         non_ascii_encodings = {
-            "pangram_pl": u"Jeżu klątw, spłódź Finom część gry hańb!",
-            "pangram_ja": u"天 地 星 空",
-            "pangram_ru": u"В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
-            "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
+            "pangram_pl": "Jeżu klątw, spłódź Finom część gry hańb!",
+            "pangram_ja": "天 地 星 空",
+            "pangram_ru": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
+            "pangram_eo": "Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
         for key, text in non_ascii_encodings.items():
             link = self.browser.links.find_by_text(text)
@@ -173,8 +170,8 @@ class FlaskClientDriverTest(
     def test_cookies_extra_parameters(self):
         """Cookie can be created with extra parameters."""
         timestamp = int(time.time() + 120)
-        self.browser.cookies.add({'sha': 'zam'}, expires=timestamp)
-        cookie = {c.name: c for c in self.browser._browser.cookie_jar}['sha']
+        self.browser.cookies.add({"sha": "zam"}, expires=timestamp)
+        cookie = {c.name: c for c in self.browser._browser.cookie_jar}["sha"]
         assert timestamp == cookie.expires
 
 
@@ -190,7 +187,7 @@ class FlaskClientDriverTestWithCustomHeaders(unittest.TestCase):
     def test_create_a_flask_client_with_custom_headers(self):
         self.browser.visit(EXAMPLE_APP + "headers")
         self.assertTrue(
-            self.browser.is_text_present("X-Splinter-Customheaders-1: Hello")
+            self.browser.is_text_present("X-Splinter-Customheaders-1: Hello"),
         )
         self.assertTrue(self.browser.is_text_present("X-Splinter-Customheaders-2: Bye"))
 

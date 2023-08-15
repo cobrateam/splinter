@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 
 
-WRAPPED_SINGLE_QUOTE = '\"\'\"'
-WRAPPED_DOUBLE_QUOTE = "\'\"\'"
-XPATH_START = '//*[text()=concat('
+WRAPPED_SINGLE_QUOTE = '"\'"'
+WRAPPED_DOUBLE_QUOTE = "'\"'"
+XPATH_START = "//*[text()=concat("
 
 
 def test_build_xpath_concat_normal():
@@ -13,8 +11,8 @@ def test_build_xpath_concat_normal():
     When I build a concat xpath
     Then the xpath string is correctly built
     """
-    result = _concat_xpath_from_str('No quotation marks.')
-    expected = "{}'No quotation marks.', \"\")]".format(XPATH_START)
+    result = _concat_xpath_from_str("No quotation marks.")
+    expected = f"{XPATH_START}'No quotation marks.', \"\")]"
     assert result == expected
 
 
@@ -23,9 +21,11 @@ def test_build_xpath_concat_double_quote():
     When I build a concat xpath
     Then the xpath string is correctly built
     """
-    result = _concat_xpath_from_str('Denis \"Snake\" Bélanger')
+    result = _concat_xpath_from_str('Denis "Snake" Bélanger')
     expected = "{}'Denis ',{},'Snake',{},' Bélanger', \"\")]".format(
-        XPATH_START, WRAPPED_DOUBLE_QUOTE, WRAPPED_DOUBLE_QUOTE,
+        XPATH_START,
+        WRAPPED_DOUBLE_QUOTE,
+        WRAPPED_DOUBLE_QUOTE,
     )
     assert result == expected
 
@@ -35,9 +35,10 @@ def test_build_xpath_concat_single_quote():
     When I build a concat xpath
     Then the xpath string is correctly built
     """
-    result = _concat_xpath_from_str('Text with a single \' quotation mark.')
-    expected = "{}\"Text with a single \",{},\" quotation mark.\", \"\")]".format(
-        XPATH_START, WRAPPED_SINGLE_QUOTE,
+    result = _concat_xpath_from_str("Text with a single ' quotation mark.")
+    expected = '{}"Text with a single ",{}," quotation mark.", "")]'.format(
+        XPATH_START,
+        WRAPPED_SINGLE_QUOTE,
     )
     assert result == expected
 
@@ -47,9 +48,13 @@ def test_build_xpath_concat_multiple_types():
     When I build a concat xpath
     Then the xpath string is correctly built
     """
-    result = _concat_xpath_from_str('Text with a single \' quotation mark and double " quotation mark.')
-    expected = "{}\"Text with a single \",{},\" quotation mark and double \",{},\' quotation mark.\', \"\")]".format(
-        XPATH_START, WRAPPED_SINGLE_QUOTE, WRAPPED_DOUBLE_QUOTE,
+    result = _concat_xpath_from_str(
+        "Text with a single ' quotation mark and double \" quotation mark.",
+    )
+    expected = '{}"Text with a single ",{}," quotation mark and double ",{},\' quotation mark.\', "")]'.format(
+        XPATH_START,
+        WRAPPED_SINGLE_QUOTE,
+        WRAPPED_DOUBLE_QUOTE,
     )
     assert result == expected
 
@@ -60,7 +65,10 @@ def test_build_xpath_concat_nested():
     Then the xpath string is correctly built
     """
     result = _concat_xpath_from_str('A "real ol\' mess" of text.')
-    expected = "{}\'A \',{},\"real ol\",{},\" mess\",{},\' of text.\', \"\")]".format(
-        XPATH_START, WRAPPED_DOUBLE_QUOTE, WRAPPED_SINGLE_QUOTE, WRAPPED_DOUBLE_QUOTE,
+    expected = '{}\'A \',{},"real ol",{}," mess",{},\' of text.\', "")]'.format(
+        XPATH_START,
+        WRAPPED_DOUBLE_QUOTE,
+        WRAPPED_SINGLE_QUOTE,
+        WRAPPED_DOUBLE_QUOTE,
     )
     assert result == expected

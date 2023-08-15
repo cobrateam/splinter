@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 """
 This snippet show how to "test" a Facebook feature: the creation of an event.
 
 It creates an event by going to http://www.facebook.com, login and navigate to "Create an event" page.
 """
-
 import os
-import unittest
 import time
+import unittest
+
 from splinter import Browser
 
 
@@ -30,7 +27,7 @@ class FacebookEventsTestCase(unittest.TestCase):
             self.browser.fill("email", username)
             self.browser.fill("pass", password)
             self.browser.find_by_css(
-                'div.menu_login_container input[type="submit"]'
+                'div.menu_login_container input[type="submit"]',
             ).first.click()
             assert self.browser.is_element_present_by_css("li#navAccount")
 
@@ -49,12 +46,15 @@ class FacebookEventsTestCase(unittest.TestCase):
 
         # Uploading the picture
         picture_path = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), "img", "turtles.jpg"
+            os.path.abspath(os.path.dirname(__file__)),
+            "img",
+            "turtles.jpg",
         )
         self.browser.find_by_css("div.eventEditUpload a.uiButton").first.click()
 
         if not self.browser.is_element_present_by_css(
-            "iframe#upload_pic_frame", wait_time=10
+            "iframe#upload_pic_frame",
+            wait_time=10,
         ):
             self.fail("The upload pic iframe didn't appear :(")
 
@@ -68,7 +68,8 @@ class FacebookEventsTestCase(unittest.TestCase):
         self.browser.fill("name", "Splinter sprint")
         self.browser.fill("location", "Rio de Janeiro, Brazil")
         self.browser.fill(
-            "desc", "For more info, check out the #cobratem channel on freenode!"
+            "desc",
+            "For more info, check out the #cobratem channel on freenode!",
         )
 
         self.browser.find_by_css('label.uiButton input[type="submit"]').first.click()

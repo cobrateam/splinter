@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
@@ -11,8 +9,8 @@ from splinter.cookie_manager import CookieManagerAPI
 class CookieManager(CookieManagerAPI):
     def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            kwargs['name'] = key
-            kwargs['value'] = value
+            kwargs["name"] = key
+            kwargs["value"] = value
             self.driver.add_cookie(kwargs)
 
     def delete(self, *cookies):

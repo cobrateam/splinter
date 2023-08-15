@@ -17,33 +17,24 @@ def get_browser(browser_name, config=None, **kwargs):
     config = config or Config()
     config.headless = True
 
-    if browser_name in ['chrome', 'chrome_fullscreen']:
-        if browser_name == 'chrome_fullscreen':
+    if browser_name in ["chrome", "chrome_fullscreen"]:
+        if browser_name == "chrome_fullscreen":
             config.fullscreen = True
         options = webdriver.chrome.options.Options()
         options.add_argument("--disable-dev-shm-usage")
 
-        return Browser(
-            "chrome",
-            options=options,
-            config=config,
-            **kwargs
-        )
+        return Browser("chrome", options=options, config=config, **kwargs)
 
-    elif browser_name in ['firefox', 'firefox_fullscreen']:
-        if browser_name == 'firefox_fullscreen':
+    elif browser_name in ["firefox", "firefox_fullscreen"]:
+        if browser_name == "firefox_fullscreen":
             config.fullscreen = True
 
-        return Browser(
-            "firefox",
-            config=config,
-            **kwargs
-        )
+        return Browser("firefox", config=config, **kwargs)
 
-    elif browser_name == 'remote':
+    elif browser_name == "remote":
         return Browser("remote")
 
-    elif browser_name == 'django':
+    elif browser_name == "django":
         components = parse.urlparse(EXAMPLE_APP)
         return Browser(
             "django",
@@ -52,21 +43,22 @@ def get_browser(browser_name, config=None, **kwargs):
             client_SERVER_PORT=components.port,
         )
 
-    elif browser_name == 'flask':
+    elif browser_name == "flask":
         return Browser("flask", app=app, wait_time=0.1)
 
-    elif browser_name == 'zope.testbrowser':
+    elif browser_name == "zope.testbrowser":
         return Browser("zope.testbrowser", wait_time=0.1)
 
-    elif browser_name == 'edge':
+    elif browser_name == "edge":
         # Github Actions Windows EdgeDriver path
         service = None
-        driver_path = os.getenv('EDGEWEBDRIVER')
+        driver_path = os.getenv("EDGEWEBDRIVER")
         if driver_path:
             from selenium.webdriver.edge.service import Service as EdgeService
-            edgedriver_path = os.path.join(driver_path, 'msedgedriver.exe')
+
+            edgedriver_path = os.path.join(driver_path, "msedgedriver.exe")
             service = EdgeService(executable_path=edgedriver_path)
 
-        return Browser('edge', service=service, config=config, **kwargs)
+        return Browser("edge", service=service, config=config, **kwargs)
 
-    raise ValueError('Unknown browser name')
+    raise ValueError("Unknown browser name")

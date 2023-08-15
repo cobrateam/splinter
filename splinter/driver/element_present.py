@@ -1,5 +1,5 @@
 class ElementPresentMixIn:
-    """ Support is_element_present_by_* methods for non-javascript drivers. """
+    """Support is_element_present_by_* methods for non-javascript drivers."""
 
     def is_element_present_by_css(self, css_selector, wait_time=None):
         return bool(self.find_by_css(css_selector))

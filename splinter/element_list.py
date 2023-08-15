@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 from splinter.exceptions import ElementDoesNotExist
 
 
@@ -25,7 +22,13 @@ class ElementList:
         >>> element_list[0] # raises ElementDoesNotExist
     """
 
-    def __init__(self, list, driver=None, find_by=None, query=None) -> None:  # NOQA: A002
+    def __init__(
+        self,
+        list,
+        driver=None,
+        find_by=None,
+        query=None,
+    ) -> None:  # NOQA: A002
         self._container = []
         self._container.extend(list)
 
@@ -40,9 +43,10 @@ class ElementList:
             return self._container[index]
         except IndexError:
             raise ElementDoesNotExist(
-                u'no elements could be found with {0} "{1}"'.format(
-                    self.find_by, self.query
-                )
+                'no elements could be found with {} "{}"'.format(
+                    self.find_by,
+                    self.query,
+                ),
             )
 
     @property
@@ -81,14 +85,14 @@ class ElementList:
                 return getattr(self._container, name)
             except AttributeError:
                 raise AttributeError(
-                    u"'{0}' object has no attribute '{1}'".format(
-                        self.__class__.__name__, name
-                    )
+                    "'{}' object has no attribute '{}'".format(
+                        self.__class__.__name__,
+                        name,
+                    ),
                 )
 
     def __iter__(self):
-        for item in self._container:
-            yield item
+        yield from self._container
 
     def __len__(self) -> int:
         """__len__ checks the internal container."""

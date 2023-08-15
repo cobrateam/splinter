@@ -11,4 +11,3 @@ Request handling
 
 .. autoclass:: splinter.request_handler.status_code.StatusCode
    :members:
-
