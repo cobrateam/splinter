@@ -47,7 +47,7 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
         html = self.browser.html
         self.assertIn("text/plain", html)
-        self.assertIn(open(file_path, "rb").read().decode("utf-8"), html)
+        self.assertIn(open(file_path).read().strip(), html)
 
     def test_forward_to_none_page(self):
         "should not fail when trying to forward to none"
