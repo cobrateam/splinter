@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
@@ -29,11 +27,14 @@ from .get_browser import get_browser
 
 
 supported_browsers = [
-    'chrome', 'firefox', 'chrome_fullscreen', 'firefox_fullscreen',
+    "chrome",
+    "firefox",
+    "chrome_fullscreen",
+    "firefox_fullscreen",
 ]
 
-if platform.system() == 'Windows':
-    supported_browsers = ['edge']
+if platform.system() == "Windows":
+    supported_browsers = ["edge"]
 
 
 class BaseBrowserTests(
@@ -60,7 +61,7 @@ class BaseBrowserTests(
     def test_can_back_on_history(self):
         """should be able to back on history"""
         self.browser.visit(EXAMPLE_APP)
-        self.browser.visit("{}iframe".format(EXAMPLE_APP))
+        self.browser.visit(f"{EXAMPLE_APP}iframe")
         self.browser.back()
         self.assertEqual(EXAMPLE_APP, self.browser.url)
 
@@ -123,7 +124,7 @@ class BaseBrowserTests(
         when visiting /redirected, browser should be redirected to /redirected-location?come=get&some=true
         browser.url should be updated
         """
-        self.browser.visit("{}redirected".format(EXAMPLE_APP))
+        self.browser.visit(f"{EXAMPLE_APP}redirected")
         self.assertIn("I just been redirected to this location.", self.browser.html)
         self.assertIn("redirect-location?come=get&some=true", self.browser.url)
 
@@ -163,7 +164,8 @@ class WebDriverTests(
     def test_the_text_for_an_element_strips_html_tags(self):
         "should show that the text attribute strips html"
         self.assertEqual(
-            self.browser.find_by_id("text_with_html").text, "another bit of text"
+            self.browser.find_by_id("text_with_html").text,
+            "another bit of text",
         )
 
     def test_can_verify_if_a_element_is_visible(self):

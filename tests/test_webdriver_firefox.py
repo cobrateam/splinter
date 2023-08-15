@@ -1,24 +1,21 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 import os
 import unittest
 
 import pytest
 
-from splinter.config import Config
-
+from .base import get_browser
+from .base import WebDriverTests
 from .fake_webapp import EXAMPLE_APP
-from .base import WebDriverTests, get_browser
+from splinter.config import Config
 
 
 class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
-    @pytest.fixture(autouse=True, scope='class')
+    @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = get_browser('firefox', fullscreen=False)
+        request.cls.browser = get_browser("firefox", fullscreen=False)
         request.addfinalizer(request.cls.browser.quit)
 
     @pytest.fixture(autouse=True)
@@ -27,9 +24,9 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
 
 
 class FirefoxBrowserFullScreenTest(WebDriverTests, unittest.TestCase):
-    @pytest.fixture(autouse=True, scope='class')
+    @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = get_browser('firefox', fullscreen=True)
+        request.cls.browser = get_browser("firefox", fullscreen=True)
         request.addfinalizer(request.cls.browser.quit)
 
     @pytest.fixture(autouse=True)
@@ -44,19 +41,19 @@ def test_firefox_create_instance_with_extension(request):
     """
     extension_path = os.path.join(
         os.path.abspath(os.path.dirname(__file__)),
-        'dummy_extension',
-        'borderify-1.0-an+fx.xpi',
+        "dummy_extension",
+        "borderify-1.0-an+fx.xpi",
     )
 
     config = Config(extensions=[extension_path])
-    browser = get_browser('firefox', config=config)
+    browser = get_browser("firefox", config=config)
     request.addfinalizer(browser.quit)
 
     browser.visit(EXAMPLE_APP)
 
-    elem = browser.find_by_css('body')
+    elem = browser.find_by_css("body")
     elem.is_visible(wait_time=5)
-    style = elem._element.get_attribute('style')
+    style = elem._element.get_attribute("style")
 
     assert "border: 5px solid red;" == style
 
@@ -66,7 +63,7 @@ def test_preference_set(request):
         "dom.max_script_run_time": 213,
         "devtools.inspector.enabled": True,
     }
-    browser = get_browser('firefox', profile_preferences=preferences)
+    browser = get_browser("firefox", profile_preferences=preferences)
     request.addfinalizer(browser.quit)
 
     # Rip the preferences out of firefox's config page
@@ -78,7 +75,7 @@ def test_preference_set(request):
 
 
 def test_capabilities_set(request):
-    browser = get_browser('firefox', capabilities={"pageLoadStrategy": "eager"})
+    browser = get_browser("firefox", capabilities={"pageLoadStrategy": "eager"})
     request.addfinalizer(browser.quit)
 
     capabilities = browser.driver.capabilities

@@ -1,16 +1,12 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
-
 import builtins
 from importlib import reload
 
-from splinter.exceptions import DriverNotFoundError
-
 import pytest
+
+from splinter.exceptions import DriverNotFoundError
 
 
 def patch_driver(pattern):
@@ -40,7 +36,7 @@ def test_browser_should_work_even_without_zope_testbrowser():
     from splinter import browser
 
     reload(browser)
-    assert None is browser._DRIVERS['zope.testbrowser']
+    assert None is browser._DRIVERS["zope.testbrowser"]
 
     unpatch_driver(browser, old_import)
 
@@ -56,7 +52,7 @@ def test_browser_message_on_missing_driver():
 
         Browser("zope.testbrowser")
 
-    assert 'Driver for zope.testbrowser was not found.' == str(e.value)
+    assert "Driver for zope.testbrowser was not found." == str(e.value)
 
     unpatch_driver(browser, old_import)
 
@@ -72,12 +68,14 @@ def test_browser_driver_retry_count():
     """Checks that the retry count is being used"""
     from splinter.browser import _DRIVERS
     from splinter import Browser
+
     global test_retry_count
 
     def test_driver(*args, **kwargs):
         global test_retry_count
         test_retry_count += 1
-        raise IOError("test_retry_count: " + str(test_retry_count))
+        raise OSError("test_retry_count: " + str(test_retry_count))
+
     _DRIVERS["test_driver"] = test_driver
 
     test_retry_count = 0
@@ -97,6 +95,7 @@ def test_browser_driver_retry_count():
 def test_browser_log_missing_drivers(caplog):
     """Missing drivers are logged at the debug level."""
     import logging
+
     caplog.set_level(logging.DEBUG)
     old_import = patch_driver("flask")
     from splinter import browser
@@ -107,5 +106,5 @@ def test_browser_log_missing_drivers(caplog):
     assert 7 == len(caplog.records)
     for i in range(0, 6):
         record = caplog.records[i]
-        assert record.levelname == 'DEBUG'
-        assert 'Import Warning' in record.message
+        assert record.levelname == "DEBUG"
+        assert "Import Warning" in record.message

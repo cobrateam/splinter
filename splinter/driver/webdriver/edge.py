@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2021 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
@@ -11,12 +9,11 @@ from selenium.webdriver.edge.options import Options
 from selenium.webdriver.edge.service import Service
 
 from splinter.config import Config
-from splinter.driver.webdriver.setup import _setup_edge
 from splinter.driver.webdriver import BaseWebDriver
+from splinter.driver.webdriver.setup import _setup_edge
 
 
 class WebDriver(BaseWebDriver):
-
     driver_name = "Edge"
 
     def __init__(
@@ -30,10 +27,9 @@ class WebDriver(BaseWebDriver):
         chromium=True,
         service: Optional[Service] = None,
         config: Optional[Config] = None,
-        **kwargs
+        **kwargs,
     ):
-
-        if 'executable_path' in kwargs:
+        if "executable_path" in kwargs:
             warnings.warn(
                 (
                     "Webdriver's executable_path argument has been deprecated."
@@ -43,9 +39,9 @@ class WebDriver(BaseWebDriver):
                 stacklevel=2,
             )
             if service is None:
-                service = Service(executable_path=kwargs['executable_path'])
+                service = Service(executable_path=kwargs["executable_path"])
             else:
-                service.executable_path = kwargs['executable_path']
+                service.executable_path = kwargs["executable_path"]
 
         if True in [fullscreen, incognito, headless] or user_agent:
             warnings.warn(
@@ -68,6 +64,12 @@ class WebDriver(BaseWebDriver):
             user_agent=user_agent,
         )
 
-        driver = _setup_edge(Edge, config=self.config, options=options, service=service, **kwargs)
+        driver = _setup_edge(
+            Edge,
+            config=self.config,
+            options=options,
+            service=service,
+            **kwargs,
+        )
 
-        super(WebDriver, self).__init__(driver, wait_time)
+        super().__init__(driver, wait_time)

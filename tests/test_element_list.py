@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 import pytest
 
 from splinter.element_list import ElementList
@@ -64,7 +61,7 @@ def test_raise_exception_on_indexerror():
 def test_raise_exception_on_indexerror_with_unicode_query():
     "should raise ElementDoesNotExist exception on IndexError"
     with pytest.raises(ElementDoesNotExist):
-        ElementList([], query=u".element[title=título]").first
+        ElementList([], query=".element[title=título]").first
 
 
 def test_raise_attribute_error():
@@ -111,8 +108,7 @@ def test_not_found_exception_with_query_and_method():
 
 
 def test_elementlist_repr():
-    """repr() of ElementList is identical to repr() of the internal container.
-    """
+    """repr() of ElementList is identical to repr() of the internal container."""
     the_list = [Person(), Person()]
     elementlist = ElementList(the_list)
 

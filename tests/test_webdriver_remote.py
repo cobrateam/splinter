@@ -1,18 +1,14 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
-
-from urllib.request import urlopen
 import unittest
-
-from splinter import Browser
-from .fake_webapp import EXAMPLE_APP
-from .base import WebDriverTests
+from urllib.request import urlopen
 
 import pytest
+
+from .base import WebDriverTests
+from .fake_webapp import EXAMPLE_APP
+from splinter import Browser
 
 
 def selenium_server_is_running():
@@ -20,15 +16,15 @@ def selenium_server_is_running():
         from splinter.driver.webdriver.remote import WebDriver
 
         page_contents = urlopen(WebDriver.DEFAULT_URL).read()
-    except IOError:
+    except OSError:
         return False
     return "WebDriver Hub" in page_contents
 
 
 class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
-    @pytest.fixture(autouse=True, scope='class')
+    @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = Browser('remote', browser='firefox')
+        request.cls.browser = Browser("remote", browser="firefox")
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):
@@ -45,9 +41,9 @@ class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
 
 
 class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
-    @pytest.fixture(autouse=True, scope='class')
+    @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = Browser('remote', browser='chrome')
+        request.cls.browser = Browser("remote", browser="chrome")
         request.addfinalizer(request.cls.browser.quit)
 
     def setUp(self):

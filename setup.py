@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
@@ -10,7 +9,7 @@ from setuptools import setup
 
 def read(filename: str) -> str:
     path = os.path.join(os.path.dirname(__file__), filename)
-    with open(path, "r") as f:
+    with open(path) as f:
         return f.read()
 
 

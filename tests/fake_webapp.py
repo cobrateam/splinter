@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 from functools import wraps
-from io import open
 from os import path
 
-from flask import Flask, request, abort, Response, redirect, url_for
+from flask import abort
+from flask import Flask
+from flask import redirect
+from flask import request
+from flask import Response
+from flask import url_for
 
 
 this_folder = path.abspath(path.dirname(__file__))
@@ -16,7 +17,7 @@ this_folder = path.abspath(path.dirname(__file__))
 
 def read_static(static_name):
     file_path = path.join(this_folder, "static", static_name)
-    return open(file_path, encoding='utf8').read()
+    return open(file_path, encoding="utf8").read()
 
 
 EXAMPLE_APP = "http://127.0.0.1:5000/"
@@ -104,16 +105,16 @@ def get_user_agent():
 @app.route("/post", methods=["POST"])
 def post_form():
     items = "\n".join("{}: {}".format(*item) for item in request.form.items())
-    return "<html><body>{}</body></html>".format(items)
+    return f"<html><body>{items}</body></html>"
 
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
         f = request.files["file"]
-        BUFFER.append("Content-type: {}".format(f.content_type))
-        BUFFER.append("File content: {}".format(f.stream.read()))
-        return redirect(url_for('upload_file'))
+        BUFFER.append(f"Content-type: {f.content_type}")
+        BUFFER.append(f"File content: {f.stream.read()}")
+        return redirect(url_for("upload_file"))
     return "|".join(BUFFER)
 
 

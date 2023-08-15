@@ -1,18 +1,17 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from django.urls import re_path, reverse
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.urls import re_path
+from django.urls import reverse
 
-from tests.fake_webapp import (
-    EXAMPLE_HTML,
-    EXAMPLE_IFRAME_HTML,
-    EXAMPLE_ALERT_HTML,
-    EXAMPLE_TYPE_HTML,
-    EXAMPLE_NO_BODY_HTML,
-    EXAMPLE_POPUP_HTML,
-    EXAMPLE_REDIRECT_LOCATION_HTML,
-)
+from tests.fake_webapp import EXAMPLE_ALERT_HTML
+from tests.fake_webapp import EXAMPLE_HTML
+from tests.fake_webapp import EXAMPLE_IFRAME_HTML
+from tests.fake_webapp import EXAMPLE_NO_BODY_HTML
+from tests.fake_webapp import EXAMPLE_POPUP_HTML
+from tests.fake_webapp import EXAMPLE_REDIRECT_LOCATION_HTML
+from tests.fake_webapp import EXAMPLE_TYPE_HTML
 
 
 admin.autodiscover()
@@ -48,14 +47,12 @@ def get_user_agent(request):
 
 def post_form(request):
     items = "\n".join("{}: {}".format(*item) for item in request.POST.items())
-    body = "<html><body>{}</body></html>".format(items)
+    body = f"<html><body>{items}</body></html>"
     return HttpResponse(body)
 
 
 def request_headers(request):
-    body = "\n".join(
-        "%s: %s" % (key, value) for key, value in request.META.items()
-    )
+    body = "\n".join(f"{key}: {value}" for key, value in request.META.items())
     return HttpResponse(body)
 
 
@@ -63,8 +60,8 @@ def upload_file(request):
     if request.method == "POST":
         f = request.FILES["file"]
         buffer = [
-            "Content-type: {}".format(f.content_type),
-            "File content: {}".format(f.read()),
+            f"Content-type: {f.content_type}",
+            f"File content: {f.read()}",
         ]
         return HttpResponse("|".join(buffer))
 

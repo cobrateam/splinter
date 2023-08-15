@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
 
 @dataclass
@@ -43,6 +44,7 @@ class Config:
 
         user_agent: Set a custom user_agent.
     """
+
     extensions: Optional[List[str]] = None
     fullscreen: Optional[bool] = False
     headless: Optional[bool] = False

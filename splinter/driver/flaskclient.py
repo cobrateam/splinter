@@ -1,24 +1,24 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 from typing import Optional
-from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
+from urllib.parse import parse_qs
+from urllib.parse import urlencode
+from urllib.parse import urlparse
+from urllib.parse import urlunparse
 
+from .lxmldriver import LxmlDriver
 from splinter.config import Config
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
-
-from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
     def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            kwargs['server_name'] = "localhost"
-            kwargs['key'] = key
-            kwargs['value'] = value
+            kwargs["server_name"] = "localhost"
+            kwargs["key"] = key
+            kwargs["value"] = value
             self.driver.set_cookie(**kwargs)
 
     def delete(self, *cookies):
@@ -56,7 +56,6 @@ class CookieManager(CookieManagerAPI):
 
 
 class FlaskClient(LxmlDriver):
-
     driver_name = "flask"
 
     def __init__(
@@ -71,7 +70,7 @@ class FlaskClient(LxmlDriver):
         self._browser = app.test_client()
         self._cookie_manager = CookieManager(self._browser)
         self._custom_headers = custom_headers if custom_headers else {}
-        super(FlaskClient, self).__init__(wait_time=wait_time)
+        super().__init__(wait_time=wait_time)
 
     def __enter__(self):
         return self
@@ -88,7 +87,6 @@ class FlaskClient(LxmlDriver):
         self.status_code = StatusCode(self._response.status_code, "")
 
     def _do_method(self, method, url, data=None, record_url=True):
-
         # Set the initial URL and client/HTTP method
         self._url = url
         func_method = getattr(self._browser, method.lower())
@@ -98,13 +96,12 @@ class FlaskClient(LxmlDriver):
             if record_url:
                 self._last_url_index += 1
                 # Going to a new URL always crops the url history
-                self._last_urls = self._last_urls[:self._last_url_index]
+                self._last_urls = self._last_urls[: self._last_url_index]
                 self._last_urls.append(url)
 
             # If we're making a GET request set the data against the URL as a
             # query.
             if method.lower() == "get":
-
                 # Parse the existing URL and it's query
                 url_parts = urlparse(url)
                 url_params = parse_qs(url_parts.query)
@@ -123,7 +120,10 @@ class FlaskClient(LxmlDriver):
 
             # Call the flask client
             self._response = func_method(
-                url, headers=self._custom_headers, data=data, follow_redirects=False
+                url,
+                headers=self._custom_headers,
+                data=data,
+                follow_redirects=False,
             )
 
             # Implement more standard `302`/`303` behaviour
@@ -142,7 +142,7 @@ class FlaskClient(LxmlDriver):
         self._post_load()
 
     def submit_data(self, form):
-        return super(FlaskClient, self).submit(form).data
+        return super().submit(form).data
 
     @property
     def html(self):

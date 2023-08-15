@@ -1,36 +1,32 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
-from __future__ import unicode_literals
-
 import mimetypes
 import re
 import time
-
 from typing import Optional
 
 import lxml.html
 from lxml.cssselect import CSSSelector
-from zope.testbrowser.browser import Browser, ListControl
+from zope.testbrowser.browser import Browser
+from zope.testbrowser.browser import ListControl
 
 from splinter.config import Config
-from splinter.element_list import ElementList
-from splinter.exceptions import ElementDoesNotExist
-from splinter.driver import DriverAPI, ElementAPI
+from splinter.cookie_manager import CookieManagerAPI
+from splinter.driver import DriverAPI
+from splinter.driver import ElementAPI
 from splinter.driver.element_present import ElementPresentMixIn
 from splinter.driver.find_links import FindLinks
 from splinter.driver.xpath_utils import _concat_xpath_from_str
-from splinter.cookie_manager import CookieManagerAPI
+from splinter.element_list import ElementList
+from splinter.exceptions import ElementDoesNotExist
 
 
 class CookieManager(CookieManagerAPI):
     def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            kwargs['name'] = key
-            kwargs['value'] = value
+            kwargs["name"] = key
+            kwargs["value"] = value
             if key not in self.driver.cookies:
                 self.driver.cookies.create(**kwargs)
             else:
@@ -66,7 +62,6 @@ class CookieManager(CookieManagerAPI):
 
 
 class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
-
     driver_name = "zope.testbrowser"
 
     def __init__(self, wait_time=2, config: Optional[Config] = None):
@@ -129,7 +124,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         element = html.xpath('//option[@value="%s"]' % value)[0]
         control = self._browser.getControl(element.text)
         return ElementList(
-            [ZopeTestBrowserOptionElement(control, self)], find_by="value", query=value
+            [ZopeTestBrowserOptionElement(control, self)],
+            find_by="value",
+            query=value,
         )
 
     def find_option_by_text(self, text):
@@ -137,14 +134,14 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
         control = self._browser.getControl(element.text)
         return ElementList(
-            [ZopeTestBrowserOptionElement(control, self)], find_by="text", query=text
+            [ZopeTestBrowserOptionElement(control, self)],
+            find_by="text",
+            query=text,
         )
 
     def find_by_css(self, selector):
         xpath = CSSSelector(selector).path
-        return self.find_by_xpath(
-            xpath, original_find="css", original_query=selector
-        )
+        return self.find_by_xpath(xpath, original_find="css", original_query=selector)
 
     def get_control(self, xpath_element):
         return xpath_element
@@ -172,13 +169,13 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         )
 
     def find_by_tag(self, tag):
-        return self.find_by_xpath(
-            "//%s" % tag, original_find="tag", original_query=tag
-        )
+        return self.find_by_xpath("//%s" % tag, original_find="tag", original_query=tag)
 
     def find_by_value(self, value):
         elem = self.find_by_xpath(
-            '//*[@value="%s"]' % value, original_find="value", original_query=value
+            '//*[@value="%s"]' % value,
+            original_find="value",
+            original_query=value,
         )
         if elem:
             return elem
@@ -263,7 +260,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         filename = file_path.split("/")[-1]
         control = self._browser.getControl(name=name)
         content_type, _ = mimetypes.guess_type(file_path)
-        with open(file_path, 'rb') as f:
+        with open(file_path, "rb") as f:
             control.add_file(f, content_type, filename)
 
     def _find_links_by_xpath(self, xpath):
@@ -350,7 +347,7 @@ class ZopeTestBrowserElement(ElementAPI):
 
     def find_by_text(self, text):
         # Add a period to the xpath to search only inside the parent.
-        xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+        xpath_str = f".{_concat_xpath_from_str(text)}"
         return self.find_by_xpath(xpath_str)
 
     def find_by_id(self, id):  # NOQA: A002
@@ -379,11 +376,11 @@ class ZopeTestBrowserElement(ElementAPI):
 
 class ZopeTestBrowserLinkElement(ZopeTestBrowserElement):
     def __init__(self, element, parent):
-        super(ZopeTestBrowserLinkElement, self).__init__(element, parent)
+        super().__init__(element, parent)
         self._browser = parent._browser
 
     def __getitem__(self, attr):
-        return super(ZopeTestBrowserLinkElement, self).__getitem__(attr)
+        return super().__getitem__(attr)
 
     def click(self):
         return self._browser.open(self["href"])

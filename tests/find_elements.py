@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 from splinter.driver import ElementAPI
 from splinter.element_list import ElementList
 
@@ -36,8 +33,8 @@ class FindElementsTest:
         self.assertEqual(element.value, "Complex")
 
     def test_finding_by_text_with_quotation_marks(self):
-        element = self.browser.find_by_text("Quotation \" marks")
-        self.assertEqual(element.value, "Quotation \" marks")
+        element = self.browser.find_by_text('Quotation " marks')
+        self.assertEqual(element.value, 'Quotation " marks')
 
     def test_finding_by_id(self):
         value = self.browser.find_by_id("firstheader").value
@@ -91,19 +88,19 @@ class FindElementsTest:
         expected = "http://localhost:5000/nested"
 
         link = self.browser.links.find_by_partial_text("Nested text")[0]
-        assert expected == link['href']
+        assert expected == link["href"]
 
         link = self.browser.links.find_by_partial_text("in a link")[0]
-        assert expected == link['href']
+        assert expected == link["href"]
 
         link = self.browser.links.find_by_partial_text("Nested text in")[0]
-        assert expected == link['href']
+        assert expected == link["href"]
 
         link = self.browser.links.find_by_partial_text("text in a link")[0]
-        assert expected == link['href']
+        assert expected == link["href"]
 
         link = self.browser.links.find_by_partial_text("Nested text in a link")[0]
-        assert expected == link['href']
+        assert expected == link["href"]
 
     def test_finding_last_element_by_css(self):
         value = self.browser.find_by_css("h1").last.value

@@ -9,11 +9,11 @@ def _concat_xpath_from_str(text: str) -> str:
     """
     concat_text = _recurse(
         text,
-        split_on='\"',
+        split_on='"',
         wrapper="'{}',",
         replacer="'\"',",
     )
-    return '//*[text()=concat({} "")]'.format(concat_text)
+    return f'//*[text()=concat({concat_text} "")]'
 
 
 def _recurse(
@@ -39,7 +39,7 @@ def _recurse(
         str
 
     """
-    final_value = ''
+    final_value = ""
     split_text = text.split(split_on)
 
     # Ignore single length split lists in nested searches.
@@ -50,7 +50,7 @@ def _recurse(
         # Check every block of text for a single quotation mark
         sub_block = _recurse(
             item,
-            split_on="\'",
+            split_on="'",
             wrapper='"{}",',
             replacer='"\'",',
             inner=True,

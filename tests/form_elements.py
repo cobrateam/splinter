@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
-import time
 import re
+import time
 import unittest
 
 import pytest
@@ -15,19 +12,21 @@ from splinter.exceptions import ElementDoesNotExist
 
 def skip_if_zope(f):
     def wrapper(self, *args, **kwargs):
-        if self.__class__.__name__ == 'ZopeTestBrowserDriverTest':
+        if self.__class__.__name__ == "ZopeTestBrowserDriverTest":
             return unittest.skip("skipping this test for zope testbrowser")
         else:
             f(self, *args, **kwargs)
+
     return wrapper
 
 
 def skip_if_django(f):
     def wrapper(self, *args, **kwargs):
-        if self.__class__.__name__ == 'DjangoClientDriverTest':
+        if self.__class__.__name__ == "DjangoClientDriverTest":
             return unittest.skip("skipping this test for django")
         else:
             f(self, *args, **kwargs)
+
     return wrapper
 
 
@@ -47,7 +46,8 @@ class FormElementsTest:
     def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
         self.browser.find_by_css("input.submit-input-no-name").click()
         self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
+            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
+            "",
         )
 
     @skip_if_zope
@@ -63,7 +63,8 @@ class FormElementsTest:
     def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
         self.browser.find_by_css("input.submit-input-empty").click()
         self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
+            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
+            "",
         )
 
     def test_clicking_submit_input_posts_input_value_if_value_present(self):
@@ -90,7 +91,8 @@ class FormElementsTest:
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         self.browser.find_by_css("button.submit-button-empty").click()
         self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(), ""
+            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
+            "",
         )
 
     @skip_if_zope
@@ -212,7 +214,7 @@ class FormElementsTest:
                 "uf": "rj",
                 "some-check": True,
                 "checked-checkbox": False,
-            }
+            },
         )
         query_value = self.browser.find_by_name("query").value
         self.assertEqual("another new query", query_value)
@@ -240,7 +242,8 @@ class FormElementsTest:
     def test_can_fill_form_by_id(self):
         "should be able to fill a form by its id"
         self.browser.fill_form(
-            {"firstname": "John", "lastname": "Doe"}, form_id="login"
+            {"firstname": "John", "lastname": "Doe"},
+            form_id="login",
         )
         value = self.browser.find_by_name("firstname").value
         self.assertEqual("John", value)
@@ -252,7 +255,7 @@ class FormElementsTest:
                 {"query": "new query", "missing_form": "doesn't exist"},
             )
 
-        assert 'missing_form' in str(e.value)
+        assert "missing_form" in str(e.value)
 
     def test_fill_form_missing_values_ignore_missing(self):
         """Missing values are ignores when ignore_missing is True."""

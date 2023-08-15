@@ -20,4 +20,3 @@ Welcome to the Splinter API documentation! Check what's inside:
    element-list
    request-handling
    exceptions
-

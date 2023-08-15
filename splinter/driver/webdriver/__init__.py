@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
-import io
 import os
 import re
 import tempfile
@@ -12,25 +8,24 @@ import time
 from contextlib import contextmanager
 from typing import Optional
 
-from selenium.webdriver.common.alert import Alert
-from selenium.common.exceptions import (
-    ElementClickInterceptedException,
-    NoSuchElementException,
-    WebDriverException,
-    StaleElementReferenceException,
-    TimeoutException,
-    MoveTargetOutOfBoundsException,
-)
+from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import MoveTargetOutOfBoundsException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC  # NOQA: N812
 from selenium.webdriver.support.ui import WebDriverWait
 
-from splinter.driver import DriverAPI, ElementAPI
+from splinter.driver import DriverAPI
+from splinter.driver import ElementAPI
 from splinter.driver.find_links import FindLinks
+from splinter.driver.webdriver.cookie_manager import CookieManager
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
-from splinter.driver.webdriver.cookie_manager import CookieManager
 from splinter.exceptions import ElementDoesNotExist
 from splinter.retry import _retry
 
@@ -64,7 +59,7 @@ class switch_window:  # NOQA: N801
 
 
 class Window:
-    """ A class representing a browser window """
+    """A class representing a browser window"""
 
     def __init__(self, browser, name):
         self._browser = browser
@@ -72,31 +67,31 @@ class Window:
 
     @property
     def title(self):
-        """ The title of this window """
+        """The title of this window"""
         with switch_window(self._browser, self.name):
             return self._browser.title
 
     @property
     def url(self):
-        """ The url of this window """
+        """The url of this window"""
         with switch_window(self._browser, self.name):
             return self._browser.url
 
     @property
     def index(self):
-        """ The index of this window in browser.windows """
+        """The index of this window in browser.windows"""
         return self._browser.driver.window_handles.index(self.name)
 
     @property
     def prev(self):
-        """ Return the previous window """
+        """Return the previous window"""
         prev_index = self.index - 1
         prev_handle = self._browser.driver.window_handles[prev_index]
         return Window(self._browser, prev_handle)
 
     @property  # NOQA: A003
     def next(self):  # NOQA: A003
-        """ Return the next window """
+        """Return the next window"""
         next_index = (self.index + 1) % len(self._browser.driver.window_handles)
         next_handle = self._browser.driver.window_handles[next_index]
         return Window(self._browser, next_handle)
@@ -118,30 +113,34 @@ class Window:
     is_current = property(**is_current())
 
     def new_tab(self, url):
-        """ Open new tab in current window """
-        if self._browser.driver.name == 'firefox':
-            self._browser.driver.get('about:config')
-            self._browser.driver.execute_script('document.getElementById("warningButton").click();')
+        """Open new tab in current window"""
+        if self._browser.driver.name == "firefox":
+            self._browser.driver.get("about:config")
+            self._browser.driver.execute_script(
+                'document.getElementById("warningButton").click();',
+            )
             self._browser.driver.execute_script(
                 """
                 Components.classes['@mozilla.org/preferences-service;1']
                     .getService(Components.interfaces.nsIPrefBranch)
                     .setIntPref('browser.link.open_newwindow', 3);
-                """)
+                """,
+            )
 
         self._browser.driver.execute_script("window.open('%s', '_blank');" % url)
 
-        if self._browser.driver.name == 'firefox':
+        if self._browser.driver.name == "firefox":
             self._browser.driver.execute_script(
                 """
                 Components.classes['@mozilla.org/preferences-service;1']
                     .getService(Components.interfaces.nsIPrefBranch)
                     .setIntPref('browser.link.open_newwindow', 2);
-                """)
+                """,
+            )
             self._browser.driver.back()
 
     def close(self):
-        """ Close this window. If this window is active, switch to previous window """
+        """Close this window. If this window is active, switch to previous window"""
         target = self.prev if (self.is_current and self.prev != self) else None
 
         with switch_window(self._browser, self.name):
@@ -163,12 +162,12 @@ class Window:
         return not self.__eq__(other)
 
     def __repr__(self):
-        return "<Window %s: %s>" % (self.name, self.url)
+        return f"<Window {self.name}: {self.url}>"
 
 
 class Windows:
 
-    """ A class representing all open browser windows """
+    """A class representing all open browser windows"""
 
     def __init__(self, browser):
         self._browser = browser
@@ -204,7 +203,7 @@ class Windows:
             [
                 Window(self._browser, handle)
                 for handle in self._browser.driver.window_handles
-            ]
+            ],
         )
 
 
@@ -238,7 +237,9 @@ def _find(self, finder, finder_kwargs=None):
         pass
 
     if elements:
-        elem_list = [self.element_class(element, self, finder_kwargs) for element in elements]
+        elem_list = [
+            self.element_class(element, self, finder_kwargs) for element in elements
+        ]
 
     return elem_list
 
@@ -261,8 +262,8 @@ def find_by(
     """
     elem_list = []
 
-    find_by = original_find or finder_kwargs['by']
-    query = original_query or finder_kwargs.get('value')
+    find_by = original_find or finder_kwargs["by"]
+    query = original_query or finder_kwargs.get("value")
 
     # Zero second wait time means only check once
     if wait_time == 0:
@@ -436,7 +437,6 @@ class BaseWebDriver(DriverAPI):
 
     @contextmanager
     def get_iframe(self, frame_reference):
-
         # If a WebDriverElement is provided, send the underlying element
         if isinstance(frame_reference, WebDriverElement):
             frame_reference = frame_reference._element
@@ -465,17 +465,23 @@ class BaseWebDriver(DriverAPI):
     def find_by_css(self, css_selector, wait_time=None):
         return self.find_by(
             self.driver.find_elements,
-            finder_kwargs={'by': By.CSS_SELECTOR, 'value': css_selector},
+            finder_kwargs={"by": By.CSS_SELECTOR, "value": css_selector},
             original_find="css",
             original_query=css_selector,
             wait_time=wait_time,
         )
 
-    def find_by_xpath(self, xpath, original_find="xpath", original_query=None, wait_time=None):
+    def find_by_xpath(
+        self,
+        xpath,
+        original_find="xpath",
+        original_query=None,
+        wait_time=None,
+    ):
         original_query = original_query or xpath
         return self.find_by(
             self.driver.find_elements,
-            finder_kwargs={'by': By.XPATH, 'value': xpath},
+            finder_kwargs={"by": By.XPATH, "value": xpath},
             original_find=original_find,
             original_query=original_query,
             wait_time=wait_time,
@@ -484,22 +490,22 @@ class BaseWebDriver(DriverAPI):
     def find_by_name(self, name, wait_time=None):
         return self.find_by(
             self.driver.find_elements,
-            finder_kwargs={'by': By.NAME, 'value': name},
-            original_find='name',
+            finder_kwargs={"by": By.NAME, "value": name},
+            original_find="name",
             wait_time=wait_time,
         )
 
     def find_by_tag(self, tag, wait_time=None):
         return self.find_by(
             self.driver.find_elements,
-            finder_kwargs={'by': By.TAG_NAME, 'value': tag},
-            original_find='tag_name',
+            finder_kwargs={"by": By.TAG_NAME, "value": tag},
+            original_find="tag_name",
             wait_time=wait_time,
         )
 
     def find_by_value(self, value, wait_time=None):
         elem = self.find_by_xpath(
-            '//*[@value="{}"]'.format(value),
+            f'//*[@value="{value}"]',
             original_find="value",
             original_query=value,
             wait_time=wait_time,
@@ -520,8 +526,8 @@ class BaseWebDriver(DriverAPI):
     def find_by_id(self, id, wait_time=None):  # NOQA: A002
         return self.find_by(
             self.driver.find_element,
-            finder_kwargs={'by': By.ID, 'value': id},
-            original_find='id',
+            finder_kwargs={"by": By.ID, "value": id},
+            original_find="id",
             wait_time=wait_time,
         )
 
@@ -588,7 +594,7 @@ class BaseWebDriver(DriverAPI):
         self.find_by_name(name).first.uncheck()
 
     def screenshot(self, name="", suffix=".png", full=False, unique_file=True):
-        filename = '{}{}'.format(name, suffix)
+        filename = f"{name}{suffix}"
 
         if unique_file:
             (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
@@ -606,27 +612,33 @@ class BaseWebDriver(DriverAPI):
 
         return filename
 
-    def html_snapshot(self, name="", suffix=".html", encoding='utf-8', unique_file=True):
-        filename = '{}{}'.format(name, suffix)
+    def html_snapshot(
+        self,
+        name="",
+        suffix=".html",
+        encoding="utf-8",
+        unique_file=True,
+    ):
+        filename = f"{name}{suffix}"
 
         if unique_file:
             (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
             # Don't hold the file
             os.close(fd)
 
-        with io.open(filename, 'w', encoding=encoding) as f:
+        with open(filename, "w", encoding=encoding) as f:
             f.write(self.html)
 
         return filename
 
     def select(self, name, value):
         self.find_by_xpath(
-            '//select[@name="%s"]//option[@value="%s"]' % (name, value)
+            f'//select[@name="{name}"]//option[@value="{value}"]',
         ).first._element.click()
 
     def select_by_text(self, name, text):
         self.find_by_xpath(
-            '//select[@name="%s"]/option[text()="%s"]' % (name, text)
+            f'//select[@name="{name}"]/option[text()="{text}"]',
         ).first._element.click()
 
     def quit(self):  # NOQA: A003
@@ -636,13 +648,17 @@ class BaseWebDriver(DriverAPI):
             pass
 
     def full_screen(self):
-        width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
-        height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
+        width = self.driver.execute_script(
+            "return Math.max(document.body.scrollWidth, document.body.offsetWidth);",
+        )
+        height = self.driver.execute_script(
+            "return Math.max(document.body.scrollHeight, document.body.offsetHeight);",
+        )
         self.driver.set_window_size(width, height)
 
     def recover_screen(self, size):
-        width = size.get('width')
-        height = size.get('height')
+        width = size.get("width")
+        height = size.get("height")
         self.driver.set_window_size(width, height)
 
     @property
@@ -654,7 +670,7 @@ class BaseWebDriver(DriverAPI):
         return Windows(self)
 
 
-class TypeIterator(object):
+class TypeIterator:
     def __init__(self, element, keys):
         self._element = element
         self._keys = keys
@@ -679,7 +695,7 @@ class ShadowRootElement(ElementAPI):
     def _find(self, by: By, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': by, 'value': selector},
+            finder_kwargs={"by": by, "value": selector},
             wait_time=wait_time,
         )
 
@@ -754,14 +770,14 @@ class WebDriverElement(ElementAPI):
         search_value = None
 
         if text:
-            finder = 'text()'
+            finder = "text()"
             search_value = text
         elif value:
-            finder = '@value'
+            finder = "@value"
             search_value = value
 
         self.find_by_xpath(
-            './/option[{}="{}"]'.format(finder, search_value)
+            f'.//option[{finder}="{search_value}"]',
         )._element.click()
 
     def select_by_text(self, text):
@@ -832,7 +848,7 @@ class WebDriverElement(ElementAPI):
         element_list = self.find_by(
             self.parent._find_elements,
             finder_kwargs=self._finder_kwargs,
-            original_find=self._finder_kwargs['by'],
+            original_find=self._finder_kwargs["by"],
             wait_time=wait_time,
         )
 
@@ -891,15 +907,21 @@ class WebDriverElement(ElementAPI):
     def find_by_css(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
+            finder_kwargs={"by": By.CSS_SELECTOR, "value": selector},
             original_find="css",
             wait_time=wait_time,
         )
 
-    def find_by_xpath(self, selector, wait_time=None, original_find="xpath", original_query=None):
+    def find_by_xpath(
+        self,
+        selector,
+        wait_time=None,
+        original_find="xpath",
+        original_query=None,
+    ):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.XPATH, 'value': selector},
+            finder_kwargs={"by": By.XPATH, "value": selector},
             original_find=original_find,
             original_query=original_query,
             wait_time=wait_time,
@@ -908,7 +930,7 @@ class WebDriverElement(ElementAPI):
     def find_by_name(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.NAME, 'value': selector},
+            finder_kwargs={"by": By.NAME, "value": selector},
             original_find="name",
             wait_time=wait_time,
         )
@@ -916,17 +938,17 @@ class WebDriverElement(ElementAPI):
     def find_by_tag(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.TAG_NAME, 'value': selector},
+            finder_kwargs={"by": By.TAG_NAME, "value": selector},
             original_find="tag",
             wait_time=wait_time,
         )
 
     def find_by_value(self, value, wait_time=None):
-        selector = '[value="{}"]'.format(value)
+        selector = f'[value="{value}"]'
 
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.CSS_SELECTOR, 'value': selector},
+            finder_kwargs={"by": By.CSS_SELECTOR, "value": selector},
             original_find="value",
             original_query=value,
             wait_time=wait_time,
@@ -934,11 +956,11 @@ class WebDriverElement(ElementAPI):
 
     def find_by_text(self, text, wait_time=None):
         # Add a period to the xpath to search only inside the parent.
-        xpath_str = '.{}'.format(_concat_xpath_from_str(text))
+        xpath_str = f".{_concat_xpath_from_str(text)}"
 
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.XPATH, 'value': xpath_str},
+            finder_kwargs={"by": By.XPATH, "value": xpath_str},
             original_find="text",
             original_query=text,
             wait_time=wait_time,
@@ -947,14 +969,14 @@ class WebDriverElement(ElementAPI):
     def find_by_id(self, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
-            finder_kwargs={'by': By.ID, 'value': selector},
+            finder_kwargs={"by": By.ID, "value": selector},
             original_find="id",
             wait_time=wait_time,
         )
 
     def has_class(self, class_name):
         return bool(
-            re.search(r"(?:^|\s)" + re.escape(class_name) + r"(?:$|\s)", self["class"])
+            re.search(r"(?:^|\s)" + re.escape(class_name) + r"(?:$|\s)", self["class"]),
         )
 
     def scroll_to(self):
@@ -974,14 +996,23 @@ class WebDriverElement(ElementAPI):
         try:
             # Fails on left edge of viewport
             ActionChains(self.driver).move_to_element_with_offset(
-                self._element, -10, -10).click().perform()
+                self._element,
+                -10,
+                -10,
+            ).click().perform()
         except MoveTargetOutOfBoundsException:
             try:
                 ActionChains(self.driver).move_to_element_with_offset(
-                    self._element, size['width'] + 10, 10).click().perform()
+                    self._element,
+                    size["width"] + 10,
+                    10,
+                ).click().perform()
             except MoveTargetOutOfBoundsException:
                 ActionChains(self.driver).move_to_element_with_offset(
-                    self._element, 10, size['height'] + 10).click().perform()
+                    self._element,
+                    10,
+                    size["height"] + 10,
+                ).click().perform()
 
     def double_click(self):
         """Perform a double click in the element."""
@@ -996,16 +1027,22 @@ class WebDriverElement(ElementAPI):
     def drag_and_drop(self, droppable):
         """Drag an element to another element."""
         self.scroll_to()
-        ActionChains(self.driver).drag_and_drop(self._element, droppable._element).perform()
+        ActionChains(self.driver).drag_and_drop(
+            self._element,
+            droppable._element,
+        ).perform()
 
     def _full_screen(self):
-        width = self.driver.execute_script("return Math.max(document.body.scrollWidth, document.body.offsetWidth);")
-        height = self.driver.execute_script("return Math.max(document.body.scrollHeight, document.body.offsetHeight);")
+        width = self.driver.execute_script(
+            "return Math.max(document.body.scrollWidth, document.body.offsetWidth);",
+        )
+        height = self.driver.execute_script(
+            "return Math.max(document.body.scrollHeight, document.body.offsetHeight);",
+        )
         self.driver.set_window_size(width, height)
 
-    def screenshot(self, name='', suffix='.png', full=False, unique_file=True):
-
-        filename = '{}{}'.format(name, suffix)
+    def screenshot(self, name="", suffix=".png", full=False, unique_file=True):
+        filename = f"{name}{suffix}"
 
         if unique_file:
             (fd, filename) = tempfile.mkstemp(prefix=name, suffix=suffix)
@@ -1020,8 +1057,8 @@ class WebDriverElement(ElementAPI):
 
         if full:
             # Restore screen size
-            width = ori_window_size.get('width')
-            height = ori_window_size.get('height')
+            width = ori_window_size.get("width")
+            height = ori_window_size.get("height")
             self.driver.set_window_size(width, height)
 
         return filename

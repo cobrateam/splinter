@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 from typing import Optional
 from urllib import parse
 
+from .lxmldriver import LxmlDriver
 from splinter.config import Config
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
-
-from .lxmldriver import LxmlDriver
 
 
 class CookieManager(CookieManagerAPI):
@@ -53,7 +50,6 @@ class CookieManager(CookieManagerAPI):
 
 
 class DjangoClient(LxmlDriver):
-
     driver_name = "django"
 
     def __init__(
@@ -76,7 +72,11 @@ class DjangoClient(LxmlDriver):
 
         self._cookie_manager = CookieManager(self._browser)
 
-        super(DjangoClient, self).__init__(wait_time=wait_time, user_agent=user_agent, config=config)
+        super().__init__(
+            wait_time=wait_time,
+            user_agent=user_agent,
+            config=config,
+        )
 
     def __enter__(self):
         return self
@@ -120,14 +120,14 @@ class DjangoClient(LxmlDriver):
         if record_url:
             self._last_url_index += 1
             # Going to a new URL always crops the url history
-            self._last_urls = self._last_urls[:self._last_url_index]
+            self._last_urls = self._last_urls[: self._last_url_index]
             self._last_urls.append(url)
 
         self._handle_redirect_chain()
         self._post_load()
 
     def submit_data(self, form):
-        return super(DjangoClient, self).submit(form).content
+        return super().submit(form).content
 
     @property
     def html(self):

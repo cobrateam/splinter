@@ -1,22 +1,17 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-
 import os
 import unittest
 
 import pytest
 
-from splinter import Browser
 from .base import BaseBrowserTests
 from .fake_webapp import EXAMPLE_APP
+from splinter import Browser
 
 
-class ZopeTestBrowserDriverTest(
-    BaseBrowserTests, unittest.TestCase
-):
+class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.browser = Browser("zope.testbrowser", wait_time=0.1)
@@ -35,7 +30,8 @@ class ZopeTestBrowserDriverTest(
     def test_attach_file(self):
         "should provide a way to change file field value"
         file_path = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), "mockfile.txt"
+            os.path.abspath(os.path.dirname(__file__)),
+            "mockfile.txt",
         )
         self.browser.attach_file("file", file_path)
         self.browser.find_by_name("upload").click()
@@ -149,10 +145,10 @@ class ZopeTestBrowserDriverTest(
     def test_finding_all_links_by_non_ascii_text(self):
         "should find links by non ascii text"
         non_ascii_encodings = {
-            "pangram_pl": u"Jeżu klątw, spłódź Finom część gry hańb!",
-            "pangram_ja": u"天 地 星 空",
-            "pangram_ru": u"В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
-            "pangram_eo": u"Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
+            "pangram_pl": "Jeżu klątw, spłódź Finom część gry hańb!",
+            "pangram_ja": "天 地 星 空",
+            "pangram_ru": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
+            "pangram_eo": "Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
         for key, text in non_ascii_encodings.items():
             link = self.browser.links.find_by_text(text)
@@ -167,7 +163,7 @@ class ZopeTestBrowserDriverTest(
 
     def test_cookies_extra_parameters(self):
         """Cookie can be created with extra parameters."""
-        comment = 'Ipsum lorem'
-        self.browser.cookies.add({'sha': 'zam'}, comment=comment)
-        cookie = self.browser._browser.cookies.getinfo('sha')
-        assert 'Ipsum%20lorem' == cookie['comment']
+        comment = "Ipsum lorem"
+        self.browser.cookies.add({"sha": "zam"}, comment=comment)
+        cookie = self.browser._browser.cookies.getinfo("sha")
+        assert "Ipsum%20lorem" == cookie["comment"]
