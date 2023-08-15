@@ -38,7 +38,7 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
 
         html = self.browser.html
         self.assertIn("text/plain", html)
-        self.assertIn(open(file_path, "rb").read().decode("utf-8"), html)
+        self.assertIn(open(file_path).read(), html)
 
     def test_serialize_select_mutiple(self):
         "should serialize a select with multiple values into a list"
