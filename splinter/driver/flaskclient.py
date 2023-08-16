@@ -16,41 +16,42 @@ from splinter.request_handler.status_code import StatusCode
 class CookieManager(CookieManagerAPI):
     def add(self, cookie, **kwargs):
         for key, value in cookie.items():
-            kwargs["server_name"] = "localhost"
-            kwargs["key"] = key
-            kwargs["value"] = value
-            self.driver.set_cookie(**kwargs)
+            self.driver.set_cookie(
+                key=key,
+                value=value,
+                domain="localhost",
+                **kwargs,
+            )
 
     def delete(self, *cookies):
         if cookies:
             for cookie in cookies:
                 try:
-                    self.driver.delete_cookie("localhost", cookie)
+                    self.driver.delete_cookie(cookie)
                 except KeyError:
                     pass
 
     def delete_all(self):
-        self.driver.cookie_jar.clear()
+        self.driver._cookies.clear()
 
     def all(self, verbose=False):  # NOQA: A003
         cookies = {}
         for cookie in self.driver.cookie_jar:
-            cookies[cookie.name] = cookie.value
+            cookies[cookie.key] = cookie.value
         return cookies
 
     def __getitem__(self, item):
-        cookies = {c.name: c for c in self.driver.cookie_jar}
-        return cookies[item].value
+        return self.driver.get_cookie(item).value
 
     def __contains__(self, key):
         for cookie in self.driver.cookie_jar:
-            if cookie.name == key:
+            if cookie.key == key:
                 return True
         return False
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = {c.name: c.value for c in self.driver.cookie_jar}
+            cookies_dict = {c.key: c.value for c in self.driver.cookie_jar}
             return cookies_dict == other_object
         return False
 
