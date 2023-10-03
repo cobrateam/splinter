@@ -171,7 +171,7 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         """Cookie can be created with extra parameters."""
         timestamp = int(time.time() + 120)
         self.browser.cookies.add({"sha": "zam"}, expires=timestamp)
-        cookie = {c.key: c for c in self.browser._browser.cookie_jar}["sha"]
+        cookie = {c.key: c for c in self.browser._browser._cookies.values()}["sha"]
         assert timestamp == int(cookie.expires.timestamp())
 
 

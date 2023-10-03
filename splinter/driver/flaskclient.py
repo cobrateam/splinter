@@ -36,7 +36,7 @@ class CookieManager(CookieManagerAPI):
 
     def all(self, verbose=False):  # NOQA: A003
         cookies = {}
-        for cookie in self.driver.cookie_jar:
+        for cookie in self.driver._cookies.values():
             cookies[cookie.key] = cookie.value
         return cookies
 
@@ -44,14 +44,14 @@ class CookieManager(CookieManagerAPI):
         return self.driver.get_cookie(item).value
 
     def __contains__(self, key):
-        for cookie in self.driver.cookie_jar:
+        for cookie in self.driver._cookies.values():
             if cookie.key == key:
                 return True
         return False
 
     def __eq__(self, other_object):
         if isinstance(other_object, dict):
-            cookies_dict = {c.key: c.value for c in self.driver.cookie_jar}
+            cookies_dict = {c.key: c.value for c in self.driver._cookies.values()}
             return cookies_dict == other_object
         return False
 
