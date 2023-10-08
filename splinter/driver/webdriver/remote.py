@@ -43,7 +43,7 @@ class WebDriver(BaseWebDriver):
             # Combine user's desired capabilities with default
             caps.update(kwargs["desired_capabilities"])
 
-        kwargs["desired_capabilities"] = caps
+            kwargs["desired_capabilities"] = caps
 
         kwargs["command_executor"] = command_executor
 
