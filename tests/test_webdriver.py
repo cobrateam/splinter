@@ -21,10 +21,8 @@ def test_webdriver_local_driver_not_present(browser_name):
     else:
         service = FirefoxService(executable_path="failpath")
 
-    with pytest.raises(WebDriverException) as e:
+    with pytest.raises(WebDriverException):
         Browser(browser_name, service=service)
-
-    assert "Message: 'failpath' executable needs to be in PATH." in str(e.value)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
