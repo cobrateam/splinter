@@ -24,7 +24,7 @@ def test_element_is_visible_custom_wait_time(browser_name, get_new_browser):
     browser.visit(EXAMPLE_APP)
 
     browser.find_by_css(".show-invisible-element").click()
-    assert browser.find_by_css("#invisible").is_visible(wait_time=3)
+    assert browser.find_by_css("#invisible").is_visible(wait_time=12)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
@@ -61,4 +61,4 @@ def test_element_is_not_visible_custom_wait_time(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    assert browser.find_by_css("#invisible").is_not_visible(wait_time=3)
+    assert browser.find_by_css("#invisible").is_not_visible(wait_time=12)

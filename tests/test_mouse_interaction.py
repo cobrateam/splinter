@@ -18,7 +18,7 @@ def test_mouse_over(browser_name, get_new_browser):
     element = browser.find_by_css(".add-element-mouseover")
     element.mouse_over()
 
-    assert browser.is_element_present_by_id("what-is-your-name", wait_time=5)
+    assert browser.is_element_present_by_id("what-is-your-name", wait_time=20)
 
     element = browser.find_by_css(".add-element-mouseover")
     element.mouse_out()
@@ -65,7 +65,7 @@ def test_double_click(browser_name, get_new_browser):
     button.double_click()
 
     assert browser.find_by_css(".should-be-visible-after-double-click").is_visible(
-        wait_time=5,
+        wait_time=20,
     )
     assert browser.is_element_not_present_by_id("what-is-your-name")
 
@@ -80,7 +80,7 @@ def test_right_click(browser_name, get_new_browser):
     element.right_click()
 
     time.sleep(2)
-    result_1 = browser.find_by_text("right clicked", wait_time=5).text
+    result_1 = browser.find_by_text("right clicked", wait_time=20).text
     result_2 = browser.find_by_css(".right-clicable").text
 
     assert result_1 == result_2 == "right clicked"

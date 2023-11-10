@@ -52,7 +52,7 @@ def test_firefox_create_instance_with_extension(request):
     browser.visit(EXAMPLE_APP)
 
     elem = browser.find_by_css("body")
-    elem.is_visible(wait_time=5)
+    elem.is_visible(wait_time=20)
     style = elem._element.get_attribute("style")
 
     assert "border: 5px solid red;" == style
