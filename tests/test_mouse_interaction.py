@@ -18,10 +18,13 @@ def test_mouse_over(browser_name, get_new_browser):
     element = browser.find_by_css(".add-element-mouseover")
     element.mouse_over()
 
-    assert browser.is_element_present_by_id("what-is-your-name", wait_time=20)
+    time.sleep(5)
+    assert browser.is_element_present_by_id("what-is-your-name", wait_time=10)
 
     element = browser.find_by_css(".add-element-mouseover")
     element.mouse_out()
+
+    assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
@@ -33,7 +36,8 @@ def test_mouse_out(browser_name, get_new_browser):
     element = browser.find_by_css(".add-element-mouseover")
     element.mouse_over()
     element.mouse_out()
-    assert browser.is_element_not_present_by_id("what-is-your-name")
+
+    assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
@@ -48,7 +52,7 @@ def test_mouse_out_top_left(browser_name, get_new_browser):
     element.mouse_over()
     element.mouse_out()
 
-    assert browser.is_element_not_present_by_id("what-is-your-name")
+    assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
@@ -61,13 +65,16 @@ def test_double_click(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    button = browser.find_by_css(".db-button")
+    button = browser.find_by_css(".db-button", wait_time=10)
     button.double_click()
 
-    assert browser.find_by_css(".should-be-visible-after-double-click").is_visible(
-        wait_time=20,
+    assert browser.find_by_css(
+        ".should-be-visible-after-double-click",
+        wait_time=10,
+    ).is_visible(
+        wait_time=10,
     )
-    assert browser.is_element_not_present_by_id("what-is-your-name")
+    assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=20)
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
@@ -79,9 +86,9 @@ def test_right_click(browser_name, get_new_browser):
     element = browser.find_by_css(".right-clicable")
     element.right_click()
 
-    time.sleep(2)
+    time.sleep(5)
     result_1 = browser.find_by_text("right clicked", wait_time=20).text
-    result_2 = browser.find_by_css(".right-clicable").text
+    result_2 = browser.find_by_css(".right-clicable", wait_time=20).text
 
     assert result_1 == result_2 == "right clicked"
 
@@ -98,4 +105,5 @@ def test_drag_and_drop(browser_name, get_new_browser):
     draggable = browser.find_by_css(".draggable")
     draggable.drag_and_drop(droppable)
 
+    time.sleep(5)
     assert "yes" == browser.find_by_css(".dragged").text
