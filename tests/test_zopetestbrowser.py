@@ -138,8 +138,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         self.assertEqual(
             len(links),
             1,
-            'Found not exactly one link with a span with text "BAR ONE". %s'
-            % [item.outer_html for item in links],
+            'Found not exactly one link with a span with text "BAR ONE". %s' % [item.outer_html for item in links],
         )
 
     def test_finding_all_links_by_non_ascii_text(self):

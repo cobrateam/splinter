@@ -11,9 +11,7 @@ class InheritedDocs(type):
         dict: dict,
     ) -> type:  # NOQA: N804, A002
         """Metaclass that forces inheritance of docstrings."""
-        items_to_patch = [
-            (k, v) for k, v in dict.items() if not k.startswith("__") and not v.__doc__
-        ]
+        items_to_patch = [(k, v) for k, v in dict.items() if not k.startswith("__") and not v.__doc__]
         for name, obj in items_to_patch:
             doc = None
             for base in bases:

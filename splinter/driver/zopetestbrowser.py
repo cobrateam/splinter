@@ -233,9 +233,7 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
                     else:
                         control.value = []
                 elif control.type == "radio":
-                    control.value = [
-                        option for option in control.options if option == value
-                    ]
+                    control.value = [option for option in control.options if option == value]
                 elif control.type == "select":
                     control.value = [value]
                 else:

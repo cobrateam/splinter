@@ -263,8 +263,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if finds a match for the ``text`` and False if not.
         """
         raise NotImplementedError(
-            "%s doesn't support checking if some text is present in the html. "
-            % self.driver_name,
+            "%s doesn't support checking if some text is present in the html. " % self.driver_name,
         )
 
     def type(self, name: str, value: str, slowly: bool = False) -> str:  # NOQA: A003
@@ -385,8 +384,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             >>> browser.select("state", "NY")
         """
         raise NotImplementedError(
-            "%s doesn't support selecting options in 'select' element."
-            % self.driver_name,
+            "%s doesn't support selecting options in 'select' element." % self.driver_name,
         )
 
     def quit(self) -> None:  # NOQA: A003
@@ -408,8 +406,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by css"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by css" % self.driver_name,
         )
 
     def is_element_not_present_by_css(
@@ -427,8 +424,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by css"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by css" % self.driver_name,
         )
 
     def is_element_present_by_xpath(
@@ -446,8 +442,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by xpath"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by xpath" % self.driver_name,
         )
 
     def is_element_not_present_by_xpath(
@@ -465,8 +460,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by xpath"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by xpath" % self.driver_name,
         )
 
     def is_element_present_by_tag(
@@ -484,8 +478,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by tag"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by tag" % self.driver_name,
         )
 
     def is_element_not_present_by_tag(
@@ -503,8 +496,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by tag"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by tag" % self.driver_name,
         )
 
     def is_element_present_by_name(
@@ -522,8 +514,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by name"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by name" % self.driver_name,
         )
 
     def is_element_not_present_by_name(
@@ -541,8 +532,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by name"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by name" % self.driver_name,
         )
 
     def is_element_present_by_value(
@@ -560,8 +550,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by value"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by value" % self.driver_name,
         )
 
     def is_element_not_present_by_value(
@@ -579,8 +568,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by value"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by value" % self.driver_name,
         )
 
     def is_element_present_by_text(
@@ -598,8 +586,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by text"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by text" % self.driver_name,
         )
 
     def is_element_not_present_by_text(
@@ -617,8 +604,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by text"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by text" % self.driver_name,
         )
 
     def is_element_present_by_id(
@@ -636,8 +622,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is present and False if is not present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is present by id"
-            % self.driver_name,
+            "%s doesn't support verifying if element is present by id" % self.driver_name,
         )
 
     def is_element_not_present_by_id(
@@ -655,8 +640,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             bool: True if the element is not present and False if is present.
         """
         raise NotImplementedError(
-            "%s doesn't support verifying if element is not present by id"
-            % self.driver_name,
+            "%s doesn't support verifying if element is not present by id" % self.driver_name,
         )
 
     def screenshot(

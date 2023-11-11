@@ -40,10 +40,7 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",
     ]
-    + [
-        ("Programming Language :: Python :: %s" % x)
-        for x in "3.8 3.9 3.10 3.11 3.12".split()
-    ],
+    + [("Programming Language :: Python :: %s" % x) for x in "3.8 3.9 3.10 3.11 3.12".split()],
     project_urls={
         "Documentation": "https://splinter.readthedocs.io/",
         "Changelog": "https://github.com/cobrateam/splinter/tree/master/docs/news",

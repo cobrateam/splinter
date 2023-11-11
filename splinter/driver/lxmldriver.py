@@ -111,9 +111,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             )
 
     def forward(self):
-        if (self._last_url_index >= 0) and (
-            self._last_url_index < len(self._last_urls) - 1
-        ):
+        if (self._last_url_index >= 0) and (self._last_url_index < len(self._last_urls) - 1):
             self._last_url_index += 1
             self._do_method(
                 "get",

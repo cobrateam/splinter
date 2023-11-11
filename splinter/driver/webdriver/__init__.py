@@ -200,10 +200,7 @@ class Windows:
 
     def __repr__(self):
         return str(
-            [
-                Window(self._browser, handle)
-                for handle in self._browser.driver.window_handles
-            ],
+            [Window(self._browser, handle) for handle in self._browser.driver.window_handles],
         )
 
 
@@ -237,9 +234,7 @@ def _find(self, finder, finder_kwargs=None):
         pass
 
     if elements:
-        elem_list = [
-            self.element_class(element, self, finder_kwargs) for element in elements
-        ]
+        elem_list = [self.element_class(element, self, finder_kwargs) for element in elements]
 
     return elem_list
 
@@ -552,10 +547,7 @@ class BaseWebDriver(DriverAPI):
                 else:
                     elements = self.find_by_name(name)
                 element = elements.first
-                if (
-                    element["type"] in ["text", "password", "tel"]
-                    or element.tag_name == "textarea"
-                ):
+                if element["type"] in ["text", "password", "tel"] or element.tag_name == "textarea":
                     element.value = value
                 elif element["type"] == "checkbox":
                     if value:
