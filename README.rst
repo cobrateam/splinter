@@ -16,7 +16,7 @@ Splinter is a Python framework that provides a simple and consistent interface f
    :alt: GitHub
    :target: https://github.com/cobrateam/splinter/blob/master/LICENSE
 
-.. image:: https://github.com/cobrateam/splinter/workflows/CI/badge.svg
+.. image:: https://github.com/cobrateam/splinter/actions/workflows/main.yml/badge.svg
    :target: https://github.com/cobrateam/splinter/actions/workflows/main.yml
    :alt: Build status
 
