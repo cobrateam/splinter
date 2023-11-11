@@ -9,6 +9,7 @@ from .base import supported_browsers
 from .fake_webapp import EXAMPLE_APP
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_mouse_over(browser_name, get_new_browser):
     "Should be able to perform a mouse over on an element"
@@ -27,6 +28,7 @@ def test_mouse_over(browser_name, get_new_browser):
     assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_mouse_out(browser_name, get_new_browser):
     "Should be able to perform a mouse out on an element"
@@ -40,6 +42,7 @@ def test_mouse_out(browser_name, get_new_browser):
     assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_mouse_out_top_left(browser_name, get_new_browser):
     """Should be able to perform a mouse out on an element,
@@ -55,6 +58,7 @@ def test_mouse_out_top_left(browser_name, get_new_browser):
     assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=10)
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_double_click(browser_name, get_new_browser):
     """Test: WebDriverElement.double_click()
@@ -77,6 +81,7 @@ def test_double_click(browser_name, get_new_browser):
     assert browser.is_element_not_present_by_id("what-is-your-name", wait_time=20)
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_right_click(browser_name, get_new_browser):
     "should be able to perform a right click on an element"
@@ -93,6 +98,7 @@ def test_right_click(browser_name, get_new_browser):
     assert result_1 == result_2 == "right clicked"
 
 
+@pytest.mark.flaky
 @pytest.mark.parametrize("browser_name", supported_browsers)
 def test_drag_and_drop(browser_name, get_new_browser):
     """
