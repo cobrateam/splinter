@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: 3.x
 
-      - run: pip install twine wheel
+      - run: pip install setuptools twine wheel
 
       - run: pip install -e .
 
