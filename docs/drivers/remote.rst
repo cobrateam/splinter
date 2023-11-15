@@ -37,8 +37,17 @@ browser instance running on Windows 11.
 
 .. code-block:: python
 
+    from selenium.webdriver.chrome.options import Options
+    from splinter import Browser
+
     # Specify the server URL
     remote_server_url = 'http://YOUR_LT_USERNAME:YOUR_LT_ACCESS_KEY@@hub.lambdatest.com/wd/hub'
+
+    # Configure desired capabilities
+    options = Options()
+    options.set_capability('platform', 'Windows 11')
+    options.set_capability('version', '99.0')
+    options.set_capability('name', 'Test of Chrome 99 on WINDOWS')
 
     with Browser(
         driver_name="remote",
@@ -57,26 +66,27 @@ browser instance running on Windows 11.
 
 
 
-
 The following example uses `Sauce Labs`_ (a company that provides Selenium
 Remote WebDriver servers as a service) to request an Internet Explorer 9
 browser instance running on Windows 7.
 
 .. code-block:: python
 
+    from selenium.webdriver.ie.options import Options
+    from splinter import Browser
+
     # Specify the server URL
     remote_server_url = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub'
+    options = Options()
+    options.set_capability('platform', 'Windows 7')
+    options.set_capability('version', '9')
+    options.set_capability('name', 'Test of IE 9 on WINDOWS')
 
     with Browser(
         driver_name="remote",
         browser='internetexplorer',
         command_executor=remote_server_url,
-        desired_capabilities = {
-          'platform': 'Windows 7',
-          'version': '9',
-          'name': 'Test of IE 9 on WINDOWS',
-        },
-        keep_alive=True,
+        options=options,
     ) as browser:
         print("Link to job: https://saucelabs.com/jobs/{}".format(
               browser.driver.session_id))
