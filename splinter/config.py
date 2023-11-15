@@ -49,4 +49,4 @@ class Config:
     fullscreen: Optional[bool] = False
     headless: Optional[bool] = False
     incognito: Optional[bool] = False
-    user_agent: Optional[str] = ""
+    user_agent: Optional[str] = None
