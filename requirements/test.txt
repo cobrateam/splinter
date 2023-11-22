@@ -3,6 +3,6 @@ coverage==7.3.2
 argparse
 Django>=2.0.6
 pytest==7.4.3
-pytest-xdist==3.4.0
+pytest-xdist==3.5.0
 pytest-ignore-flaky==2.1.0
 zope.testbrowser==6.0
