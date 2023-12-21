@@ -140,6 +140,7 @@ class WebDriverTests(
 
     def test_can_open_page_in_new_tab(self):
         """should be able to visit url in a new tab"""
+        self.browser.visit(EXAMPLE_APP)
         self.browser.windows.current.new_tab(EXAMPLE_APP)
         self.browser.windows[1].is_current = True
         self.assertEqual(EXAMPLE_APP, self.browser.url)
