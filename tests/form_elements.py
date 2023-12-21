@@ -7,8 +7,8 @@ import unittest
 
 import pytest
 
-from splinter.exceptions import ElementDoesNotExist
 from .fake_webapp import EXAMPLE_APP
+from splinter.exceptions import ElementDoesNotExist
 
 
 def skip_if_zope(f):

@@ -2,8 +2,8 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import unittest
-from urllib.request import urlopen
 from unittest.mock import patch
+from urllib.request import urlopen
 
 import pytest
 
@@ -143,7 +143,7 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
                 "query": "another new query",
                 "description": "Just another description value in the textarea",
                 "gender": "M",
-                #"uf": "rj",
+                # "uf": "rj",
                 "some-check": True,
                 "checked-checkbox": False,
             },
@@ -153,12 +153,12 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
         desc_value = self.browser.find_by_name("description").value
         self.assertEqual("Just another description value in the textarea", desc_value)
         self.assertTrue(self.browser.find_by_id("gender-m").checked)
-        #self.assertTrue(self.browser.find_option_by_value("rj").selected)
+        # self.assertTrue(self.browser.find_option_by_value("rj").selected)
         self.assertTrue(self.browser.find_by_name("some-check").checked)
         self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
 
     # ------- BEGIN OF CLICK PROBLEM TESTS -------
-    #https://stackoverflow.com/questions/77388720/automation-testing-with-selenium-click-doesnt-works-on-new-safari-17-ios-sonoma
+    # https://stackoverflow.com/questions/77388720/automation-testing-with-selenium-click-doesnt-works-on-new-safari-17-ios-sonoma
     @pytest.mark.xfail
     def test_click_element_by_css_selector(self):
         super().test_click_element_by_css_selector()
@@ -212,4 +212,5 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
     @pytest.mark.xfail
     def test_simple_type_on_element(self):
         super().test_simple_type_on_element()
+
     # ------- END OF TYPE PROBLEM TESTS -------
