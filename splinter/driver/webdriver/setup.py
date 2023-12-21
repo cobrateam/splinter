@@ -93,3 +93,15 @@ def _setup_firefox(driver_class, config=None, options=None, service=None, **kwar
         rv.fullscreen_window()
 
     return rv
+
+
+def _setup_safari(driver_class, config=None, options=None, service=None, **kwargs):
+    """
+    Returns: selenium.webdriver.Safari || selenium.webdriver.Remote
+    """
+    if driver_class == Remote:
+        rv = driver_class(options=options, **kwargs)
+    else:
+        rv = driver_class(options=options, service=service, **kwargs)
+
+    return rv

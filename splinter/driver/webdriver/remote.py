@@ -13,6 +13,7 @@ from splinter.driver.webdriver.remote_connection import patch_request
 from splinter.driver.webdriver.setup import _setup_chrome
 from splinter.driver.webdriver.setup import _setup_edge
 from splinter.driver.webdriver.setup import _setup_firefox
+from splinter.driver.webdriver.setup import _setup_safari
 
 # MonkeyPatch RemoteConnection
 remote_connection.RemoteConnection._request = patch_request  # type: ignore
@@ -64,5 +65,12 @@ class WebDriver(BaseWebDriver):
 
             options = options or Options()
             driver = _setup_firefox(Remote, self.config, options, **kwargs)
+        elif browser_name == "SAFARI":
+            from selenium.webdriver.safari.options import Options
+
+            options = options or Options()
+            driver = _setup_safari(Remote, self.config, options, **kwargs)
+        else:
+            raise ValueError(f"Unsupporeted browser {browser_name}")
 
         super().__init__(driver, wait_time)
