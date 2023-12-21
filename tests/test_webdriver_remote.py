@@ -3,6 +3,7 @@
 # license that can be found in the LICENSE file.
 import unittest
 from urllib.request import urlopen
+from unittest.mock import patch
 
 import pytest
 
@@ -78,99 +79,47 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
         "Remote should not support custom user agent"
         pass
 
+    # ------- BEGIN OF MULTISESSION TESTS -------
     # Safari doesn't support multisessions.
-    # So next test must be rewrited without getting new browser
+    # So next tests mock quit of browser.
+    def get_new_browser(self):
+        return self.browser
+
     def test_can_forward_on_history(self):
-        next_url = f"{EXAMPLE_APP}iframe"
-
-        self.browser.visit(EXAMPLE_APP)
-        self.browser.visit(next_url)
-        self.browser.back()
-
-        self.browser.forward()
-        assert next_url == self.browser.url
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_can_forward_on_history()
 
     def test_create_and_access_a_cookie(self):
-        """Should be able to create and access a cookie"""
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.add({"sha": "zam"})
-
-        assert "zam" == self.browser.cookies["sha"]
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_and_access_a_cookie()
 
     def test_create_many_cookies_at_once_as_dict(self):
-        """Should be able to create many cookies at once as dict"""
-        self.browser.visit(self.EXAMPLE_APP)
-
-        cookies = {"sha": "zam", "foo": "bar"}
-        self.browser.cookies.add(cookies)
-
-        assert "zam" == self.browser.cookies["sha"]
-        assert "bar" == self.browser.cookies["foo"]
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_many_cookies_at_once_as_dict()
 
     def test_create_some_cookies_and_delete_them_all(self):
-        """Should be able to delete all cookies"""
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.add({"whatever": "and ever"})
-        self.browser.cookies.add({"anothercookie": "im bored"})
-        self.browser.cookies.delete_all()
-
-        assert {} == self.browser.cookies
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_some_cookies_and_delete_them_all()
 
     def test_create_and_delete_a_cookie(self):
-        """Should be able to create and destroy a cookie"""
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.delete_all()
-        self.browser.cookies.add({"cookie": "with milk"})
-        self.browser.cookies.delete("cookie")
-
-        assert {} == self.browser.cookies
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_and_delete_a_cookie()
 
     def test_create_and_delete_many_cookies(self):
-        """Should be able to create and destroy many cookies"""
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.delete_all()
-        self.browser.cookies.add({"acookie": "cooked"})
-        self.browser.cookies.add({"anothercookie": "uncooked"})
-        self.browser.cookies.add({"notacookie": "halfcooked"})
-        self.browser.cookies.delete("acookie", "notacookie")
-
-        assert "uncooked" == self.browser.cookies["anothercookie"]
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_and_delete_many_cookies()
 
     def test_try_to_destroy_an_absent_cookie_and_nothing_happens(self):
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.delete_all()
-        self.browser.cookies.add({"foo": "bar"})
-        self.browser.cookies.delete("mwahahahaha")
-
-        {"foo": "bar"} == self.browser.cookies
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_try_to_destroy_an_absent_cookie_and_nothing_happens()
 
     def test_create_and_get_all_cookies(self):
-        """Should be able to create some cookies and retrieve them all"""
-
-        self.browser.visit(self.EXAMPLE_APP)
-
-        self.browser.cookies.delete_all()
-        self.browser.cookies.add({"taco": "shrimp"})
-        self.browser.cookies.add({"lavar": "burton"})
-
-        assert 2 == len(self.browser.cookies.all())
-
-        self.browser.cookies.delete_all()
-
-        assert {} == self.browser.cookies.all()
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_and_get_all_cookies()
 
     def test_create_and_use_contains(self):
-        """Should be able to create many cookies at once as dict"""
+        with patch("splinter.driver.webdriver.remote.WebDriver.quit"):
+            super().test_create_and_use_contains()
 
-        self.browser.visit(self.EXAMPLE_APP)
+    # ------- END OF MULTISESSION TESTS -------
 
-        cookies = {"sha": "zam"}
-        self.browser.cookies.add(cookies)
-
-        assert "sha" in self.browser.cookies
-        assert "foo" not in self.browser.cookies
