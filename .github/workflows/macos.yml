@@ -46,10 +46,11 @@ jobs:
 
       - name: Install timeout util and java
         run: |
-          brew update && brew upgrade
           brew install coreutils
-          brew reinstall java openjdk
+          brew search java
+          brew install java11
           java -version
+          ls -la /opt/homebrew/Cellar/
 
       - name: Download Selenium Server
         run: |
