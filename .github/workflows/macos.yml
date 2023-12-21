@@ -47,7 +47,7 @@ jobs:
       - name: Install timeout util and java
         run: |
           brew install coreutils java
-          java --version
+          java -version
 
       - name: Download Selenium Server
         run: |
