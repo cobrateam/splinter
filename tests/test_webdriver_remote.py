@@ -33,7 +33,7 @@ class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
 
     def test_support_with_statement(self):
         "Remote should support with statement"
-        with Browser("remote"):
+        with Browser("remote", browser="firefox"):
             pass
 
     def test_should_be_able_to_change_user_agent(self):
@@ -52,7 +52,7 @@ class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
 
     def test_support_with_statement(self):
         "Remote should support with statement"
-        with Browser("remote"):
+        with Browser("remote", browser="chrome"):
             pass
 
     def test_should_be_able_to_change_user_agent(self):
