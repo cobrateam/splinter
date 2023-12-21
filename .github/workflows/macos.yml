@@ -43,7 +43,10 @@ jobs:
           wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
 
       - name: Enable Safari Webdriver
-        run: safaridriver --enable
+        run: |
+          defaults write com.apple.Safari IncludeDevelopMenu YES
+          defaults write com.apple.Safari AllowRemoteAutomation 1
+          sudo safaridriver --enable
 
       - name: Setup node
         run: java -jar selenium-server-4.16.1.jar node -I "safari" &
