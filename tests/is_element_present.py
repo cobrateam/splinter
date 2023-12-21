@@ -51,7 +51,7 @@ class IsElementPresentTest:
     def test_is_element_not_present_by_xpath_returns_false_if_element_is_present(self):
         """should is_element_not_present_by_xpath returns False if element is present"""
         self.browser.find_by_css(".add-async-element").click()
-        self.browser.find_by_xpath("//h4")
+        assert len(self.browser.find_by_xpath("//h4")) > 0
         assert not self.browser.is_element_not_present_by_xpath("//h4")
 
     def test_is_element_not_present_by_xpath_using_a_custom_wait_time(self):
