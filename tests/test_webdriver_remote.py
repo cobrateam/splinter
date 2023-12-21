@@ -64,6 +64,11 @@ class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
 class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
+        # test with statement. It can't be used as simple test
+        # because safari doesn't support multisessions
+        with Browser("remote", browser="safari"):
+            pass
+
         request.cls.browser = Browser("remote", browser="safari")
         request.addfinalizer(request.cls.browser.quit)
 
@@ -71,9 +76,10 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
     def test_support_with_statement(self):
-        "Remote should support with statement"
-        with Browser("remote"):
-            pass
+        """
+        Remote should support with statement
+        See setup browser
+        """
 
     def test_should_be_able_to_change_user_agent(self):
         "Remote should not support custom user agent"
