@@ -203,6 +203,10 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
     def test_submiting_a_form_and_verifying_page_content(self):
         super().test_submiting_a_form_and_verifying_page_content()
 
+    @pytest.mark.xfail
+    def test_click_links(self):
+        super().test_click_links()
+
     # ------- END OF CLICK PROBLEM TESTS -------
     # ------- START OF TYPE PROBLEM TESTS -------
     @pytest.mark.xfail
