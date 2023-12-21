@@ -38,21 +38,21 @@ jobs:
       - name: Install test dependencies
         run: pip install tox
 
-      - name: Download Selenium Server
-        run: |
-          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
-
       - name: Enable Safari Webdriver
         run: |
           defaults write com.apple.Safari IncludeDevelopMenu YES
           defaults write com.apple.Safari AllowRemoteAutomation 1
           sudo safaridriver --enable
 
+      - name: Download Selenium Server
+        run: |
+          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
+
       - name: Setup hub
-        run: java -jar selenium-server-4.16.1.jar hub > selenium-hub.log 2>&1 &
+        run: java -jar selenium-server.jar hub > selenium-hub.log 2>&1 &
 
       - name: Setup node
-        run: java -jar selenium-server-4.16.1.jar node -I "safari" > selenium-node.log 2>&1 &
+        run: java -jar selenium-server.jar node -I "safari" > selenium-node.log 2>&1 &
 
       - name: Run tests for macos
         run: |
