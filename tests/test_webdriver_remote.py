@@ -59,6 +59,7 @@ class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
         pass
 
 
+@pytest.mark.macos
 class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):

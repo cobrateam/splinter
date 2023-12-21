@@ -1,0 +1,56 @@
+name: CI-MacOS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  selenium:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        include:
+          - PY_VER: py38
+            python-version: 3.8
+          - PY_VER: py39
+            python-version: 3.9
+          - PY_VER: py310
+            python-version: "3.10"
+          - PY_VER: py311
+            python-version: 3.11
+          - PY_VER: py312
+            python-version: "3.12"
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.python-version}}
+
+      - name: Install test dependencies
+        run: pip install tox
+
+      - name: Download Selenium Server
+        run: |
+          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
+
+      - name: Enable Safari Webdriver
+        run: safaridriver --enable
+
+      - name: Setup node
+        run: java -jar selenium-server-4.16.1.jar node -I "safari" &
+
+      - name: Setup hub
+        run: java -jar selenium-server-4.16.1.jar hub &
+
+      - name: Run tests for windows-only drivers
+        run: |
+          tox -e tests_macos_selenium -- -m macos -n 1 tests/test_webdriver_remote.py;
