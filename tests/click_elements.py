@@ -8,6 +8,7 @@ class ClickElementsTest:
     def test_click_links(self):
         self.browser.links.find_by_text("FOO").click()
         self.assertIn("BAR!", self.browser.html)
+        self.browser.visit(EXAMPLE_APP)
 
     def test_click_element_by_css_selector(self):
         self.browser.find_by_css('a[href="http://localhost:5000/foo"]').click()
