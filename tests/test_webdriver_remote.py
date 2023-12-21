@@ -159,6 +159,11 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
 
     # ------- BEGIN OF CLICK PROBLEM TESTS -------
     #https://stackoverflow.com/questions/77388720/automation-testing-with-selenium-click-doesnt-works-on-new-safari-17-ios-sonoma
+
+    @pytest.mark.xfail
+    def test_click_input_by_css_selector(self):
+        super().test_click_input_by_css_selector()
+
     @pytest.mark.xfail
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         super().test_clicking_submit_button_doesnt_post_button_value_if_empty()
