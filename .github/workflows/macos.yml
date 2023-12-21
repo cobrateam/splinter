@@ -48,12 +48,12 @@ jobs:
           defaults write com.apple.Safari AllowRemoteAutomation 1
           sudo safaridriver --enable
 
-      - name: Setup node
-        run: java -jar selenium-server-4.16.1.jar node -I "safari" &
-
       - name: Setup hub
         run: java -jar selenium-server-4.16.1.jar hub &
 
-      - name: Run tests for windows-only drivers
+      - name: Setup node
+        run: java -jar selenium-server-4.16.1.jar node -I "safari" &
+
+      - name: Run tests for macos
         run: |
           tox -e tests_macos_selenium -- -m macos -n 1 tests/test_webdriver_remote.py;
