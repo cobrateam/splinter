@@ -49,13 +49,13 @@ jobs:
           sudo safaridriver --enable
 
       - name: Setup hub
-        run: java -jar selenium-server-4.16.1.jar hub &
+        run: java -jar selenium-server-4.16.1.jar hub > selenium-hub.log 2>&1 &
 
       - name: Setup node
-        run: java -jar selenium-server-4.16.1.jar node -I "safari" &
+        run: java -jar selenium-server-4.16.1.jar node -I "safari" > selenium-node.log 2>&1 &
 
       - name: Run tests for macos
         run: |
-          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
+          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-hub.log selenium-node.log && exit 2)
 
           tox -e tests_macos_selenium -- -m macos -n 1 tests/test_webdriver_remote.py;
