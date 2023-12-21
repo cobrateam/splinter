@@ -61,4 +61,4 @@ jobs:
         run: |
           gtimeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-standalone.log && exit 2)
 
-          tox -e tests_macos_selenium -- -m macos -n 1 tests/test_webdriver_remote.py;
+          tox -e tests_macos_selenium -- -n 1 tests/test_webdriver_remote.py;
