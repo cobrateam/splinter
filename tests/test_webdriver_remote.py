@@ -129,3 +129,79 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
 
     # ------- END OF MULTISESSION TESTS -------
 
+    def test_can_fill_more_than_one_field_in_form(self):
+        "should provide a away to change field value"
+        self.browser.fill("query", "my name")
+        self.assertFalse(self.browser.find_by_id("gender-m").checked)
+        self.assertFalse(self.browser.find_option_by_value("rj").selected)
+        self.assertFalse(self.browser.find_by_name("some-check").checked)
+        self.assertTrue(self.browser.find_by_name("checked-checkbox").checked)
+        # Select of dropdown doesn't work for Safari 17 (remote). Safari as OS user works well
+        # for some reason select doesn't work for Safari
+        self.browser.fill_form(
+            {
+                "query": "another new query",
+                "description": "Just another description value in the textarea",
+                "gender": "M",
+                #"uf": "rj",
+                "some-check": True,
+                "checked-checkbox": False,
+            },
+        )
+        query_value = self.browser.find_by_name("query").value
+        self.assertEqual("another new query", query_value)
+        desc_value = self.browser.find_by_name("description").value
+        self.assertEqual("Just another description value in the textarea", desc_value)
+        self.assertTrue(self.browser.find_by_id("gender-m").checked)
+        #self.assertTrue(self.browser.find_option_by_value("rj").selected)
+        self.assertTrue(self.browser.find_by_name("some-check").checked)
+        self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+
+    # ------- BEGIN OF CLICK PROBLEM TESTS -------
+    #https://stackoverflow.com/questions/77388720/automation-testing-with-selenium-click-doesnt-works-on-new-safari-17-ios-sonoma
+    @pytest.mark.xfail
+    def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
+        super().test_clicking_submit_button_doesnt_post_button_value_if_empty()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
+        super().test_clicking_submit_button_doesnt_post_button_value_if_name_not_present()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_button_posts_button_value_if_value_present(self):
+        super().test_clicking_submit_button_posts_button_value_if_value_present()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
+        super().test_clicking_submit_button_posts_empty_value_if_value_not_present()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
+        super().test_clicking_submit_input_doesnt_post_input_value_if_empty()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
+        super().test_clicking_submit_input_doesnt_post_input_value_if_name_not_present()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
+        super().test_clicking_submit_input_posts_empty_value_if_value_not_present()
+
+    @pytest.mark.xfail
+    def test_clicking_submit_input_posts_input_value_if_value_present(self):
+        super().test_clicking_submit_input_posts_input_value_if_value_present()
+
+    @pytest.mark.xfail
+    def test_submiting_a_form_and_verifying_page_content(self):
+        super().test_submiting_a_form_and_verifying_page_content()
+
+    # ------- END OF CLICK PROBLEM TESTS -------
+    # ------- START OF TYPE PROBLEM TESTS -------
+    @pytest.mark.xfail
+    def test_simple_type(self):
+        super().test_simple_type()
+
+    @pytest.mark.xfail
+    def test_simple_type_on_element(self):
+        super().test_simple_type_on_element()
+    # ------- END OF TYPE PROBLEM TESTS -------
