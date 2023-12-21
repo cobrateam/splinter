@@ -2,6 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from .fake_webapp import EXAMPLE_APP
 
 class ClickElementsTest:
     def test_click_links(self):
@@ -15,3 +16,4 @@ class ClickElementsTest:
     def test_click_input_by_css_selector(self):
         self.browser.find_by_css('input[name="send"]').click()
         self.assertIn("My name is: Master Splinter", self.browser.html)
+        self.browser.visit(EXAMPLE_APP)
