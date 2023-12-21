@@ -44,6 +44,9 @@ jobs:
           defaults write com.apple.Safari AllowRemoteAutomation 1
           sudo safaridriver --enable
 
+      - name: Install timeout util and java
+        run: brew install coreutils java
+
       - name: Download Selenium Server
         run: |
           wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
@@ -54,8 +57,6 @@ jobs:
       - name: Setup node
         run: java -jar selenium-server.jar node -I "safari" > selenium-node.log 2>&1 &
 
-      - name: Install timeout util
-        run: brew install coreutils
 
       - name: Run tests for macos
         run: |
