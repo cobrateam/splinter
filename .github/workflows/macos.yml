@@ -45,7 +45,9 @@ jobs:
           sudo safaridriver --enable
 
       - name: Install timeout util and java
-        run: brew install coreutils java
+        run: |
+          brew install coreutils java
+          java --version
 
       - name: Download Selenium Server
         run: |
