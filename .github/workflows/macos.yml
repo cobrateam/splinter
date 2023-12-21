@@ -54,8 +54,11 @@ jobs:
       - name: Setup node
         run: java -jar selenium-server.jar node -I "safari" > selenium-node.log 2>&1 &
 
+      - name: Install timeout util
+        run: brew install coreutils
+
       - name: Run tests for macos
         run: |
-          timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-hub.log selenium-node.log && exit 2)
+          gtimeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-hub.log selenium-node.log && exit 2)
 
           tox -e tests_macos_selenium -- -m macos -n 1 tests/test_webdriver_remote.py;
