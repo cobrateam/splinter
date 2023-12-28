@@ -32,4 +32,5 @@ class TestGoogleSearch(unittest.TestCase):
         self.assertTrue(self.browser.is_text_present("https://splinter.readthedocs.io"))
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
