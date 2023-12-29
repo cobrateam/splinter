@@ -14,8 +14,6 @@ jobs:
     runs-on: macos-latest
 
     strategy:
-      # Safari has some problem with tabs
-      max-parallel: 1
       matrix:
         include:
           - PY_VER: py38

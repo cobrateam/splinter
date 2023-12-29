@@ -20,7 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 3
       matrix:
         include:
           - PY_VER: py38
@@ -56,7 +55,6 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 3
       matrix:
         include:
           - PY_VER: py38
@@ -99,7 +97,6 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 3
       matrix:
         include:
           - PY_VER: py38
