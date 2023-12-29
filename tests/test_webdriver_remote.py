@@ -36,8 +36,8 @@ class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
         with Browser("remote", browser="firefox"):
             pass
 
+    @pytest.mark.skip(reason="Remote should not support custom user agent")
     def test_should_be_able_to_change_user_agent(self):
-        "Remote should not support custom user agent"
         pass
 
 
@@ -55,8 +55,8 @@ class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
         with Browser("remote", browser="chrome"):
             pass
 
+    @pytest.mark.skip(reason="Remote should not support custom user agent")
     def test_should_be_able_to_change_user_agent(self):
-        "Remote should not support custom user agent"
         pass
 
 
@@ -81,8 +81,8 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
         See setup browser
         """
 
+    @pytest.mark.skip(reason="Remote should not support custom user agent")
     def test_should_be_able_to_change_user_agent(self):
-        "Remote should not support custom user agent"
         pass
 
     # ------- BEGIN OF MULTISESSION TESTS -------
