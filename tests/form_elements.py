@@ -7,7 +7,6 @@ import unittest
 
 import pytest
 
-from .fake_webapp import EXAMPLE_APP
 from splinter.exceptions import ElementDoesNotExist
 
 
@@ -109,7 +108,6 @@ class FormElementsTest:
         self.browser.fill("query", "my name")
         self.browser.find_by_name("send").click()
         self.assertIn("My name is: Master Splinter", self.browser.html)
-        self.browser.visit(EXAMPLE_APP)
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
