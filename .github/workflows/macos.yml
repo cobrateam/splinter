@@ -1,0 +1,64 @@
+name: CI-MacOS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  selenium:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        include:
+          - PY_VER: py38
+            python-version: 3.8
+          - PY_VER: py39
+            python-version: 3.9
+          - PY_VER: py310
+            python-version: "3.10"
+          - PY_VER: py311
+            python-version: 3.11
+          - PY_VER: py312
+            python-version: "3.12"
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.python-version}}
+
+      - name: Install test dependencies
+        run: pip install tox
+
+      - name: Enable Safari Webdriver
+        run: |
+          defaults write com.apple.Safari IncludeDevelopMenu YES
+          defaults write com.apple.Safari AllowRemoteAutomation 1
+          sudo safaridriver --enable
+
+      - name: Install timeout util and java
+        run: |
+          brew install coreutils
+          brew install java11
+
+      - name: Download Selenium Server
+        run: |
+          wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
+
+      - name: Setup standalone
+        run: /usr/local/opt/openjdk@11/bin/java -jar selenium-server.jar standalone -I 'safari' > selenium-standalone.log 2>&1 &
+
+
+      - name: Run tests for macos
+        run: |
+          gtimeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-standalone.log && exit 2)
+
+          tox -e tests_macos_selenium -- --cache-clear -n 1 tests  || tox -e tests_macos_selenium -- -n 1 --last-failed --last-failed-no-failures none
