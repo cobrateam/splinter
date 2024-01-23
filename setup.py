@@ -54,7 +54,7 @@ setup(
         "zope.testbrowser": ["zope.testbrowser>=6.0", "lxml>=4.2.4", "cssselect"],
         "django": ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"],
         "flask": ["Flask>=2.3.2", "lxml>=4.2.4", "cssselect"],
-        "selenium": ["selenium>=4.1.0,<4.17.0"],
+        "selenium": ["selenium>=4.1.0,<4.18.0"],
     },
     tests_require=["coverage", "flask"],
 )
