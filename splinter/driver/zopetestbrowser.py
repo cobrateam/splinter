@@ -4,6 +4,7 @@
 import mimetypes
 import re
 import time
+import warnings
 from typing import Optional
 
 import lxml.html
@@ -72,6 +73,14 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         self._last_urls = []
 
         self.links = FindLinks(self)
+
+        self._finder_methods = {
+            "name": self.find_by_name,
+            "xpath": self.find_by_xpath,
+            "css": self.find_by_css,
+        }
+
+        self._finder_method = "name"
 
     def __enter__(self):
         return self
@@ -215,8 +224,25 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
             query=name,
         )
 
+    def set_find_strategy(self, strategy):
+        valid = self._finder_methods.get(strategy)
+
+        if not valid:
+            raise ValueError(f"{strategy} is not a valid strategy.")
+
+        self._finder_method = strategy
+
+        return self
+
+    def find(self, locator):
+        return self._finder_methods[self._finder_method](locator)
+
     def fill(self, name, value):
-        self.find_by_name(name=name).first._control.value = value
+        warnings.warn(
+            f"browser.fill({name}, {value}) is deprecated. Use browser.find({name}).fill({value}) instead.",
+            FutureWarning,
+        )
+        self.find(name).fill(value)
 
     def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
         form = self._browser
@@ -247,12 +273,18 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
         control.value = [option for option in control.options if option == value]
 
     def check(self, name):
-        control = self._browser.getControl(name=name)
-        control.value = control.options
+        warnings.warn(
+            f"browser.check({name}) is deprecated. Use browser.find({name}).check() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.check()
 
     def uncheck(self, name):
-        control = self._browser.getControl(name=name)
-        control.value = []
+        warnings.warn(
+            f"browser.uncheck({name}) is deprecated. Use browser.find({name}).uncheck() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.uncheck()
 
     def attach_file(self, name, file_path):
         filename = file_path.split("/")[-1]
@@ -414,6 +446,12 @@ class ZopeTestBrowserControlElement(ZopeTestBrowserElement):
 
     def select(self, value):
         self._control.value = [value]
+
+    def check(self):
+        self._control.value = self._control.options
+
+    def uncheck(self):
+        self._control.value = []
 
 
 class ZopeTestBrowserOptionElement(ZopeTestBrowserElement):

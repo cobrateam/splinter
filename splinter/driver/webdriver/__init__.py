@@ -5,6 +5,7 @@ import os
 import re
 import tempfile
 import time
+import warnings
 from contextlib import contextmanager
 from typing import Optional
 
@@ -292,6 +293,14 @@ class BaseWebDriver(DriverAPI):
 
         self._cookie_manager = CookieManager(self.driver)
 
+        self._finder_methods = {
+            "name": self.find_by_name,
+            "xpath": self.find_by_xpath,
+            "css": self.find_by_css,
+        }
+
+        self._finder_method = "name"
+
     def __enter__(self):
         return self
 
@@ -526,9 +535,25 @@ class BaseWebDriver(DriverAPI):
             wait_time=wait_time,
         )
 
+    def set_find_strategy(self, strategy):
+        valid = self._finder_methods.get(strategy)
+
+        if not valid:
+            raise ValueError(f"{strategy} is not a valid strategy.")
+
+        self._finder_method = strategy
+
+        return self
+
+    def find(self, locator):
+        return self._finder_methods[self._finder_method](locator)
+
     def fill(self, name, value):
-        field = self.find_by_name(name).first
-        field.value = value
+        warnings.warn(
+            f"browser.fill({name}, {value}) is deprecated. Use browser.find({name}).fill({value}) instead.",
+            FutureWarning,
+        )
+        self.find(name).fill(value)
 
     attach_file = fill
 
@@ -567,11 +592,11 @@ class BaseWebDriver(DriverAPI):
                     raise ElementDoesNotExist(e)
 
     def type(self, name, value, slowly=False):  # NOQA: A003
-        element = self.find_by_name(name).first._element
-        if slowly:
-            return TypeIterator(element, value)
-        element.send_keys(value)
-        return value
+        warnings.warn(
+            f"browser.type({name}, {value}) is deprecated. Use browser.find({name}).type({value}) instead.",
+            FutureWarning,
+        )
+        return self.find(name).type(value, slowly)
 
     def choose(self, name, value):
         fields = self.find_by_name(name)
@@ -580,10 +605,18 @@ class BaseWebDriver(DriverAPI):
                 field.click()
 
     def check(self, name):
-        self.find_by_name(name).first.check()
+        warnings.warn(
+            f"browser.check({name}) is deprecated. Use browser.find({name}).check() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.check()
 
     def uncheck(self, name):
-        self.find_by_name(name).first.uncheck()
+        warnings.warn(
+            f"browser.uncheck({name}) is deprecated. Use browser.find({name}).uncheck() instead.",
+            FutureWarning,
+        )
+        self.find(name).first.uncheck()
 
     def screenshot(self, name="", suffix=".png", full=False, unique_file=True):
         filename = f"{name}{suffix}"
