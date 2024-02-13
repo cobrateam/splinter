@@ -29,20 +29,6 @@ class WebDriver(BaseWebDriver):
         config: Optional[Config] = None,
         **kwargs,
     ):
-        if "executable_path" in kwargs:
-            warnings.warn(
-                (
-                    "Webdriver's executable_path argument has been deprecated."
-                    "Please pass in a selenium Service object instead."
-                ),
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            if service is None:
-                service = Service(executable_path=kwargs["executable_path"])
-            else:
-                service.executable_path = kwargs["executable_path"]
-
         if True in [fullscreen, incognito, headless] or user_agent:
             warnings.warn(
                 (
