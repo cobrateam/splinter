@@ -7,7 +7,7 @@ Splinter is used to write web browser automation scripts.
 
 The project has two primary goals:
 
-* Provide a :doc:`common, high-level API </api/index>` on top of existing
+* Provide a common, high-level API on top of existing
   browser automation tools such as `Selenium`_. The API is an abstraction layer
   that is human-friendly and designed for easy, efficient scripting.
 
