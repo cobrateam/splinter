@@ -23,9 +23,9 @@ Before opening a new Pull Request, please ensure the linter and at least platfor
 Requirements
 ============
 
-Tests should be run using `tox <https://tox.wiki/en/latest/>`_
+Development environments are managed using `tox <https://tox.wiki/en/latest/>`_
 
-Install tox from the command line:
+Generally, tox should be installed with pip:
 
 .. highlight:: bash
 
@@ -33,6 +33,7 @@ Install tox from the command line:
 
   pip install tox
 
+See tox's documentation if you need to use another method.
 
 Linter
 ======
@@ -99,14 +100,14 @@ We use the `Read the Docs Sphinx Theme <https://sphinx-rtd-theme.readthedocs.io/
 Build
 -----
 
-In order to build the HTML docs, navigate to the project folder
-(the main folder, not the ``docs`` folder) and run the following command:
+The `build_docs` environment is a wrapper around Sphinx's Makefile.
+Arguments will be passed to the Makefile. Thus, to build the docs in HTML format:
 
 .. highlight:: bash
 
 ::
 
-    $ make doc
+  tox -e build_docs html
 
-The requirements for building the docs are specified in
-``requirements/docs.txt`` in the project folder.
+
+The documentation will then be built inside the `docs/_build` directory.
