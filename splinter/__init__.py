@@ -4,7 +4,6 @@
 from splinter.browser import Browser
 from splinter.config import Config
 from splinter.version import __version__  # noqa: F401
-from splinter.version import __version_info__  # noqa: F401
 
 
 __all__ = [
