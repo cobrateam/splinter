@@ -42,7 +42,17 @@
   iframes-and-alerts
   http-status-code-and-exception
   http-proxies
-  api/index
+
+.. toctree::
+  :caption: Splinter API
+  :hidden:
+
+  api/browser
+  api/driver-and-element-api
+  api/cookie-manager
+  api/element-list
+  api/request-handling
+  api/exceptions
 
 
 .. toctree::
