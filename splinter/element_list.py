@@ -43,7 +43,7 @@ class ElementList:
             return self._container[index]
         except IndexError as err:
             raise ElementDoesNotExist(
-                f'No elements were found with {self.find_by} "{self.query}"'
+                f'No elements were found with {self.find_by} "{self.query}"',
             ) from err
 
     @property
@@ -82,7 +82,7 @@ class ElementList:
                 return getattr(self._container, name)
             except AttributeError as err:
                 raise AttributeError(
-                    f"'{self.__class__.__name__}' object has no attribute '{name}'"
+                    f"'{self.__class__.__name__}' object has no attribute '{name}'",
                 ) from err
 
     def __iter__(self):
