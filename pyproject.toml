@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "splinter"
+author = "CobraTeam"
+author_email = "andrewsmedina@gmail.com"
+keywords = [
+  "splinter", "django", "flask", "selenium", "browser", "automation"
+]
+description = "Browser abstraction for web acceptance testing"
+readme = "README.rst"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+    "urllib3>=1.26.14,<3.0"
+]
+dynamic = ["version"]
+
+[project.urls]
+documentation = "https://splinter.readthedocs.io/"
+changelog = "https://github.com/cobrateam/splinter/tree/master/docs/news"
+source = "https://github.com/cobrateam/splinter/"
+tracker = "https://github.com/cobrateam/splinter/issues"
+
+[project.optional-dependencies]
+"zope.testbrowser" = ["zope.testbrowser>=6.0", "lxml>=4.2.4", "cssselect"]
+django = ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"]
+flask = ["Flask>=2.3.2", "lxml>=4.2.4", "cssselect"]
+selenium = ["selenium>=4.1.0,<4.17.0"]
+
+[tool.hatch.build]
+include = ["splinter/**"]
+
+[tool.hatch.version]
+path = "splinter/version.py"
