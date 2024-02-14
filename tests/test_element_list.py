@@ -103,7 +103,7 @@ def test_not_found_exception_with_query_and_method():
         the_list = ElementList([], find_by="id", query="menu")
         the_list.first
 
-    expected_message = 'no elements could be found with id "menu"'
+    expected_message = 'No elements were found with id "menu"'
     assert expected_message == str(e.value)
 
 

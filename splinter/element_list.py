@@ -24,13 +24,13 @@ class ElementList:
 
     def __init__(
         self,
-        list,
+        elements: list,
         driver=None,
         find_by=None,
         query=None,
-    ) -> None:  # NOQA: A002
+    ) -> None:
         self._container = []
-        self._container.extend(list)
+        self._container.extend(elements)
 
         self.driver = driver
         self.find_by = find_by
@@ -41,13 +41,10 @@ class ElementList:
             return self.first[index]
         try:
             return self._container[index]
-        except IndexError:
+        except IndexError as err:
             raise ElementDoesNotExist(
-                'no elements could be found with {} "{}"'.format(
-                    self.find_by,
-                    self.query,
-                ),
-            )
+                f'No elements were found with {self.find_by} "{self.query}"',
+            ) from err
 
     @property
     def first(self):
@@ -77,19 +74,16 @@ class ElementList:
         """
         return len(self) == 0
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str):
         try:
             return getattr(self.first, name)
         except AttributeError:
             try:
                 return getattr(self._container, name)
-            except AttributeError:
+            except AttributeError as err:
                 raise AttributeError(
-                    "'{}' object has no attribute '{}'".format(
-                        self.__class__.__name__,
-                        name,
-                    ),
-                )
+                    f"'{self.__class__.__name__}' object has no attribute '{name}'",
+                ) from err
 
     def __iter__(self):
         yield from self._container
