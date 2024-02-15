@@ -96,13 +96,13 @@ def get_driver(driver, retry_count=3, config=None, *args, **kwargs):
     raise err
 
 
-def Browser(
+def Browser(  # NOQA: N802
     driver_name: str = "firefox",
     retry_count: int = 3,
     config=None,
     *args,
     **kwargs,
-):  # NOQA: N802
+):
     """Get a new driver instance.
 
     Extra arguments will be sent to the driver instance.
@@ -121,8 +121,8 @@ def Browser(
 
     try:
         driver = _DRIVERS[driver_name]
-    except KeyError:
-        raise DriverNotFoundError(f"{driver_name} is not a recognized driver.")
+    except KeyError as err:
+        raise DriverNotFoundError(f"{driver_name} is not a recognized driver.") from err
 
     if driver is None:
         raise DriverNotFoundError(f"Driver for {driver_name} was not found.")
