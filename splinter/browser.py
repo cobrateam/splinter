@@ -78,7 +78,7 @@ except ImportError as e:
     logger.debug(f"Import Warning: {e}")
 
 
-def get_driver(driver, retry_count=3, config=None, *args, **kwargs):
+def get_driver(driver, retry_count: int = 3, config=None, *args, **kwargs):
     """Try to instantiate the driver.
 
     Common selenium errors are caught and a retry attempt occurs.

@@ -244,9 +244,9 @@ def find_by(
     self,
     finder,
     finder_kwargs=None,
-    original_find: str = None,
-    original_query: str = None,
-    wait_time: int = None,
+    original_find: Optional[str] = None,
+    original_query: Optional[str] = None,
+    wait_time: Optional[int] = None,
 ):
     """Wrapper for finding elements.
 
