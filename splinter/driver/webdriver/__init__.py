@@ -167,8 +167,7 @@ class Window:
 
 
 class Windows:
-
-    """A class representing all open browser windows"""
+    """Representation of all open browser windows."""
 
     def __init__(self, browser):
         self._browser = browser
@@ -185,19 +184,15 @@ class Windows:
                 raise KeyError(key)
             return Window(self._browser, key)
 
-    def current():
-        doc = "The currently active window"
+    @property
+    def current(self):
+        """The currently active window"""
+        current_handle = self._browser.driver.current_window_handle
+        return Window(self._browser, current_handle) if current_handle else None
 
-        def fget(self):
-            current_handle = self._browser.driver.current_window_handle
-            return Window(self._browser, current_handle) if current_handle else None
-
-        def fset(self, value):
-            self._browser.driver.switch_to.window(value.name)
-
-        return locals()
-
-    current = property(**current())
+    @current.setter
+    def current(self, new_value):
+        self._browser.driver.switch_to.window(new_value.name)
 
     def __repr__(self):
         return str(
