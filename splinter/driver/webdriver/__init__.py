@@ -199,11 +199,6 @@ class Windows:
             [Window(self._browser, handle) for handle in self._browser.driver.window_handles],
         )
 
-    def __repr__(self):
-        return str(
-            [Window(self._browser, handle) for handle in self._browser.driver.window_handles],
-        )
-
 
 def _find(self, finder, finder_kwargs=None):
     """Search for elements. Returns a list of results.
