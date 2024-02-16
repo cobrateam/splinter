@@ -1,10 +1,9 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-from splinter.meta import InheritedDocs
 
 
-class CookieManagerAPI(InheritedDocs("_CookieManagerAPI", (object,), {})):  # type: ignore
+class CookieManagerAPI:
     """An API that specifies how a splinter driver deals with cookies.
 
     You can add cookies using the :meth:`add <CookieManagerAPI.add>` method,

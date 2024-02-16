@@ -10,10 +10,9 @@ from typing import Type
 
 from splinter.cookie_manager import CookieManagerAPI
 from splinter.element_list import ElementList
-from splinter.meta import InheritedDocs
 
 
-class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
+class DriverAPI:
     """
     Basic driver API class.
     """
@@ -730,7 +729,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
         )
 
 
-class ElementAPI(InheritedDocs("_ElementAPI", (object,), {})):  # type: ignore
+class ElementAPI:
     """
     Basic element API class.
 
