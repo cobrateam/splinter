@@ -146,7 +146,7 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
         non_ascii_encodings = {
             "pangram_pl": "Jeżu klątw, spłódź Finom część gry hańb!",
             "pangram_ja": "天 地 星 空",
-            "pangram_ru": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
+            "pangram_ru": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",  # NOQA RUF001
             "pangram_eo": "Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
         }
         for key, text in non_ascii_encodings.items():

@@ -179,9 +179,9 @@ class Windows:
         window_handles = self._browser.driver.window_handles
         try:
             return Window(self._browser, window_handles[key])
-        except TypeError:
+        except TypeError as err:
             if key not in window_handles:
-                raise KeyError(key)
+                raise KeyError(key) from err
             return Window(self._browser, key)
 
     @property
@@ -552,7 +552,7 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):  # NOQA C901
         form = None
 
         if name is not None:
@@ -584,7 +584,7 @@ class BaseWebDriver(DriverAPI):
                     element.value = value
             except ElementDoesNotExist as e:
                 if not ignore_missing:
-                    raise ElementDoesNotExist(e)
+                    raise ElementDoesNotExist(e)  # NOQA: TRY200
 
     def type(self, name, value, slowly=False):  # NOQA: A003
         warnings.warn(

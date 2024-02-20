@@ -1,2 +1,74 @@
 exclude = ["docs"]
 line-length = 120
+
+[lint.mccabe]
+max-complexity = 9
+
+[lint]
+select = [
+"A",
+"B",
+"BLE",
+"C4",
+"COM",
+"C90",
+"DTZ",
+"E",
+"F",
+"ICN",
+"N",
+"PL",
+"PTH",
+"RUF",
+"S",
+"SLOT",
+"T20",
+"TRY",
+"W",
+"YTT",
+]
+ignore = [
+"A002",
+"B007",
+"B009",
+"B026",
+"B028",
+"B904",
+"N804",
+"N818",
+"PLR0913",
+"PLR2004",
+"PTH123",
+"RUF100",
+"TRY003",
+"TRY300",
+]
+
+[lint.per-file-ignores]
+"tests/**" = [
+"B015",
+"B018",
+"BLE001",
+"C901",
+"S101",
+"S105",
+"S310",
+"PLR0911",
+"PLW0603",
+"PTH100",
+"PTH113",
+"PTH118",
+"PTH120",
+"T201",
+"TRY002",
+]
+"samples/**" = [
+"S101",
+"S106",
+"PTH100",
+"PTH118",
+"PTH120",
+]
+
+[lint.pydocstyle]
+convention  = "google"

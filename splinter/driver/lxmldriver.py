@@ -269,7 +269,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
         self.find(name).fill(value)
 
-    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):  # NOQA C901
         form = None
 
         if name is not None:
@@ -303,7 +303,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                     control.value = value
             except ElementDoesNotExist as e:
                 if not ignore_missing:
-                    raise ElementDoesNotExist(e)
+                    raise ElementDoesNotExist(e)  # NOQA: TRY200
 
     def choose(self, name, value):
         self.find_by_name(name).first._control.value = value
