@@ -303,7 +303,7 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                     control.value = value
             except ElementDoesNotExist as e:
                 if not ignore_missing:
-                    raise ElementDoesNotExist(e)
+                    raise ElementDoesNotExist(e)  # NOQA: TRY200
 
     def choose(self, name, value):
         self.find_by_name(name).first._control.value = value
