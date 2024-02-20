@@ -33,7 +33,7 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
             "%s doesn't support use by 'with' statement." % self.driver_name,
         )
 
-    def __exit__(self) -> None:
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
         """Context manager to use the browser safely."""
         raise NotImplementedError(
             "%s doesn't support use by 'with' statement." % self.driver_name,
@@ -635,9 +635,9 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
 
     def is_element_present_by_id(
         self,
-        id: str,
+        id: str,  # NOQA: A002
         wait_time: Optional[int] = None,
-    ) -> bool:  # NOQA: A002
+    ) -> bool:
         """Verify if an element is present in the current page.
 
         Arguments:
@@ -653,9 +653,9 @@ class DriverAPI(InheritedDocs("_DriverAPI", (object,), {})):  # type: ignore
 
     def is_element_not_present_by_id(
         self,
-        id: str,
+        id: str,  # NOQA: A002
         wait_time: Optional[int] = None,
-    ) -> bool:  # NOQA: A002
+    ) -> bool:
         """Verify if an element is not present in the current page.
 
         Arguments:

@@ -552,7 +552,7 @@ class BaseWebDriver(DriverAPI):
 
     attach_file = fill
 
-    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):
+    def fill_form(self, field_values, form_id=None, name=None, ignore_missing=False):  # NOQA C901
         form = None
 
         if name is not None:
