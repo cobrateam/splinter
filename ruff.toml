@@ -62,6 +62,13 @@ ignore = [
 "T201",
 "TRY002",
 ]
+"samples/**" = [
+"S101",
+"S106",
+"PTH100",
+"PTH118",
+"PTH120",
+]
 
 [lint.pydocstyle]
 convention  = "google"
