@@ -584,7 +584,7 @@ class BaseWebDriver(DriverAPI):
                     element.value = value
             except ElementDoesNotExist as e:
                 if not ignore_missing:
-                    raise ElementDoesNotExist(e) # NOQA: TRY200
+                    raise ElementDoesNotExist(e)  # NOQA: TRY200
 
     def type(self, name, value, slowly=False):  # NOQA: A003
         warnings.warn(
