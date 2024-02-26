@@ -200,7 +200,7 @@ class Windows:
         )
 
 
-def _find(self, finder, finder_kwargs=None):
+def _safe_find(finder, finder_kwargs=None):
     """Search for elements. Returns a list of results.
 
     Arguments:
@@ -209,12 +209,10 @@ def _find(self, finder, finder_kwargs=None):
 
     Returns:
         list
-
     """
     finder_kwargs = finder_kwargs or {}
 
-    elements = None
-    elem_list = []
+    elements = []
 
     try:
         elements = finder(**finder_kwargs)
@@ -225,14 +223,10 @@ def _find(self, finder, finder_kwargs=None):
         NoSuchElementException,
         StaleElementReferenceException,
     ):
-        # This exception is sometimes thrown if the page changes
-        # quickly
+        # Exception which can be thrown if the page isn't ready.
         pass
 
-    if elements:
-        elem_list = [self.element_class(element, self, finder_kwargs) for element in elements]
-
-    return elem_list
+    return elements
 
 
 def find_by(
@@ -249,26 +243,18 @@ def find_by(
 
     Returns:
         ElementList
-
     """
-    elem_list = []
-
     find_by = original_find or finder_kwargs["by"]
     query = original_query or finder_kwargs.get("value")
 
-    # Zero second wait time means only check once
-    if wait_time == 0:
-        elem_list = _find(self, finder, finder_kwargs)
-    else:
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
+    elements = _retry(
+        _safe_find,
+        [finder],
+        {"finder_kwargs": finder_kwargs},
+        timeout=self.wait_time,
+    )
 
-        while time.time() < end_time:
-            elem_list = _find(self, finder, finder_kwargs)
-
-            if elem_list:
-                break
-
+    elem_list = [self.element_class(elem, self, finder_kwargs) for elem in elements]
     return ElementList(elem_list, find_by=find_by, query=query)
 
 
@@ -466,7 +452,6 @@ class BaseWebDriver(DriverAPI):
             self.driver.find_elements,
             finder_kwargs={"by": By.CSS_SELECTOR, "value": css_selector},
             original_find="css",
-            original_query=css_selector,
             wait_time=wait_time,
         )
 
@@ -490,7 +475,6 @@ class BaseWebDriver(DriverAPI):
         return self.find_by(
             self.driver.find_elements,
             finder_kwargs={"by": By.NAME, "value": name},
-            original_find="name",
             wait_time=wait_time,
         )
 
@@ -498,7 +482,6 @@ class BaseWebDriver(DriverAPI):
         return self.find_by(
             self.driver.find_elements,
             finder_kwargs={"by": By.TAG_NAME, "value": tag},
-            original_find="tag_name",
             wait_time=wait_time,
         )
 
@@ -526,7 +509,6 @@ class BaseWebDriver(DriverAPI):
         return self.find_by(
             self.driver.find_element,
             finder_kwargs={"by": By.ID, "value": id},
-            original_find="id",
             wait_time=wait_time,
         )
 
@@ -951,7 +933,6 @@ class WebDriverElement(ElementAPI):
         return self.find_by(
             self._element.find_elements,
             finder_kwargs={"by": By.NAME, "value": selector},
-            original_find="name",
             wait_time=wait_time,
         )
 
@@ -959,7 +940,6 @@ class WebDriverElement(ElementAPI):
         return self.find_by(
             self._element.find_elements,
             finder_kwargs={"by": By.TAG_NAME, "value": selector},
-            original_find="tag",
             wait_time=wait_time,
         )
 
@@ -990,7 +970,6 @@ class WebDriverElement(ElementAPI):
         return self.find_by(
             self._element.find_elements,
             finder_kwargs={"by": By.ID, "value": selector},
-            original_find="id",
             wait_time=wait_time,
         )
 
