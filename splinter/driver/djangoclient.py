@@ -5,8 +5,8 @@ from typing import Optional
 from urllib import parse
 
 from .lxmldriver import LxmlDriver
-from splinter.config import Config
 from splinter.abc import CookieManagerAPI
+from splinter.config import Config
 from splinter.request_handler.status_code import StatusCode
 
 
