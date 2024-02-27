@@ -8,7 +8,7 @@ from typing import Any
 from typing import Optional
 from typing import Type
 
-from splinter.cookie_manager import CookieManagerAPI
+from splinter.abc import CookieManagerAPI
 from splinter.element_list import ElementList
 
 
