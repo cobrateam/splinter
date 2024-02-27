@@ -3,7 +3,7 @@
 # license that can be found in the LICENSE file.
 from urllib.parse import urlparse
 
-from splinter.cookie_manager import CookieManagerAPI
+from splinter.abc import CookieManagerAPI
 
 
 class CookieManager(CookieManagerAPI):
