@@ -22,7 +22,7 @@ Features
 Documentation improvements
 --------------------------
 
-- complete :doc:`API reference </api/index>`
+- complete API reference
 - instructions on :doc:`new drivers creation </contribute/writing-new-drivers>`
 
 Backward incompatible changes

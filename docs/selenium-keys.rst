@@ -12,16 +12,16 @@ Selenium Keys
 
 With Splinter's type() method, you can use Selenium's Keys implementation.
 
-.. highlight:: python
-
-::
+.. code-block:: python
 
     from selenium.webdriver.common.keys import Keys
     from splinter import Browser
 
 
     browser = Browser()
-    browser.type(Keys.RETURN)
+    browser.visit("https://duckduckgo.com/")
+    browser.type("q", "selenium.webdriver.common.keys")
+    browser.type("q", Keys.ENTER)
 
 The full list of all supported keys can be found at the official Selenium documentation:
 `selenium.webdriver.common.keys <https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html>`_
