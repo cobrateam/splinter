@@ -97,21 +97,17 @@ class Window:
         next_handle = self._browser.driver.window_handles[next_index]
         return Window(self._browser, next_handle)
 
-    def is_current():
-        doc = "Whether this window is currently the browser's active window."
+    @property
+    def is_current(self):
+        """Whether this window is currently the browser's active window."""
+        return self._browser.driver.current_window_handle == self.name
 
-        def fget(self):
-            return self._browser.driver.current_window_handle == self.name
-
-        def fset(self, value):
-            if value is True:
-                self._browser.driver.switch_to.window(self.name)
-            else:
-                raise TypeError("can only set to True")
-
-        return locals()
-
-    is_current = property(**is_current())
+    @is_current.setter
+    def is_current(self, value):
+        if value is True:
+            self._browser.driver.switch_to.window(self.name)
+        else:
+            raise TypeError("can only set to True")
 
     def new_tab(self, url):
         """Open new tab in current window"""
