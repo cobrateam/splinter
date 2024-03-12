@@ -8,8 +8,8 @@ from urllib.parse import urlparse
 from urllib.parse import urlunparse
 
 from .lxmldriver import LxmlDriver
+from splinter.abc import CookieManagerAPI
 from splinter.config import Config
-from splinter.cookie_manager import CookieManagerAPI
 from splinter.request_handler.status_code import StatusCode
 
 
