@@ -4,5 +4,5 @@ argparse
 Django>=2.0.6
 pytest==8.1.1
 pytest-xdist==3.5.0
-pytest-ignore-flaky==2.1.0
+pytest-ignore-flaky==2.2.0
 zope.testbrowser==6.0
