@@ -1,5 +1,5 @@
 Flask==3.0.3
-coverage==7.4.4
+coverage==7.5.0
 argparse
 Django>=2.0.6
 pytest==8.1.1
