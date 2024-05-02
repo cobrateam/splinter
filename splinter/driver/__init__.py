@@ -4,6 +4,7 @@
 """
 This module contains the basic API for splinter drivers and elements.
 """
+
 from typing import Any
 from typing import Optional
 from typing import Type
