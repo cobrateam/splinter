@@ -19,7 +19,7 @@ Features
 Documentation improvements
 --------------------------
 
-- improved :doc:`API docs </api/index>`
+- improved API docs
 - added docs for ``is_text_present`` method
 - added API docs for ``is_element_present_by_*`` methods
 - added docs for :doc:`mouse interactions </mouse-interaction>`

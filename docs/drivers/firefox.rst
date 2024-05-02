@@ -66,7 +66,7 @@ For example:
     from selenium import webdriver
 
     firefox_options = webdriver.firefox.options.Options()
-    firefox_options.binary_location = "/path/to/canary"
+    firefox_options.binary_location = "/path/to/firefox_nightly"
     browser = Browser('firefox', options=firefox_options)
 
 

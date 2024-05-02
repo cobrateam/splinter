@@ -10,7 +10,7 @@
 Contributing
 ++++++++++++
 
-The Source Code is hosted on `GitHub <http://github.com/cobrateam/splinter>`_
+The Source Code is hosted on `GitHub <http://github.com/cobrateam/splinter>`_.
 
 For small fixes, opening a new Pull Request in the project's repo is fine.
 
@@ -23,26 +23,32 @@ Before opening a new Pull Request, please ensure the linter and at least platfor
 Requirements
 ============
 
-Development environments are managed using `tox <https://tox.wiki/en/latest/>`_
+Development environments are managed using `tox <https://tox.wiki/en/latest/>`_.
 
 Generally, tox should be installed with pip:
 
-.. highlight:: bash
-
-::
+.. code-block:: bash
 
   pip install tox
 
 See tox's documentation if you need to use another method.
+
+
+tox can then be run from the project root:
+
+
+.. code-block:: bash
+
+  cd /path/to/source_code
+  # Lists the possible environments to use with `tox -e`
+  tox l
 
 Linter
 ======
 
 Splinter enforces code standards using various linting tools. They can be run from tox:
 
-.. highlight:: bash
-
-::
+.. code-block:: bash
 
   tox -e lint
 
@@ -54,35 +60,35 @@ Tests
 Run
 ---
 
-The tests are split into two groups: Platform agnostic and Windows-only.
+The tests are split into groups: Platform agnostic, Windows-only, and macOS-only.
 
 To run the platform agnostic tests:
 
-.. highlight:: bash
-
-::
+.. code-block:: bash
 
   tox -e tests -- tests/
-  tox -e tests_selenium4 -- tests/
+  tox -e tests_selenium -- tests/
 
 
-To run the windows tests:
+To run the Windows tests:
 
-.. highlight:: bash
+.. code-block:: bash
 
-::
+  tox -e tests_windows_selenium -- tests/
 
-  tox -e tests_windows -- tests/
-  tox -e tests_windows_selenium4 -- tests/
+
+To run the macOS tests:
+
+.. code-block:: bash
+
+  tox -e tests_macos_selenium -- tests/
 
 
 You can also specify one or more test files to run:
 
-.. highlight:: bash
+.. code-block:: bash
 
-::
-
-  $ tox -e tests_windows_selenium4 -- tests/test_webdriver_firefox.py, tests/test_request_handler.py
+  tox -e tests_windows_selenium -- tests/test_webdriver_firefox.py, tests/test_request_handler.py
 
 
 Documentation
@@ -91,10 +97,10 @@ Documentation
 Write
 -----
 
-Documentation is written using `Sphinx <http://sphinx.pocoo.org/>`_,
+Documentation is written using `Sphinx <https://www.sphinx-doc.org/>`_,
 which uses `RST <http://docutils.sourceforge.net/rst.html>`_.
 
-We use the `Read the Docs Sphinx Theme <https://sphinx-rtd-theme.readthedocs.io/en/latest/index.html>`_.
+We use the `Sphinx-Immaterial Theme <https://jbms.github.io/sphinx-immaterial/>`_.
 
 
 Build
@@ -103,11 +109,13 @@ Build
 The `build_docs` environment is a wrapper around Sphinx's Makefile.
 Arguments will be passed to the Makefile. Thus, to build the docs in HTML format:
 
-.. highlight:: bash
+.. code-block:: bash
 
-::
-
-  tox -e build_docs html
+  tox -e build_docs -- html
 
 
-The documentation will then be built inside the `docs/_build` directory.
+The documentation will then be built inside the `docs/_build/html` directory:
+
+.. code-block:: bash
+
+  open docs/_build/html/index.html

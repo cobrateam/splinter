@@ -106,8 +106,8 @@ In order to find Google's search button, do:
     browser.visit('http://google.com')
     input_element = browser.find_by_name('q')
     input_element.fill('splinter - python acceptance testing for web applications')
-
-    button_element = browser.find_by_name('btnK')
+    # There are two elements with name btnK - only the second is visible
+    button_element = browser.find_by_name('btnK')[1]
 
 
 **Note** The name ``btnK`` was found by inspecting Google's search page source code.
@@ -125,8 +125,8 @@ With the button identified, we can then click it:
     browser.visit('http://google.com')
     input_element = browser.find_by_name('q')
     input_element.fill('splinter - python acceptance testing for web applications')
-
-    button_element = browser.find_by_name('btnK')
+    # There are two elements with name btnK - only the second is visible
+    button_element = browser.find_by_name('btnK')[1]
     button_element.click()
 
 
@@ -142,7 +142,7 @@ With the button identified, we can then click it:
 
     browser.visit('http://google.com')
     browser.find_by_name('q').fill('splinter - python acceptance testing for web applications')
-    browser.find_by_name('btnK').click()
+    browser.find_by_name('btnK')[1].click()
 
 
 Check for results
@@ -161,8 +161,8 @@ After pressing the button, you can check if Splinter official website is among t
     browser.visit('http://google.com')
     input_element = browser.find_by_name('q')
     input_element.fill('splinter - python acceptance testing for web applications')
-
-    button_element = browser.find_by_name('btnK')
+    # There are two elements with name btnK - only the second is visible
+    button_element = browser.find_by_name('btnK')[1]
     button_element.click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
@@ -189,8 +189,8 @@ When you've finished testing, close your browser using ``browser.quit``:
     browser.visit('http://google.com')
     input_element = browser.find_by_name('q')
     input_element.fill('splinter - python acceptance testing for web applications')
-
-    button_element = browser.find_by_name('btnK')
+    # There are two elements with name btnK - only the second is visible
+    button_element = browser.find_by_name('btnK')[1]
     button_element.click()
 
     if browser.is_text_present('splinter.readthedocs.io'):
