@@ -54,7 +54,7 @@ jobs:
           wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar -O selenium-server.jar
 
       - name: Setup standalone
-        run: /usr/local/opt/openjdk@11/bin/java -jar selenium-server.jar standalone -I 'safari' > selenium-standalone.log 2>&1 &
+        run: $(brew --prefix openjdk@11)/bin/java -jar selenium-server.jar standalone -I 'safari' > selenium-standalone.log 2>&1 &
 
 
       - name: Run tests for macos
