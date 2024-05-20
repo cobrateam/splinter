@@ -2,7 +2,7 @@ Flask==3.0.3
 coverage==7.5.1
 argparse
 Django>=2.0.6
-pytest==8.2.0
+pytest==8.2.1
 pytest-xdist==3.6.1
 pytest-ignore-flaky==2.2.1
 zope.testbrowser==6.0
