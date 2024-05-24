@@ -869,7 +869,10 @@ class WebDriverElement(ElementAPI):
 
         def search() -> bool:
             # Element is refreshed to account for changes to the page.
-            self._refresh_element(wait_time=0)
+            try:
+                self._refresh_element(wait_time=0)
+            except ElementDoesNotExist:
+                return False
 
             try:
                 result = self.visible
@@ -890,12 +893,18 @@ class WebDriverElement(ElementAPI):
 
         def search() -> bool:
             # Element is refreshed to account for changes to the page.
-            self._refresh_element(wait_time=0)
+            try:
+                self._refresh_element(wait_time=0)
+
+            # If an element is not found at all, we assume it's not visible.
+            except ElementDoesNotExist:
+                return True
 
             try:
                 result = self.visible
             # StaleElementReferenceException occurs if element is found
-            # but changes before visible is checked
+            # but changes before visible is checked. Retry the check
+            # because we don't know if it's truly not visible.
             except StaleElementReferenceException:
                 return False
 

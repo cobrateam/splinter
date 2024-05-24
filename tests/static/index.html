@@ -85,6 +85,11 @@
                 $('.over-label').remove();
                 $('.over-input').remove();
            });
+
+          setTimeout(function() {
+              $('#removed_after_5_seconds').remove();
+          }, 5000 );
+
         });
     </script>
   </head>
@@ -220,5 +225,7 @@
 
     <div id='has_shadow_root'></div>
     <div id="zerodiv" style="width: 0px; height: 0px;"></div>
+
+    <button id="removed_after_5_seconds">This button will be removed in 5 seconds</button>
   </body>
 </html>
