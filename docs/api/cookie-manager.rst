@@ -9,7 +9,7 @@
 CookieManager
 =============
 
-.. module:: splinter.cookie_manager
+.. module:: splinter.abc.cookie_manager
 
 .. autoclass:: CookieManagerAPI
    :members:
