@@ -23,7 +23,7 @@ Splinter is a Python framework that provides a simple and consistent interface f
 
 * `Documentation <https://splinter.readthedocs.io>`_
 
-* `Changelog <https://splinter.readthedocs.io/en/latest/news.html>`_
+* `Changelog <https://splinter.readthedocs.io/en/latest/changelog.html>`_
 
 Key features:
 
