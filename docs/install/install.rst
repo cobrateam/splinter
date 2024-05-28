@@ -13,7 +13,7 @@ Install Splinter
 Basic Requirements
 ==================
 
-Splinter officially supports Python versions 3.7 and up.
+Splinter officially supports Python versions 3.8 and up.
 
 Latest version via pip
 ======================
