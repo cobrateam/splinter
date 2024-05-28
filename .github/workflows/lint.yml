@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-Lint
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: install pre-commit
+        run: pip install pre-commit
+
+      - name: pre-commit cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}"
+          restore-keys: "pre-commit-"
+
+      - run: pre-commit run --all-files --show-diff-on-failure

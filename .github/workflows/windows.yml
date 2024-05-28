@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  selenium:
+  tests_selenium_edge:
     runs-on: windows-latest
 
     strategy:
@@ -44,4 +44,4 @@ jobs:
 
       - name: Run tests for windows-only drivers
         run: |
-          tox -e tests_windows_selenium -- -n 4 tests/test_webdriver.py tests/test_popups.py tests/test_webdriver_edge_chromium.py;
+          tox -e tests_selenium_edge -- -n 4;

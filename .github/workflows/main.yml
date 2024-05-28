@@ -16,7 +16,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -45,13 +45,13 @@ jobs:
 
       - name: Run tests
         run: |
-          tox -e tests -- -n 4 tests/test_browser.py tests/test_element_list.py tests/test_request_handler.py tests/test_xpath_concat.py
+          tox -e tests_splinter -- -n 4
 
       - name: Run non-webdriver driver tests
         run: |
-          tox -e tests -- -n 4 tests/test_flaskclient.py tests/test_zopetestbrowser.py tests/test_djangoclient.py tests/test_is_element_present_nojs.py
+          tox -e tests_lxml_drivers -- -n 4
 
-  selenium_remote:
+  tests_selenium_remote:
     runs-on: ubuntu-latest
 
     strategy:
@@ -91,9 +91,9 @@ jobs:
           xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
           timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
           echo "Selenium server is ready, running tests"
-          tox -e tests_selenium -- tests/test_webdriver_remote.py
+          tox -e tests_selenium
 
-  selenium:
+  tests_selenium:
     runs-on: ubuntu-latest
 
     strategy:
@@ -122,25 +122,4 @@ jobs:
 
       - name: Run Selenium tests
         run: |
-          tox -e tests_selenium -- -n 4 tests/test_element_is_visible.py tests/test_screenshot.py tests/test_shadow_root.py tests/test_mouse_interaction.py tests/test_async_finder.py tests/test_html_snapshot.py tests/test_iframes.py tests/test_popups.py tests/test_webdriver.py tests/test_webdriver_firefox.py tests/test_webdriver_chrome.py;
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-
-      - name: install pre-commit
-        run: pip install pre-commit
-
-      - name: pre-commit cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pre-commit
-          key: "pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}"
-          restore-keys: "pre-commit-"
-
-      - run: pre-commit run --all-files --show-diff-on-failure
+          tox -e tests_selenium -- -n 4;
