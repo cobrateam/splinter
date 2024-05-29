@@ -4,22 +4,23 @@ splinter
 
 Splinter is a Python framework that provides a simple and consistent interface for web application automation.
 
-.. image:: https://img.shields.io/pypi/v/splinter.svg
-    :target: https://pypi.org/project/splinter
-    :alt: PyPI
+.. |pypi| image:: https://img.shields.io/pypi/v/splinter.svg
+  :target: https://pypi.org/project/splinter
+  :alt: PyPI
 
-.. image:: https://img.shields.io/pypi/pyversions/splinter.svg
-    :alt: PyPI - Python Version
-    :target: https://github.com/cobrateam/splinter
+.. |pypi_version| image:: https://img.shields.io/pypi/pyversions/splinter.svg
+  :alt: PyPI - Python Version
+  :target: https://github.com/cobrateam/splinter
 
-.. image:: https://img.shields.io/github/license/cobrateam/splinter.svg
-   :alt: GitHub
-   :target: https://github.com/cobrateam/splinter/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/cobrateam/splinter.svg
+  :alt: License
+  :target: https://github.com/cobrateam/splinter/blob/master/LICENSE
 
-.. image:: https://github.com/cobrateam/splinter/actions/workflows/main.yml/badge.svg
-   :target: https://github.com/cobrateam/splinter/actions/workflows/main.yml
-   :alt: Build status
+.. |build| image:: https://github.com/cobrateam/splinter/actions/workflows/main.yml/badge.svg
+  :target: https://github.com/cobrateam/splinter/actions/workflows/main.yml
+  :alt: Build status
 
+|pypi| |pypi_version| |license| |build|
 
 * `Documentation <https://splinter.readthedocs.io>`_
 
