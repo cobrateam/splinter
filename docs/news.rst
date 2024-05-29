@@ -1,18 +1,16 @@
+.. NOTE: This file is kept for legacy purposes. 3rd party sites may be linking to news.html
+   The changelog used to be multiple separate files linked from this file.
+
 .. Copyright 2014 splinter authors. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: New splinter features on earlier versions.
+    :description: Splinter Changelog
     :keywords: splinter, python, news, documentation, tutorial, changelog, web application
 
 +++++++++
 Changelog
 +++++++++
 
-.. toctree::
-    :glob:
-    :reversed:
-    :maxdepth: 1
-
-    news/*
+.. include:: ../CHANGELOG.rst

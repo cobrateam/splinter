@@ -13,7 +13,7 @@
   :hidden:
 
   why
-  news
+  changelog
   tutorial
 
 .. toctree::
