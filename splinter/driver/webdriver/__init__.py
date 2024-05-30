@@ -505,10 +505,10 @@ class BaseWebDriver(DriverAPI):
             wait_time=wait_time,
         )
 
-    def find_by_id(self, id, wait_time=None):  # NOQA: A002
+    def find_by_id(self, id_value, wait_time=None):  # NOQA: A002
         return self.find_by(
             self.driver.find_element,
-            finder_kwargs={"by": By.ID, "value": id},
+            finder_kwargs={"by": By.ID, "value": id_value},
             wait_time=wait_time,
         )
 

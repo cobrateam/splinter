@@ -6,20 +6,31 @@
     :description: Cookies
     :keywords: splinter, python, tutorial, documentation, cookies
 
-++++++++++++++
-Handle Cookies
-++++++++++++++
++++++++
+Cookies
++++++++
 
 It is possible to manipulate cookies using the `cookies` attribute from a
-`Browser` instance. The `cookies` attribute is an instance of the `CookieManager`
-class that manipulates cookies (ie: adding and deleting).
+`Browser` instance.
+
 
 Add a cookie
 ------------
 
 .. code-block:: python
 
-    browser.cookies.add({'cookie_name': 'cookie_value'})
+    browser.cookies.add({'chocolate_chip': '200'})
+
+Extra Arguments
+~~~~~~~~~~~~~~~
+
+Each driver accepts various parameters when creating cookies.
+These can be used with browser.cookies.add as extra arguments.
+For example, WebDriver can use `path`, `domain`, `secure`, and `expiry`:
+
+.. code-block:: python
+
+    browser.cookies.add({'chocolate_chip': '200'}, path='/cookiePath')
 
 Retrieve all cookies
 --------------------
@@ -31,10 +42,18 @@ Retrieve all cookies
 Delete a cookie
 ---------------
 
+Given a cookie named `chocolate_chip`, we can delete it by passing the name
+to the `delete` method:
+
 .. code-block:: python
 
-    browser.cookies.delete('cookie_name')  # delete the cookie 'cookie_name'
-    browser.cookies.delete('cookies_name_1', 'cookies_name_2')  # delete two cookies
+    browser.cookies.delete('chocolate_chip')
+
+Multiple cookie names can be passed to `delete`:
+
+.. code-block:: python
+
+    browser.cookies.delete('chocolate_chip', 'blueberry')
 
 Delete all cookies
 ------------------
@@ -43,16 +62,8 @@ Delete all cookies
 
     browser.cookies.delete_all()
 
+Further Reading
+---------------
 
-For more details check the API reference of the
-:class:`CookieManager <splinter.cookie_manager.CookieManagerAPI>` class.
-
-Extra Arguments
-~~~~~~~~~~~~~~~
-
-Each driver accepts various parameters when creating cookies.
-These can be used with browser.cookies.add as extra arguments.
-For example, WebDriver can use `path`, `domain`, `secure`, and `expiry`:
-
-::
-    browser.cookies.add({'cookie_name': 'cookie_value'}, path='/cookiePath')
+For more details see the API reference for the
+:class:`CookieManager <splinter.abc.cookie_manager.CookieManagerAPI>` class.

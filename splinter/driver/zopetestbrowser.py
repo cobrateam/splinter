@@ -148,9 +148,9 @@ class ZopeTestBrowser(ElementPresentMixIn, DriverAPI):
             query=text,
         )
 
-    def find_by_css(self, selector):
-        xpath = CSSSelector(selector).path
-        return self.find_by_xpath(xpath, original_find="css", original_query=selector)
+    def find_by_css(self, css_selector):
+        xpath = CSSSelector(css_selector).path
+        return self.find_by_xpath(xpath, original_find="css", original_query=css_selector)
 
     def get_control(self, xpath_element):
         return xpath_element

@@ -6,12 +6,7 @@ from abc import abstractmethod
 
 
 class CookieManagerAPI(ABC):
-    """Specification for how a Splinter driver deals with cookies.
-
-    Add cookies using the :meth:`add <CookieManagerAPI.add>` method,
-    and remove cookies using
-    the :meth:`delete <CookieManagerAPI.delete>` and
-    :meth:`delete <CookieManagerAPI.delete_all>`methods.
+    """Specification for how a Splinter driver handles cookies.
 
     A CookieManager acts like a ``dict``, so you can access the value of a
     cookie through the [] operator, passing the cookie identifier:
@@ -45,10 +40,8 @@ class CookieManagerAPI(ABC):
     def delete(self, *cookies: str) -> None:
         """Delete one or more cookies.
 
-        You can pass all the cookies identifier that you want to delete.
-
         Arguments:
-            cookies (list): Identifiers for each cookie to delete.
+            cookies (str): Identifiers for each cookie to delete.
 
         Examples:
 
