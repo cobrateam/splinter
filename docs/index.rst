@@ -79,6 +79,6 @@
   :caption: Splinter Development
   :hidden:
 
-  contribute/development-environment-setup
-  contribute/contribute
+  contribute/guidelines
+  contribute/development-environment
   contribute/writing-new-drivers
