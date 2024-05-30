@@ -77,10 +77,10 @@ Geckodriver must also be available on your operating system's `PATH` environment
 
 
 Install
-+++++++
+-------
 
 Mac OS X
---------
+~~~~~~~~
 
 The recommended way is by using `Homebrew <http://mxcl.github.com/homebrew/>`_:
 
@@ -102,17 +102,17 @@ Microsoft Edge Driver must also be available on your operating system's `PATH` e
 
 
 Install
-+++++++
+-------
 
 Mac OS X
---------
+~~~~~~~~
 
 Modern versions of Edge (79+) are available for Mac OS X.
 However, no versions of Edge Legacy are available.
 
 
 Linux
------
+~~~~~
 
 Neither version of Edge is available for Linux, and thus Edge WebDriver
 cannot be used on Linux systems.

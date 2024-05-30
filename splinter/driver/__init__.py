@@ -177,14 +177,14 @@ class DriverAPI:
             "%s doesn't support finding elements by name." % self.driver_name,
         )
 
-    def find_by_id(self, id: str) -> ElementList:  # NOQA: A002
+    def find_by_id(self, id_value: str) -> ElementList:  # NOQA: A002
         """Find an element on the current page by its id.
 
         Even when only one element is find, this method returns an instance of
         :class:`ElementList <splinter.element_list.ElementList>`
 
         Arguments:
-            id (str): id to use in the search query.
+            id_value (str): id to use in the search query.
         """
         raise NotImplementedError(
             "%s doesn't support finding elements by id." % self.driver_name,
@@ -322,6 +322,7 @@ class DriverAPI:
         field_values,
         form_id: Optional[str] = None,
         name: Optional[str] = None,
+        ignore_missing: bool = False,
     ) -> None:
         """
         Fill the fields identified by ``name`` with the content specified by ``value`` in a dict.
@@ -425,7 +426,7 @@ class DriverAPI:
         """Verify if an element is present in the current page.
 
         Arguments:
-            css (str): css selector for the element.
+            css_selector (str): css selector for the element.
             wait_time (int): Number of seconds to search.
 
         Returns:
@@ -443,7 +444,7 @@ class DriverAPI:
         """Verify if an element is not present in the current page.
 
         Arguments:
-            css (str): css selector for the element.
+            css_selector (str): css selector for the element.
             wait_time (int): Number of seconds to search.
 
         Returns:

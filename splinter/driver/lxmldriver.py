@@ -177,9 +177,9 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             query=text,
         )
 
-    def find_by_css(self, selector):
-        xpath = CSSSelector(selector).path
-        return self.find_by_xpath(xpath, original_find="css", original_query=selector)
+    def find_by_css(self, css_selector):
+        xpath = CSSSelector(css_selector).path
+        return self.find_by_xpath(xpath, original_find="css", original_query=css_selector)
 
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         html = self.htmltree
