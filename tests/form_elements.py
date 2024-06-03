@@ -34,178 +34,157 @@ class FormElementsTest:
     def test_fill(self):
         self.browser.fill("query", "LT-CS-01/2018")
         value = self.browser.find_by_name("query").value
-        self.assertEqual("LT-CS-01/2018", value)
+        assert "LT-CS-01/2018" == value
 
     def test_fill_element(self):
         self.browser.find_by_name("q").fill("new query")
         time.sleep(1)
         value = self.browser.find_by_name("q").value
-        self.assertEqual("new query", value)
+        assert "new query" == value
 
     @skip_if_zope
     def test_clicking_submit_input_doesnt_post_input_value_if_name_not_present(self):
         self.browser.find_by_css("input.submit-input-no-name").click()
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
-            "",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text.strip() == ""
 
     @skip_if_zope
     def test_clicking_submit_input_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('input[name="submit-input-no-value"]').click()
         body_text = self.browser.find_by_xpath("/descendant-or-self::*").text.strip()
-        self.assertTrue(
-            re.match(r"^submit-input-no-value:(?:| Submit| Submit Query)$", body_text),
-            repr(body_text),
-        )
+        assert re.match(r"^submit-input-no-value:(?:| Submit| Submit Query)$", body_text), repr(body_text)
 
     @skip_if_zope
     def test_clicking_submit_input_doesnt_post_input_value_if_empty(self):
         self.browser.find_by_css("input.submit-input-empty").click()
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
-            "",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text.strip() == ""
 
     def test_clicking_submit_input_posts_input_value_if_value_present(self):
         self.browser.find_by_css('input[name="submit-input"]').click()
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text,
-            "submit-input: submit-input-value",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text == "submit-input: submit-input-value"
 
     @skip_if_zope
     def test_clicking_submit_button_doesnt_post_button_value_if_name_not_present(self):
         self.browser.find_by_css("button.submit-button-no-name").click()
-        self.assertEqual(self.browser.find_by_xpath("/descendant-or-self::*").text, "")
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text == ""
 
     @skip_if_zope
     def test_clicking_submit_button_posts_empty_value_if_value_not_present(self):
         self.browser.find_by_css('button[name="submit-button-no-value"]').click()
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
-            "submit-button-no-value:",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text.strip() == "submit-button-no-value:"
 
     @skip_if_zope
     def test_clicking_submit_button_doesnt_post_button_value_if_empty(self):
         self.browser.find_by_css("button.submit-button-empty").click()
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text.strip(),
-            "",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text.strip() == ""
 
     @skip_if_zope
     def test_clicking_submit_button_posts_button_value_if_value_present(self):
         self.browser.find_by_css('button[name="submit-button"]').click()
 
-        self.assertEqual(
-            self.browser.find_by_xpath("/descendant-or-self::*").text,
-            "submit-button: submit-button-value",
-        )
+        assert self.browser.find_by_xpath("/descendant-or-self::*").text == "submit-button: submit-button-value"
 
     def test_submiting_a_form_and_verifying_page_content(self):
         self.browser.fill("query", "my name")
         self.browser.find_by_name("send").click()
-        self.assertIn("My name is: Master Splinter", self.browser.html)
+        assert "My name is: Master Splinter" in self.browser.html
 
     def test_can_choose_a_radio_button(self):
         "should provide a way to choose a radio button"
-        self.assertFalse(self.browser.find_by_id("gender-m").checked)
+        assert not self.browser.find_by_id("gender-m").checked
         self.browser.choose("gender", "M")
-        self.assertTrue(self.browser.find_by_id("gender-m").checked)
+        assert self.browser.find_by_id("gender-m").checked
 
     def test_can_find_textarea_by_tag(self):
         "should provide a way to find a textarea by tag_name"
         tag = self.browser.find_by_tag("textarea").first
-        self.assertEqual("", tag.value)
+        assert "" == tag.value
 
     def test_can_find_input_without_type(self):
         "should recognize an input element that doesn't have a `type` attribute"
         tag = self.browser.find_by_css('[name="typeless"]').first
-        self.assertEqual("default value", tag.value)
+        assert "default value" == tag.value
 
     def test_can_find_button(self):
         "should recognize a button"
         tag = self.browser.find_by_css(".just-a-button").first
-        self.assertTrue(hasattr(tag, "click"))
+        assert hasattr(tag, "click")
 
     def test_can_find_option_by_value(self):
         "should provide a way to find select option by value"
-        self.assertEqual("Rio de Janeiro", self.browser.find_option_by_value("rj").text)
+        assert "Rio de Janeiro" == self.browser.find_option_by_value("rj").text
 
     def test_can_get_value_attribute_for_a_option(self):
         "should option have a value attribute"
-        self.assertEqual("rj", self.browser.find_option_by_value("rj")["value"])
+        assert "rj" == self.browser.find_option_by_value("rj")["value"]
 
     def test_can_find_option_by_text(self):
         "should provide a way to find select option by text"
-        self.assertEqual("rj", self.browser.find_option_by_text("Rio de Janeiro").value)
+        assert "rj" == self.browser.find_option_by_text("Rio de Janeiro").value
 
     def test_can_select_a_option(self):
         "should provide a way to select a option"
-        self.assertFalse(self.browser.find_option_by_value("rj").selected)
+        assert not self.browser.find_option_by_value("rj").selected
         self.browser.select("uf", "rj")
-        self.assertTrue(self.browser.find_option_by_value("rj").selected)
+        assert self.browser.find_option_by_value("rj").selected
 
     def test_can_select_an_option_in_an_optgroup(self):
         "should provide a way to select an option that is in an optgroup"
-        self.assertEqual(self.browser.find_by_name("food").value, "apples")
+        assert self.browser.find_by_name("food").value == "apples"
         self.browser.select("food", "grapes")
-        self.assertEqual(self.browser.find_by_name("food").value, "grapes")
+        assert self.browser.find_by_name("food").value == "grapes"
 
     def test_can_select_a_option_via_element(self):
         "should provide a way to select a option via element"
-        self.assertFalse(self.browser.find_option_by_value("rj").selected)
+        assert not self.browser.find_option_by_value("rj").selected
         self.browser.find_by_name("uf").select("rj")
-        self.assertTrue(self.browser.find_option_by_value("rj").selected)
+        assert self.browser.find_option_by_value("rj").selected
 
     def test_can_check_a_checkbox(self):
         "should provide a way to check a radio checkbox"
-        self.assertFalse(self.browser.find_by_name("some-check").checked)
+        assert not self.browser.find_by_name("some-check").checked
         self.browser.check("some-check")
-        self.assertTrue(self.browser.find_by_name("some-check").checked)
+        assert self.browser.find_by_name("some-check").checked
 
     def test_check_keeps_checked_if_called_multiple_times(self):
         "should keep a checkbox checked if check() is called multiple times"
-        self.assertFalse(self.browser.find_by_name("some-check").checked)
+        assert not self.browser.find_by_name("some-check").checked
         self.browser.check("some-check")
         self.browser.check("some-check")
-        self.assertTrue(self.browser.find_by_name("some-check").checked)
+        assert self.browser.find_by_name("some-check").checked
 
     def test_can_uncheck_a_checkbox(self):
         "should provide a way to uncheck a radio checkbox"
-        self.assertTrue(self.browser.find_by_name("checked-checkbox").checked)
+        assert self.browser.find_by_name("checked-checkbox").checked
         self.browser.uncheck("checked-checkbox")
-        self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+        assert not self.browser.find_by_name("checked-checkbox").checked
 
     def test_uncheck_should_keep_unchecked_if_called_multiple_times(self):
         "should keep a checkbox unchecked if uncheck() is called multiple times"
-        self.assertTrue(self.browser.find_by_name("checked-checkbox").checked)
+        assert self.browser.find_by_name("checked-checkbox").checked
         self.browser.uncheck("checked-checkbox")
         self.browser.uncheck("checked-checkbox")
-        self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+        assert not self.browser.find_by_name("checked-checkbox").checked
 
     def test_can_fill_text_field_in_form(self):
         "should provide a away to change field value"
         self.browser.fill_form({"query": "new query"})
         value = self.browser.find_by_name("query").value
-        self.assertEqual("new query", value)
+        assert "new query" == value
 
     def test_can_fill_password_field_in_form(self):
         "should provide a way to change password value"
         new_password = "new password"
         self.browser.fill_form({"password": new_password})
         value = self.browser.find_by_name("password").value
-        self.assertEqual(new_password, value)
+        assert new_password == value
 
     def test_can_fill_more_than_one_field_in_form(self):
         "should provide a away to change field value"
         self.browser.fill("query", "my name")
-        self.assertFalse(self.browser.find_by_id("gender-m").checked)
-        self.assertFalse(self.browser.find_option_by_value("rj").selected)
-        self.assertFalse(self.browser.find_by_name("some-check").checked)
-        self.assertTrue(self.browser.find_by_name("checked-checkbox").checked)
+        assert not self.browser.find_by_id("gender-m").checked
+        assert not self.browser.find_option_by_value("rj").selected
+        assert not self.browser.find_by_name("some-check").checked
+        assert self.browser.find_by_name("checked-checkbox").checked
         self.browser.fill_form(
             {
                 "query": "another new query",
@@ -217,27 +196,27 @@ class FormElementsTest:
             },
         )
         query_value = self.browser.find_by_name("query").value
-        self.assertEqual("another new query", query_value)
+        assert "another new query" == query_value
         desc_value = self.browser.find_by_name("description").value
-        self.assertEqual("Just another description value in the textarea", desc_value)
-        self.assertTrue(self.browser.find_by_id("gender-m").checked)
-        self.assertTrue(self.browser.find_option_by_value("rj").selected)
-        self.assertTrue(self.browser.find_by_name("some-check").checked)
-        self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+        assert "Just another description value in the textarea" == desc_value
+        assert self.browser.find_by_id("gender-m").checked
+        assert self.browser.find_option_by_value("rj").selected
+        assert self.browser.find_by_name("some-check").checked
+        assert not self.browser.find_by_name("checked-checkbox").checked
 
     def test_can_fill_tel_text_field(self):
         "should provide a way to change a tel field value"
         new_telephone = "555-0042"
         self.browser.fill_form({"telephone": new_telephone})
         value = self.browser.find_by_name("telephone").value
-        self.assertEqual(new_telephone, value)
+        assert new_telephone == value
 
     def test_can_fill_unknown_text_field(self):
         "should provide a way to change a unknown text field type that isn't specifically defined"
         new_search_keyword = "foobar"
         self.browser.fill_form({"search_keyword": new_search_keyword})
         value = self.browser.find_by_name("search_keyword").value
-        self.assertEqual(new_search_keyword, value)
+        assert new_search_keyword == value
 
     def test_can_fill_form_by_id(self):
         "should be able to fill a form by its id"
@@ -246,7 +225,7 @@ class FormElementsTest:
             form_id="login",
         )
         value = self.browser.find_by_name("firstname").value
-        self.assertEqual("John", value)
+        assert "John" == value
 
     def test_fill_form_missing_values(self):
         """Missing values should raise an error."""
@@ -269,29 +248,29 @@ class FormElementsTest:
     def test_can_clear_text_field_content(self):
         self.browser.fill("query", "random query")
         value = self.browser.find_by_name("query").value
-        self.assertEqual("random query", value)
+        assert "random query" == value
 
         self.browser.find_by_name("query").clear()
         value = self.browser.find_by_name("query").value
-        self.assertFalse(value)
+        assert not value
 
     def test_can_clear_password_field_content(self):
         self.browser.fill("password", "1nF4m310")
         value = self.browser.find_by_name("password").value
-        self.assertEqual("1nF4m310", value)
+        assert "1nF4m310" == value
 
         self.browser.find_by_name("password").clear()
         value = self.browser.find_by_name("password").value
-        self.assertFalse(value)
+        assert not value
 
     def test_can_clear_tel_field_content(self):
         self.browser.fill("telephone", "5553743980")
         value = self.browser.find_by_name("telephone").value
-        self.assertEqual("5553743980", value)
+        assert "5553743980" == value
 
         self.browser.find_by_name("telephone").clear()
         value = self.browser.find_by_name("telephone").value
-        self.assertFalse(value)
+        assert not value
 
     @skip_if_django
     def test_can_clear_textarea_content(self):

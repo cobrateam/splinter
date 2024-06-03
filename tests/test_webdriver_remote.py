@@ -132,10 +132,10 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
     def test_can_fill_more_than_one_field_in_form(self):
         "should provide a away to change field value"
         self.browser.fill("query", "my name")
-        self.assertFalse(self.browser.find_by_id("gender-m").checked)
-        self.assertFalse(self.browser.find_option_by_value("rj").selected)
-        self.assertFalse(self.browser.find_by_name("some-check").checked)
-        self.assertTrue(self.browser.find_by_name("checked-checkbox").checked)
+        assert not self.browser.find_by_id("gender-m").checked
+        assert not self.browser.find_option_by_value("rj").selected
+        assert not self.browser.find_by_name("some-check").checked
+        assert self.browser.find_by_name("checked-checkbox").checked
         # Select of dropdown doesn't work for Safari 17 (remote). Safari as OS user works well
         # for some reason select doesn't work for Safari
         self.browser.fill_form(
@@ -149,13 +149,13 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
             },
         )
         query_value = self.browser.find_by_name("query").value
-        self.assertEqual("another new query", query_value)
+        assert "another new query" == query_value
         desc_value = self.browser.find_by_name("description").value
-        self.assertEqual("Just another description value in the textarea", desc_value)
-        self.assertTrue(self.browser.find_by_id("gender-m").checked)
-        # self.assertTrue(self.browser.find_option_by_value("rj").selected)
-        self.assertTrue(self.browser.find_by_name("some-check").checked)
-        self.assertFalse(self.browser.find_by_name("checked-checkbox").checked)
+        assert "Just another description value in the textarea" == desc_value
+        assert self.browser.find_by_id("gender-m").checked
+        # assert self.browser.find_option_by_value("rj").selected
+        assert self.browser.find_by_name("some-check").checked
+        assert not self.browser.find_by_name("checked-checkbox").checked
 
     # ------- BEGIN OF CLICK PROBLEM TESTS -------
     # https://stackoverflow.com/questions/77388720/automation-testing-with-selenium-click-doesnt-works-on-new-safari-17-ios-sonoma
