@@ -11,7 +11,7 @@ class RequestHandlerTestCase(unittest.TestCase):
         self.status_code = StatusCode(200, "OK")
 
     def test_should_receive_an_url_and_get_a_success_response(self):
-        self.assertTrue(self.status_code.is_success())
+        assert self.status_code.is_success()
 
     def test_should_compare_app_index_with_404_and_get_false(self):
-        self.assertNotEqual(self.status_code, 404)
+        assert self.status_code != 404
