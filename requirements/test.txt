@@ -5,4 +5,4 @@ Django>=2.0.6
 pytest==8.2.1
 pytest-xdist==3.6.1
 pytest-ignore-flaky==2.2.1
-zope.testbrowser==6.0
+zope.testbrowser==7.0
