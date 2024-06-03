@@ -25,7 +25,7 @@ class ElementDoestNotExistTest:
 
     def test_element_list_contains_right_information_and_raises_right_exception(self):
         "element list contains right information about query and raises nice exception message"
-        with pytest.raises(ElementDoesNotExist) as cm:
+        with pytest.raises(ElementDoesNotExist) as err:
             element_list = self.browser.find_by_css(".element-that-dont-exists")
             assert "css" == element_list.find_by
             assert ".element-that-dont-exists" == element_list.query
@@ -33,14 +33,13 @@ class ElementDoestNotExistTest:
 
         expected_message = 'No elements were found with css ".element-that-dont-exists"'
 
-        e = cm.exception
-        assert expected_message == e.args[0]
+        assert expected_message == err.value.args[0]
 
     def test_element_list_raises_when_element_first_doesnt_exists_in_element_context(
         self,
     ):
         "element list raises exception with right information in element context"
-        with pytest.raises(ElementDoesNotExist) as cm:
+        with pytest.raises(ElementDoesNotExist) as err:
             element_list = self.browser.find_by_css("#inside").find_by_css(
                 ".inner-element-that-dont-exists",
             )
@@ -50,5 +49,4 @@ class ElementDoestNotExistTest:
 
         expected_message = 'No elements were found with css ".inner-element-that-dont-exists"'
 
-        e = cm.exception
-        assert expected_message == e.args[0]
+        assert expected_message == err.value.args[0]

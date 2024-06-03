@@ -53,12 +53,11 @@ class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
 
     def test_cant_switch_to_frame(self):
         "zope.testbrowser should not be able to switch to frames"
-        with pytest.raises(NotImplementedError) as cm:
+        with pytest.raises(NotImplementedError) as err:
             self.browser.get_iframe("frame_123")
             self.fail()
 
-        e = cm.exception
-        assert "zope.testbrowser doesn't support frames." == e.args[0]
+        assert "zope.testbrowser doesn't support frames." == err.value.args[0]
 
     def test_simple_type(self):
         """
