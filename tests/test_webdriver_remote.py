@@ -1,7 +1,6 @@
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import unittest
 from unittest.mock import patch
 from urllib.request import urlopen
 
@@ -22,13 +21,14 @@ def selenium_server_is_running():
     return "WebDriver Hub" in page_contents
 
 
-class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
+class TestRemoteBrowserFirefox(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = Browser("remote", browser="firefox")
         request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
 
     def test_support_with_statement(self):
@@ -41,13 +41,14 @@ class RemoteBrowserFirefoxTest(WebDriverTests, unittest.TestCase):
         pass
 
 
-class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
+class TestRemoteBrowserChrome(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = Browser("remote", browser="chrome")
         request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
 
     def test_support_with_statement(self):
@@ -61,7 +62,7 @@ class RemoteBrowserChromeTest(WebDriverTests, unittest.TestCase):
 
 
 @pytest.mark.macos
-class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
+class TestRemoteBrowserSafari(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         # test with statement. It can't be used as simple test
@@ -72,7 +73,8 @@ class RemoteBrowserSafariTest(WebDriverTests, unittest.TestCase):
         request.cls.browser = Browser("remote", browser="safari")
         request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
 
     def test_support_with_statement(self):

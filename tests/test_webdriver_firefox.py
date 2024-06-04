@@ -2,7 +2,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import os
-import unittest
 
 import pytest
 
@@ -12,7 +11,7 @@ from .fake_webapp import EXAMPLE_APP
 from splinter.config import Config
 
 
-class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
+class TestFirefoxBrowser(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("firefox", fullscreen=False)
@@ -23,7 +22,7 @@ class FirefoxBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
-class FirefoxBrowserFullScreenTest(WebDriverTests, unittest.TestCase):
+class TestFirefoxBrowserFullScreen(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("firefox", fullscreen=True)

@@ -3,27 +3,25 @@
 # license that can be found in the LICENSE file.
 import os
 import time
-import unittest
 
 import pytest
 
 from .base import BaseBrowserTests
+from .base import get_browser
 from .fake_webapp import app
 from .fake_webapp import EXAMPLE_APP
 from splinter import Browser
 
 
-class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("flask", app=app, wait_time=0.1)
+class TestFlaskClientDriver(BaseBrowserTests):
+    @pytest.fixture(autouse=True, scope="class")
+    def setup_browser(self, request):
+        request.cls.browser = get_browser("flask", app=app, wait_time=0.1)
+        request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
     def test_should_support_with_statement(self):
         with Browser("flask", app=app) as internet:
@@ -174,20 +172,17 @@ class FlaskClientDriverTest(BaseBrowserTests, unittest.TestCase):
         assert timestamp == int(cookie.expires.timestamp())
 
 
-class FlaskClientDriverTestWithCustomHeaders(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+class TestFlaskClientDriverWithCustomHeaders:
+    @pytest.fixture(autouse=True, scope="class")
+    def setup_browser(self, request):
         custom_headers = {
             "X-Splinter-Customheaders-1": "Hello",
             "X-Splinter-Customheaders-2": "Bye",
         }
-        cls.browser = Browser("flask", app=app, custom_headers=custom_headers)
+        request.cls.browser = get_browser("flask", app=app, wait_time=0.1, custom_headers=custom_headers)
+        request.addfinalizer(request.cls.browser.quit)
 
     def test_create_a_flask_client_with_custom_headers(self):
         self.browser.visit(EXAMPLE_APP + "headers")
         assert self.browser.is_text_present("X-Splinter-Customheaders-1: Hello")
         assert self.browser.is_text_present("X-Splinter-Customheaders-2: Bye")
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()

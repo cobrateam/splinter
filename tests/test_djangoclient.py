@@ -4,7 +4,6 @@
 import os
 import sys
 import time
-import unittest
 
 import django
 import pytest
@@ -22,7 +21,7 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
 django.setup()
 
 
-class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
+class TestDjangoClientDriver(BaseBrowserTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("django")
@@ -150,21 +149,18 @@ class DjangoClientDriverTest(BaseBrowserTests, unittest.TestCase):
         assert timestamp == cookie["expires"]
 
 
-class DjangoClientDriverTestWithCustomHeaders(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+class TestDjangoClientDriverWithCustomHeaders:
+    @pytest.fixture(autouse=True, scope="class")
+    def setup_browser(self, request):
         custom_headers = {
             "X-Splinter-Customheaders-1": "Hello",
             "X-Splinter-Customheaders-2": "Bye",
         }
-        cls.browser = Browser("django", custom_headers=custom_headers)
+        request.cls.browser = get_browser("django", custom_headers=custom_headers)
+        request.addfinalizer(request.cls.browser.quit)
 
     def test_create_a_phantomjs_with_custom_headers(self):
         self.browser.visit(EXAMPLE_APP + "headers")
         assert self.browser.is_text_present("X-Splinter-Customheaders-1: Hello")
 
         assert self.browser.is_text_present("X-Splinter-Customheaders-2: Bye")
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
