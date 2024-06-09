@@ -45,8 +45,8 @@ def get_browser(browser_name, config=None, **kwargs):
         )
 
     elif browser_name == "flask":
-        app = kwargs.pop("app", app)
-        return Browser("flask", app=app, **kwargs)
+        _app = kwargs.pop("app", app)
+        return Browser("flask", app=_app, **kwargs)
 
     elif browser_name == "zope.testbrowser":
         return Browser("zope.testbrowser", **kwargs)
