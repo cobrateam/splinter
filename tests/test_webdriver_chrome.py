@@ -1,8 +1,6 @@
 # Copyright 2013 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import unittest
-
 import pytest
 
 from .base import get_browser
@@ -10,7 +8,7 @@ from .base import WebDriverTests
 from .fake_webapp import EXAMPLE_APP
 
 
-class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
+class TestChromeBrowser(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("chrome", fullscreen=False)
@@ -22,7 +20,7 @@ class ChromeBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
-class ChromeBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
+class TestChromeBrowserFullscreen(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("chrome", fullscreen=True)

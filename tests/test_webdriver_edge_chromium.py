@@ -1,8 +1,6 @@
 # Copyright 2021 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import unittest
-
 import pytest
 
 from .base import get_browser
@@ -10,7 +8,7 @@ from .base import WebDriverTests
 from .fake_webapp import EXAMPLE_APP
 
 
-class EdgeChromiumBrowserTest(WebDriverTests, unittest.TestCase):
+class TestEdgeChromiumBrowser(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("edge", fullscreen=False)
@@ -22,7 +20,7 @@ class EdgeChromiumBrowserTest(WebDriverTests, unittest.TestCase):
         self.browser.visit(EXAMPLE_APP)
 
 
-class EdgeChromiumBrowserFullscreenTest(WebDriverTests, unittest.TestCase):
+class TestEdgeChromiumBrowserFullscreen(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("edge", fullscreen=True)

@@ -3,7 +3,6 @@
 # license that can be found in the LICENSE file.
 import re
 import time
-import unittest
 
 import pytest
 
@@ -12,8 +11,8 @@ from splinter.exceptions import ElementDoesNotExist
 
 def skip_if_zope(f):
     def wrapper(self, *args, **kwargs):
-        if self.__class__.__name__ == "ZopeTestBrowserDriverTest":
-            return unittest.skip("skipping this test for zope testbrowser")
+        if self.__class__.__name__ == "TestZopeTestBrowserDriver":
+            return pytest.skip("skipping this test for zope testbrowser")
         else:
             f(self, *args, **kwargs)
 
@@ -22,8 +21,8 @@ def skip_if_zope(f):
 
 def skip_if_django(f):
     def wrapper(self, *args, **kwargs):
-        if self.__class__.__name__ == "DjangoClientDriverTest":
-            return unittest.skip("skipping this test for django")
+        if self.__class__.__name__ == "TestDjangoClientDriver":
+            return pytest.skip("skipping this test for django")
         else:
             f(self, *args, **kwargs)
 

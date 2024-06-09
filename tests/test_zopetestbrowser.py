@@ -2,26 +2,24 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 import os
-import unittest
 
 import pytest
 
 from .base import BaseBrowserTests
+from .base import get_browser
 from .fake_webapp import EXAMPLE_APP
 from splinter import Browser
 
 
-class ZopeTestBrowserDriverTest(BaseBrowserTests, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.browser = Browser("zope.testbrowser", wait_time=0.1)
+class TestZopeTestBrowserDriver(BaseBrowserTests):
+    @pytest.fixture(autouse=True, scope="class")
+    def setup_browser(self, request):
+        request.cls.browser = get_browser("zope.testbrowser", wait_time=0.1)
+        request.addfinalizer(request.cls.browser.quit)
 
-    def setUp(self):
+    @pytest.fixture(autouse=True)
+    def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.browser.quit()
 
     def test_should_support_with_statement(self):
         with Browser("zope.testbrowser"):

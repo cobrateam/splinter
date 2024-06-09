@@ -41,13 +41,15 @@ def get_browser(browser_name, config=None, **kwargs):
             wait_time=0.1,
             client_SERVER_NAME=components.hostname,
             client_SERVER_PORT=components.port,
+            **kwargs,
         )
 
     elif browser_name == "flask":
-        return Browser("flask", app=app, wait_time=0.1)
+        _app = kwargs.pop("app", app)
+        return Browser("flask", app=_app, **kwargs)
 
     elif browser_name == "zope.testbrowser":
-        return Browser("zope.testbrowser", wait_time=0.1)
+        return Browser("zope.testbrowser", **kwargs)
 
     elif browser_name == "edge":
         # Github Actions Windows EdgeDriver path
