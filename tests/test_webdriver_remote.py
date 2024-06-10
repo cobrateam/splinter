@@ -133,7 +133,7 @@ class TestRemoteBrowserSafari(WebDriverTests):
 
     def test_can_fill_more_than_one_field_in_form(self):
         "should provide a away to change field value"
-        self.browser.fill("query", "my name")
+        self.browser.find_by_name("query").fill("my name")
         assert not self.browser.find_by_id("gender-m").checked
         assert not self.browser.find_option_by_value("rj").selected
         assert not self.browser.find_by_name("some-check").checked

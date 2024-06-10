@@ -31,9 +31,10 @@ def skip_if_django(f):
 
 class FormElementsTest:
     def test_fill(self):
-        self.browser.fill("query", "LT-CS-01/2018")
-        value = self.browser.find_by_name("query").value
-        assert "LT-CS-01/2018" == value
+        my_input = "LT-CS-01/2018"
+        elem = self.browser.find_by_name("query")
+        elem.fill(my_input)
+        assert my_input == elem.value
 
     def test_fill_element(self):
         self.browser.find_by_name("q").fill("new query")
@@ -83,7 +84,7 @@ class FormElementsTest:
         assert self.browser.find_by_xpath("/descendant-or-self::*").text == "submit-button: submit-button-value"
 
     def test_submiting_a_form_and_verifying_page_content(self):
-        self.browser.fill("query", "my name")
+        self.browser.find_by_name("query").fill("my name")
         self.browser.find_by_name("send").click()
         assert "My name is: Master Splinter" in self.browser.html
 
@@ -139,30 +140,34 @@ class FormElementsTest:
         assert self.browser.find_option_by_value("rj").selected
 
     def test_can_check_a_checkbox(self):
-        "should provide a way to check a radio checkbox"
-        assert not self.browser.find_by_name("some-check").checked
-        self.browser.check("some-check")
-        assert self.browser.find_by_name("some-check").checked
+        """should provide a way to check a radio checkbox"""
+        elem = self.browser.find_by_name("some-check")
+        assert not elem.checked
+        elem.check()
+        assert elem.checked
 
     def test_check_keeps_checked_if_called_multiple_times(self):
-        "should keep a checkbox checked if check() is called multiple times"
-        assert not self.browser.find_by_name("some-check").checked
-        self.browser.check("some-check")
-        self.browser.check("some-check")
-        assert self.browser.find_by_name("some-check").checked
+        """should keep a checkbox checked if check() is called multiple times"""
+        elem = self.browser.find_by_name("some-check")
+        assert not elem.checked
+        elem.check()
+        elem.check()
+        assert elem.checked
 
     def test_can_uncheck_a_checkbox(self):
-        "should provide a way to uncheck a radio checkbox"
-        assert self.browser.find_by_name("checked-checkbox").checked
-        self.browser.uncheck("checked-checkbox")
-        assert not self.browser.find_by_name("checked-checkbox").checked
+        """should provide a way to uncheck a radio checkbox"""
+        elem = self.browser.find_by_name("checked-checkbox")
+        assert elem.checked
+        elem.uncheck()
+        assert not elem.checked
 
     def test_uncheck_should_keep_unchecked_if_called_multiple_times(self):
-        "should keep a checkbox unchecked if uncheck() is called multiple times"
-        assert self.browser.find_by_name("checked-checkbox").checked
-        self.browser.uncheck("checked-checkbox")
-        self.browser.uncheck("checked-checkbox")
-        assert not self.browser.find_by_name("checked-checkbox").checked
+        """should keep a checkbox unchecked if uncheck() is called multiple times"""
+        elem = self.browser.find_by_name("checked-checkbox")
+        assert elem.checked
+        elem.uncheck()
+        elem.uncheck()
+        assert not elem.checked
 
     def test_can_fill_text_field_in_form(self):
         "should provide a away to change field value"
@@ -179,7 +184,7 @@ class FormElementsTest:
 
     def test_can_fill_more_than_one_field_in_form(self):
         "should provide a away to change field value"
-        self.browser.fill("query", "my name")
+        self.browser.find_by_name("query").fill("my name")
         assert not self.browser.find_by_id("gender-m").checked
         assert not self.browser.find_option_by_value("rj").selected
         assert not self.browser.find_by_name("some-check").checked
@@ -245,31 +250,31 @@ class FormElementsTest:
         assert "new query" == value
 
     def test_can_clear_text_field_content(self):
-        self.browser.fill("query", "random query")
-        value = self.browser.find_by_name("query").value
-        assert "random query" == value
+        my_input = "random query"
+        elem = self.browser.find_by_name("query")
+        elem.fill(my_input)
+        assert my_input == elem.value
 
-        self.browser.find_by_name("query").clear()
-        value = self.browser.find_by_name("query").value
-        assert not value
+        elem.clear()
+        assert not elem.value
 
     def test_can_clear_password_field_content(self):
-        self.browser.fill("password", "1nF4m310")
-        value = self.browser.find_by_name("password").value
-        assert "1nF4m310" == value
+        my_input = "1nF4m310"
+        elem = self.browser.find_by_name("password")
+        elem.fill(my_input)
+        assert my_input == elem.value
 
-        self.browser.find_by_name("password").clear()
-        value = self.browser.find_by_name("password").value
-        assert not value
+        elem.clear()
+        assert not elem.value
 
     def test_can_clear_tel_field_content(self):
-        self.browser.fill("telephone", "5553743980")
-        value = self.browser.find_by_name("telephone").value
-        assert "5553743980" == value
+        my_input = "5553743980"
+        elem = self.browser.find_by_name("telephone")
+        elem.fill(my_input)
+        assert my_input == elem.value
 
-        self.browser.find_by_name("telephone").clear()
-        value = self.browser.find_by_name("telephone").value
-        assert not value
+        elem.clear()
+        assert not elem.value
 
     @skip_if_django
     def test_can_clear_textarea_content(self):
