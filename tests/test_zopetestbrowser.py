@@ -9,7 +9,7 @@ from .fake_webapp import EXAMPLE_APP
 from .lxml_drivers import LxmlDriverTests
 
 
-class TestZopeTestBrowserDriver(BaseBrowserTests, LxmlDriverTests):
+class TestZopeTestBrowserDriver(LxmlDriverTests, BaseBrowserTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("zope.testbrowser", wait_time=0.1)

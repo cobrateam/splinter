@@ -21,7 +21,7 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
 django.setup()
 
 
-class TestDjangoClientDriver(BaseBrowserTests, LxmlDriverTests):
+class TestDjangoClientDriver(LxmlDriverTests, BaseBrowserTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("django")

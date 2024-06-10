@@ -12,7 +12,7 @@ from .fake_webapp import EXAMPLE_APP
 from .lxml_drivers import LxmlDriverTests
 
 
-class TestFlaskClientDriver(BaseBrowserTests, LxmlDriverTests):
+class TestFlaskClientDriver(LxmlDriverTests, BaseBrowserTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("flask", app=app, wait_time=0.1)
