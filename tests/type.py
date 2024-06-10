@@ -8,9 +8,9 @@ class SlowlyTypeTest:
     def test_simple_type(self):
         """should provide a away to change field value using type method"""
         self.browser.visit(EXAMPLE_APP)
-        self.browser.find_by_name("query").type("with type method")
-        value = self.browser.find_by_name("query").value
-        assert "default value with type method" == value
+        elem = self.browser.find_by_name("query")
+        elem.type(" with type method")
+        assert "default value with type method" == elem.value
 
         self.browser.find_by_name("description").type("type into textarea")
         value = self.browser.find_by_name("description").value
@@ -18,9 +18,9 @@ class SlowlyTypeTest:
 
     def test_simple_type_on_element(self):
         self.browser.visit(EXAMPLE_APP)
-        self.browser.find_by_name("query").type(" with type method")
-        value = self.browser.find_by_name("query").value
-        assert "default value with type method" == value
+        elem = self.browser.find_by_name("query")
+        elem.type(" with type method")
+        assert "default value with type method" == elem.value
 
         self.browser.find_by_name("description").type("type into textarea")
         value = self.browser.find_by_name("description").value
