@@ -1,7 +1,6 @@
 # Copyright 2014 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import os
 import time
 
 import pytest
@@ -10,10 +9,10 @@ from .base import BaseBrowserTests
 from .base import get_browser
 from .fake_webapp import app
 from .fake_webapp import EXAMPLE_APP
-from splinter import Browser
+from .lxml_drivers import LxmlDriverTests
 
 
-class TestFlaskClientDriver(BaseBrowserTests):
+class TestFlaskClientDriver(BaseBrowserTests, LxmlDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
         request.cls.browser = get_browser("flask", app=app, wait_time=0.1)
@@ -23,137 +22,12 @@ class TestFlaskClientDriver(BaseBrowserTests):
     def visit_example_app(self, request):
         self.browser.visit(EXAMPLE_APP)
 
-    def test_should_support_with_statement(self):
-        with Browser("flask", app=app) as internet:
-            assert internet is not None
-
-    def test_attach_file(self):
-        "should provide a way to change file field value"
-        file_path = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)),
-            "mockfile.txt",
-        )
-        self.browser.attach_file("file", file_path)
-        self.browser.find_by_name("upload").click()
-
-        html = self.browser.html
-        assert "text/plain" in html
-        with open(file_path) as f:
-            assert f.read() in html
-
     def test_serialize_select_mutiple(self):
-        "should serialize a select with multiple values into a list"
+        """should serialize a select with multiple values into a list"""
         self.browser.select("pets", ["cat", "dog"])
         form = self.browser.find_by_name("send")._get_parent_form()
         data = self.browser.serialize(form)
         assert data["pets"] == ["cat", "dog"]
-
-    def test_forward_to_none_page(self):
-        "should not fail when trying to forward to none"
-        browser = Browser("flask", app=app)
-        browser.visit(EXAMPLE_APP)
-        browser.forward()
-        assert EXAMPLE_APP == browser.url
-        browser.quit()
-
-    def test_can_clear_password_field_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("password").first.clear()
-
-    def test_can_clear_tel_field_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("telephone").first.clear()
-
-    def test_can_clear_text_field_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("query").first.clear()
-
-    def test_can_clear_textarea_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("description").first.clear()
-
-    def test_can_clear_search_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("search_keyword").first.clear()
-
-    def test_can_clear_url_content(self):
-        "flask should not be able to clear"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("url_input").first.clear()
-
-    def test_cant_switch_to_frame(self):
-        "flask should not be able to switch to frames"
-        with pytest.raises(NotImplementedError) as err:
-            self.browser.get_iframe("frame_123")
-            self.fail()
-
-        assert "flask doesn't support frames." == err.value.args[0]
-
-    def test_simple_type(self):
-        """
-        flask won't support type method
-        because it doesn't interact with JavaScript
-        """
-        with pytest.raises(NotImplementedError):
-            self.browser.type("query", "with type method")
-
-    def test_simple_type_on_element(self):
-        """
-        flask won't support type method
-        because it doesn't interact with JavaScript
-        """
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_name("query").type("with type method")
-
-    def test_slowly_typing(self):
-        """
-        flask won't support type method
-        because it doesn't interact with JavaScript
-        """
-        with pytest.raises(NotImplementedError):
-            self.browser.type("query", "with type method", slowly=True)
-
-    def test_slowly_typing_on_element(self):
-        """
-        flask won't support type method
-        on element because it doesn't interac with JavaScript
-        """
-        with pytest.raises(NotImplementedError):
-            query = self.browser.find_by_name("query")
-            query.type("with type method", slowly=True)
-
-    def test_cant_mouseover(self):
-        "flask should not be able to put the mouse over the element"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_css("#visible").mouse_over()
-
-    def test_cant_mouseout(self):
-        "flask should not be able to mouse out of an element"
-        with pytest.raises(NotImplementedError):
-            self.browser.find_by_css("#visible").mouse_out()
-
-    def test_links_with_nested_tags_xpath(self):
-        links = self.browser.find_by_xpath('//a/span[text()="first bar"]/..')
-        assert len(links) == 1, 'Found more than one link with a span with text "BAR ONE". %s' % [
-            item.outer_html for item in links
-        ]
-
-    def test_finding_all_links_by_non_ascii_text(self):
-        "should find links by non ascii text"
-        non_ascii_encodings = {
-            "pangram_pl": "Jeżu klątw, spłódź Finom część gry hańb!",
-            "pangram_ja": "天 地 星 空",
-            "pangram_ru": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",  # NOQA RUF001
-            "pangram_eo": "Laŭ Ludoviko Zamenhof bongustas freŝa ĉeĥa manĝaĵo kun spicoj.",
-        }
-        for key, text in non_ascii_encodings.items():
-            link = self.browser.links.find_by_text(text)
-            assert key == link["id"]
 
     def test_redirection_on_post(self):
         """

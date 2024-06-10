@@ -53,6 +53,11 @@ class BaseBrowserTests(
         driver_name = self.browser.driver_name.lower()
         return get_browser(driver_name)
 
+    def test_should_support_with_statement(self):
+        browser = self.get_new_browser()
+        with browser as b:
+            assert b is not None
+
     def test_can_open_page(self):
         """should be able to visit, get title and quit"""
         self.browser.visit(EXAMPLE_APP)
