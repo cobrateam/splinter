@@ -53,13 +53,13 @@ def test_call_method_on_first_element():
 
 
 def test_raise_exception_on_indexerror():
-    "should raise ElementDoesNotExist exception on IndexError"
+    """should raise ElementDoesNotExist exception on IndexError"""
     with pytest.raises(ElementDoesNotExist):
         ElementList([]).first
 
 
 def test_raise_exception_on_indexerror_with_unicode_query():
-    "should raise ElementDoesNotExist exception on IndexError"
+    """should raise ElementDoesNotExist exception on IndexError"""
     with pytest.raises(ElementDoesNotExist):
         ElementList([], query=".element[title=título]").first
 
@@ -85,7 +85,7 @@ def test_attribute_error_method_for_empty():
 
 
 def test_attribute_error_content():
-    "should raise AttributeError with right content"
+    """should raise AttributeError with right content"""
     with pytest.raises(AttributeError) as e:
         the_list = ElementList([Person(), Person()])
         the_list.talk()
