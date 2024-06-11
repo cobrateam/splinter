@@ -72,7 +72,7 @@ class LxmlDriverTests:
         because it doesn't interact with JavaScript
         """
         with pytest.raises(NotImplementedError):
-            self.browser.type("query", "with type method")
+            self.browser.find_by_name("query").type("with type method")
 
     def test_simple_type_on_element(self):
         """
@@ -88,7 +88,7 @@ class LxmlDriverTests:
         because it doesn't interact with JavaScript
         """
         with pytest.raises(NotImplementedError):
-            self.browser.type("query", "with type method", slowly=True)
+            self.browser.find_by_name("query").type("with type method", slowly=True)
 
     def test_slowly_typing_on_element(self):
         """

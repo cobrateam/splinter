@@ -6,33 +6,33 @@ from .fake_webapp import EXAMPLE_APP
 
 class SlowlyTypeTest:
     def test_simple_type(self):
-        "should provide a away to change field value using type method"
+        """should provide a away to change field value using type method"""
         self.browser.visit(EXAMPLE_APP)
-        self.browser.type("query", " with type method")
-        value = self.browser.find_by_name("query").value
-        assert "default value with type method" == value
+        elem = self.browser.find_by_name("query")
+        elem.type(" with type method")
+        assert "default value with type method" == elem.value
 
-        self.browser.type("description", "type into textarea")
+        self.browser.find_by_name("description").type("type into textarea")
         value = self.browser.find_by_name("description").value
         assert "type into textarea" == value
 
     def test_simple_type_on_element(self):
         self.browser.visit(EXAMPLE_APP)
-        self.browser.find_by_name("query").type(" with type method")
-        value = self.browser.find_by_name("query").value
-        assert "default value with type method" == value
+        elem = self.browser.find_by_name("query")
+        elem.type(" with type method")
+        assert "default value with type method" == elem.value
 
         self.browser.find_by_name("description").type("type into textarea")
         value = self.browser.find_by_name("description").value
         assert "type into textarea" == value
 
     def test_slowly_typing(self):
-        "should be able to slowly type some text in a field"
+        """should be able to slowly type some text in a field"""
         for name in ["type-input", "type-textarea"]:
             self.browser.visit(EXAMPLE_APP + "type")
             num = 0
             num_max = 6
-            for key in self.browser.type(name, "typing", slowly=True):
+            for key in self.browser.find_by_name(name).type("typing", slowly=True):
                 assert self.browser.is_text_present("#%d" % num)
                 num += 1
             assert num == num_max
