@@ -32,6 +32,22 @@
             addShadowRoot();
         }, false);
 
+        document.onkeydown = function (e) {
+            if (e.key === "Control") {
+                $('body').append('<div id="keypress_detect">Added when "Control" key is pressed down.</div>');
+            }
+            if (e.key === "a") {
+                $('body').append('<div id="keypress_detect_a">Added when "a" key is pressed down.</div>');
+            }
+        };
+
+        document.onkeyup = function (e) {
+            e = e || window.event;
+            if (e.key === "Control") {
+                $('body').append('<div id="keyup_detect">Added when "Control" key is released.</div>');
+            }
+        };
+
         $(document).ready(function() {
             $(".draggable").draggable();
             $(".droppable").droppable({
