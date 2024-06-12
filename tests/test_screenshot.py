@@ -60,7 +60,7 @@ def test_take_screenshot_with_suffix(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    filename = browser.screenshot(suffix=".jpg")
+    filename = browser.screenshot(suffix=".png")
     assert ".jpg" in filename[-4:]
 
 
