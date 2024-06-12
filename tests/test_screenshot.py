@@ -60,8 +60,8 @@ def test_take_screenshot_with_suffix(browser_name, get_new_browser):
     browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
-    filename = browser.screenshot(suffix=".jpg")
-    assert ".jpg" in filename[-4:]
+    filename = browser.screenshot(suffix=".png")
+    assert ".png" in filename[-4:]
 
 
 @pytest.mark.parametrize("browser_name", supported_browsers)
