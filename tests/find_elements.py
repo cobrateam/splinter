@@ -76,6 +76,10 @@ class FindElementsTest:
         link = self.browser.links.find_by_partial_href("example.c")[0]
         assert "http://example.com/" == link["href"]
 
+    def test_finding_links_by_nested_partial_text(self):
+        link = self.browser.find_link_by_partial_text("Click me")[0]
+        self.assertEqual("http://localhost:5000/clickme", link["href"])
+
     def test_finding_all_links_by_partial_text(self):
         link = self.browser.links.find_by_partial_text("FOO")[0]
         assert "http://localhost:5000/foo" == link["href"]
