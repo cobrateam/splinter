@@ -7,11 +7,14 @@ from .base import get_browser
 from .base import WebDriverTests
 from .fake_webapp import EXAMPLE_APP
 
+from splinter.config import Config
+
 
 class TestChromeBrowser(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = get_browser("chrome", fullscreen=False)
+        config = Config(fullscreen=False)
+        request.cls.browser = get_browser("chrome", config=config)
         request.addfinalizer(request.cls.browser.quit)
 
     @pytest.fixture(autouse=True)
@@ -23,7 +26,8 @@ class TestChromeBrowser(WebDriverTests):
 class TestChromeBrowserFullscreen(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        request.cls.browser = get_browser("chrome", fullscreen=True)
+        config = Config(fullscreen=True)
+        request.cls.browser = get_browser("chrome", config=config)
         request.addfinalizer(request.cls.browser.quit)
 
     @pytest.fixture(autouse=True)
