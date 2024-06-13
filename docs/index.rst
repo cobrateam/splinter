@@ -31,7 +31,7 @@
 
   browser
   config
-  finding
+  find-elements
   elements-in-the-page
   mouse-interaction
   matchers
