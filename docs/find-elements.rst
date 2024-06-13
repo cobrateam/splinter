@@ -72,7 +72,7 @@ This can be can changed to `css` or `xpath` using the ``browser.set_find_strateg
 This will stay in effect for the entire life cycle of your script, unless
 explicitly changed again.
 
-Although ``browser.find()`` has a less implicit naming structure, it's also less verbose.
+Although ``browser.find()`` has a less explicit naming structure, it's also less verbose.
 If the majority of your selectors use the same strategy it can improve the readability of your script.
 
 Find Within Elements
@@ -97,7 +97,7 @@ Only child elements of the root element will be searched for.
 Find Links
 ==========
 
-To target only links on a page, the ``links`` namespace provides find 4 methods.
+To target only links on a page, the ``links`` namespace provides 4 find methods.
 This is available at both the browser and element level.
 
 Example
