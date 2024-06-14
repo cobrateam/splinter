@@ -13,7 +13,7 @@ from splinter.config import Config
 class TestEdgeChromiumBrowser(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        config = Config(fullscreen=False)
+        config = Config(fullscreen=False, headless=True)
         request.cls.browser = get_browser("edge", config=config)
         request.addfinalizer(request.cls.browser.quit)
 
@@ -26,7 +26,7 @@ class TestEdgeChromiumBrowser(WebDriverTests):
 class TestEdgeChromiumBrowserFullscreen(WebDriverTests):
     @pytest.fixture(autouse=True, scope="class")
     def setup_browser(self, request):
-        config = Config(fullscreen=True)
+        config = Config(fullscreen=True, headless=True)
         request.cls.browser = get_browser("edge", config=config)
         request.addfinalizer(request.cls.browser.quit)
 

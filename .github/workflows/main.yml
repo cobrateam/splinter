@@ -91,7 +91,7 @@ jobs:
           xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
           timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
           echo "Selenium server is ready, running tests"
-          tox -e tests_selenium
+          tox -e tests_selenium_remote
 
   tests_selenium:
     runs-on: ubuntu-latest
@@ -122,4 +122,5 @@ jobs:
 
       - name: Run Selenium tests
         run: |
-          tox -e tests_selenium -- -n 4;
+          tox -e tests_selenium_firefox -- -n 4;
+          tox -e tests_selenium_chrome -- -n 4;

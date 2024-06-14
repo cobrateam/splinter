@@ -1,14 +1,12 @@
 import os
+import pathlib
 
 import pytest
 from selenium.common.exceptions import WebDriverException
 
-from .base import supported_browsers
-from .fake_webapp import EXAMPLE_APP
-from .get_browser import get_browser
+from tests.fake_webapp import EXAMPLE_APP
 
 
-@pytest.mark.parametrize("browser_name", ["chrome", "firefox"])
 def test_webdriver_local_driver_not_present(browser_name):
     """When chromedriver/geckodriver are not present on the system."""
     from splinter import Browser
@@ -25,16 +23,18 @@ def test_webdriver_local_driver_not_present(browser_name):
         Browser(browser_name, service=service)
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_attach_file(request, browser_name):
+def test_attach_file(request, browser):
     """Should provide a way to change file field value"""
-    browser = get_browser(browser_name)
     request.addfinalizer(browser.quit)
 
-    file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "mockfile.txt")
+    file_path = pathlib.Path(
+        os.getcwd(),  # NOQA PTH109
+        "tests",
+        "mockfile.txt",
+    )
 
     browser.visit(EXAMPLE_APP)
-    browser.attach_file("file", file_path)
+    browser.attach_file("file", str(file_path))
     browser.find_by_name("upload").click()
 
     html = browser.html
@@ -44,13 +44,13 @@ def test_attach_file(request, browser_name):
         assert str(f.read()) in html
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
 def test_browser_config(request, browser_name):
     """Splinter's drivers get the Config object when it's passed through the Browser function."""
     from splinter import Config
+    from splinter import Browser
 
-    config = Config(user_agent="agent_smith")
-    browser = get_browser(browser_name, config=config)
+    config = Config(user_agent="agent_smith", headless=True)
+    browser = Browser(browser_name, config=config)
     request.addfinalizer(browser.quit)
 
     assert browser.config.user_agent == "agent_smith"
