@@ -3,77 +3,60 @@
 # license that can be found in the LICENSE file.
 import time
 
-import pytest
-
-from .base import supported_browsers
-from .fake_webapp import EXAMPLE_APP
+from tests.fake_webapp import EXAMPLE_APP
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_visible(browser_name, get_new_browser):
+def test_element_is_visible(browser):
     """WebDriverElement.is_visible() should verify if element is visible."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     browser.find_by_css(".show-invisible-element").click()
     assert browser.find_by_css("#invisible").is_visible()
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_visible_custom_wait_time(browser_name, get_new_browser):
+def test_element_is_visible_custom_wait_time(browser):
     """WebDriverElement.is_visible()'s wait_time argument should be respected."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     browser.find_by_css(".show-invisible-element").click()
     assert browser.find_by_css("#invisible").is_visible(wait_time=12)
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_visible_return_false(browser_name, get_new_browser):
+def test_element_is_visible_return_false(browser):
     """WebDriverElement.is_visible() should return False if element is not visible."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     assert not browser.find_by_css("#invisible").is_visible()
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_not_visible(browser_name, get_new_browser):
+def test_element_is_not_visible(browser):
     """WebDriverElement.is_not_visible() should verify if element is not visible."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     assert browser.find_by_css("#invisible").is_not_visible()
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_not_visible_return_false(browser_name, get_new_browser):
+def test_element_is_not_visible_return_false(browser):
     """WebDriverElement.is_not_visible() should return False if element is visible."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     browser.find_by_css(".show-invisible-element").click()
     assert not browser.find_by_css("#invisible").is_not_visible()
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_not_visible_custom_wait_time(browser_name, get_new_browser):
+def test_element_is_not_visible_custom_wait_time(browser):
     """WebDriverElement.is_not_visible()'s wait_time argument should be respected."""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     assert browser.find_by_css("#invisible").is_not_visible(wait_time=12)
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_visible_element_removed(browser_name, get_new_browser):
+def test_element_is_visible_element_removed(browser):
     """
     Given an element has been found
     When it is removed from the page
     Then the is_visible() method for this element will return False
     """
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     elem = browser.find_by_css("#removed_after_5_seconds")
@@ -84,14 +67,12 @@ def test_element_is_visible_element_removed(browser_name, get_new_browser):
     assert not elem.is_visible()
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_element_is_not_visible_element_removed(browser_name, get_new_browser):
+def test_element_is_not_visible_element_removed(browser):
     """
     Given an element has been found
     When it is removed from the page
     Then the is_not_visible() method for this element will return True
     """
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     elem = browser.find_by_css("#removed_after_5_seconds")

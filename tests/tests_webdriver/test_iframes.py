@@ -1,16 +1,11 @@
 # Copyright 2012 splinter authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
-import pytest
-
-from .base import supported_browsers
-from .fake_webapp import EXAMPLE_APP
+from tests.fake_webapp import EXAMPLE_APP
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_can_work_on_iframes_by_name(get_new_browser, browser_name):
+def test_can_work_on_iframes_by_name(browser):
     """can work on iframes and switch back to the page"""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     with browser.get_iframe("iframemodal-name") as frame:
@@ -21,10 +16,8 @@ def test_can_work_on_iframes_by_name(get_new_browser, browser_name):
     assert "Example Header" == value
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_can_work_on_iframes_by_id(get_new_browser, browser_name):
+def test_can_work_on_iframes_by_id(browser):
     """can work on iframes and switch back to the page"""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     with browser.get_iframe("iframemodal") as frame:
@@ -35,10 +28,8 @@ def test_can_work_on_iframes_by_id(get_new_browser, browser_name):
     assert "Example Header" == value
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_can_work_on_iframes_by_webelement(get_new_browser, browser_name):
+def test_can_work_on_iframes_by_webelement(browser):
     """can work on iframes and switch back to the page"""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     elem = browser.find_by_id("iframemodal").first
@@ -51,10 +42,8 @@ def test_can_work_on_iframes_by_webelement(get_new_browser, browser_name):
     assert "Example Header" == value
 
 
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_can_work_on_iframes_by_index(get_new_browser, browser_name):
+def test_can_work_on_iframes_by_index(browser):
     """can work on iframes and switch back to the page"""
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     with browser.get_iframe(0) as frame:

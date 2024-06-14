@@ -9,6 +9,10 @@ from tests.fake_webapp import EXAMPLE_APP
 from tests.fake_webapp import start_flask_app
 from tests.get_browser import get_browser
 
+import splinter
+from splinter import Browser
+from splinter.config import Config
+
 
 class Env:
     def __init__(self):
@@ -75,3 +79,37 @@ def get_new_browser(request):
         return browser
 
     return new_browser
+
+
+def pytest_addoption(parser):
+    group = parser.getgroup(
+        "splinter",
+        "splinter integration",
+    )
+    group.addoption(
+        "--browser",
+        help="Name of the browser to use.",
+        type=str,
+        choices=list(splinter.browser._DRIVERS.keys()),
+        dest="browser_name",
+    )
+
+
+@pytest.fixture(scope="session")
+def browser_name(request) -> str:
+    return request.config.option.browser_name
+
+
+@pytest.fixture(scope="session")
+def browser_config():
+    return Config(headless=True)
+
+
+@pytest.fixture(scope="session")
+def browser_kwargs():
+    return {}
+
+
+@pytest.fixture(scope="function")
+def browser(browser_name, browser_config, browser_kwargs):
+    return Browser(browser_name, config=browser_config, **browser_kwargs)

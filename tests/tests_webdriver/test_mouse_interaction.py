@@ -5,15 +5,12 @@ import time
 
 import pytest
 
-from .base import supported_browsers
-from .fake_webapp import EXAMPLE_APP
+from tests.fake_webapp import EXAMPLE_APP
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_mouse_over(browser_name, get_new_browser):
+def test_mouse_over(browser):
     "Should be able to perform a mouse over on an element"
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     element = browser.find_by_css(".add-element-mouseover")
@@ -29,10 +26,8 @@ def test_mouse_over(browser_name, get_new_browser):
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_mouse_out(browser_name, get_new_browser):
+def test_mouse_out(browser):
     "Should be able to perform a mouse out on an element"
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     element = browser.find_by_css(".add-element-mouseover")
@@ -43,12 +38,10 @@ def test_mouse_out(browser_name, get_new_browser):
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_mouse_out_top_left(browser_name, get_new_browser):
+def test_mouse_out_top_left(browser):
     """Should be able to perform a mouse out on an element,
     even if the element is at the top left corner of the screen.
     """
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP + "/mouse")
 
     element = browser.find_by_css(".add-element-mouseover")
@@ -59,14 +52,12 @@ def test_mouse_out_top_left(browser_name, get_new_browser):
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_double_click(browser_name, get_new_browser):
+def test_double_click(browser):
     """Test: WebDriverElement.double_click()
 
     When an element has an action activated by a double click
     Then using the double_click() method will trigger it
     """
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     button = browser.find_by_css(".db-button", wait_time=10)
@@ -82,10 +73,8 @@ def test_double_click(browser_name, get_new_browser):
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_right_click(browser_name, get_new_browser):
+def test_right_click(browser):
     "should be able to perform a right click on an element"
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     element = browser.find_by_css(".right-clicable")
@@ -99,12 +88,10 @@ def test_right_click(browser_name, get_new_browser):
 
 
 @pytest.mark.flaky
-@pytest.mark.parametrize("browser_name", supported_browsers)
-def test_drag_and_drop(browser_name, get_new_browser):
+def test_drag_and_drop(browser):
     """
     should be able to perform a drag an element and drop in another element
     """
-    browser = get_new_browser(browser_name)
     browser.visit(EXAMPLE_APP)
 
     droppable = browser.find_by_css(".droppable")
