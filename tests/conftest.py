@@ -1,17 +1,33 @@
 import os
 import sys
 from multiprocessing import Process
+from urllib import parse
 from urllib.request import urlopen
 
 import pytest
 
 from tests.fake_webapp import EXAMPLE_APP
 from tests.fake_webapp import start_flask_app
-from tests.get_browser import get_browser
 
 import splinter
 from splinter import Browser
 from splinter.config import Config
+
+# Catch for when non-webdriver set of tests are run.
+try:
+    from selenium import webdriver
+except ModuleNotFoundError:
+    pass
+
+
+def selenium_server_is_running():
+    try:
+        from splinter.driver.webdriver.remote import WebDriver
+
+        page_contents = urlopen(WebDriver.DEFAULT_URL).read()
+    except OSError:
+        return False
+    return "WebDriver Hub" in page_contents
 
 
 class Env:
@@ -71,16 +87,6 @@ def pytest_unconfigure(config):
     stop_server()
 
 
-@pytest.fixture
-def get_new_browser(request):
-    def new_browser(browser_name):
-        browser = get_browser(browser_name)
-        request.addfinalizer(browser.quit)
-        return browser
-
-    return new_browser
-
-
 def pytest_addoption(parser):
     group = parser.getgroup(
         "splinter",
@@ -93,6 +99,18 @@ def pytest_addoption(parser):
         choices=list(splinter.browser._DRIVERS.keys()),
         dest="browser_name",
     )
+    group.addoption(
+        "--webdriver-remote-name",
+        help="Name of the driver to use when running Remote Webdriver.",
+        type=str,
+        dest="webdriver_remote_name",
+    )
+    group.addoption(
+        "--webdriver-fullscreen",
+        help="Run webdriver tests in fullscreen mode.",
+        type=bool,
+        dest="webdriver_fullscreen",
+    )
 
 
 @pytest.fixture(scope="session")
@@ -101,15 +119,52 @@ def browser_name(request) -> str:
 
 
 @pytest.fixture(scope="session")
-def browser_config():
-    return Config(headless=True)
+def browser_config(request):
+    c = Config(headless=True)
+    if request.config.option.webdriver_fullscreen:
+        c.fullscreen = True
+    return c
 
 
 @pytest.fixture(scope="session")
-def browser_kwargs():
+def browser_kwargs(request):
+    option = request.config.option
+
+    if option.webdriver_remote_name:
+        return {"browser": request.config.option.webdriver_remote_name}
+
+    if option.browser_name == "flask":
+        from tests.fake_webapp import app
+
+        return {"app": app, "wait_time": 0.1}
+
+    if option.browser_name == "django":
+        components = parse.urlparse("http://127.0.0.1:5000/")
+        return {
+            "wait_time": 0.1,
+            "client_SERVER_NAME": components.hostname,
+            "client_SERVER_PORT": components.port,
+        }
+
     return {}
 
 
 @pytest.fixture(scope="function")
-def browser(browser_name, browser_config, browser_kwargs):
-    return Browser(browser_name, config=browser_config, **browser_kwargs)
+def browser(browser_name, browser_config, browser_kwargs, request):
+    b = Browser(browser_name, config=browser_config, **browser_kwargs)
+    request.addfinalizer(b.quit)
+
+    if not request.config.option.webdriver_fullscreen:
+        if browser_name in ["chrome", "firefox", "edge"]:
+            b.driver.set_window_size(1024, 768)
+
+    if browser_name == "chrome":
+        options = webdriver.chrome.options.Options()
+        options.add_argument("--disable-dev-shm-usage")
+
+    return b
+
+
+@pytest.fixture(scope="session")
+def app_url():
+    return "http://127.0.0.1:5000/"

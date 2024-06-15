@@ -2,38 +2,46 @@ import os
 import pathlib
 
 import pytest
-from selenium.common.exceptions import WebDriverException
-
-from tests.fake_webapp import EXAMPLE_APP
 
 
-def test_webdriver_local_driver_not_present(browser_name):
-    """When chromedriver/geckodriver are not present on the system."""
-    from splinter import Browser
-
-    from selenium.webdriver.chrome.service import Service as ChromeService
-    from selenium.webdriver.firefox.service import Service as FirefoxService
-
-    if browser_name == "chrome":
-        service = ChromeService(executable_path="failpath")
-    else:
-        service = FirefoxService(executable_path="failpath")
-
-    with pytest.raises(WebDriverException):
-        Browser(browser_name, service=service)
+xfail_if_safari = pytest.mark.xfail(
+    os.getenv("SAFARI"),
+    reason="Safari issues need to be investigated.",
+)
 
 
-def test_attach_file(request, browser):
+def test_default_wait_time(browser):
+    "should driver default wait time 2"
+    assert 2 == browser.wait_time
+
+
+def test_status_code(browser):
+    with pytest.raises(NotImplementedError):
+        browser.status_code
+
+
+def test_can_open_page_in_new_tab(browser, app_url):
+    """should be able to visit url in a new tab"""
+    browser.visit(app_url)
+    browser.windows.current.new_tab(app_url)
+    browser.windows[1].is_current = True
+    assert app_url == browser.url
+    assert 2 == len(browser.windows)
+
+    browser.windows[0].is_current = True
+    browser.windows[1].close()
+
+
+@xfail_if_safari
+def test_attach_file(request, browser, app_url):
     """Should provide a way to change file field value"""
-    request.addfinalizer(browser.quit)
-
     file_path = pathlib.Path(
         os.getcwd(),  # NOQA PTH109
         "tests",
         "mockfile.txt",
     )
 
-    browser.visit(EXAMPLE_APP)
+    browser.visit(app_url)
     browser.attach_file("file", str(file_path))
     browser.find_by_name("upload").click()
 
@@ -44,13 +52,13 @@ def test_attach_file(request, browser):
         assert str(f.read()) in html
 
 
-def test_browser_config(request, browser_name):
+def test_browser_config(request, browser_name, browser_kwargs):
     """Splinter's drivers get the Config object when it's passed through the Browser function."""
     from splinter import Config
     from splinter import Browser
 
     config = Config(user_agent="agent_smith", headless=True)
-    browser = Browser(browser_name, config=config)
+    browser = Browser(browser_name, config=config, **browser_kwargs)
     request.addfinalizer(browser.quit)
 
     assert browser.config.user_agent == "agent_smith"

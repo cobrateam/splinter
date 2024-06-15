@@ -103,8 +103,8 @@ def test_browser_log_missing_drivers(caplog):
     reload(browser)
     unpatch_driver(browser, old_import)
 
-    assert 7 == len(caplog.records)
-    for i in range(0, 6):
+    assert 12 == len(caplog.records)
+    for i in range(0, 11):
         record = caplog.records[i]
         assert record.levelname == "DEBUG"
         assert "Import Warning" in record.message
