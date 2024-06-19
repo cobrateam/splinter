@@ -10,7 +10,7 @@
 Tutorial
 ++++++++
 
-Before starting, make sure Splinter is :doc:`installed <install/install>`
+Before starting, make sure Splinter is :doc:`installed <../install/install>`
 
 This tutorial provides a simple example, teaching step by step how to:
 

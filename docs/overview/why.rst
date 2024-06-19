@@ -2,8 +2,7 @@
 Why Use Splinter?
 +++++++++++++++++
 
-
-Splinter is used to write web browser automation scripts.
+Splinter is a Python library used to write web browser automation scripts.
 
 The project has two primary goals:
 

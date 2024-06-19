@@ -15,14 +15,14 @@ Basic Requirements
 
 Splinter officially supports Python versions 3.8 and up.
 
-Latest version via pip
-======================
+pip
+===
 
 To install the latest release, run the following command in the terminal:
 
 .. code-block:: bash
 
-	   python -m pip install splinter
+	   pip install splinter
 
 
 Install With Driver Dependencies
@@ -30,13 +30,13 @@ Install With Driver Dependencies
 
 pip can be given extra arguments to automatically install driver dependencies.
 
-The `Install Drivers` section of the documentation has more information for each driver.
+The :ref:`Install Drivers <install-drivers>` section of the documentation has more information for each driver.
 
 .. highlight:: bash
 
 ::
 
-  $ python -m pip install splinter[django]
+  $ pip install splinter[selenium]
 
 
 From Source Code
@@ -59,4 +59,4 @@ Once you have a copy of the source code, you can manually install the package:
 ::
 
     $ cd splinter
-    $ python setup.py install
+    $ pip install .
