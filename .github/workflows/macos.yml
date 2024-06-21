@@ -61,4 +61,4 @@ jobs:
         run: |
           gtimeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-standalone.log && exit 2)
 
-          tox -e tests_selenium_safari -- --cache-clear -n 1 tests  || tox -e tests_selenium_safari -- -n 1 --last-failed --last-failed-no-failures none
+          tox -e tests_selenium_remote_safari -- --cache-clear -n 1  || tox -e tests_selenium_remote_safari -- -n 1 --last-failed --last-failed-no-failures none

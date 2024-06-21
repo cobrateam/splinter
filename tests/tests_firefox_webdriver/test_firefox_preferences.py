@@ -13,8 +13,6 @@ def browser_kwargs():
 
 
 def test_preference_set(request, browser):
-    request.addfinalizer(browser.quit)
-
     # Rip the preferences out of firefox's config page
     browser.visit("about:config")
     browser.find_by_id("warningButton").click()

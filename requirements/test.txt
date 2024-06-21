@@ -1,8 +1,6 @@
-Flask==3.0.3
-coverage==7.5.3
 argparse
-Django>=2.0.6
+coverage==7.5.3
+Flask==3.0.3
 pytest==8.2.2
-pytest-xdist==3.6.1
 pytest-ignore-flaky==2.2.1
-zope.testbrowser==7.0
+pytest-xdist==3.6.1

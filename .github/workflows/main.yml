@@ -43,13 +43,15 @@ jobs:
       - name: Install test dependencies
         run: pip install tox
 
-      - name: Run tests
+      - name: Run splinter tests
         run: |
           tox -e tests_splinter -- -n 4
 
-      - name: Run non-webdriver driver tests
+      - name: Run lxml-based driver tests
         run: |
-          tox -e tests_lxml_drivers -- -n 4
+          tox -e tests_django -- -n 2;
+          tox -e tests_flask -- -n 2;
+          tox -e tests_zopetestbrowser -- -n 2;
 
   tests_selenium_remote:
     runs-on: ubuntu-latest
@@ -91,7 +93,8 @@ jobs:
           xvfb-run java -jar selenium-server.jar standalone > selenium-server.log 2>&1 &
           timeout 60 bash -c 'while ! wget -O /dev/null -T 1 http://localhost:4444/readyz; do echo waiting for selenium server; sleep 1; done' || (cat selenium-server.log && exit 2)
           echo "Selenium server is ready, running tests"
-          tox -e tests_selenium_remote
+          tox -e tests_selenium_remote_firefox
+          tox -e tests_selenium_remote_chrome
 
   tests_selenium:
     runs-on: ubuntu-latest

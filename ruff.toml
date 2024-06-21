@@ -46,20 +46,16 @@ ignore = [
 
 [lint.per-file-ignores]
 "tests/**" = [
-"B015",
 "B018",
 "BLE001",
-"C901",
 "S101",
 "S105",
 "S310",
-"PLR0911",
 "PLW0603",
 "PTH100",
 "PTH113",
 "PTH118",
 "PTH120",
-"T201",
 "TRY002",
 ]
 "samples/**" = [

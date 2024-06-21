@@ -3,8 +3,6 @@ import pathlib
 
 import pytest
 
-from tests.fake_webapp import EXAMPLE_APP
-
 from splinter.config import Config
 
 
@@ -20,14 +18,12 @@ def browser_config():
     return Config(extensions=[str(extension_path)], headless=True)
 
 
-def test_firefox_create_instance_with_extension(request, browser):
+def test_firefox_create_instance_with_extension(request, browser, app_url):
     """Test: Load an extension via selenium.
 
     The dummy extension should add a red border to any web page.
     """
-    request.addfinalizer(browser.quit)
-
-    browser.visit(EXAMPLE_APP)
+    browser.visit(app_url)
 
     elem = browser.find_by_css("body")
     elem.is_visible(wait_time=20)

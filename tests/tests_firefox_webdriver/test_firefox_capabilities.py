@@ -7,8 +7,6 @@ def browser_kwargs():
 
 
 def test_capabilities_set(request, browser):
-    request.addfinalizer(browser.quit)
-
     capabilities = browser.driver.capabilities
     assert "pageLoadStrategy" in capabilities
     assert "eager" == capabilities.get("pageLoadStrategy")
