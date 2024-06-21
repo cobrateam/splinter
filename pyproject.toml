@@ -38,7 +38,7 @@ tracker = "https://github.com/cobrateam/splinter/issues"
 "zope.testbrowser" = ["zope.testbrowser>=6.0", "lxml>=4.2.4", "cssselect"]
 django = ["Django>=2.0.6", "lxml>=4.2.4", "cssselect"]
 flask = ["Flask>=2.3.2", "lxml>=4.2.4", "cssselect"]
-selenium = ["selenium>=4.1.0,<4.22.0"]
+selenium = ["selenium>=4.1.0,<4.23.0"]
 
 [tool.hatch.build]
 include = ["splinter/**"]
