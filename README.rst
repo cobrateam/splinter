@@ -2,7 +2,7 @@
 splinter
 ++++++++
 
-Splinter is a Python framework that provides a simple and consistent interface for web application automation.
+Splinter is a simple and consistent API for web application automation.
 
 .. |pypi| image:: https://img.shields.io/pypi/v/splinter.svg
   :target: https://pypi.org/project/splinter

@@ -12,9 +12,9 @@
   :caption: Overview
   :hidden:
 
-  why
-  changelog
-  tutorial
+  overview/why
+  overview/changelog
+  overview/tutorial
 
 .. toctree::
   :caption: Installation Guide

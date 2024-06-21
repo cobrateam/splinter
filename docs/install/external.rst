@@ -9,8 +9,8 @@ Chrome
 
 The following applications are required:
 
-  - `Google Chrome <http://google.com/chrome>`_
-  - `ChromeDriver <https://chromedriver.chromium.org/>`_
+- `Google Chrome <http://google.com/chrome>`_
+- `ChromeDriver <https://chromedriver.chromium.org/>`_
 
 Chromedriver must also be available on your operating system's `PATH` environment variable.
 
@@ -70,8 +70,8 @@ Firefox
 
 The following applications are required:
 
-  - `Mozilla Firefox <http://firefox.com>`_
-  - `Geckodriver <https://github.com/mozilla/geckodriver/releases>`_
+- `Mozilla Firefox <http://firefox.com>`_
+- `Geckodriver <https://github.com/mozilla/geckodriver/releases>`_
 
 Geckodriver must also be available on your operating system's `PATH` environment variable.
 
@@ -95,8 +95,8 @@ Edge
 
 The following applications are required:
 
-  - `Microsoft Edge <https://www.microsoft.com/edge>`_
-  - `Microsoft Edge Driver <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>`_
+- `Microsoft Edge <https://www.microsoft.com/edge>`_
+- `Microsoft Edge Driver <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>`_
 
 Microsoft Edge Driver must also be available on your operating system's `PATH` environment variable.
 
