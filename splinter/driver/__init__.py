@@ -107,35 +107,47 @@ class DriverAPI:
         """
         raise NotImplementedError("%s doesn't support frames." % self.driver_name)
 
-    def execute_script(self, script: str, *args: str) -> Any:
-        """Execute a piece of JavaScript in the browser.
+    def execute_script(self, script: str, *args: Any) -> Any:
+        """Execute JavaScript in the current browser window.
+
+        The code is assumed to be synchronous.
 
         Arguments:
-            script (str): The piece of JavaScript to execute.
+            script (str): The JavaScript code to execute.
+            args: Any of:
+                - JSON-serializable objects.
+                - WebElement.
+                These will be available to the JavaScript as the `arguments` object.
 
         Example:
 
-            >>> browser.execute_script('document.getElementById("body").innerHTML = "<p>Hello world!</p>"')
+            >>> Browser().execute_script('document.querySelector("body").innerHTML = "<p>Hello world!</p>"')
         """
         raise NotImplementedError(
-            "%s doesn't support execution of arbitrary JavaScript." % self.driver_name,
+            f"{self.driver_name} doesn't support execution of arbitrary JavaScript.",
         )
 
-    def evaluate_script(self, script: str, *args: str) -> Any:
-        """
-        Similar to :meth:`execute_script <DriverAPI.execute_script>` method.
+    def evaluate_script(self, script: str, *args: Any) -> Any:
+        """Evaluate JavaScript in the current browser window and return the completion value.
 
-        Execute javascript in the browser and return the value of the expression.
+        The code is assumed to be synchronous.
 
         Arguments:
-            script (str): The piece of JavaScript to execute.
+            script (str): The JavaScript code to execute.
+            args: Any of:
+                - JSON-serializable objects.
+                - WebElement.
+                These will be available to the JavaScript as the `arguments` object.
+
+        Returns:
+            The result of the code's execution.
 
         Example:
 
-            >>> assert 4 == browser.evaluate_script('2 + 2')
+            >>> assert 4 == Browser().evaluate_script('2 + 2')
         """
         raise NotImplementedError(
-            "%s doesn't support evaluation of arbitrary JavaScript." % self.driver_name,
+            f"{self.driver_name} doesn't support evaluation of arbitrary JavaScript.",
         )
 
     def find_by_css(self, css_selector: str) -> ElementList:
