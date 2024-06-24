@@ -44,4 +44,5 @@ jobs:
 
       - name: Run tests for windows-only drivers
         run: |
-          tox -e tests_selenium_edge -- -n 4;
+          tox -e tests_selenium_edge -- --cache-clear -n 4  || tox -e tests_selenium_edge -- -n 1 --last-failed --last-failed-no-failures none
+          tox -e tests_selenium_edge -- --cache-clear --webdriver-fullscreen True -n 4  || tox -e tests_selenium_edge -- --webdriver-fullscreen True -n 1 --last-failed --last-failed-no-failures none

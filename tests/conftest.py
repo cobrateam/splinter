@@ -130,23 +130,35 @@ def browser_config(request):
 def browser_kwargs(request):
     option = request.config.option
 
+    kwargs = {}
+
     if option.webdriver_remote_name:
-        return {"browser": request.config.option.webdriver_remote_name}
+        kwargs = {"browser": request.config.option.webdriver_remote_name}
 
     if option.browser_name == "flask":
         from tests.fake_webapp import app
 
-        return {"app": app, "wait_time": 0.1}
+        kwargs = {"app": app, "wait_time": 0.1}
 
     if option.browser_name == "django":
         components = parse.urlparse("http://127.0.0.1:5000/")
-        return {
+        kwargs = {
             "wait_time": 0.1,
             "client_SERVER_NAME": components.hostname,
             "client_SERVER_PORT": components.port,
         }
 
-    return {}
+    wd_options = None
+    if (browser_name == "chrome") or (option.webdriver_remote_name == "chrome"):
+        wd_options = webdriver.chrome.options.Options()
+        wd_options.add_argument("--disable-dev-shm-usage")
+        kwargs["options"] = wd_options
+    elif browser_name == "edge" or (option.webdriver_remote_name == "edge"):
+        wd_options = webdriver.edge.options.Options()
+        wd_options.add_argument("--disable-dev-shm-usage")
+        kwargs["options"] = wd_options
+
+    return kwargs
 
 
 @pytest.fixture(scope="function")
@@ -157,10 +169,6 @@ def browser(browser_name, browser_config, browser_kwargs, request):
     if not request.config.option.webdriver_fullscreen:
         if browser_name in ["chrome", "firefox", "edge"]:
             b.driver.set_window_size(1024, 768)
-
-    if browser_name == "chrome":
-        options = webdriver.chrome.options.Options()
-        options.add_argument("--disable-dev-shm-usage")
 
     return b
 
