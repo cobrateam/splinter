@@ -7,7 +7,7 @@ import tempfile
 import time
 import warnings
 from contextlib import contextmanager
-from typing import Optional
+from typing import Dict, Optional
 
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
@@ -712,7 +712,7 @@ class ShadowRootElement(ElementAPI):
         self.wait_time = self.parent.wait_time
         self.element_class = self.parent.element_class
 
-    def _as_id_dict(self) -> dict[str, str]:
+    def _as_id_dict(self) -> Dict[str, str]:
         """Get the canonical object to identify an element by it's ID.
 
         When sent to the browser, it will be used to build an Element object.
@@ -770,7 +770,7 @@ class WebDriverElement(ElementAPI):
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
 
-    def _as_id_dict(self) -> dict[str, str]:
+    def _as_id_dict(self) -> Dict[str, str]:
         """Get the canonical object to identify an element by it's ID.
 
         When sent to the browser, it will be used to build an Element object.
