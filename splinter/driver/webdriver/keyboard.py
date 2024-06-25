@@ -1,3 +1,4 @@
+import platform
 from typing import Union
 
 from selenium.webdriver.common.action_chains import ActionChains
@@ -20,12 +21,24 @@ class Keyboard:
 
         self.element = element
 
+    def _resolve_control_key(self) -> str:
+        """Get the correct name for the control modifier key based on the current operating system.
+
+        macOS: META
+        Windows/Linux: CONTROL
+
+        """
+        return "META" if platform.system() == "Darwin" else "CONTROL"
+
     def _resolve_key_down_action(self, action_chain: ActionChains, key: str) -> ActionChains:
         """Given the string <key>, select the correct action for key down.
 
         For modifier keys, use ActionChains.key_down().
         For other keys, use ActionChains.send_keys() or ActionChains.send_keys_to_element()
         """
+        if key == "CTRL":
+            key = self._resolve_control_key()
+
         key_value = getattr(Keys, key, None)
 
         if key_value:
@@ -43,6 +56,9 @@ class Keyboard:
         For modifier keys, use ActionChains.key_up().
         For other keys, use ActionChains.send_keys() or ActionChains.send_keys_to_element()
         """
+        if key == "CTRL":
+            key = self._resolve_control_key()
+
         key_value = getattr(Keys, key, None)
 
         chain = action_chain

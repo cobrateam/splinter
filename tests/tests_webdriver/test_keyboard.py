@@ -1,5 +1,3 @@
-import platform
-
 from splinter.driver.webdriver import Keyboard
 
 
@@ -8,7 +6,7 @@ def test_keyboard_down_modifier(browser, app_url):
 
     keyboard = Keyboard(browser.driver)
 
-    keyboard.down("CONTROL")
+    keyboard.down("CTRL")
 
     elem = browser.find_by_css("#keypress_detect")
     assert elem.first
@@ -19,8 +17,8 @@ def test_keyboard_up_modifier(browser, app_url):
 
     keyboard = Keyboard(browser.driver)
 
-    keyboard.down("CONTROL")
-    keyboard.up("CONTROL")
+    keyboard.down("CTRL")
+    keyboard.up("CTRL")
 
     elem = browser.find_by_css("#keyup_detect")
     assert elem.first
@@ -31,7 +29,7 @@ def test_keyboard_press_modifier(browser, app_url):
 
     keyboard = Keyboard(browser.driver)
 
-    keyboard.press("CONTROL")
+    keyboard.press("CTRL")
 
     elem = browser.find_by_css("#keyup_detect")
     assert elem.first
@@ -42,25 +40,26 @@ def test_element_press_combo(browser, app_url):
 
     keyboard = Keyboard(browser.driver)
 
-    keyboard.press("CONTROL+a")
+    keyboard.press("CTRL+a")
 
     elem = browser.find_by_css("#keypress_detect_a")
     assert elem.first
 
 
-def test_element_copy_paste(browser, app_url):
-    control_key = "META" if platform.system() == "Darwin" else "CONTROL"
-
+def test_keyboard_copy_paste(browser, app_url):
     browser.visit(app_url)
 
-    elem = browser.find_by_name("q")
-    elem.fill("Copy this value")
-    elem.press(f"{control_key}+a")
-    elem.press(f"{control_key}+c")
-    elem.clear()
+    elem_with_value_to_copy = browser.find_by_css("input[name='q']").first
+    elem_to_paste_into = browser.find_by_css("input[name='telephone']").first
 
-    assert elem.first.value == ""
+    elem_with_value_to_copy.fill("Copy this value")
 
-    elem.press(f"{control_key}+v")
+    browser.keyboard.press("CTRL+a")
+    browser.keyboard.press("CTRL+c")
 
-    assert elem.first.value == "Copy this Value"
+    assert elem_to_paste_into.value == ""
+
+    elem_to_paste_into.click()
+
+    browser.keyboard.press("CTRL+v")
+    assert elem_to_paste_into.value == "Copy this value"

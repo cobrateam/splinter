@@ -10,10 +10,19 @@
 Keyboard
 ++++++++
 
-The browser provides an interface for using the keyboard.
+The browser provides an interface for using the keyboard. This triggers
+keyboard events inside the current browser window.
 
-However, input is limited to the page. You cannot control the browser or your
-operating system using this.
+.. note:: Input detection is limited to the page. You cannot control the browser
+  or your operating system directly using the keyboard.
+
+.. note:: The control modifier key is different across operating systems.
+  e.g.: macOS uses `Command` and Windows & Linux use `Control`.
+  If you need a cross-platform solution, `CTRL` can be used and will be resolved
+  for you.
+
+Actions
+=======
 
 Down
 ----
@@ -78,7 +87,7 @@ This allows multiple presses to be chained together:
   side effects to using it in place of Element.fill() or Element.type().
 
 Element.press()
-~~~~~~~~~~~~~~~
+---------------
 
 Elements can be pressed directly.
 
@@ -97,3 +106,28 @@ Elements can be pressed directly.
 
     # Open in a new tab behind the current one.
     results.first.press("CONTROL+ENTER")
+
+Cookbook
+========
+
+Copy & Paste
+------------
+
+.. code-block:: python
+
+    browser.visit(https://duckduckgo.com/)
+
+    elem = browser.find_by_css("#searchbox_input").first
+
+    elem.fill("Let's copy this value")
+
+    browser.keyboard.press("CTRL+a")
+    browser.keyboard.press("CTRL+c")
+
+    assert elem.value == ""
+
+    elem.click()
+
+    browser.keyboard.press("CTRL+v")
+
+    assert elem.value == "Let's copy this value"
