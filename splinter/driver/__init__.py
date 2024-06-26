@@ -364,16 +364,17 @@ class DriverAPI:
     def check(self, name: str) -> None:
         """Check a checkbox by its name.
 
+        If you call ``browser.check`` n times, the checkbox keeps checked, it never get unchecked.
+
+        To uncheck a checkbox, see the :meth:`uncheck <DriverAPI.uncheck>` method.
+
         Arguments:
             name (str): name of the element to check.
 
         Example:
 
-            >>> browser.check("agree-with-terms")
+            >>> browser.check("some-check")
 
-        If you call ``browser.check`` n times, the checkbox keeps checked, it never get unchecked.
-
-        To uncheck a checkbox, take a look in the :meth:`uncheck <DriverAPI.uncheck>` method.
         """
         raise NotImplementedError(
             "%s doesn't support checking elements." % self.driver_name,
@@ -387,7 +388,7 @@ class DriverAPI:
 
         Example:
 
-            >>> browser.uncheck("send-me-emails")
+            >>> browser.uncheck("some-check")
 
         If you call ``brower.uncheck`` n times, the checkbox keeps unchecked, it never get checked.
 
@@ -408,7 +409,7 @@ class DriverAPI:
 
         Example:
 
-            >>> browser.select("state", "NY")
+            >>> browser.select("pets", "cat")
         """
         raise NotImplementedError(
             "%s doesn't support selecting options in 'select' element." % self.driver_name,
@@ -732,15 +733,14 @@ class DriverAPI:
 
 
 class ElementAPI:
-    """
-    Basic element API class.
+    """Basic element API class.
 
     Any element in the page can be represented as an instance of ``ElementAPI``.
 
     Once you have an instance, you can easily access attributes like a ``dict``:
 
-        >>> element = browser.find_by_id("link-logo").first
-        >>> assert element['href'] == 'https://splinter.readthedocs.io'
+        >>> element = browser.find_by_id("foo").first
+        >>> assert element['href'] == 'http://localhost:5000/foo'
 
     You can also interact with the instance using the methods and properties listed below.
     """
@@ -769,20 +769,24 @@ class ElementAPI:
         raise NotImplementedError
 
     def check(self) -> None:
-        """
-        Check the element, if it's "checkable" (e.g.: a checkbox).
+        """Check the element, if it's "checkable" (e.g.: a checkbox).
 
         If the element is already checked, this method does nothing. For unchecking
         elements, take a loot in the :meth:`uncheck <ElementAPI.uncheck>` method.
+
+        Example:
+            >>> browser.find_by_css("[name='some-check']").uncheck()
         """
         raise NotImplementedError
 
     def uncheck(self) -> None:
-        """
-        Uncheck the element, if it's "checkable" (e.g.: a checkbox).
+        """Uncheck the element, if it's "checkable" (e.g.: a checkbox).
 
         If the element is already unchecked, this method does nothing. For checking
         elements, take a loot in the :meth:`check <ElementAPI.check>` method.
+
+        Example:
+            >>> browser.find_by_css("[name='some-check']").uncheck()
         """
         raise NotImplementedError
 
@@ -792,10 +796,11 @@ class ElementAPI:
 
         Example:
 
-            >>> element.check()
-            >>> assert element.checked
-            >>> element.uncheck()
-            >>> assert not element.checked
+            >>> elem = browser.find_by_css("[name='some-check']")
+            >>> elem.check()
+            >>> assert elem.checked
+            >>> elem.uncheck()
+            >>> assert not elem.checked
         """
         raise NotImplementedError
 
@@ -866,7 +871,7 @@ class ElementAPI:
         Example:
 
             >>> from selenium.webdriver.common.keys import Keys
-            >>> ElementAPI.type(Keys.RETURN)
+            >>> browser.find_by_css("[name='q']").type(Keys.RETURN)
 
         """
         raise NotImplementedError
@@ -877,7 +882,7 @@ class ElementAPI:
 
         Example:
 
-            >>> element.select("NY")
+            >>> browser.find_by_css("[name='pets']").select("cat")
         """
         raise NotImplementedError
 

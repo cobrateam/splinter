@@ -3,36 +3,40 @@
 # license that can be found in the LICENSE file.
 from abc import ABC
 from abc import abstractmethod
+from typing import Dict
 
 
 class CookieManagerAPI(ABC):
     """Specification for how a Splinter driver handles cookies.
 
-    A CookieManager acts like a ``dict``, so you can access the value of a
-    cookie through the [] operator, passing the cookie identifier:
+    CookieManager implementations are driver-specific.
+    They should not be created by the end-user. To access a CookieManager,
+    drivers should implement a `cookies` attribute containing a CookieManager.
 
-    Examples:
+    CookieManager has behaviour similar to a ``dict``, thus
+    you should get the value of a cookie using the [] operator:
 
-        >>> cookie_manager.add({'name': 'Tony'})
-        >>> assert cookie_manager['name'] == 'Tony'
+    Example:
+
+        >>> browser.cookies.add({'name': 'Tony'})
+        >>> assert browser.cookies['name'] == 'Tony'
     """
 
     def __init__(self, driver) -> None:
         self.driver = driver
 
     @abstractmethod
-    def add(self, cookie, **kwargs) -> None:
+    def add(self, cookie: Dict[str, str], **kwargs) -> None:
         """Add a cookie.
 
-        Extra arguments will be used to build the cookie.
-
         Arguments:
-            cookie (dict): Each key is an identifier for the cookie value.
+            cookie: A key/value pair containing the cookie's name and value.
+            kwargs: Driver-specific extra arguments to build the cookie with.
 
-        Examples:
+        Example:
 
-            >>> cookie_manager.add({'name': 'Tony'})
-            >>> browser.cookies.add({'cookie_name': 'cookie_value'}, path='/cookiePath')
+            >>> browser.cookies.add({'cookie_name': 'cookie_value'}, path='/')
+            >>> assert browser.cookies['cookie_name'] == 'cookie_value'
         """
         raise NotImplementedError
 
@@ -40,14 +44,16 @@ class CookieManagerAPI(ABC):
     def delete(self, *cookies: str) -> None:
         """Delete one or more cookies.
 
+        If the cookie does not exist, this function has no effect.
+
         Arguments:
             cookies (str): Identifiers for each cookie to delete.
 
-        Examples:
+        Example:
 
-            >>> cookie_manager.delete(
-                'name', 'birthday', 'favorite_color') # deletes these three cookies
-            >>> cookie_manager.delete('name') # deletes one cookie
+            >>> browser.cookies.delete('name', 'birthday', 'favorite_color')
+            >>> browser.cookies.delete('name')
+            >>> assert 'name' not in browser.cookies.all().keys()
         """
         raise NotImplementedError
 
@@ -65,11 +71,10 @@ class CookieManagerAPI(ABC):
             drivers, it won't make any difference). In this case, this method
             will return a list of dicts, each with one cookie's info.
 
-        Examples:
+        Example:
 
-            >>> cookie_manager.add({'name': 'Tony'})
-            >>> cookie_manager.all()
-            [{'name': 'Tony'}]
+            >>> browser.cookies.add({'name': 'Tony'})
+            >>> result = browser.cookies.all()
 
         Returns:
             All the available cookies.
@@ -77,11 +82,11 @@ class CookieManagerAPI(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def __contains__(self, key) -> bool:
+    def __contains__(self, key: str) -> bool:
         raise NotImplementedError
 
     @abstractmethod
-    def __getitem__(self, item):
+    def __getitem__(self, item: str):
         raise NotImplementedError
 
     @abstractmethod

@@ -19,7 +19,10 @@ class ElementList:
     access a non-existent item:
 
         >>> element_list = ElementList([])
-        >>> element_list[0] # raises ElementDoesNotExist
+        >>> try:
+        ...     element_list[0]
+        ... except ElementDoesNotExist:
+        ...     pass
     """
 
     def __init__(
@@ -52,6 +55,7 @@ class ElementList:
 
         Example:
 
+            >>> element_list = browser.find_by_css('input')
             >>> assert element_list[0] == element_list.first
         """
         return self[0]
@@ -62,6 +66,7 @@ class ElementList:
 
         Example:
 
+            >>> element_list = browser.find_by_css('input')
             >>> assert element_list[-1] == element_list.last
         """
         return self[-1]
