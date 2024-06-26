@@ -10,7 +10,12 @@ class DriverNotFoundError(Exception):
     Example:
 
         >>> from splinter import Browser
-        >>> b = Browser('unknown driver') # raises DriverNotFoundError
+        >>>
+        >>>
+        >>> try:
+        ...     b = Browser('unknown driver')
+        ... except DriverNotFoundError:
+        ...    pass
     """
 
     pass
@@ -26,7 +31,10 @@ class ElementDoesNotExist(Exception):
     Example:
 
         >>> elements = browser.find_by_id('unknown-id') # returns an empty list
-        >>> elements[0] # raises ElementDoesNotExist
+        >>> try:
+        ...     elements[0]
+        ... except ElementDoesNotExist:
+        ...     pass
     """
 
     pass
