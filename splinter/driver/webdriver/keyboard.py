@@ -1,7 +1,6 @@
 import contextlib
 import platform
-from collections.abc import Iterator
-from typing import Union
+from typing import Iterator, Union
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
