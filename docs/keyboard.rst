@@ -16,9 +16,13 @@ keyboard events inside the current browser window.
 .. note:: Input detection is limited to the page. You cannot control the browser
   or your operating system directly using the keyboard.
 
+The keyboard interface is generally used to trigger modifier keys.
+For text input, using the keyboard is not recommended. Instead, use the
+:func:`element.fill() <splinter.driver.ElementAPI.fill>` method.
+
 .. note:: The control modifier key is different across operating systems.
-  e.g.: macOS uses `Command` and Windows & Linux use `Control`.
-  If you need a cross-platform solution, `CTRL` can be used and will be resolved
+  e.g.: macOS uses `COMMAND` and Windows & Linux use `CONTROL`.
+  For a cross-platform solution, `CTRL` can be used and will be resolved
   for you.
 
 Actions
@@ -85,6 +89,23 @@ This allows multiple presses to be chained together:
   Although a key pattern such as "SHIFT+awesome" will be accepted,
   the press method is designed for single keys. There may be unintended
   side effects to using it in place of Element.fill() or Element.type().
+
+Press Using a Context Manager
+-----------------------------
+
+Using the `pressed()` method, a context manager will be invoked.
+The specified key will be held down, then released when the block is exited.
+
+.. code-block:: python
+
+    from splinter import Browser
+
+
+    browser = Browser()
+    browser.visit("https://duckduckgo.com/")
+    with browser.keyboard.pressed("SHIFT"):
+        browser.find_by_css("[@name='q']").fill('splinter')
+
 
 Element.press()
 ---------------

@@ -1,4 +1,6 @@
+import contextlib
 import platform
+from collections.abc import Iterator
 from typing import Union
 
 from selenium.webdriver.common.action_chains import ActionChains
@@ -136,3 +138,19 @@ class Keyboard:
         chain.perform()
 
         return self
+
+    @contextlib.contextmanager
+    def pressed(self, key_pattern: str) -> Iterator[None]:
+        """Hold a key pattern inside a `with` block and releas it upon exit.
+
+        Arguments:
+            key_pattern: Pattern of keys to hold and release.
+
+        Example:
+            >>> b = Browser()
+            >>> with b.keyboard.pressed('CONTROL'):
+            >>>     ...
+        """
+        self.down(key_pattern)
+        yield
+        self.up(key_pattern)
