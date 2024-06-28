@@ -876,6 +876,20 @@ class ElementAPI:
         """
         raise NotImplementedError
 
+    def press(self, key_pattern: str, delay: int = 0) -> None:
+        """Focus the element, hold, and then release the specified key pattern.
+
+        Arguments:
+            key_pattern: Pattern of keys to hold and release.
+            delay: Time, in seconds, to wait between key down and key up.
+
+        Example:
+
+            >>> browser.find_by_css('.my_element').press('CONTROL+a')
+
+        """
+        raise NotImplementedError
+
     def select(self, value: str, slowly: bool = False) -> None:
         """
         Select an ``<option>`` element in the element using the ``value`` of the ``<option>``.
