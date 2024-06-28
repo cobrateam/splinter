@@ -7,7 +7,7 @@ import tempfile
 import time
 import warnings
 from contextlib import contextmanager
-from typing import Optional
+from typing import Dict, Optional
 
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
@@ -316,11 +316,29 @@ class BaseWebDriver(DriverAPI):
     def reload(self):
         self.driver.refresh()
 
+    def _script_prepare_args(self, args) -> list:
+        """Modify user arguments sent to execute_script() and evaluate_script().
+
+        If a WebDriverElement or ShadowRootElement is given,
+        replace it with their Element ID.
+        """
+        result = []
+
+        for item in args:
+            if isinstance(item, (WebDriverElement, ShadowRootElement)):
+                result.append(item._as_id_dict())
+            else:
+                result.append(item)
+
+        return result
+
     def execute_script(self, script, *args):
-        return self.driver.execute_script(script, *args)
+        converted_args = self._script_prepare_args(args)
+        return self.driver.execute_script(script, *converted_args)
 
     def evaluate_script(self, script, *args):
-        return self.driver.execute_script("return %s" % script, *args)
+        converted_args = self._script_prepare_args(args)
+        return self.driver.execute_script(f"return {script}", *converted_args)
 
     def is_element_present(self, finder, selector, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -694,6 +712,15 @@ class ShadowRootElement(ElementAPI):
         self.wait_time = self.parent.wait_time
         self.element_class = self.parent.element_class
 
+    def _as_id_dict(self) -> Dict[str, str]:
+        """Get the canonical object to identify an element by it's ID.
+
+        When sent to the browser, it will be used to build an Element object.
+
+        Not to be confused with the 'id' tag on an element.
+        """
+        return {"shadow-6066-11e4-a52e-4f735466cecf": self._element._id}
+
     def _find(self, by: By, selector, wait_time=None):
         return self.find_by(
             self._element.find_elements,
@@ -742,6 +769,15 @@ class WebDriverElement(ElementAPI):
 
     def __getitem__(self, attr):
         return self._element.get_attribute(attr)
+
+    def _as_id_dict(self) -> Dict[str, str]:
+        """Get the canonical object to identify an element by it's ID.
+
+        When sent to the browser, it will be used to build an Element object.
+
+        Not to be confused with the 'id' tag on an element.
+        """
+        return {"element-6066-11e4-a52e-4f735466cecf": self._element._id}
 
     @property
     def text(self):
