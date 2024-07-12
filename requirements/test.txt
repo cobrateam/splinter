@@ -1,5 +1,5 @@
 argparse
-coverage==7.5.4
+coverage==7.6.0
 Flask==3.0.3
 pytest==8.2.2
 pytest-ignore-flaky==2.2.1
