@@ -1,6 +1,6 @@
 argparse
 coverage==7.6.0
 Flask==3.0.3
-pytest==8.3.1
+pytest==8.3.2
 pytest-ignore-flaky==2.2.1
 pytest-xdist==3.6.1
