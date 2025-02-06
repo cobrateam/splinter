@@ -1,6 +1,10 @@
 from urllib import parse
 from urllib.request import urlopen
 
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+
+
 import pytest
 
 from tests.fake_webapp_server import start_server, stop_server
