@@ -60,6 +60,13 @@ Getting Started
 
 * `Installation <https://splinter.readthedocs.io/en/latest/install/install.html>`_
 
+or
+
+::
+
+    git clone https://github.com/cobrateam/splinter    
+    make install
+
 * `Tutorial <https://splinter.readthedocs.io/en/latest/tutorial.html>`_
 
 
