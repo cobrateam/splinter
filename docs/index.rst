@@ -38,6 +38,7 @@
   cookies
   screenshot
   javascript
+  keyboard
   selenium-keys
   iframes-and-alerts
   http-status-code-and-exception

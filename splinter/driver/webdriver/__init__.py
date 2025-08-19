@@ -25,6 +25,7 @@ from splinter.driver import DriverAPI
 from splinter.driver import ElementAPI
 from splinter.driver.find_links import FindLinks
 from splinter.driver.webdriver.cookie_manager import CookieManager
+from splinter.driver.webdriver.keyboard import Keyboard
 from splinter.driver.xpath_utils import _concat_xpath_from_str
 from splinter.element_list import ElementList
 from splinter.exceptions import ElementDoesNotExist
@@ -266,6 +267,7 @@ class BaseWebDriver(DriverAPI):
         self.wait_time = wait_time
 
         self.links = FindLinks(self)
+        self.keyboard = Keyboard(driver)
 
         self.driver = driver
         self._find_elements = self.driver.find_elements
@@ -791,6 +793,10 @@ class WebDriverElement(ElementAPI):
 
         self._element.send_keys(value)
         return value
+
+    def press(self, key_pattern: str, delay: int = 0) -> None:
+        keyboard = Keyboard(self.driver, self._element)
+        keyboard.press(key_pattern, delay)
 
     def click(self):
         """Click an element.
