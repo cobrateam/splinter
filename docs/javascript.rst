@@ -3,47 +3,106 @@
    license that can be found in the LICENSE file.
 
 .. meta::
-    :description: Executing javascript
+    :description: Execute JavaScript In The Browser
     :keywords: splinter, python, tutorial, javascript
 
 ++++++++++++++++++
 Execute JavaScript
 ++++++++++++++++++
 
-You can easily execute JavaScript, in drivers which support it:
+When using WebDriver-based drivers, you can run JavaScript inside the web
+browser.
+
+Execute
+=======
+
+The `execute_script()` method takes a string containing JavaScript code and
+executes it.
+
+JSON-serializable objects and WebElements can be sent to the browser and used
+by the JavaScript.
+
+Examples
+--------
+
+Change the Background Color of an Element
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. highlight:: python
 
 ::
 
-    browser.execute_script("$('body').empty()")
+    browser = Browser()
 
-You can return the result of the script:
+    browser.execute_script(
+      "document.querySelector('body').setAttribute('style', 'background-color: red')",
+    )
+
+Sending a WebElement to the browser
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. highlight:: python
 
 ::
 
-    browser.evaluate_script("4+4") == 8
+    browser = Browser()
+
+    elem = browser.find_by_tag('body').first
+    browser.execute_script(
+      "arguments[0].setAttribute('style', 'background-color: red')",
+      elem,
+    )
 
 
-Example: Manipulate text fields with JavaScript
-+++++++++++++++++++++++++++++++++++++++++++++++++
 
-Some text input actions cannot be "typed" thru ``browser.fill()``, like new lines and tab characters. Below is en example how to work around this using ``browser.execute_script()``. This is also much faster than ``browser.fill()`` as there is no simulated key typing delay, making it suitable for longer texts.
+Evaluate
+========
+
+The `evaluate_script()` method takes a string containing a JavaScript
+expression and runs it, then returns the result.
+
+JSON-serializable objects and WebElements can be sent to the browser and used
+by the JavaScript.
+
+Examples
+--------
+
+Get the href from the browser
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. highlight:: python
 
 ::
 
-   def fast_fill_by_javascript(browser: DriverAPI, elem_id: str, text: str):
+    browser = Browser()
+
+    href = browser.evaluate_script("document.location.href")
+
+
+Cookbook
+========
+
+Manipulate text fields with JavaScript
+--------------------------------------
+
+Some text input actions cannot be "typed" thru ``browser.fill()``, like new lines and tab characters.
+Below is en example how to work around this using ``browser.execute_script()``.
+This is also much faster than ``browser.fill()`` as there is no simulated key typing delay, making it suitable for longer texts.
+
+::
+
+   def fast_fill(browser, query: str, text: str):
        """Fill text field with copy-paste, not by typing key by key.
 
        Otherwise you cannot type enter or tab.
 
-       :param id: CSS id of the textarea element to fill
+       Arguments:
+          query: CSS id of the textarea element to fill
        """
        text = text.replace("\t", "\\t")
        text = text.replace("\n", "\\n")
 
-       # Construct a JavaScript snippet that is executed on the browser sdie
-       snippet = f"""document.querySelector("#{elem_id}").value = "{text}";"""
-       browser.execute_script(snippet)
+       elem = browser.find_by_css(query).first
+       # Construct a JavaScript snippet that is executed on the browser side
+       script = f"arguments[0].value = "{text}";"
+       browser.execute_script(script, elem)
