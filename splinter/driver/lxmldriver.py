@@ -71,7 +71,6 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             if getattr(form_input, "type", "") == "submit":
                 try:
                     form.remove(form_input)
-                # Issue 595: throws ValueError: Element not child of this node
                 except ValueError:
                     pass
 
@@ -159,7 +158,10 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def find_option_by_value(self, value):
         html = self.htmltree
-        element = html.xpath('//option[@value="%s"]' % value)[0]
+        elements = html.xpath('//option[@value="%s"]' % value)
+        if not elements:
+            raise ElementDoesNotExist(f"No option with value '{value}' found.")
+        element = elements[0]
         control = LxmlControlElement(element.getparent(), self)
         return ElementList(
             [LxmlOptionElement(element, control)],
@@ -169,7 +171,10 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def find_option_by_text(self, text):
         html = self.htmltree
-        element = html.xpath('//option[normalize-space(text())="%s"]' % text)[0]
+        elements = html.xpath('//option[normalize-space(text())="%s"]' % text)
+        if not elements:
+            raise ElementDoesNotExist(f"No option with text '{text}' found.")
+        element = elements[0]
         control = LxmlControlElement(element.getparent(), self)
         return ElementList(
             [LxmlOptionElement(element, control)],
@@ -183,22 +188,25 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
 
     def find_by_xpath(self, xpath, original_find=None, original_query=None):
         html = self.htmltree
+        elements = html.xpath(xpath)
 
-        elements = []
+        if not elements:
+            raise ElementDoesNotExist(f"No elements found for xpath '{xpath}'")
 
-        for xpath_element in html.xpath(xpath):
+        result_elements = []
+        for xpath_element in elements:
             if self._element_is_link(xpath_element):
                 return self._find_links_by_xpath(xpath)
             elif self._element_is_control(xpath_element):
-                elements.append((LxmlControlElement, xpath_element))
+                result_elements.append((LxmlControlElement, xpath_element))
             else:
-                elements.append((LxmlElement, xpath_element))
+                result_elements.append((LxmlElement, xpath_element))
 
         find_by = original_find or "xpath"
         query = original_query or xpath
 
         return ElementList(
-            [element_class(element, self) for element_class, element in elements],
+            [element_class(element, self) for element_class, element in result_elements],
             find_by=find_by,
             query=query,
         )
@@ -225,28 +233,24 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         )
 
     def find_by_id(self, id_value):
-        return self.find_by_xpath(
+        elem = self.find_by_xpath(
             '//*[@id="%s"][1]' % id_value,
             original_find="id",
             original_query=id_value,
         )
+        if not elem:
+            raise ElementDoesNotExist(f"No element with id '{id_value}' found.")
+        return elem
 
     def find_by_name(self, name):
         html = self.htmltree
-
-        xpath = '//*[@name="%s"]' % name
-        elements = []
-
-        for xpath_element in html.xpath(xpath):
-            elements.append(xpath_element)
-
-        find_by = "name"
-        query = xpath
-
+        elements = html.xpath('//*[@name="%s"]' % name)
+        if not elements:
+            raise ElementDoesNotExist(f"No element with name '{name}' found.")
         return ElementList(
             [LxmlControlElement(element, self) for element in elements],
-            find_by=find_by,
-            query=query,
+            find_by="name",
+            query=name,
         )
 
     def set_find_strategy(self, strategy):
@@ -260,7 +264,10 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
         return self
 
     def find(self, locator):
-        return self._finder_methods[self._finder_method](locator)
+        try:
+            return self._finder_methods[self._finder_method](locator)
+        except KeyError:
+            raise ValueError(f"Invalid find strategy: {self._finder_method}")
 
     def fill(self, name, value):
         warnings.warn(
@@ -276,6 +283,9 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
             form = self.find_by_name(name)
         if form_id is not None:
             form = self.find_by_id(form_id)
+
+        if not form:
+            raise ElementDoesNotExist("Form not found.")
 
         for name, value in field_values.items():
             try:
@@ -301,80 +311,44 @@ class LxmlDriver(ElementPresentMixIn, DriverAPI):
                 else:
                     # text, textarea, password, tel
                     control.value = value
-            except ElementDoesNotExist as e:
+            except ElementDoesNotExist:
                 if not ignore_missing:
-                    raise ElementDoesNotExist(e)  # NOQA: TRY200
+                    raise
 
-    def choose(self, name, value):
-        self.find_by_name(name).first._control.value = value
+    def fill_field(self, name, value):
+        self.find(name).fill(value)
 
-    def check(self, name):
+    def fill_text(self, name, value):
         warnings.warn(
-            f"browser.check({name}) is deprecated. Use browser.find({name}).check() instead.",
+            f"browser.fill_text({name}, {value}) is deprecated. Use browser.fill({name}, {value}) instead.",
             FutureWarning,
         )
-        self.find(name).first.check()
-
-    def uncheck(self, name):
-        warnings.warn(
-            f"browser.uncheck({name}) is deprecated. Use browser.find({name}).uncheck() instead.",
-            FutureWarning,
-        )
-        self.find(name).first.uncheck()
-
-    def attach_file(self, name, file_path):
-        control = self.find_by_name(name).first._control
-        control.value = file_path
-
-    def _find_links_by_xpath(self, xpath):
-        html = self.htmltree
-        links = html.xpath(xpath)
-        return ElementList(
-            [LxmlLinkElement(link, self) for link in links],
-            find_by="xpath",
-            query=xpath,
-        )
+        self.find(name).fill(value)
 
     def select(self, name, value):
-        self.find_by_name(name).first._control.value = value
+        warnings.warn(
+            f"browser.select({name}, {value}) is deprecated. Use browser.find({name}).select({value}) instead.",
+            FutureWarning,
+        )
+        self.find(name).select(value)
 
-    def is_text_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
+    def wait_for(self, element=None, timeout=None):
+        if not timeout:
+            timeout = self.wait_time
 
+        end_time = time.time() + timeout
         while time.time() < end_time:
-            if self._is_text_present(text):
+            try:
+                if element:
+                    self.find(element)
                 return True
-        return False
+            except ElementDoesNotExist:
+                time.sleep(0.5)
+        raise TimeoutException(f"Element '{element}' not found within {timeout} seconds.")
 
-    def _is_text_present(self, text):
-        try:
-            body = self.find_by_tag("body").first
-            return text in body.text
-        except ElementDoesNotExist:
-            # This exception will be thrown if the body tag isn't present
-            # This has occasionally been observed. Assume that the
-            # page isn't fully loaded yet
-            return False
+    def click(self, locator):
+        self.find(locator).click()
 
-    def is_text_not_present(self, text, wait_time=None):
-        wait_time = wait_time or self.wait_time
-        end_time = time.time() + wait_time
-
-        while time.time() < end_time:
-            if not self._is_text_present(text):
-                return True
-        return False
-
-    def _element_is_link(self, element):
-        return element.tag == "a"
-
-    def _element_is_control(self, element):
-        return element.tag in ["button", "input", "textarea"]
-
-    @property
-    def cookies(self):
-        return self._cookie_manager
 
 
 class LxmlElement(ElementAPI):
