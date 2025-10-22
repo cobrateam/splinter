@@ -1,0 +1,51 @@
+import os
+
+def add_companies_page(docs_dir="docs", index_file="mkdocs.yml"):
+    # Ensure docs directory exists
+    os.makedirs(docs_dir, exist_ok=True)
+
+    # Path for new page
+    page_path = os.path.join(docs_dir, "companies_using_splinter.md")
+
+    # Page content
+    content = """# Companies Using Splinter
+
+Splinter is a powerful tool for browser automation and web testing in Python.
+
+## Companies & Organizations
+
+Here are some known companies and teams that use or have used Splinter:
+
+- Mozilla
+- Red Hat
+- CERN
+- Shopify (for test automation)
+- Open Source QA teams
+- Various academic research projects
+
+## Why They Use Splinter
+
+Splinter provides:
+- Simple browser automation
+- Support for multiple drivers (Chrome, Firefox, etc.)
+- Integration with testing frameworks like `pytest` and `unittest`
+
+---
+
+_Last updated automatically by docs builder script._
+"""
+
+    # Write the markdown file
+    with open(page_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    # Optionally update mkdocs.yml to include it
+    if os.path.exists(index_file):
+        with open(index_file, "a", encoding="utf-8") as f:
+            f.write("\n- 'Companies using Splinter': 'companies_using_splinter.md'")
+
+    print(f"✅ Created documentation page: {page_path}")
+
+# Run the function
+if __name__ == "__main__":
+    add_companies_page()
