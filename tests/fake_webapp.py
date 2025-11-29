@@ -119,12 +119,12 @@ def upload_file():
 
 @app.route("/headers", methods=["GET"])
 def request_headers():
-    return str(request.headers)
+    return f"<html><body>{request.headers}</body></html>"
 
 
 @app.route("/foo")
 def foo():
-    return "BAR!"
+    return "<html><body>BAR!</body></html>"
 
 
 @app.route("/query", methods=["GET"])

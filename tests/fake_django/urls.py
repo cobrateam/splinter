@@ -52,7 +52,8 @@ def post_form(request):
 
 
 def request_headers(request):
-    body = "\n".join(f"{key}: {value}" for key, value in request.META.items())
+    headers = "\n".join(f"{key}: {value}" for key, value in request.META.items())
+    body = f"<html><body>{headers}</body></html>"
     return HttpResponse(body)
 
 
@@ -67,7 +68,7 @@ def upload_file(request):
 
 
 def foo(request):
-    return HttpResponse("BAR!")
+    return HttpResponse("<html><body>BAR!</body></html>")
 
 
 def query_string(request):
