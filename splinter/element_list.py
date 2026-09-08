@@ -80,6 +80,8 @@ class ElementList:
         return len(self) == 0
 
     def __getattr__(self, name: str):
+        if not self._container and hasattr(self._container, name):
+            return getattr(self._container, name)
         try:
             return getattr(self.first, name)
         except AttributeError:

@@ -113,3 +113,30 @@ def test_elementlist_repr():
     elementlist = ElementList(the_list)
 
     assert repr(elementlist) == repr(the_list)
+
+
+def test_append_to_empty_element_list():
+    elements = ElementList([])
+    person = Person()
+    elements.append(person)
+    assert elements.first is person
+
+
+def test_extend_empty_element_list():
+    elements = ElementList([])
+    people = [Person(), Person()]
+    elements.extend(people)
+    assert list(elements) == people
+
+
+def test_count_empty_element_list():
+    elements = ElementList([])
+    assert elements.count(Person()) == 0
+
+
+def test_clear_then_append_element_list():
+    elements = ElementList([Person()])
+    elements.clear()
+    person = Person()
+    elements.append(person)
+    assert elements.first is person
