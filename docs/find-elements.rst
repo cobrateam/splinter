@@ -80,7 +80,8 @@ Find Within Elements
 
 Elements implement the same finder methods as the browser.
 The only difference being the root of the find operation.
-Only child elements of the root element will be searched for.
+CSS and tag-name searches are scoped to that element.
+For XPath searches, the expression determines the scope, as described below.
 
 .. highlight:: python
 
@@ -93,6 +94,31 @@ Only child elements of the root element will be searched for.
 
     all_divs = browser.find_by_tag("div")
     child_elements = all_divs.first.find_by_css(".item")
+
+Relative XPath
+--------------
+
+When searching within an element, start a descendant XPath with ``.//``.
+The dot refers to the current element; a leading ``//`` starts from the
+root of the document, even when ``find_by_xpath()`` is called on an element.
+
+For example, given two tables that each contain a row labelled ``Name``:
+
+.. code-block:: html
+
+    <table id="primary"><tr><td>Name</td><td>Alice</td></tr></table>
+    <table id="secondary"><tr><td>Name</td><td>Bob</td></tr></table>
+
+Find the value in the first table with a relative expression::
+
+    table = browser.find_by_id("primary").first
+    value = table.find_by_xpath('.//td[text()="Name"]/following-sibling::td[1]')
+    assert value.first.text == "Alice"
+    assert len(value) == 1
+
+Using ``//td[text()="Name"]/following-sibling::td[1]`` instead would match
+values from both tables. Chaining finder methods does not rewrite an
+absolute XPath into a relative one.
 
 Find Links
 ==========
