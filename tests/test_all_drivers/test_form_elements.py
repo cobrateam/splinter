@@ -194,6 +194,23 @@ def test_can_check_a_checkbox(browser, app_url):
     assert elem.checked
 
 
+@pytest.mark.parametrize(
+    ("name", "initially_checked"),
+    [("some-check", False), ("checked-checkbox", True)],
+)
+def test_click_toggles_checkbox_without_submitting(browser, app_url, name, initially_checked):
+    browser.visit(app_url)
+    assert bool(browser.find_by_name(name).checked) is initially_checked
+
+    browser.find_by_name(name).click()
+    assert browser.url == app_url
+    assert bool(browser.find_by_name(name).checked) is not initially_checked
+
+    browser.find_by_name(name).click()
+    assert browser.url == app_url
+    assert bool(browser.find_by_name(name).checked) is initially_checked
+
+
 def test_check_keeps_checked_if_called_multiple_times(browser, app_url):
     """should keep a checkbox checked if check() is called multiple times"""
     browser.visit(app_url)

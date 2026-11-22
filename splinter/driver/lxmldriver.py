@@ -470,6 +470,10 @@ class LxmlControlElement(LxmlElement):
         return bool(self._control.value)
 
     def click(self):
+        if self._control.tag == "input" and self._control.type == "checkbox":
+            self._control.checked = not self._control.checked
+            return
+
         parent_form = self._get_parent_form()
 
         if self._control.get("type") == "submit":
